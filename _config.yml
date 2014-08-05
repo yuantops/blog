@@ -1,1 +1,16 @@
-baseurmlink: /:year/:i_month/:i_day/:title.html 
+# Dependencies
+markdown:         redcarpet
+highlighter:         pygments 
+
+# Permalinks
+permalink: 		  /:categories/:title.html
+
+# Setup
+title:            Yuantops' Blog 
+url:              http://blog.yuantops.com
+description:	  Yuantops' Blog, powered by Jekyll...
+feed: 			  http://blog.yuantops.com/atom.xml
+paginate:         5
+baseurl:          /
+paginate_path:	  "page:num"
+author:			  Yuan Yuan 
