@@ -1,7 +1,7 @@
 ---
-layout:post   
-category:essay   
-title:"历史是中国的宗教"   
+layout: post   
+category: "essay"   
+title: "历史是中国的宗教"   
 tags: [读历史]   
 summary: "历史虽然不是一个具体实在的偶像，但他的确传达了一种精神，宣扬一种最高价值。“人生自古谁无死，留取丹青照汗青”是士大夫的最高追求，这何异与虔诚的宗教徒的献身精神？"
 ---
