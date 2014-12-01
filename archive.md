@@ -1,15 +1,14 @@
 ---
-layout: default
-title: "Archive - yuantops"
+layout: page
+title: Archives
 ---
-<ul class="list-unstyled">
-     {% for post in site.posts limit:100 %} 
+{% for post in site.posts %} 
 	 {% unless post.next %} 
-    <h2>{{ post.date | date: '%Y' }}</h2> 
+##   {{ post.date | date: '%Y' }}
 	{% else %} {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %} {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %} 
 	{% if year != nyear %} 
-    <h2>{{ post.date | date: '%Y' }}</h2> {% endif %} 
+##{{ post.date | date: '%Y' }} 
+ {% endif %} 
 	{% endunless %} 
-    <li><h4><span>{{ post.date | date_to_string }}</span>&raquo;<a href="{{ post.url }}">{{ post.title }}</a></h4></li> 
-	{% endfor %} 
-</ul> 
+####	{{ post.date | date_to_string }} &raquo; [{{post.title }}]({{ post.url }})
+{% endfor %} 

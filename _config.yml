@@ -1,16 +1,25 @@
 # Dependencies
-markdown:         redcarpet
-highlighter:         pygments 
+markdown:            redcarpet
+highlighter:         pygments
 
 # Permalinks
-permalink: 		  /:categories/:title.html
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+permalink:           /:categories/:title
+relative_permalinks: true
 
 # Setup
-title:            Yuantops' Blog 
-url:              http://blog.yuantops.com
-description:	  Yuantops' Blog, powered by Jekyll...
-feed: 			  http://blog.yuantops.com/atom.xml
-paginate:         5
-baseurl:          /
-paginate_path:	  "page:num"
-author:			  Yuan Yuan 
+title:               Yuantops' Blog 
+tagline:             'For the better good'
+description:         '"How happy we are, to meet friends coming from far." --Confucious' 
+url:                 http://blog.yuantops.com
+baseurl:             /
+paginate:            5
+
+# About/contact
+author:
+  name:              Yuan Yuan
+  email:             yuan.tops@gmail.com
+
+# Custom vars
+version:             1.0.0

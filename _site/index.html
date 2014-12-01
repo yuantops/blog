@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Yuantops' Blog &middot; For the better good
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>"How happy we are, to meet friends coming from far!"--Confucious.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="/about.html">About</a>
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="/archive.html">Archives</a>
+        
+      
+    
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="/category.html">Categories</a>
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2014. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Yuantops' Blog</a>
+            <small>For the better good</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/tech/vim-add-markdown-syntax-support">
+        vim增加markdown语法高亮支持
+      </a>
+    </h1>
+
+    <span class="post-date">30 Nov 2014</span>
+
+    <p>markdown是一种非常简洁美观的语法格式，非常适合用来撰写博客(<a href="http://www.jianshu.com/p/q81RER">简书 语法简介</a>)。在linux下，我个人最习惯用vim做文本编辑器。那么，如何使vim支持markdown的语法高亮呢？</p>
+
+<p>vim是支持自定义语法高亮插件的。于是，问题就变成了两部分：<br>
+1. 找到markdown语法高亮显示的vim配置文件<br>
+2. 在vim中导入这个配置文件  </p>
+
+<p><strong>vim配置文件下载</strong><br>
+vim语法配置文件一般后缀为.vim。markdown的语法配置文件可以从下面链接中找到，假设它为markdown.vim, 将其下载到本地。</p>
+
+<p><a href="http://www.vim.org/scripts/script.php?script_id=1242">vim官网链接</a>, 或者这个项目的最新<a href="http://github.com/plasticboy/vim-markdown/">github项目</a></p>
+
+<p><strong>配置文件导入</strong><br>
+vim自定义配置文件的导入和安装见<a href="http://www.fleiner.com/vim/create.html">链接</a>。 在这里我将其转述如下：</p>
+
+<ol>
+<li><p>在.vimrc文件(.vimrc文件一般在$HOME目录下，若不存在则新建)中添加一条语句，定义一种语法格式，以及这种格式对应的配置文件。<br>
+以本文为例，假设markdown.vim保存路径为$HOME/.vim/markdown.vim，则在.vimrc文件中添加  </p>
+
+<blockquote>
+<p>au! Syntax markdown source $HOME/.vim/markdown.vim          </p>
+</blockquote>
+
+<p><em>注</em>: 配置文件路径一定要正确配置  </p></li>
+<li><p>再在.vimrc文件中添加一条语句，规定何种后缀名的文件适用这种语法格式。<br>
+以本文为例，我想后缀名为md与markdown的文件以markdown格式显示，那么在.vimrc中添加语句  </p>
+
+<blockquote>
+<p>au BufRead,BufNewFile *.md set filetype=markdown<br>
+au BufRead,BufNewFile *.markdown set filetype=markdown </p>
+</blockquote></li>
+</ol>
+
+<p>保存.vimrc文件并退出，整个配置过程结束。</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/tech/SSL-Series-introduction">
+        SSL学习笔记 前言
+      </a>
+    </h1>
+
+    <span class="post-date">30 Nov 2014</span>
+
+    <p>最近实习时接触到了SSL协议，CA证书，ssh登录之类的东西，总是一知半解的感觉非常不好，于是我决定好好钻研一下。在网上查找了很多资料后，终于理清了很多以前很模糊的知识点。用几篇博客来记录一下，算是一个总结。   </p>
+
+<p>SSL(Secured Sockets Layer)与SSH(Secure Shell)，是用来解决网络传输中安全问题的协议。如何保证传输安全，使消息不被窃听、不被篡改，这需要用到加密技术。所以，要理解SSL中CA certificate的意义、ssh登录的工作原理，首先得理解它们所基于的加密原理: <strong>非对称加密</strong>。   </p>
+
+<p>非对称加密技术是在信息论的理论基础上，以数学为工具的现代加密技术。它是现在最先进、最不易破解的加密技术。由于非对称加密技术在这一系列概念中的基础性地位，会有单独一篇文章介绍它的历史渊源和数学原理。  </p>
+
+<p>非对称加密技术与对称加密技术最明显的区别之处在于，它的密码都是以“<strong>公钥/密钥</strong>”形式成对存在的。如果要使用非对称加密技术，就出现了很自然的疑问：如何生成这些公钥/密钥对呢？我又该如何使用、部署它们？在Linux系统中，有一些非常强大、非常好用的命令工具帮助我们操作它们。这些命令会在后续谈论应用的技术实现的文章中介绍。(默认Linux环境)   </p>
+
+<p>非对称加密技术最著名的，也是本系列文章将会介绍的，是两大应用：SSH登录和SSL协议。SSH登录的原理相对简单，阮一峰的博客上有几篇文章介绍得非常详细好懂，因此只会有一篇文章讨论它。  </p>
+
+<p>而SSL协议，内容会多一些。首先，参考阮一峰的博客，会有一篇文章关于SSL加密的基本原理(包括Digest, Signature, Certificate等概念)。其次，因为Certificate在现实中使用得非常广泛，会有一到两篇文章介绍Certificate证书与X.509标准，也会介绍CA以及Certificate的&quot;信任链&quot;，PKI等概念。然后，会有一篇文章介绍如何为自己的域名生成Certificate。最后，从另外一个角度出发，会有一篇文章讨论当浏览器通过https链接访问网页时的交互流程(基本上翻译一篇国外的博客)。  </p>
+
+<p>非对称加密技术也可以在DNS系统中使用，即DNSSEC技术。关于这一技术，如果有时间的话，也会有一到两篇博客予以介绍。  </p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/essay/heavy-topic-of-suicides-in-China">
+        自杀，沉重的日常
+      </a>
+    </h1>
+
+    <span class="post-date">09 Aug 2014</span>
+
+    <p>自杀什么时候成了流行话题？每天都有媒体报导形形色色的自杀，理由千奇百怪：避债、情困、喊冤……实在数不过来。这些新闻往往出现在报纸的社会版块，是吸引读者的猎奇故事。</p>
+
+<p>自杀是困扰全世界的大难题。The economist的<a href="http://www.economist.com/news/china/21605942-first-two-articles-chinas-suicide-rate-looks-effect-urbanisation-back">这篇文章</a>将目光转向中国，讨论了中国近几年自杀率急剧下降的现象。下面梳理下文章的内容。</p>
+
+<ul>
+<li>中国在90年代的自杀率在全球占前几位，尤其农村青年妇女的自杀率高到离谱。但到了2011年，中国已经成为世界范围内自杀率垫底的几个国家之一。</li>
+<li>研究发现，自杀率的降低关键在于农村妇女的自杀急剧减少。官方和民间的数据都显示，过去二十年间从农村、城市、男性、女性、以及各个年龄层等不同角度看，自杀率都处于下降趋势。唯一的例外是，<strong>老年人</strong>的自杀率在最近几年有所上升。</li>
+<li> 自杀率的下降有两大驱动因：移民(migration)和城市中产阶级的壮大(the rise of an urban middle class)。移民到大城市工作（即使是做农民工）使得妇女有更大的人身和财产自由，摆脱了父母、婚姻、公婆、贫穷等等压迫。另外，在城市里即使想自杀也不像在农村那么容易，因为城里剧毒的农药不是身边的必备品。城市的家庭规模往往小，家庭矛盾也随之减少。</li>
+<li> 随着中国的人口变老、变富，情况有可能转恶。城市化的推进使得家庭规模变小，降低了年轻人的负担，但也有副作用：农村里照顾老人的人手不够，城市里老年公寓里老人孤单寂寞。在接下来的几年里，这一趋势会更明显。</li>
+<li> 无论将来的发展如何，中国的自杀率肯定是不会堕落到90年代的水平了。</li>
+</ul>
+
+<p>这篇文章从宏观的角度讨论了中国在控制自杀率方面取得的骄人成就。事实上，这一成就不是刻意为之，而是经济发展的附加产物。文章里提到的几点忧虑，例如如何面对老龄化的问题，十分值得重视，因为现在这些问题已经凸显出来了。中国青年报的<a href="http://zqb.cyol.com/html/2014-07/30/nw.D110000zgqnb_20140730_3-09.htm">这篇报道</a>就为我们展示了一幅农村老人自杀“平静与惨烈”的现状，令人震撼。</p>
+
+<p>这篇报道提到学者刘燕舞的研究结论：</p>
+
+<blockquote>
+<p>从1990年开始，中国农村老年人自杀率大幅上升，并保持在高位。</p>
+</blockquote>
+
+<p>这与上文经济学人的援引的数据相悖。有趣的是，这篇文章里学者刘燕舞正面回应了这一反差：</p>
+
+<blockquote>
+<p>“中国的自杀率总体上是在下降的。”刘燕舞告诉中国青年报记者，然后换了一种沉重的语气说，“但是，农村老人却越来越难以摆脱这条（自杀的）路，这或许是他们稀释和消化现代老龄化社会痛苦的特有方式。”</p>
+</blockquote>
+
+<p>数据很容易解释得通，但相对于冰冷的数字，残酷的现实带给人的震惊就不那么容易平复了。这篇文章所描述的场景很，简直让看到的人冒冷气。</p>
+
+<blockquote>
+<p>“我们这儿的老人都有三个儿子。”一个柴姓老人乐呵呵地告诉满是疑惑的刘燕舞，“药儿子（喝农药）、绳儿子（上吊）、水儿子（投水），这三个儿子最可靠。”</p>
+</blockquote>
+
+<p>这位老人位于湖北凉山地区。这里的老年人自杀比例非常高，而且村里的人都见怪不怪，习以为常——“越是平静，越是让人不寒而栗。”而老人们的自杀死法也有令人不敢相信的：</p>
+
+<blockquote>
+<p>有不少老人，因为行动困难，拿不到药水瓶也站不上板凳悬梁，便在不及人高的窗户上，搭起一根绳，挎住头，蜷起腿活活吊死。有两位山西的老人，儿子不给饭吃，还屡遭媳妇打骂，头朝下扎进家里的水窖中。“这些都是有必死的决心的。”刘燕舞分析道。他还记得有人跟他介绍说，一位老人要自杀，但怕子女不埋他，便自己挖了个坑，躺在里面边喝药边扒土。</p>
+</blockquote>
+
+<p>真正令人毛骨悚然的在于，有些老人的“自杀”有“他杀”的痕迹。老人如果不能为子女带孙子孙女，或者照看家里农活，那么就变成了“累赘”。很多老人都有这种“利他”心态，怀着这种心态自杀。有学者如此解释“利他”表象后面的实质：</p>
+
+<blockquote>
+<p>刘燕舞的老师、华中科技大学中国乡村治理研究中心主任贺雪峰，将这种已然形成的“自杀秩序”归因为“代际剥削”：自杀的老人们年轻时“死奔”（干活干到死），给孩子盖房、娶媳妇、看孩子，一旦完成“人生任务”，丧失劳动能力，无论是物质或情感上，得到的反馈却少得可怜。</p>
+</blockquote>
+
+<p>现实很残忍，甚至让亲情和传统溃败。如何养老的问题不解决好，老人们如何安然走过人生的最后路途呢？这篇文章分析了农村老人自杀的直接原因和困境的解决之道：</p>
+
+<blockquote>
+<p>据刘燕舞统计，农村老人自杀最主要的原因是生存困难，其次是摆脱疾病的痛苦，两者合计占直接死因的60%，之后是情感问题。“换句话说，要减少老年人非正常死亡，就要解决三个问题：不饿死，不病死，不寂寞死”。 </p>
+</blockquote>
+
+<p>几千年前《礼记》里所畅想的“大同”世界里，重要一条是“老有所依”。老有所依，就不会选择不归路，以非正常方式结束生命。老年人的自杀问题之严峻，每个人都或多或少要予以关心。我不由得想起来曾经看到过的一则刷在乡村墙面上的宣传语，觉得很有道理：</p>
+
+<blockquote>
+<p><strong>人人都会老，家家要养老</strong></p>
+</blockquote>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/introducing-lanyon">
+        Introducing Lanyon
+      </a>
+    </h1>
+
+    <span class="post-date">02 Jan 2014</span>
+
+    <p>Lanyon is an unassuming <a href="http://jekyllrb.com">Jekyll</a> theme that places content first by tucking away navigation in a hidden drawer. It&#39;s based on <a href="http://getpoole.com">Poole</a>, the Jekyll butler.</p>
+
+<h3>Built on Poole</h3>
+
+<p>Poole is the Jekyll Butler, serving as an upstanding and effective foundation for Jekyll themes by <a href="https://twitter.com/mdo">@mdo</a>. Poole, and every theme built on it (like Lanyon here) includes the following:</p>
+
+<ul>
+<li>Complete Jekyll setup included (layouts, config, <a href="/404">404</a>, <a href="/atom.xml">RSS feed</a>, posts, and <a href="/about">example page</a>)</li>
+<li>Mobile friendly design and development</li>
+<li>Easily scalable text and component sizing with <code>rem</code> units in the CSS</li>
+<li>Support for a wide gamut of HTML elements</li>
+<li>Related posts (time-based, because Jekyll) below each post</li>
+<li>Syntax highlighting, courtesy Pygments (the Python-based code snippet highlighter)</li>
+</ul>
+
+<h3>Lanyon features</h3>
+
+<p>In addition to the features of Poole, Lanyon adds the following:</p>
+
+<ul>
+<li>Toggleable sliding sidebar (built with only CSS) via <strong>☰</strong> link in top corner</li>
+<li>Sidebar includes support for textual modules and a dynamically generated navigation with active link support</li>
+<li>Two orientations for content and sidebar, default (left sidebar) and <a href="https://github.com/poole/lanyon#reverse-layout">reverse</a> (right sidebar), available via <code>&lt;body&gt;</code> classes</li>
+<li><a href="https://github.com/poole/lanyon#themes">Eight optional color schemes</a>, available via <code>&lt;body&gt;</code> classes</li>
+</ul>
+
+<p><a href="https://github.com/poole/lanyon#readme">Head to the readme</a> to learn more.</p>
+
+<h3>Browser support</h3>
+
+<p>Lanyon is by preference a forward-thinking project. In addition to the latest versions of Chrome, Safari (mobile and desktop), and Firefox, it is only compatible with Internet Explorer 9 and above.</p>
+
+<h3>Download</h3>
+
+<p>Lanyon is developed on and hosted with GitHub. Head to the <a href="https://github.com/poole/lanyon">GitHub repository</a> for downloads, bug reports, and features requests.</p>
+
+<p>Thanks!</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/example-content">
+        Example content
+      </a>
+    </h1>
+
+    <span class="post-date">01 Jan 2014</span>
+
+    <div class="message">
+  Howdy! This is an example blog post that shows several types of HTML content supported in this theme.
+</div>
+
+<p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. <em>Aenean eu leo quam.</em> Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+
+<blockquote>
+<p>Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+</blockquote>
+
+<p>Etiam porta <strong>sem malesuada magna</strong> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+
+<h2>Inline HTML elements</h2>
+
+<p>HTML defines a long list of available inline tags, a complete list of which can be found on the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">Mozilla Developer Network</a>.</p>
+
+<ul>
+<li><strong>To bold text</strong>, use <code>&lt;strong&gt;</code>.</li>
+<li><em>To italicize text</em>, use <code>&lt;em&gt;</code>.</li>
+<li>Abbreviations, like <abbr title="HyperText Markup Langage">HTML</abbr> should use <code>&lt;abbr&gt;</code>, with an optional <code>title</code> attribute for the full phrase.</li>
+<li>Citations, like <cite>&mdash; Mark otto</cite>, should use <code>&lt;cite&gt;</code>.</li>
+<li><del>Deleted</del> text should use <code>&lt;del&gt;</code> and <ins>inserted</ins> text should use <code>&lt;ins&gt;</code>.</li>
+<li>Superscript <sup>text</sup> uses <code>&lt;sup&gt;</code> and subscript <sub>text</sub> uses <code>&lt;sub&gt;</code>.</li>
+</ul>
+
+<p>Most of these elements are styled by browsers with few modifications on our part.</p>
+
+<h2>Heading</h2>
+
+<p>Vivamus sagittis lacus vel augue rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+
+<h3>Code</h3>
+
+<p>Cum sociis natoque penatibus et magnis dis <code>code element</code> montes, nascetur ridiculus mus.</p>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Example can be run directly in your JavaScript console</span>
+
+<span class="c1">// Create a function that takes two arguments and returns the sum of those arguments</span>
+<span class="kd">var</span> <span class="nx">adder</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Function</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;return a + b&quot;</span><span class="p">);</span>
+
+<span class="c1">// Call the function</span>
+<span class="nx">adder</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+<span class="c1">// &gt; 8</span></code></pre></div>
+
+<p>Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
+
+<h3>Lists</h3>
+
+<p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+
+<ul>
+<li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
+<li>Donec id elit non mi porta gravida at eget metus.</li>
+<li>Nulla vitae elit libero, a pharetra augue.</li>
+</ul>
+
+<p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
+
+<ol>
+<li>Vestibulum id ligula porta felis euismod semper.</li>
+<li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
+<li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
+</ol>
+
+<p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
+
+<dl>
+  <dt>HyperText Markup Language (HTML)</dt>
+  <dd>The language used to describe and define the content of a Web page</dd>
+
+  <dt>Cascading Style Sheets (CSS)</dt>
+  <dd>Used to describe the appearance of Web content</dd>
+
+  <dt>JavaScript (JS)</dt>
+  <dd>The programming language used to build advanced Web sites and applications</dd>
+</dl>
+
+<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Nullam quis risus eget urna mollis ornare vel eu leo.</p>
+
+<h3>Tables</h3>
+
+<p>Aenean lacinia bibendum nulla sed consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Upvotes</th>
+      <th>Downvotes</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td>Totals</td>
+      <td>21</td>
+      <td>23</td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <tr>
+      <td>Alice</td>
+      <td>10</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>Bob</td>
+      <td>4</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>Charlie</td>
+      <td>7</td>
+      <td>9</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at lobortis. Nullam quis risus eget urna mollis ornare vel eu leo.</p>
+
+<hr>
+
+<p>Want to see something else added? <a href="https://github.com/poole/poole/issues/new">Open an issue.</a></p>
+
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page2">Older</a>
+  
+  
+    <span class="pagination-item newer">Newer</span>
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>
