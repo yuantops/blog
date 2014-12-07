@@ -10,7 +10,8 @@ title: "SSL证书的细节与制作方法"
 
 ###SSL证书的X.509标准
 X.509 规定一份digital certificate应该由这几部分构成：  
-- Certificate Data
+
+- Certificate Data  
 	- Version (marked as X.509 v3, even if v4 or v5)  
 	- Serial number   
 	- Signature algorithm ID  
@@ -25,7 +26,7 @@ X.509 规定一份digital certificate应该由这几部分构成：
 >注:- 一般Subject Name, 或者Issuer name + Serial number唯一确定一份证书;  
 >- Certificate Data中的Signature algorithm ID必须和Certificate Signature Algorithm中的内容一致，标志CA用来生成Certificate Signature所用的加密算法。  
 
-在Certificate Data的Subject name与Issuer name这两项中，其Distinguished Name包含更多字段(这些字段往往用字母简写)，以更好地作唯一标识：
+在Certificate Data的Subject name与Issuer name这两项中，其Distinguished Name包含更多字段(这些字段往往用字母简写)，以更好地作唯一标识：  
 - CN: Common Name, 证书持有者的名称  
 - O: Organization or Company, 持有者所在的公司/组织  
 - OU: Organization Unit, 持有者在公司/组织的部门  
@@ -34,12 +35,29 @@ X.509 规定一份digital certificate应该由这几部分构成：
 - C: Country, 持有者所在的国家(ISO码)  
 
 ###SSL X.509证书的后缀名
-一份X.509 Certificate往往会通过DER(Distinguished Encoding Rules)方式翻译成二进制文件。对于不能处理二进制的传输过程，二进制文件会用Base64 编码转翻为ASCII文件。当Base64 编码后的证书数据被置于“-----BEGIN CERTIFICATE-----”和“-----END CERTIFICATE-----”之间时，这就是PEM(Privacy-enhanced Electronic Mail)格式。  
+一份X.509 Certificate往往会以DER(Distinguished Encoding Rules)方式翻译成二进制格式的文件。如果有些传输过程不能处理二进制数据，那么二进制格式的文件会以Base64 编码转翻为ASCII文件。用Base64 编码后的数据被置于“-----BEGIN CERTIFICATE-----”和“-----END CERTIFICATE-----”之间，这就是PEM(Privacy-enhanced Electronic Mail)格式。  
 
 不同格式的证书常见的后缀名有:  
 - .cer, .crt, .der : 二进制DER格式   
 - .pem: Base64 编码后的DER格式  
 
-###X.509的层级架构PKI
+###X.509的“证书链”与“信任锚点”
+数字证书存在的意义，在于认证持有者的身份。譬如说，在Alice申请证书的时候，证书颁发机构(CA, Certificate Authority)会先确认Alice本人的信息与她申请书上所写的一致。  
+
+由于证书上有第三方认证中心的真实性确认签名、由第三方认证中心的信用为这张证书的真实性背书，所以，只要确定了证书为真，就能确认证书持有者的身份为真。但这样问题还是没得到解决，而是变成了另一个问题：如何确定一张证书的真伪？  
+
+为了回答这个问题，需要先了解实际部署在互联网上的证书颁发机构(CA, Certificate Authority)的架构。互联网中，一个证书颁发机构(CA, Certificate Authority)有自己的证书。一个证书颁发机构(CA, Certificate Authority)不仅可以给证书申请者颁发证书，也可以给其它证书颁发机构(CA, Certificate Authority)颁发证书。那么谁来给最顶层的证书颁发机构(top-level Certificate Authority)授权呢？答案是：它自己给自己签名，自己给自己授权(它拥有的证书，Issuer和Subject是一样的)。  
+
+这样就形成了一个“证书链”(Certificate chain),也称“证书路径”(Certificate path)：最开始为用户持有的证书，最末尾为自己给自己签名的证书。证书链中:  
+- 每个证书(最末尾的证书除外)的颁发者(Issuer)是下一个证书的持有者(Subject);  
+- 每个证书的(最末尾的证书除外)的Certificate Signature都能用下一个证书中包含的Public Key解密;  
+- 最末尾的证书是“信任锚点”(a trust anchor)——往往它会以某种值得信赖的方式，提前传递到你手中。  
+
+所以，确认一张证书真实性的过程，就是一个不断追溯，直到“信任锚点”的过程。  
+
+在主流的浏览器(IE, Chrome, Firefox等)中，预置了主流证书颁发机构(VeriSign等)的根证书。当浏览器收到网站的SSL证书后，会有一系列验证过程，如果该证书的“证书链”中任意一点存储在本地，那么就能确认该证书为真实。浏览器对证书链的认证过程，将在另一篇文章中介绍。  
+
 ###生成自己的根证书
+上面讲了那么多，都是理论。现在转入实战，介绍如何生成一张根证书(Root Certificate), 以及这张根证书的持有者如何为申请者签发证书。  
+
 ###用根证书生成自己网站的数字证书
