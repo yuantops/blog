@@ -57,7 +57,7 @@ X.509 规定一份digital certificate应该由这几部分构成：
 
 在主流的浏览器(IE, Chrome, Firefox等)中，预置了主流证书颁发机构(VeriSign等)的根证书。当浏览器收到网站的SSL证书后，会有一系列验证过程，如果该证书的“证书链”中任意一环存储在本地，那么就能确认该证书为真实。浏览器对证书链的认证过程，将在另一篇文章中介绍。  
 
-###生成自己的根证书
+###生成根证书与签发证书
 上面讲了那么多，都是理论。现在转入实战，介绍如何生成一张证书, 以及这张证书的持有者如何为申请者签发证书。  
 
 >Linux下最常使用的SSL根证书相关的命令是openssl的一套工具。  
@@ -74,14 +74,64 @@ X.509 规定一份digital certificate应该由这几部分构成：
 使用openssl工具制作证书时，会接触到新名词:  
 - CSR(Certificate Signing Request): 提交给CA的认证申请文件，包含了申请者的公钥和名字等信息，通常以.csr为后缀，是中间文件。  
 
-制作自签名证书(根证书)步骤：  
-> #生成一个RSA私钥private.key   
->  openssl genrsa -out private.key 1024  
-> #从私钥文件private.key中取出公钥public.key  
->  openssl rsa -in private.key -out public.key
-> #生成一个证书签发请求
->  openssl x509 -new -key 
+*制作自签名证书(根证书)步骤(参考[内容](http://rhythm-zju.blog.163.com/blog/static/310042008015115718637/))：*  
+1. 生成一个RSA私钥private.key   
+	> $ openssl genrsa -des3  -out private.key 1024  
+
+	参数解释：
+	-. genrsa: 用于生成RSA密钥对的OpenSSL命令  
+	-. des3: 使用 3-DES 对称加密算法加密密钥对，该参数需要用户在密钥生成过程中输入一个口令用于加密。今后使用该密钥对时，需要输入相应的口令。如果不加该选项，则不对密钥进行加密。  
+	-. out: 将生成的密钥保存到文件  
+	-. 2014:  RSA模数位数，在一定程度上表征密钥强度。  
+
+2. 生成一个CA证书认证申请  
+	>$ openssl req -new -days 365 -key private.key -out req.csr   
+
+	 参数解释：
+	 -. req: 用于生成证书认证申请的openSSL命令  
+	 -. -new： 生成一个新的证书认证请求。加上这个参数后，会提示用户输入申请者的信息  
+	 -. -days 365: 证书的有效期：从生成之日起365天  
+	 -. -out req.csr: 证书申请保存的目的文件。为中间文件，可以在证书生成以后删除。
+
+该命令会提示用户输入密钥的口令(如果上一步中没有加des3参数则不会)，以及一系列证书申请者的相关信息。  
+
+3. 对CA证书申请进行签名  
+	> $ openssl ca -selfsign -in req.csr -out ca.pem  
+
+	 参数解释：
+	 -. ca: 用于CA相关操作的命令  
+	 -. -selfsign: 自签名(用与证书中包含公钥所对应的密钥签名)
+	 -. -in req.csr: 证书认证申请文件  
+	 -. -out ca.pem: 证书保存到目的文件  
+
+4. 注：以上两个步骤可以合二为一。利用ca的-x509参数可以生成自签名的证书，将申请和签发两步一起完成：  
+	> $ openssl req -new -x509 -days 365 -key private.key -out ca.pem  
+
+*利用生成的根证书签发证书*  
+利用生成的根证书签发证书的过程，1，2步与上一部分相同，只是在第3部分，签名的时候有差异:  
+	> $ openssl ca -in req.csr -cert ca.pem -out userca.pem -keyfile private.key  
+
+	  参数解释：  
+	  -. ca: 用于CA相关操作的命令  
+	  -. -in req.csr: 证书认证申请文件  
+	  -. -cert ca.pem: 用于签发的CA证书  
+	  -. -out userca.pem:  处理完成后输出的证书文件
+	  -. -keyfile private.key: CA的私钥文件  
 
 
+###一些思考与体会
+因为openssl工具十分强大，每个人的使用方法都不同，所以在参考别人的使用方法时会有很多疑惑。下面是一些思考与体会：(参考[这篇博客](http://www.cnblogs.com/littlehann/p/3738141.html))  
 
-###用根证书生成自己网站的数字证书
+1. 在生成过程中有很多文件扩展名(.crt、.csr、.pem、.key等等)，从本质上讲，扩展名并不具有任何强制约束作用，重要的是这个文件是由哪个命令生成的，它的内容是什么格式的。 使用这些特定的文件扩展名只是为了遵循某些约定俗称的规范，让人能一目了然。  
+
+2. openssl的指令之间具有一些功能上的重叠，所以我们会发现完成同样一个目的(例如SSL证书生成)，往往可以使用看似不同的指令组达到目的。  
+
+3. 释疑:openssl genrsa -des3 -out private.key 1024 命令生成的private.key真正包含了什么？  
+
+参考[这个回答](http://stackoverflow.com/questions/5244129/use-rsa-private-key-to-generate-public-key)  
+> 我们也会会注意到, 在生成证书认证申请时($ openssl req -new -days 365 -key private.key -out req.csr)，参数只用了申请者的private.key，而理论上应该提供申请者的public.key。而且根据RSA加密的数学原理，不可能由private key推出public key。所以这往往会带来疑惑: public key从哪儿来？  
+
+实际上，第一步( $ openssl genrsa -des3  -out private.key 1024 )命令生成的是public-private 的公钥/私钥对,这一对公钥/私钥都保存在private.key文件中。所以，准确说来这一行命令的作用是：生成用户的*公钥/私钥对*，而不是生成用户的私钥。(虽然一般我们都按后者的方式说)。因此，答案就是：public key本身就包含在private.key中。  
+
+另外，可以使用openssl命令，从private.key中提取出public.key  
+> $ openssl rsa -in private.key -pubout -out public.key  
