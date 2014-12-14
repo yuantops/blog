@@ -23,8 +23,9 @@ X.509 规定一份digital certificate应该由这几部分构成：
 - Certificate Signature Algorithm  
 - Certificate Signature  
 
->注:- 一般Subject Name, 或者Issuer name + Serial number唯一确定一份证书;  
->- Certificate Data中的Signature algorithm ID必须和Certificate Signature Algorithm中的内容一致，标志CA用来生成Certificate Signature所用的加密算法。  
+>注:
+- 一般Subject Name, 或者Issuer name + Serial number唯一确定一份证书;  
+- Certificate Data中的Signature algorithm ID必须和Certificate Signature Algorithm中的内容一致，标志CA用来生成Certificate Signature所用的加密算法。  
 
 在Certificate Data的Subject name与Issuer name这两项中，其Distinguished Name包含更多字段(这些字段往往用字母简写)，以更好地作唯一标识：  
 - CN: Common Name, 证书持有者的名称  
@@ -76,35 +77,35 @@ X.509 规定一份digital certificate应该由这几部分构成：
 - CSR(Certificate Signing Request): 提交给CA的认证申请文件，包含了申请者的公钥和名字等信息，通常以.csr为后缀，是中间文件。  
 
 *制作自签名证书(根证书)步骤(参考[内容](http://rhythm-zju.blog.163.com/blog/static/310042008015115718637/))：*  
+
 1. 生成一个RSA私钥private.key   
-	> $ openssl genrsa -des3  -out private.key 1024  
+> $ openssl genrsa -des3  -out private.key 1024  
 
 	参数解释：
-	-. genrsa: 用于生成RSA密钥对的OpenSSL命令  
-	-. des3: 使用 3-DES 对称加密算法加密密钥对，该参数需要用户在密钥生成过程中输入一个口令用于加密。今后使用该密钥对时，需要输入相应的口令。如果不加该选项，则不对密钥进行加密。  
-	-. out: 将生成的密钥保存到文件  
-	-. 2014:  RSA模数位数，在一定程度上表征密钥强度。  
+	- genrsa: 用于生成RSA密钥对的OpenSSL命令  
+	- des3: 使用 3-DES 对称加密算法加密密钥对，该参数需要用户在密钥生成过程中输入一个口令用于加密。今后使用该密钥对时，需要输入相应的口令。如果不加该选项，则不对密钥进行加密。  
+	- out: 将生成的密钥保存到文件  
+	- 2014:  RSA模数位数，在一定程度上表征密钥强度。  
 
 2. 生成一个CA证书认证申请  
-	>$ openssl req -new -days 365 -key private.key -out req.csr   
+>$ openssl req -new -days 365 -key private.key -out req.csr   
 
 	 参数解释：
-	 -. req: 用于生成证书认证申请的openSSL命令    
-	 -. -new： 生成一个新的证书认证请求。加上这个参数后，会提示用户输入申请者的信息  
-	 -. -days 365: 证书的有效期：从生成之日起365天  
-	 -. -out req.csr: 证书申请保存的目的文件。为中间文件，可以在证书生成以后删除。
-
+	 - req: 用于生成证书认证申请的openSSL命令    
+	 - -new： 生成一个新的证书认证请求。加上这个参数后，会提示用户输入申请者的信息  
+	 - -days 365: 证书的有效期：从生成之日起365天  
+	 - -out req.csr: 证书申请保存的目的文件。为中间文件，可以在证书生成以后删除。
 
 	该命令会提示用户输入密钥的口令(如果上一步中没有加des3参数则不会)，以及一系列证书申请者的相关信息。  
 
 3. 对CA证书申请进行签名  
-	> $ openssl ca -selfsign -in req.csr -out ca.pem  
+> $ openssl ca -selfsign -in req.csr -out ca.pem  
 
 	 参数解释：
-	 -. ca: 用于CA相关操作的命令  
-	 -. -selfsign: 自签名(用与证书中包含公钥所对应的密钥签名)
-	 -. -in req.csr: 证书认证申请文件  
-	 -. -out ca.pem: 证书保存到目的文件  
+	 - ca: 用于CA相关操作的命令  
+	 - -selfsign: 自签名(用与证书中包含公钥所对应的密钥签名)
+	 - -in req.csr: 证书认证申请文件  
+	 - -out ca.pem: 证书保存到目的文件  
 
 4. 注：以上两个步骤可以合二为一。利用ca的-x509参数可以生成自签名的证书，将申请和签发两步一起完成：  
 	> $ openssl req -new -x509 -days 365 -key private.key -out ca.pem  
