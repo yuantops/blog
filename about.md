@@ -3,7 +3,7 @@ layout: page
 title: About
 ---
 <p class="message">
-This a test sentence for message.
+Please feel free to contact me via email: yuan.tops#gmail.com (replace # with @)
 </p>
 ##Personal Statement
 -  I am a postgraduate student in Beijing University of Posts and Telecommunications, majoring in Communication Theroy.
