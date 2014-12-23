@@ -42,83 +42,83 @@ rndc是BIND安装包提供的一种域名服务控制工具，它可以运行在
 1. 新建yuantops.com域的zone文件，保存到/var/named/dynamic目录。  
 	域的zone文件有自己的语法规范，配置起来需要事先对DNS的术语有一定了解。可以参看[文章一](http://www.zytrax.com/books/dns/ch8/soa.html)和 [文章二](http://www.zytrax.com/books/dns/ch6/mydomain.html)。  
 	下面是域yuantops.com的zone文件yuantops.com.db的内容:  
-	>$TTL	86400 ; 24 hours could have been written as 24h or 1d
-	; $TTL used for all RRs without explicit TTL value
-	$ORIGIN yuantops.com.
-	@  1D  IN  SOA ns1.yuantops.com. hostmaster.yuantops.com. (
-								      2002022401 ; serial
-					  			      3H ; refresh
-					  			      15 ; retry
-					  			      1w ; expire
-					  			      3h ; minimum
-																									  			     )
-	       IN  NS     ns1.yuantops.com. ; in the domain
-		          IN  MX  10 mail.yuantops.com. ; 
-				  ; server host definitions
+	>$TTL	86400 ; 24 hours could have been written as 24h or 1d  
+	; $TTL used for all RRs without explicit TTL value  
+	$ORIGIN yuantops.com.  
+	@  1D  IN  SOA ns1.yuantops.com. hostmaster.yuantops.com. (  
+								      2002022401 ; serial  
+					  			      3H ; refresh  
+					  			      15 ; retry  
+					  			      1w ; expire  
+					  			      3h ; minimum    )  
+	       IN  NS     ns1.yuantops.com. ; in the domain  
+		          IN  MX  10 mail.yuantops.com. ;   
+				  ; server host definitions  
 				  ns1    IN  A      192.168.100.172;name server definition     
 				  www    IN  A      192.168.100.172;web server definition  
 				  ftp    IN  CNAME  www.yuantops.com.  ;ftp server definition  
 
 2. 将yuantops.com域的DNSSEC Key添加到/var/named/目录。  
 	在生成DNSSEC Key的第一步中，我们得到了一对key文件。如果因为不准备部署DNSSEC key而跳过了第一步，那么现在这一步也应该跳过。  
-	打开/var/named/Kyuantops.com.+163+15844.private文件，复制其中的secrect字段到剪贴板。  
+	打开/var/named/Kyuantops.com.+163+15844.private文件，复制其中的Key字段到剪贴板。  
 	新建/var/named/yuantops.com.key文件，将以下内容填入文件:  
-	>key yuantops.com {
-				algorithm HMAC-SHA256;
-				secret "2viM+VhhgiFGMrOjLAqBtY9usGstiRuZdOElI5U6l/o=";
-	};
+	>key yuantops.com {  
+				algorithm HMAC-SHA256;  
+				secret "2viM+VhhgiFGMrOjLAqBtY9usGstiRuZdOElI5U6l/o=";  
+	};  
 
 	替代secret字段为剪贴板中的内容。  	
 
 3. 配置BIND的配置文件/etc/named.conf，添加yuantops.com域的定义、DNSSEC Key定义。  
 	named.conf文件是BIND服务器的全局配置文件，非常重要。我们要在里面加入对yuantops.com域的定义、yuantops.com域的DNSSEC Key的定义。  
 	将以下内容填入/etc/named.conf文件:  
-	>options {
-			        listen-on port 53 { any; };//注意，此处为any，不是127.0.0.1
-			        listen-on-v6 port 53 { ::1; };
-			        directory       "/var/named";
-			        dump-file       "/var/named/data/cache_dump.db";
-			        statistics-file "/var/named/data/named_stats.txt";
-			        memstatistics-file "/var/named/data/named_mem_stats.txt";
-			        allow-query     { any; }; //注意，此处是any，不是localhost
-			        recursion yes;
-				    dnssec-enable yes;
-				    dnssec-validation yes;
-				    dnssec-lookaside auto;
-				   	/* Path to ISC DLV key */
-                    bindkeys-file "/etc/named.iscdlv.key";
-	                managed-keys-directory "/var/named/dynamic";
-	};
-	logging {
-		        channel default_debug {
-                file "data/named.run";
-                severity dynamic;
-	        };
-};
-	 	// use the default rndc key
-		include "/etc/rndc.key";
-		controls {
-		    inet 127.0.0.1 port 953
-			allow { 127.0.0.1; } keys { "rndc-key"; };
-		};
-		zone "." IN {
-			  type hint;
-			  file "named.ca";
-		}//;
->		include "/etc/named.rfc1912.zones";
->		include "/etc/named.root.key";
-		include "yuantops.com.key";
-		zone "yuantops.com" IN {
-		  type master;
-		  file "dynamic/yuantops.com.db";
-		  allow-update { key yuantops.com ; } ;
-		};
+	>options {  
+			        listen-on port 53 { any; };//注意，此处为any，不是127.0.0.1  
+			        listen-on-v6 port 53 { ::1; };  
+			        directory       "/var/named";  
+			        dump-file       "/var/named/data/cache_dump.db";  
+			        statistics-file "/var/named/data/named_stats.txt";  
+			        memstatistics-file "/var/named/data/named_mem_stats.txt";  
+			        allow-query     { any; }; //注意，此处是any，不是localhost  
+			        recursion yes;  
+				    dnssec-enable yes;  
+				    dnssec-validation yes;  
+				    dnssec-lookaside auto;  
+				   	/* Path to ISC DLV key */  
+                    bindkeys-file "/etc/named.iscdlv.key";  
+	                managed-keys-directory "/var/named/dynamic";  
+	};  
+	logging {  
+		        channel default_debug {  
+                file "data/named.run";  
+                severity dynamic;  
+	        };  
+};  
+	 	// use the default rndc key  
+		include "/etc/rndc.key";  
+		controls {  
+		    inet 127.0.0.1 port 953  
+			allow { 127.0.0.1; } keys { "rndc-key"; };  
+		};  
+		zone "." IN {  
+			  type hint;  
+			  file "named.ca";  
+		}//;  
+>		include "/etc/named.rfc1912.zones";  
+>		include "/etc/named.root.key";  
+		include "yuantops.com.key";  
+		zone "yuantops.com" IN {  
+		  type master;  
+		  file "dynamic/yuantops.com.db";  
+		  allow-update { key yuantops.com ; } ;  
+		};  
 
 ###修改配置文件的权限，使能被读取
-$ chmod 644 /etc/named.conf  
+>$ chmod 644 /etc/named.conf  
 
 ###启动BIND服务器
-$ service named start  
+>$ service named start  
+
 如果以后BIND服务器设置有改动，需要重启named服务。  
 
 ###将机器的DNS服务器IP地址设为BIND程序所在机器的IP地址
@@ -126,7 +126,8 @@ BIND服务器所在机器的IP地址为192.168.100.172。如果有一台192.168.
 
 ###验证BIND服务已经成功安装并启动
 在192.168.100.139机器上运行命令：  
-$ dig @192.168.100.172 www.yuantops.com  
+>$ dig @192.168.100.172 www.yuantops.com  
+
 如果成功解析出IP地址，证明成功。否则，可以检查BIND服务器的/var/log/message日志文件，寻找原因。  
 
 ###使用nsupdate命令操作BIND服务器的配置
