@@ -1,7 +1,7 @@
 ---
 layout: post    
 category: "Tech"   
-title: "SSL证书的制作方法"      
+title: "使用OpenSSL工具制作证书的方法"      
 ---
 <div class="message">
 本篇文章将介绍如何在一台Linux服务器(Redhat Enterprise 6.6)上用OpenSSL工具制作CA(Certificate Authority) Root证书、用制作的Root证书签发SSL证书。  
@@ -12,9 +12,11 @@ title: "SSL证书的制作方法"
 ###一些坑
 在使用openssl ca命令时，如果不手动指定-config参数，它会自动调用/etc/pki/tls/openssl.cnf作为-config配置文件，这个openssl.cnf文件里定义了要调用的CA证书、私钥路径。如果我们在创建CA时将它的证书和私钥等文件保存在了别处，或者/etc/pki/tls/openssl.cnf里的定义的那些文件不存在，那么在openssl ca找不到要使用的这些文件时，就会报错。其中典型的错误有：  
 
->Using configuration from /etc/pki/tls/openssl.cnf
+{% highlight bash %}
+Using configuration from /etc/pki/tls/openssl.cnf
 unable to load CA private key
 139911890630472:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: ANY PRIVATE KEY  
+{% endhighlight  %}
 
 所以，我们如果想自定义CA的目录位置，那么要事先1）按照OpenSSL的默认配置建立相应的目录结构，2）定制openssl.cnf文件，修改CA目录的路径定义。  
 
@@ -63,7 +65,7 @@ unable to load CA private key
 
 ####生成CA的root key和self-signed的证书
 - 生成密钥对  
-	> # openssl genrsa -out private/cakey.pem 2048  
+	 # openssl genrsa -out private/cakey.pem 2048  
 - 生成证书申请、用CA的密钥自签名，用一条语句完成  
 
 {% highlight bash %}
@@ -85,16 +87,16 @@ For some fields there will be a default value,
 {% endhighlight%}
 
 - 查看我们生成的root-ca.crt的内容  
-	> # openssl x509 -noout -text -in root-ca.crt
+	 # openssl x509 -noout -text -in root-ca.crt
 
 ####使用CA Root证书签署证书
 在上一步完成之后，就可以用CA的root 证书来签署证书了。  
 
 可以使用一条OpenSSL命令完成生成密钥对，生成证书签名请求的操作：  
-> # openssl req -newkey rsa:1024 -keyout zmiller.key -config openssl.cnf -out zmiller.req   
+	 # openssl req -newkey rsa:1024 -keyout zmiller.key -config openssl.cnf -out zmiller.req   
 
 然后用CA的Root证书签发证书  
-> # openssl ca -config openssl.cnf -out zmiller.crt -infiles zmiller.req 
+	 # openssl ca -config openssl.cnf -out zmiller.crt -infiles zmiller.req 
 
 
 
