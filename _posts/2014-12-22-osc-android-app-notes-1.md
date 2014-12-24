@@ -19,14 +19,14 @@ AppContext类是Application类的子类。Google了getApplication()函数，找�
 
 另外,关于getApplication()和getApplicationContext()的区别,[stackoverflow](http://stackoverflow.com/questions/5018545/getapplication-vs-getapplicationcontext)上有人这么解释:  
 
->虽然当前Anroid Activity和Service的实现方式使得getApplication()和getApplicationContext()返回相同的object，但不能保证它们将来会一直这样。  
+	虽然当前Anroid Activity和Service的实现方式使得getApplication()和getApplicationContext()返回相同的object，但不能保证它们将来会一直这样。  
 
->如果你想在Manifest.xml文件中注册Application class，那么**永远不要**调用getApplicationContext()并将其cast为你的application类，因为它返回的很可能不是你的application实例。  
+	如果你想在Manifest.xml文件中注册Application class，那么**永远不要**调用getApplicationContext()并将其cast为你的application类，因为它返回的很可能不是你的application实例。  
 
->getApplication()仅仅在Activity和Service类中可以被调用，而getApplicationContext()则是在Context类中被声明的。这意味着，譬如说你在编写一个Broadcast Receiver，Broadcast Receiver本身不是一个Context类，但通过onReceive()方式获得了一个Context类的引用，这时你就只能调用getApplicationContext()了——这同样意味着，你不能确保能在一个BroadcastReceiver中拥有访问application。  
+	getApplication()仅仅在Activity和Service类中可以被调用，而getApplicationContext()则是在Context类中被声明的。这意味着，譬如说你写了一个Broadcast Receiver，Broadcast Receiver本身不是一个Context类，尽管它能通过onReceive()方式获得一个Context类的引用，这时你就只能调用getApplicationContext()了——这也就意味着，不能确保在BroadcastReceiver中访问到application。  
 
->另外，Android的官方文档中提到，你**不应该**需要去继承Application类:  
+	另外，Android的官方文档中提到，你**不应该**需要去继承Application类:  
 
 	There is normally no need to subclass Application. In most situation, static singletons can provide the same functionality in a more modular way. If your singleton needs a global context (for example to register broadcast receivers), the function to retrieve it can be given a  Context which internally uses Context.getApplicationContext() when first constructing the singleton.  
 
-虽然官方推荐用静态singleton的方式去设置全局数据，但是在回复中有人提到，在实际中还是继承Application的方式来得更方便。所以，到底用那种方式就见仁见智了。  
+虽然官方推荐用静态singleton的方式去设置全局数据，但是在回复中有人提到，在实际中还是继承Application的方式来得更方便。所以，到底用那种方式更好，就见仁见智吧。  
