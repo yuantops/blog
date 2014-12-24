@@ -111,6 +111,9 @@ X.509 规定一份digital certificate应该由这几部分构成：
 	> $ openssl req -new -x509 -days 365 -key private.key -out ca.pem  
 
 **利用生成的根证书签发证书**  
+
+这一部分请参看[文章](http://blog.yuantops.com/tech/SSL-creation-guide)，因为下面的步骤可能有些问题。  
+
 利用生成的根证书签发证书的过程，1，2步与上一部分相同，只是在第3部分，签名的时候有差异:  
 > $ openssl ca -in req.csr -cert ca.pem -out userca.pem -keyfile private.key  
 
