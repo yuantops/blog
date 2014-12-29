@@ -18,7 +18,7 @@ Java平台使用Unicode字符集存储字符值(character value)。字符流I/O�
 ###使用字符流
 所有的字符流类都派生自Reader和Writer。与字节流一样，有专为文件I/O而设的字符流类：FileReader和FileWriter。下面的CopyCharacters代码演示了它们的使用方法。
 
-{%hightlight java%}
+{%highlight java%}
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -47,7 +47,7 @@ public class CopyCharacters {
 																																			        }
 											    }
 }
-{%endhightlight %}
+{%endhighlight %}
 
 CopyCharacters和CopyBytes很相似。它们之间最大的不同在于CopyCharacters使用FileReader和FileWriter来完成输入和输出，CopyBytes使用FileInputStream和FileOutputStream。值得注意的是，CopyCharacters和CopyBytes都使用了一个int变量来暂存读入/写出的值。在CopyCharacters中这个int变量在它的后16bit中暂存一个字符值(character value),然而在CopyBytes中这个int变量在它的后8bit中暂存一个字节值(byte value)。  
 

@@ -16,7 +16,7 @@ title: "Oracle Java Tutorial Byte Streams翻译"
 ###使用字节流
 下面我们通过一段代码CopyBytes来演示FileInputStream和FileOutputStream的用法。这段代码通过字节流逐字节地拷贝xanadu.txt。  
 
-{%hightlight java%}
+{%highlight java%}
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -45,7 +45,7 @@ public class CopyBytes {
 																																			        }
 											    }
 }
-{%endhightlight%}
+{%endhighlight%}
 
 CopyBytes在运行时形成一个循环:它不断从输入流中逐字节地读入数据，然后将字节输出到输出流。如下图所示。  
 
