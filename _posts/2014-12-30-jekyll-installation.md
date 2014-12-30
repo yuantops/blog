@@ -9,7 +9,7 @@ title: "Jekyll安装指南"
 </div>
 
 ###环境准备
-准备安装Jekyll前，先确保系统满足以下条件：  
+准备安装Jekyll前，确保系统满足以下条件：  
 
 * Ruby   
 * RubyGems  
@@ -20,6 +20,12 @@ title: "Jekyll安装指南"
 **Ruby**  
 {% highlight bash%}
 $ sudo apt-get install ruby, ruby-dev
+{% endhighlight %}
+要注意，*ruby-dev*包需要一并安装，否则在后续会报错。   
+
+在Redhat/Fedora下，需要安装的软件包为ruby,ruby-devel。有可能还需要安装gcc包。   
+{% highlight bash%}
+$ sudo yum install ruby, ruby-devel, gcc
 {% endhighlight %}
 
 **RubyGems**  
