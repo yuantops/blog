@@ -2,6 +2,8 @@
 layout: post    
 category: "Tech"   
 title: "开源中国安卓客户端源码学习笔记 一"      
+tags: [Android, OSC]  
+description: "本文是引言，OSC安卓客户端源代码学习笔记系列的第一篇。"
 ---
 
 ##前言

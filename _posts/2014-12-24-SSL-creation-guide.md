@@ -2,9 +2,10 @@
 layout: post    
 category: "Tech"   
 title: "使用OpenSSL工具制作证书的方法"      
+tags: [SSL]
+description: "本文将介绍如何在一台Linux服务器(Redhat Enterprise 6.6)上用OpenSSL工具制作CA(Certificate Authority) Root证书、用制作的Root证书签发SSL证书。 " 
 ---
 <div class="message">
-本篇文章将介绍如何在一台Linux服务器(Redhat Enterprise 6.6)上用OpenSSL工具制作CA(Certificate Authority) Root证书、用制作的Root证书签发SSL证书。  
 </div>
 
 之前[一篇文章](http://blog.yuantops.com/tech/SSL-certificate-details-and-creation-guide/)介绍了SSL证书的一些细节，这篇文章介绍OpenSSL工具的基本使用方法。老实说，OpenSSL工具实在是太难用了，我参考了[How To Setup a CA](http://pages.cs.wisc.edu/~zmiller/ca-howto/)和[基于 OpenSSL 的 CA 建立及证书签发](http://rhythm-zju.blog.163.com/blog/static/310042008015115718637/)这两篇文章，捣鼓了很久才理清流程。虽然原理很清楚，但是操作起来却不那么容易，这告诉我们要多实践才对，不然发现不了问题。  

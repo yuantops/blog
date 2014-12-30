@@ -2,6 +2,8 @@
 layout: post    
 category: "Tech"   
 title: "vim增加markdown语法高亮支持"      
+tags: [vim]
+description: "本文介绍如何在Linux下配置vim，使它支持对markdown语法的高亮显示。"
 ---
 
 markdown是一种非常简洁美观的语法格式，非常适合用来撰写博客([简书 语法简介](http://www.jianshu.com/p/q81RER))。在linux下，我个人最习惯用vim做文本编辑器。那么，如何使vim支持markdown的语法高亮呢？

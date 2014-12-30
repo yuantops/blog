@@ -2,11 +2,9 @@
 layout: post    
 category: "Tech"   
 title: "Oracle Java Tutorial Byte Streams翻译"      
+tags: [Java]    
+description: "本文是Oracle Java开发手册中关于Byte Stream章节的翻译，个人手工翻译，非转载。"
 ---
-
-<div class="message">
-本文是Oracle Java开发手册中关于Byte Stream章节的翻译，个人手工翻译，非转载。
-</div>
 
 ##Byte Streams 字节流
 程序使用*字节流*来处理8bit字节的输入和输出。所有的字节流类都派生(descend)自InputStream和OutputStream。  

@@ -2,6 +2,8 @@
 layout: post    
 category: "Tech"   
 title: "Java 的一些术语解释"      
+tags: [Java]  
+description: "本文介绍Java初学者容易弄糊涂的一些概念：JRE，JDK，JavaSE，JavaME，JavaEE等"
 ---
 
 作为JAVA初学者，往往弄不清楚一系列术语的概念。这篇文章搬运[文章一](http://stackoverflow.com/questions/1906445/what-is-the-difference-between-jdk-and-jre)与[文章二](http://stackoverflow.com/questions/10858193/java-jdk-sdk-se)，解释JRE与JDK, JavaSE、JavaME与JavaEE，Java版本等术语 。  

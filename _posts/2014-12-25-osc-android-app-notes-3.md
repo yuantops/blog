@@ -2,10 +2,11 @@
 layout: post    
 category: "Tech"   
 title: "开源中国安卓客户端源码学习笔记 三 自定义Exception类"      
+tags: [Android, OSC]   
+description: " 异常处理是Java程序中十分重要的环节。OSC Android APP定义了自己的异常类，并对它们针对性处理。这篇文章关注AppException的处理方法。 "
 ---
 
 <div class="message">
-异常处理是Java程序中十分重要的环节。OSC Android APP定义了自己的异常类，并对它们针对性处理。这篇文章关注AppException的处理方法。  
 </div>
 
 net.oschina.app包中包含四个类的定义文件，它们分别是AppConfig, AppException, AppManager, AppStart。其中AppStart类继承Activity，是跳转界面。AppException类是Exception的子类，是自定义的异常类。  

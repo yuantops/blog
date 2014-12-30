@@ -2,11 +2,9 @@
 layout: post    
 category: "Tech"   
 title: "Oracle Java Tutorial Character Streams翻译"      
+tags: [Java]   
+description: "本文是Oracle Java开发手册中关于Character Stream章节的翻译，个人手工翻译，非转载。"
 ---
-
-<div class="message">
-本文是Oracle Java开发手册中关于Character Stream章节的翻译，个人手工翻译，非转载。
-</div>
 
 ##Character Streams 字符流
 Java平台使用Unicode字符集存储字符值(character value)。字符流I/O自动将内部的Unicode格式翻译成本地的字符集，反之亦然。在西方的使用环境(locale)下，本地字符集往往是8bit的ASCII码的超集(superset)。  
