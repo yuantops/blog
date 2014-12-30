@@ -4,7 +4,12 @@ layout: default
 
 <div class="post">
   <h1 class="post-title">{{ page.title }}</h1>
+	<p class="entry-tags"> {% for tag in page.tags %}<a href="{{ site.url }}/tags.html#{{ tag | cgi_e    scape }}" title="Pages tagged {{ tag }}" rel="tag" class="post-tag">{{ tag }}</a>{% unless forloop.last %}  {%     endunless %}{% endfor %}</p>
   <span class="post-date">{{ page.date | date_to_string }}</span>
+  <div class="message">
+  {{ page.description}}
+  </div>
+
   {{ content }}
 </div>
 

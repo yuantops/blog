@@ -11,11 +11,14 @@ relative_permalinks: true
 # Setup
 title:               Yuantops' Blog 
 tagline:             'For the better good'
-description:         '"How happy we are, to meet friends coming from far." --Confucious' 
+description:         "Yuantops' Blog. Live like a soldier." 
 url:                 http://blog.yuantops.com
 baseurl:             /
+archiveurl:          /archive.html
 feedurl:             /atom.xml
-paginate:            5
+tagsurl:             /tags.html
+abouturl:            /about.html
+paginate:            8
 
 # About/contact
 author:

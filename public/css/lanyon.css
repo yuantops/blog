@@ -299,7 +299,7 @@ a.sidebar-nav-item:focus {
 
 .page,
 .post {
-  margin-bottom: 4em;
+  margin-bottom: 2em;
 }
 
 /* Blog post or page title */
@@ -311,6 +311,17 @@ a.sidebar-nav-item:focus {
 .page-title,
 .post-title {
   margin-top: 0;
+}
+
+/* Tags of each post in post layout */
+.post-tag {
+	display: inline-block;
+	background-color: #303030;
+	color: white;
+	font-size: 14px;
+	border-radius: 12px;
+	padding: 2px 10px 2px 10px;
+	margin: 0 0 20px 0;
 }
 
 /* Meta data line below post title */
@@ -346,6 +357,54 @@ a.sidebar-nav-item:focus {
   color: inherit;
 }
 
+
+/*****************************************************************************/
+/*
+/* Tags
+/*
+/*****************************************************************************/
+
+.tag-box {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  overflow: hidden;
+  *zoom: 1;
+}
+
+.tag-box:before, .tag-box:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+.tag-box:after {
+  clear: both;
+}
+
+.tag-box.inline li {
+  float: left;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 2.5;
+}
+
+.tag-box a {
+  padding: 4px 6px;
+  margin: 2px;
+  border-radius: 12px;
+  background-color: #e6e6e6;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.tag-box a span {
+  vertical-align: super;
+  font-size: 10px;
+  font-size: 0.625rem;
+}
 
 /*
  * Pagination
