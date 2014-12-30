@@ -23,7 +23,7 @@ ListViewNewsApapter这个类继承BaseAdapter，重写了getView()方法。值�
 
 3. 实例化一个lvNewsHandler：  
 {% highlight java %}
-lvNewsHandler = this.getLvHandler(lvNews, lvNewsAdapter, lvNews_foot\_more, lvNews_foot\_progress, AppContext.PAGE_SIZE);
+lvNewsHandler = this.getLvHandler(lvNews, lvNewsAdapter, lvNews_foot_more, lvNews_foot_progress, AppContext.PAGE_SIZE);
 {% endhighlight %}
 
 这个Handler定义了当接收到有数据更新的通知时，应该作何处理。主要是通知adapter数据发生了变化：   

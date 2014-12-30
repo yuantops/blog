@@ -49,7 +49,7 @@ public class CopyBytes {
 
 CopyBytes在运行时形成一个循环:它不断从输入流中逐字节地读入数据，然后将字节输出到输出流。如下图所示。  
 
-[图片链接](http://docs.oracle.com/javase/tutorial/figures/essential/byteStream.gif)  
+![图片链接](http://docs.oracle.com/javase/tutorial/figures/essential/byteStream.gif "Byte Stream")  
 
 ###永远记得关闭流
 关闭不再使用的流十分重要——以至于你可以看到在CopyBytes中，我们甚至使用finally区块来确保输入流和输出流即使在出现错误的情况下都能被关闭。关闭操作可以避免严重的资源泄露。  
