@@ -14,6 +14,7 @@ tagline:             'For the better good'
 description:         '"How happy we are, to meet friends coming from far." --Confucious' 
 url:                 http://blog.yuantops.com
 baseurl:             /
+feedurl:             /atom.xml
 paginate:            5
 
 # About/contact
