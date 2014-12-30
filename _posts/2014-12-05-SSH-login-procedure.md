@@ -2,9 +2,10 @@
 layout: post    
 category: "Tech"   
 title: "SSH登录原理"      
+tags: [SSL]   
+description: " 在上一篇博客中，介绍了非对称加密的原理。非对称加密使用公钥/私钥对，保证通信过程的安全性。这篇文章介绍非对称加密原理的常用应用之一： SSH登录。   "
 ---
 
-在上一篇博客中，介绍了非对称加密的原理。非对称加密使用公钥/私钥对，保证通信过程的安全性。这篇文章介绍非对称加密原理的常用应用之一： SSH登录。   
 
 关于SSH登录的原理，阮一峰的这篇博客写得很清楚，值得一看。  
 >[SSH原理与运用(一)](http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html)  
