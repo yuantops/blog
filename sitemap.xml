@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+<url>
+  <loc>http://blog.yuantops.com/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/archive.html</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tags.html</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/about.html</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/difference-between-http-get-and-post/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/add-tags-in-gh-pages/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/jekyll-installation/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/osc-android-app-notes-4/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/osc-android-app-notes-3/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/page2/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/SSL-creation-guide/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/osc-android-app-notes-2/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/BIND-installation-guide/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/osc-android-app-notes-1/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/make-custom-character-favicon/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/java-terminology-explanation/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/SSL-terminologies-and-concepts/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/SSL-certificate-details-and-creation-guide/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/key-concepts-to-understand-git/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/SSH-login-procedure/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/tech/SSL-Series-introduction/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/heavy-topic-of-suicides-in-China/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/introducing-lanyon/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/example-content/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/whats-jekyll/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/DengXiaoPing-a-dictatorial-great-man/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/when-farmers-have-no-land/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/book-review-of-some-ancient-notes/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/a-short-story-from-BaoGong-records/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/the-greatness-of-widow-Putao/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/moved-by-their-faith-of-God/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/first-response-to-MoYan-novel/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/a-protest-caused-by-foreskin/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/two-generations-in-the-age-of-turbulence/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/the-death-of-kizuki/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/ChenZhongShi-the-loess-writer/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/who-is-afaid-of-Huawei/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/the-opening-ceremony-of-London-Olympics/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/story-of-Song-of-Eternal-Sorrow/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/memory-of-the-flood-in-1998/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/the-Puppet-Master/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/Flowers-of-Shanghai/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/her-story/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/dad-in-his-18/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/about-my-growing-up-experience/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/the-honest-dead-the-hypocrisy-alive/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/own-Chiang-a-fair-appraise/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/have-the-courage-to-pursue/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/love-tear-of-a-flower-like-girl/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/a-genius-is-always-unique/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/the-word-beauty-of-BianCheng/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/in-memory-of-LinZhao/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/Song-dynasty-reaching-the-civilization-peak/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/Song-dynasty-imperfection-of-the-military/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/Ming-dynasty-missing-the-opportunity/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/essay/history-is-our-religion/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/page3/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/404</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/about</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/page4/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/page5/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/page6/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://blog.yuantops.com/page7/</loc>
+  <lastmod>2015-01-10T06:52:18+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+</urlset>
