@@ -2,7 +2,7 @@
 layout: post    
 category: "Tech"   
 title: "Android中Context的作用"     
-tags: [vim]
+tags: [Android]
 description: "Android中Context是十分重要的一个类，它继承自java.lang.Object，几乎在所有代码中都会用到。本文参考其它资料，对Context的常用用法做一个总结。"
 ---
 
