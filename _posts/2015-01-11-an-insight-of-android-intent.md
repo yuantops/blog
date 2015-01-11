@@ -360,3 +360,7 @@ OK，基本上就这些了，关于Activity本身的原理，需要专门的文�
 作者：wylhistory    
 
 联系方式：wylhistory@gmail.com    
+
+
+##个人思考
+当调用startIntent方法时，从这篇文章可以看出，其实是在消息队列中添加了一个消息。之后，这个消息会被分发、处理。如果是用Intent启动某个Activity，启动的过程会在调用方法的那个进程结束后才会开始。这是需要注意的，因为不是startActivity方法被调用后马上就会启动一个新的Activity。   
