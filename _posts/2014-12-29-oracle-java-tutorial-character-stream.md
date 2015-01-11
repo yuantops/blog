@@ -1,7 +1,7 @@
 ---
 layout: post    
 category: "Tech"   
-title: "Oracle Java Tutorial Character Streams翻译"      
+title: "Character Streams -- Oracle Java Tutorial 翻译"      
 tags: [Java]   
 description: "本文是Oracle Java开发手册中关于Character Stream章节的翻译，个人手工翻译，非转载。"
 ---
