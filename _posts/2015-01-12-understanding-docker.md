@@ -60,16 +60,101 @@ Docker客户端，往往是二进制形式的`docker`程序，是Docker最主要
 ####镜像
 镜像是一个只读(read-only)的模板。例如，一个镜像可能包含安装了Apache和你的Web服务器的一个Ubuntu操作系统。镜像是用来创造Docker容器的。通过Docker，你能以简单的方式创建新的镜像、更新现存的镜像，或者下载别人已经创建好了的镜像。Docker镜像是Docker的**创建(build)**组件。   
 
-##仓库
+###仓库
 仓库保存镜像。它们是你用来上传、下载镜像的私有/公有场所。官方的Docker仓库是[Docker Hub](https://hub.docker.com/)，它提供了一个巨大的镜像仓库集以供你使用。你可以自己创建镜像，也可以使用别人事先已经建好了的镜像。Docker仓库是Docker的**分发(distribute)**组件。   
 
-##容器
+###容器
 容器与目录类似。容器包含了运行一个程序所需要的所有东西。每个容器都是创建自一个镜像。容器可以被运行、启动、停止、移动、删除。每个容器都是一个隔离、安全的程序平台。Docker容器是Docker的**运行(run)**组件。   
 
+##那么，Docker到底如何工作？
+现在，我们已经知道：  
 
+1. 你可以创建Docker镜像来保存程序   
+2. 你可以从Docker镜像中新建Docker容器来运行程序   
+3. 你可以通过[Docker Hub](https://hub.docker.com/)或者自己的私有仓库来分享Docker镜像  
 
+下面，让我们看看这些组件是如何协作起来使Docker工作的。   
 
+##镜像如何工作？
+我们已经知道，镜像是只读模板，由它们启动容器。每个镜像由一系列层(layer)组成。Docker利用[union file system](http://en.wikipedia.org/wiki/UnionFS)将这些层组合成单个镜像。Union file system允许独立文件系统的文件和目录(被称作branch)被透明地叠架起来(overlaid)，以此组成一个单个紧密的文件系统。  
 
+Docker被称为“轻量级”，原因之一就在于这些层。当你改变一个镜像的时候，譬如说将某个程序更新到了新版本，一个层会被新建出来。如果我们使用的是虚拟机，这时候往往需要替换整个镜像，要不就是整体再创建一个版本。对比之下，Docker只需添加或者更新一个层。如此，你不必再去分发一整个镜像，而仅仅需要更新层就好了，这使得发布Docker的镜像变得更快、更容易。  
+
+每个镜像都以一个基础镜像为起点，譬如`ubuntu`，一个基础的Ubuntu镜像，或者`fedora`，一个基础的Fedora镜像。你也可以用自己的镜像做新镜像的基础镜像，譬如如果你有个基础的Apache镜像，你就能用它作你所有网页程序镜像的基础。   
+
+> 注意：Docker一般从[Docker Hub](https://hub.docker.com/)中获取基础镜像。  
+
+从基础镜像出发，我们能通过简单、描述性的一系列步骤(我们称其为*指示(instructions)*)新建一个镜像。每一步都会在我们的镜像中新建一个层。这些步骤包括以下动作：   
+
+- 运行命令   
+- 添加文件或者目录    
+- 创建环境变量  
+- 定义当启动从这个镜像创建的容器时，应该运行那些进程   
+
+这些指示被保存在`Dockerfile`文件中。当你申请从镜像生成一个版本(build)时，Docker会读取`Dockerfile`、执行指示，然后返回最终的镜像。  
+
+##仓库如何工作？
+仓库是Docker镜像的存储之处。当你创建了一个镜像，你可以将它推送到公共仓库[Docker Hub](https://hub.docker.com/)或者自己防火墙之内的私有仓库。  
+
+使用Docker客户端，你能搜索已发布的镜像，然后将它们拉去到本地的Docker主机，再从它里面创建容器。   
+
+[Docker Hub](https://hub.docker.com/)提供镜像的公有和私有存储。公有存储可以被任何人搜索、下载。私有存储不显示在搜索结果中，而且只有你和你的用户能从中拉取镜像、用这些镜像来生成容器。  
+
+##容器如何工作？
+容器由操作系统、用户添加的文件和元文件(meta-data)构成。我们已经知道，每个容器都由一个镜像创建。这个镜像告诉Docker应该持有什么、在启动容器时应该运行什么，以及其他一系列的配置文件。镜像是只读的。当Docker从镜像创建一个容器时，它在镜像的顶端加上一个读写层(read-write layer)，这样我们的程序就能在它上面运行了。   
+
+##启动一个容器时，发生了什么
+不论通过`docker`命令还是API，Docker客户端通知Docker守护进程去启动一个容器。   
+$ sudo docker run -i -t ubuntu /bin/bash     
+
+我们将这条命令分解来看。Docker客户端通过带`run`参数的`docker`命令新启动一个容器。为了启动一个容器，Docker客户端至少需要告知Docker守护进程：    
+- 容器应该创建自哪个Docker镜像。在这里是`ubuntu`，一个基础Ubuntu镜像。   
+- 当容器启动后，你要在容器内运行什么命令。这里是`/bin/bash`，它在容器内启动了Bash shell。  
+
+那么，当我们运行这条命令时，后台发生了什么呢？   
+
+Docker按顺序做了如下事情：   
+
+- **拉取ubunut镜像**：Docker检查`ubuntu`镜像是否存在，如果在本地不存在，那么它从[Docker Hub](https://hub.docker.com/)下载镜像；如果镜像已经存在，Docker将利用它启动新容器。    
+- **创建新容器**：Docker有了镜像，用它来新建一个容器。  
+- **分配文件系统，挂载读写层**：在文件系统中新建了容器，并给镜像新添了一个读写层。   
+- **分配网络/网桥接口**：新建一个网络接口，使Docker容器能与本地主机通信。   
+- **设置IP地址**：从地址池中找到一个可用IP，将它关联到容器。  
+- **执行你指定的程序**：运行程序。   
+- **捕获、提供程序输出结果**：连接并记录标准输入、标准输出、标准错误，使你能看到程序的运行情况。   
+
+恭喜，你有了一个运行中的容器！从这里，你可以管理容器，与程序交互，然后当结束后停止、移除容器。   
+
+##底层技术
+Docker用Go语言编写，而且利用了Linux 内核的相关特性来完成上述的功能。  
+
+###命名空间(namespace)
+Docker使用了一项叫作`命名空间(namespace)`的技术来为容器提供隔离的工作空间。当我们启动一个容器时，Docker会为它创建一系列命名空间。   
+
+这样形成了一个隔离层：容器的每个部分都在它自己的命名空间里运行，而且没有访问它之外的权限。  
+
+Docker使用的部分命名空间包括：  
+- **pid命名空间**：用于进程隔离(PID, Process ID)     
+- **net命名空间**：用于管理网络接口(NET, networking)     
+- **ipc命名空间**：用于管理IPC资源(IPC, InterProcess Communication进程间通信)     
+- **mnt命名空间**：用于管理挂载点(MNT, Mount)     
+- **uts命名空间**：用于内核和版本标志隔离(UTS, Unix Timesharing System)     
+
+###组控制(Control groups)
+Docker还用到`cgroups`技术来进行组控制。隔离运行中程序的关键一点在于，让它们只使用你想让它使用的资源。这确保这些容器在宿主机器上能规规矩矩的。组控制允许Docker能向容器共享硬件资源，而且在必要时候设置资源的上限和限制。例如，可以设置某个特定容器的内存上限。   
+
+###Union file Systems
+Union file Systems，或者UnionFS，是通过创建层的方式运行的，轻量、快速的文件系统。Docker使用Union file Systems为容器提供块(block)。Docker能利用包括AUFS, btrfs, vfs, 和DeviceMapper在内的Union file Systems。    
+
+###容器格式
+Docker将这些组件结合成一个我们称之为容器格式的包裹层(wrapper)。默认的容器格式被称作`libcontainer`。Docker也支持使用[LXC](https://linuxcontainers.org/)的传统Linux容器。未来，Docker可能会支持更多的容器格式，例如可能会整合BSD Jail或者Solaris Zone。    
+
+##下一步
+###安装Docker
+访问[installation guide](https://docs.docker.com/installation/#installation)   
+
+##Docker用户指南
+[Learn Docker in depth](https://docs.docker.com/userguide/)   
 
 ##原文链接
 [About Docker](https://docs.docker.com/introduction/understanding-docker/)
