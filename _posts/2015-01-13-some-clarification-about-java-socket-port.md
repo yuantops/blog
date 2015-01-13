@@ -3,7 +3,7 @@ layout: post
 category: "Tech"   
 title: "澄清Java Socket端口问题 -- 服务器的端口是什么"      
 tags: [Java]    
-description: "当java服务器端接受客户端的socket连接申请后，一个新的socket将得以新建。关于这个新建socket，它两头的IP和端口是怎么确定的，存在着不同解释。本文将说明并验证：新建socket的服务器端端口号就是它正在监听的端口号，而不是另外随机分配的端口号。"
+description: "java中用ServerSocket.accept()方法接受客户端的socket连接申请后，一个新的socket将会生成。关于这个socket，它两头的IP和端口是怎么确定的，存在着不同解释。本文将说明并验证：新建socket的服务器端端口号就是服务器正在监听的端口号，而不是随机分配的端口号。"
 ---
 
 在我之前翻译的[Socket是什么](http://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/)一文中，对java中socket建立的流程有描述。在服务器接受客户端socket连接的部分，它这么说道：  
@@ -16,19 +16,21 @@ description: "当java服务器端接受客户端的socket连接申请后，一�
 配图:  
 ![socket connection established](http://docs.oracle.com/javase/tutorial/figures/networking/6connect.gif)    
 
-关键在于**本地相同端口(same local port)**所指的到底是哪个端口。按照示例图所示，它指的就是服务器端的**监听端口**，而不是其它的端口。   
+**本地相同端口(same local port)**指的到底是哪个端口？依示例图所示，它指的就是服务器端的**监听端口**，而不是其它的端口。   
 
-作为官方的文档，这篇文章的说法应该是权威可信的。但是，在*Head First Java*中是这么描述ServerSocket.accept()方法的：  
+官方文档的说法按说是权威的——事实上的确它是对的。但是，在*Head First Java*中描述ServerSocket.accept()方法有这么一段话：  
 
 > When a client finally tries to connect, the method returns a plain old Socket(on a different port) that knows how to communicate with the client(i.e, knows the client's IP address and the port number).   
 
 > The socket is on a different port than the ServerSocket, so that the server socket can go back to waiting for other clients.   
 
-这个说法不正确。但由于*Head First Java*十分畅销，导致这个错误说法流传甚广。幸好*Head First Java*出版社已经发现了这个小失误，并在官方网站的勘误表上贴出了[说明](http://www.oreilly.com/catalog/errataunconfirmed.csp?isbn=9780596009205)：    
+这个说法就不太正确了。幸好*Head First Java*出版社已经发现了这个小失误，并在官方网站的勘误表上贴出了[说明](http://www.oreilly.com/catalog/errataunconfirmed.csp?isbn=9780596009205)：    
 
 > This isn't the case. The thing that has to be unique for each socket is the source port, source ip, destination port & destination ip.   
 
 根据勘误表上的解释，每一个socket连接都需要保证是唯一的，而socket的标志符由源IP、源端口、目的IP、目的端口四部分构成。只要四者有一个不同，那么就能建立两个不同的socket。所以，对于不同的Socket连接，服务器端的IP和端口号可以相同。   
+
+但*Head First Java*十分畅销，导致错误的说法流传甚广，造成了学习者很多误解。  
 
 ###来源参考
 [StackOverflow.com](https://stackoverflow.com/questions/4307549/serversocket-accept-method/4308243#4308243)有网友这么解释道：  
