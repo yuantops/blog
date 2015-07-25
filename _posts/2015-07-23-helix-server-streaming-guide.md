@@ -61,14 +61,13 @@ Helix 的点播支持Http协议、RTSP协议，直播支持RTSP协议。Helix为
 打开Web Console。左侧：“广播分发”-“接受服务器”，在右侧“加载点”框内输入直播流的挂载点，例如"/broadcast/"（注意有两个左斜杠）。    
 
 3. 运行模拟直播流命令    
-模拟直播流播放哪几个视频，按什么顺序播放它们，是可以自己定义的。例如，如果想循环播放akame.mp4和anotheVideo.mp4这两个视频，我们可以创建一个节目单文本文件：playlist.txt，将“akame.mp4”和“anotheVideo.mp4”做两行写到文件。   
-
+模拟直播流播放哪几个视频，按什么顺序播放它们，是可以自己定义的。例如，如果想循环播放akame.mp4和anotheVideo.mp4这两个视频，我们可以创建一个节目单文本文件：playlist.txt，将“akame.mp4”和“anotheVideo.mp4”做两行写到文件。  
 运行命令`slta.bat 192.168.1.100 178771 admin admin tv1 playlist.txt`创建直播流，其中：     
-	* 是slta.bat，而不是slta   
-	* IP地址是这台机器的IP地址
-	* 178771是Web Console的端口号。用浏览器打开Web Console，可以在URL中找到   
-	* admin/admin分别是账号和密码    
-	* tv1是为直播流分配的任意频道号，可自定义    
+		* 是slta.bat，而不是slta   
+		* IP地址是这台机器的IP地址
+		* 178771是Web Console的端口号。用浏览器打开Web Console，可以在URL中找到   
+		* admin/admin分别是账号和密码    
+		* tv1是为直播流分配的任意频道号，可自定义    
 	* playlist.txt是节目单文件。如果只播放单个视频，也可以换成视频文件名，如"akame.mp4"     
 
 4. 播放验证直播流    
