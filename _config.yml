@@ -10,7 +10,7 @@ relative_permalinks: true
 
 # Setup
 title:               Yuantops' Blog 
-tagline:             'For the better good'
+tagline:             'Live like a soldier.'
 description:         "Yuantops' Blog. Live like a soldier." 
 url:                 http://blog.yuantops.com
 baseurl:             /
