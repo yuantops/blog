@@ -1,5 +1,5 @@
 # Dependencies
-markdown:            redcarpet
+markdown:            kramdown
 highlighter:         pygments
 
 # Permalinks
@@ -8,6 +8,9 @@ highlighter:         pygments
 permalink:           /:categories/:title
 #permalink:           /:title
 #relative_permalinks: true
+
+# Gems
+gems:                [jekyll-paginate]
 
 # Setup
 title:               Yuantops' Blog 
