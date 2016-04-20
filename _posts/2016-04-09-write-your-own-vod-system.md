@@ -10,7 +10,7 @@ description: "用Helix＋MySQL＋Tomcat＋Andriod，写一套简单的视频点�
 
 整个工程运行起来的效果:    
 
-1. 打开手机App，登录，出现两个列表——点播视频列表和直播列表。点击列表条目，开始播放视频。    
+1. 打开手机App，填写http服务器提供的api root URL，出现两个列表: 点播视频列表和直播列表。点击列表条目，开始播放视频。    
 
 2. 通过手动添加视频文件、修改数据库记录，可以更新视频列表。     
 
@@ -18,7 +18,7 @@ description: "用Helix＋MySQL＋Tomcat＋Andriod，写一套简单的视频点�
 这样一个小系统，代码部分包括:    
 
 - http服务器: 暴露api给访问者，返回json数据。使用了Spring＋MyBatis框架，用Apache Tomcat做Web服务的容器。    
-- Android客户端: 实现用户注册、登录功能，访问http服务器获取数据，并播放流媒体服务器推送的流媒体。    
+- Android客户端: 访问http服务器获取数据，并播放流媒体服务器推送的流媒体。    
 
 除了写代码，还有一部分配置操作，主要是流媒体服务器Helix。    
 
