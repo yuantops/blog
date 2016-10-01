@@ -3,30 +3,28 @@ layout: page
 title: About
 ---
 
-##About me
--  I am a postgraduate student in BUPT (Beijing University of Posts and Telecommunications), majoring in Communication Theroy.
--  Besides my profession, I am also an amateur Android coder, Linux user, Google fan.
--  I am a big fan of books. Reading takes a big proportion of my spare time.  
+## About me  
+-  A new Emacs user,  ~~amateur Android coder~~, ~~Linux user~~, Google fan.
+-  Love books.
    
-##About this blog
--  I generally share my reading experience and opinions here.
--  It is also a place where I keep a record of my coding study.
+## About this blog  
+-  Read & Thoughts & Opinions.
+-  Study records.
 
-##Find me via...
-**Email**: yuan.tops#gmail.com (replace # with @)  
+## Find me via...   
+**Email**: yuan.tops#gmail.com   
 **GitHub**: [yuantops' GitHub](https://github.com/yuantops)  
 
 *****
 
-##关于我
--  北邮研究生，通信工程专业。  
--  业余的Android码农、Linux用户、Google粉丝。 
--  爱阅读。   
+## 关于我
+-  新晋Emacs用户，~~业余Android码农~~，~~Linux 用户~~， Google粉丝。   
+-  爱书。   
 
-##关于这个博客
--  我主要在这里分享自己的观点和看法。  
--  当然，我也在这里记录编程的学习过程。  
+## 关于这个博客
+-  阅读 & 思考 & 观点。  
+-  学习记录。  
 
-##联系我...
-**Email**: yuan.tops#gmail.com (把#换成@)  
+## 联系我...
+**Email**: yuan.tops#gmail.com   
 **GitHub**: [yuantops' GitHub](https://github.com/yuantops)  
