@@ -16,7 +16,7 @@ REST的常见应用场景是Web服务。在RESTful API的实际实现中，往�
 - 传输的数据格式是JSON。虽然理论上数据格式可以是任意一种(XML,ATOM等)，但往往大家都用JSON。  
 - 使用标准HTTP方法，即GET, PUT, POST, DELETE四个动词。  
 
-###例子
+### 例子
 [How Simple is REST](http://rest.elkstein.org/2008/02/how-simple-is-rest.html)这篇文章里举了这样一个例子：  
 
 假设这样一个Web服务，它是一个电话本应用，我们要向它查询某个用户的信息。我们只有用户的ID。  
@@ -30,7 +30,7 @@ REST风格下，查询看起来这样:
 
 另外，注意这条URL使用了"UserDetails"，而不是"GetUserDetails"。这是REST设计风格的一个例子：使用*名词*而不是*动词*来表示简单的*资源*。   
 
-###资源的概念
+### 资源的概念
 **资源(Resources)**是REST架构中一个非常重要的概念。**逻辑**URL标识着资源。资源同时表示**状态(state)**和**功能(functionality)**。  
 
 - 逻辑URL，意味着这个资源能被系统中的其它部分定位(universally addressable)。  

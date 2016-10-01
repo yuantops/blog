@@ -32,12 +32,12 @@ description: "java中用ServerSocket.accept()方法接受客户端的socket连�
 
 但*Head First Java*十分畅销，导致错误的说法流传甚广，造成了学习者很多误解。  
 
-###来源参考
+### 来源参考
 [StackOverflow.com](https://stackoverflow.com/questions/4307549/serversocket-accept-method/4308243#4308243)有网友这么解释道：  
 
 > The client chooses its port at random (you don't need to do anything special in Java) and connects to the server on whichever port you specified.  
 
-###实践验证
+### 实践验证
 根据这个网友提供的思路，我们可以实际检验一下。   
 
 [Writing the server side of a socket](http://docs.oracle.com/javase/tutorial/networking/sockets/clientServer.html)中提供了客户端和服务器端的两个小例子。按照文章里面说的，我将几段代码下载到我的Fedora机器上，先运行服务器代码，它监听4444端口。  

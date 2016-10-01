@@ -6,7 +6,7 @@ tags: [gh-pages, GitHub]
 description: "使用GitHub pages搭建博客越来越流行。GitHub pages使用的文件解析引擎是Jekyll。在本地安装Jekyll，将自己 的博客调试合适后再推送到GitHub，会省事很多。本文介绍如何在本地安装Jekyll。"
 ---
 
-###环境准备
+### 环境准备
 准备安装Jekyll前，确保系统满足以下条件：  
 
 * Ruby   
@@ -35,7 +35,7 @@ RubyGems是Ruby程序包管理器，类似Redhat的RPM。更多的概念介绍�
 $ sudo apt-get install nodejs
 {% endhighlight %}
 
-###设置Gemfile
+### 设置Gemfile
 将GitHub上你的博客Repo克隆到本地。假设Repo的根目录为blog。终端路径切换到blog目录，新建名为`Gemfile`的文件，并填充内容:
 
 {% highlight bash%}
@@ -43,13 +43,13 @@ source 'https://rubygems.org'
 gem 'github-pages'
 {% endhighlight %}
 
-###使用RubyGems安装Jekyll
+### 使用RubyGems安装Jekyll
 终端路径切换到blog，运行命令：
 {% highlight bash%}
 $ sudo gem install jekyll
 {% endhighlight %}
 
-###运行Jekyll，查看博客效果
+### 运行Jekyll，查看博客效果
 终端路径切换到blog，运行命令：
 {% highlight bash%}
 $ jekyll serve

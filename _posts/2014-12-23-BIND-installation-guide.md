@@ -6,15 +6,15 @@ tags: [BIND, DNS]
 description: " BIND是Linux平台上最通用、功能强悍的DNS服务器程序。这篇文章介绍如何手动搭建、配置BIND DNS服务器。 " 
 ---
 
-###安装环境  
+### 安装环境  
 - 网络环境：两台KVM虚拟机，通过NAT方式组成子网(IP地址分别为192.168.100.139, 192.168.100.172)，彼此能ping通，均能访问互联网  
 - 系统：Redhat 6.6  
 - 要解析的域名：yuantops.com
 
-###安装BIND软件包
+### 安装BIND软件包
 > $ yum install bind bind-utils  
 
-###为要解析的域名生成DNSSEC KEY
+### 为要解析的域名生成DNSSEC KEY
 这一步不是配置基本DNS解析器时必须包括的步骤，因此可以省略。  
 
 DNSSEC是为了解决DNS欺骗和缓存污染而设计的一种安全机制。由于DNS域名解析系统在设计之初没有考虑到安全问题，经常有针对DNS系统的攻击发生，而且由于DNS协议十分脆弱，攻击一旦发生就会造成大面积的影响甚至瘫痪。DNSSEC的原理是通过引入加密技术，依靠数字签名保证DNS应答报文的真实性和完整性。具体的介绍请见[DNSSEC的原理、配置与部署简介](http://netsec.ccert.edu.cn/duanhx/archives/1479)一文。  
@@ -25,7 +25,7 @@ DNSSEC是为了解决DNS欺骗和缓存污染而设计的一种安全机制。�
 
 在/var/named/路径下生成了文件名形如Kyuantops.com.+163+15844.key和Kyuantops.com.+163+15844.private的一对key文件。  
 
-###启用rndc工具作为BIND的控制工具
+### 启用rndc工具作为BIND的控制工具
 这一步同样不是配置一个最基本的DNS解析服务器所必须包含的步骤，因此可以省略。  
 
 rndc是BIND安装包提供的一种域名服务控制工具，它可以运行在其他计算机上，通过网络与DNS服务器进行连接，然后根据管理员的指令对named服务进行远程控制，此时，管理员不需要DNS服务器的根用户权限。更重要一点，rndc能实现数据的**热更新**，这对繁忙的实际场景而言是十分有必要的。具体的介绍可以请见[这篇文章](http://book.51cto.com/art/200912/169294.htm)。  
@@ -35,7 +35,7 @@ rndc是BIND安装包提供的一种域名服务控制工具，它可以运行在
 
 在/etc路径下生成了rndc.key文件。  
 
-###配置BIND对域名的解析
+### 配置BIND对域名的解析
 这一步是必须完成的、最重要的步骤。  
 
 1. 新建yuantops.com域的zone文件，保存到/var/named/dynamic目录。  
@@ -112,21 +112,21 @@ rndc是BIND安装包提供的一种域名服务控制工具，它可以运行在
 		  allow-update { key yuantops.com ; } ;  
 		};  
 
-###修改配置文件的权限，使能被读取
+### 修改配置文件的权限，使能被读取
 >$ chmod 644 /etc/named.conf  
 
-###启动BIND服务器
+### 启动BIND服务器
 >$ service named start  
 
 如果以后BIND服务器设置有改动，需要重启named服务。  
 
-###将机器的DNS服务器IP地址设为BIND程序所在机器的IP地址
+### 将机器的DNS服务器IP地址设为BIND程序所在机器的IP地址
 BIND服务器所在机器的IP地址为192.168.100.172。如果有一台192.168.100.139的机器想以192.168.100.172为DNS服务器，那么修改它的/etc/resolv.conf文件，将第一次出现的nameserver 地址改为192.168.100.172。  
 
-###验证BIND服务已经成功安装并启动
+### 验证BIND服务已经成功安装并启动
 在192.168.100.139机器上运行命令：  
 >$ dig @192.168.100.172 www.yuantops.com  
 
 如果成功解析出IP地址，证明成功。否则，可以检查BIND服务器的/var/log/message日志文件，寻找原因。  
 
-###使用nsupdate命令操作BIND服务器的配置
+### 使用nsupdate命令操作BIND服务器的配置

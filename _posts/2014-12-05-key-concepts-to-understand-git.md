@@ -9,7 +9,7 @@ description: " Git是十分强大的文件版本控制工具,是程序员必备�
 
 Git的控制哲学十分优雅,特别是了解它后会更为之倾倒。Git的入门在此不赘述。在掌握常用命令之后,再思考下面这些概念,相信对Git的认识会得到提升。  
 
-###Git基于Commit,每个Commit有独一无二的SHA 1作为标志  
+### Git基于Commit,每个Commit有独一无二的SHA 1作为标志  
 Git有Working Tree,Index,Repo的概念。Working Tree指当前的工作目录,当这个目录下有改动时,通过add命令将改动添加到Index区域。当改动都被加到了Index、需要提交时,使用commit命令将它们提交到Repo中。这次提交会形成一个Commit记录,它相当于当前状态的一个SnapShot。  
 
 基于Commit的版本控制是十分优雅的想法。原因在于：  
@@ -21,7 +21,7 @@ Git有Working Tree,Index,Repo的概念。Working Tree指当前的工作目录,�
 通过引入Commit,我们的所有改动都被纳入系统中,使改动变得有迹可循。  
 
 
-###Branch, HEAD, TAG本质上都是为Commit所取的别名
+### Branch, HEAD, TAG本质上都是为Commit所取的别名
 只有先理解“Git基于Commit”,才能理解上面这句话。  
 
 因为Repo的更改记录是以一个个Commit组织起来的,它们就像一个个节点,能确定某个确定时刻的目录状态。因此,当我们想要切换到某个状态时,就要在庞大的Commit网络中定位某个Commit,并转到那个Commit。但唯一标准Commit的SHA 1值是很长的一串数字,为了方便识别与输入,就给这些SHA 1添加字符串的别名。因此Branch,HEAD,TAG本质上都是SHA 1的别名,确定Commit用的。   
@@ -34,7 +34,7 @@ Git有Working Tree,Index,Repo的概念。Working Tree指当前的工作目录,�
 
 - TAG是单纯的给Commit的SHA 1取的别名。  
 
-###Checkout其实是在移动HEAD
+### Checkout其实是在移动HEAD
 只有理解了HEAD的意义,才能理解上面这句话。  
 
 当我们谈论“在不同branch之间切换时”,真正起作用的是HEAD。既然HEAD指向的是某个Commit,那么checkout的参数可以是任何能确定Commit的标志(Branch,TAG,或者直接某个SHA 1值)。当然,checkout命令的用法很多,也有特殊情况checkout命令不会改变HEAD指向的Commit。  

@@ -28,10 +28,10 @@ description: "平时我们常能听人说“视频格式”。有时候我们说
 		
     另外，Container format和Codec的命名也有让清醒的人摸不清头脑。例如，“MPEG-4”既是“Container format ”，也是“Codec”，这也让混乱的名词世界更糟糕。    
 
-###参考
+### 参考
 1. https://library.rice.edu/services/dmc/guides/video/VideoFormatsGuide.pdf
 2. https://app.zencoder.com/docs/faq/codecs-and-formats
 
-###附录一 常见的视频封装格式和后缀的对应表
+### 附录一 常见的视频封装格式和后缀的对应表
 ![常见的视频封装格式和后缀的对应表](https://app.yinxiang.com/shard/s11/res/a7088df6-98db-4089-8bb6-93a2beb1c76e/7295b9399a1a37290870fa8f35f4762e_b.jpg.png?resizeSmall&width=313)
 

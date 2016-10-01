@@ -5,7 +5,7 @@ title: "北邮校园网通过配置IPv6使用Google服务"
 description: "北邮作为教育网华北主节点之一，对IPv6的支持十分成熟，校内IPv6资源十分丰富。本文介绍IPv6的配置方法，它使我们能最大程度地利用校内外的IPv6资源。"
 ---
 
-##前提
+## 前提
 首先，本文针对的是北邮校园网。我在北邮学十亲测，机器是Linux Mint。   
 
 其次，请确保:  
@@ -17,14 +17,14 @@ description: "北邮作为教育网华北主节点之一，对IPv6的支持十�
 
 打开浏览器，访问[IPv6test.com](http://ipv6-test.com/)，页面上"IPv6 connectivity"一项如果显示"Supported"，说明前提条件满足。或者访问[BYR BT](http://bt.byr.cn)，这是只支持IPv6方式访问的站点，如果能访问也说明前提条件满足。   
 
-##目标
+## 目标
 
 - 使用谷歌的服务(google search, gmail, google calendar, google scholar, google plus, youtube, etc.)   
 - 访问其它支持IPv6的网站: wikipedia, facebook, etc.    
 
 除了能部分避开G)(F)(W之外，北邮校园网内通过IPv6通道产生的流量是不计费的，所以，即使从节约流量这一点看也是值得的。  
 
-##姿势简介
+## 姿势简介
 总的来说，这个方法是靠访问网站的IPv6地址。如果要去的网站没有IPv6地址，那就没辙。而让我的电脑知道一个网站的IPv6地址(如果存在的话)，有两个法子:  
 
 - 修改hosts文件  
@@ -34,7 +34,7 @@ description: "北邮作为教育网华北主节点之一，对IPv6的支持十�
 
 所以，这两个方法可以同时使用。(有关DNS的知识，本文限于篇幅将不做讨论。)   
 
-###修改hosts文件
+### 修改hosts文件
 
 这是一份内容随时更新的hosts文件：[Hosts](https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts) 。这份文件属于托管在GitHub上的[一个项目](https://github.com/lennylxx/ipv6-hosts/)，里面除了IPv6地址外还有一小部分由活雷锋搜集的IPv4地址，大家可以参考。  
 
@@ -50,7 +50,7 @@ hosts文件在不同操作系统中的位置不同。在Windows下，它的默�
 
 改完hosts，就已经能达到我们的目标了，可以使用Google的服务了。当然，我们还可以继续下面一步，来个双保险。  
 
-###使用IPv6 DNS服务器
+### 使用IPv6 DNS服务器
 支持IPv6 的免费DNS解析服务器很多，在此仅以Google为例。如果使用其它的IPv6 DNS服务器，将下文中的IP地址替换过来就好。   
 
 Google提供公共[DNS解析服务](https://developers.google.com/speed/public-dns/docs/using)，能解析IPv6地址。Google DNS服务器在它的IPv6地址上监听IPv6的通道发来的查询请求。如果这个查询求的是IPv6地址，而且地址存在，那么Google服务器会返回结果AAAA记录。   
@@ -76,17 +76,17 @@ GoogleDNS服务器的IPv6地址是:
 
 好了，到现在配置已经完成。可以通过浏览器访问Google的网站试试看了。   
 
-##其它
-###北邮校园网内网的DNS服务器
+## 其它
+### 北邮校园网内网的DNS服务器
 DNS查询也是需要走校外流量的。所以，最好不要将首选DNS服务器设置为外网服务器。北邮校园网内搭建有DNS服务器，譬如:   
 
 \#学十能用的内网DNS服务器    
 	10.3.9.4， 10.3.9.5， 10.3.9.6    
 
-###手机科学上网
+### 手机科学上网
 如果手机通过WiFi接入IPv6网络，修改DNS服务器地址为Google DNS服务器的地址，那么手机也能访问Google了。亲测，iOS7的safari能打开youtube。   
 
-###一些观察手段
+### 一些观察手段
 在Chrome浏览器地址栏中输入: `chrome://net-internals/#dns`可以看到浏览器的DNS解析记录。  
 
 
