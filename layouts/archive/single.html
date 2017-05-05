@@ -1,0 +1,28 @@
+{{ partial "head.html" . }}
+<body>
+<div id="container">
+    {{ partial "header.html" . }}
+    <section id="main" class="outer">
+      {{ range where (.Site.Pages.GroupByDate "2006") "Key"  "gt" "2000"}}
+        <section class="archives-wrap">
+            <div class="archive-category-wrap">
+                <span class="archive-category">{{ .Key }}</span>
+            </div>
+	    <ul>
+      {{ range where .Pages  "Section" "in" (slice "tech" "life" "opinions") }}
+      {{ if and (.Title) (.IsPage) }}
+      <li>
+	<time datetime='{{ .Date.Format "2006-01-02T15:04:05.000-07:00" }}' itemprop="datePublished">{{ .Date.Format "Jan 02" }}</time>
+        <a href="{{ .Permalink }}">{{ .Title }} </a>	
+      </li>
+      {{ end }}
+      {{ end }}
+	    </ul>
+	</section>
+      {{ end }}
+
+    </section>
+    {{ partial "footer.html" . }}
+</div>
+</body>
+</html>

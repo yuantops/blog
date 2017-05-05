@@ -1,0 +1,40 @@
+languageCode = "en-us"
+title = "Yuantops' Blog"
+baseurl = "http://blog.yuantops.com/"
+theme = "hugo-theme-minos"  
+copyright = "All rights reserved."
+
+[params]
+    smartToc = true
+    katex = true
+    googleAnalytics = "UA-57420914-1"
+
+[author]
+    name = "yuantops"
+    email = "yuan.tops@gmail.com"
+
+[[menu.main]]
+    name = "Archives"
+    weight = 1
+    identifier = "archives"
+    url = "/archives/"
+[[menu.main]]
+    name = "Categories"
+    weight = 2
+    url = "/categories/"
+[[menu.main]]
+    name = "Tags"
+    weight = 4
+    identifier = "tags"
+    url = "/tags/"
+[[menu.main]]
+    name = "About"
+    weight = 5
+    identifier = "about"
+    url = "/about/"
+[[menu.main]]
+    name = "RSS"
+    weight = 6
+    identifier = "rss"
+    url = "/index.xml"
+
