@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2015-01-22T00:00:00Z
-Description: 在Linux下，如何确定一个端口正被哪个进程(Process)占用?如何确定一个运行中的进程占用了哪些端口？这是一篇小笔记，介绍几个常用的命令。
-Tags:
-- Linux
-title: Linux确定监听某个端口的进程
----
++++
+Categories = ["Tech"]
+date = "2015-01-22T00:00:00Z"
+Description = "在Linux下，如何确定一个端口正被哪个进程(Process)占用?如何确定一个运行中的进程占用了哪些端口？这是一篇小笔记，介绍几个常用的命令。"
+Tags = ["Linux"]
+title = "Linux确定监听某个端口的进程"
++++
 
 比较常见的命令有:  
 

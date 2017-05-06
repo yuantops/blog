@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2014-12-29T00:00:00Z
-Description: 本文是Oracle Java开发手册中关于Character Stream章节的翻译，个人手工翻译，非转载。
-Tags:
-- Java
-title: Character Streams -- Oracle Java Tutorial 翻译
----
++++
+Categories = ["Tech"]
+date = "2014-12-29T00:00:00Z"
+Description = "本文是Oracle Java开发手册中关于Character Stream章节的翻译，个人手工翻译，非转载。"
+Tags = ["Java"]
+title = "Character Streams -- Oracle Java Tutorial 翻译"
++++
 
 ## Character Streams 字符流
 Java平台使用Unicode字符集存储字符值(character value)。字符流I/O自动将内部的Unicode格式翻译成本地的字符集，反之亦然。在西方的使用环境(locale)下，本地字符集往往是8bit的ASCII码的超集(superset)。  

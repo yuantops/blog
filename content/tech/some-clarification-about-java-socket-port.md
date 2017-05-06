@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2015-01-13T00:00:00Z
-Description: java中用ServerSocket.accept()方法接受客户端的socket连接申请后，一个新的socket将会生成。关于这个socket，它两头的IP和端口是怎么确定的，存在着不同解释。本文将说明并验证：新建socket的服务器端端口号就是服务器正在监听的端口号，而不是随机分配的端口号。
-Tags:
-- Java
-title: 厘清Java Socket端口问题 -- 服务器的端口是什么
----
++++
+Categories = ["Tech"]
+date = "2015-01-13T00:00:00Z"
+Description = "java中用ServerSocket.accept()方法接受客户端的socket连接申请后，一个新的socket将会生成。关于这个socket，它两头的IP和端口是怎么确定的，存在着不同解释。本文将说明并验证：新建socket的服务器端端口号就是服务器正在监听的端口号，而不是随机分配的端口号。"
+Tags = ["Java"]
+title =  "厘清Java Socket端口问题 -- 服务器的端口是什么"
++++
 
 在我之前翻译的[Socket是什么](http://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/)一文中，对java中socket建立的流程有描述。在服务器接受客户端socket连接的部分，它这么说道：  
 

@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2015-07-26T00:00:00Z
-Description: SurfaceView控件适合内存耗费大、需要频繁刷新的场景，常用于显示游戏、动画、视频等。为提升显示性能，SurfaceView使用了双缓存机制。但我在使用过程中出现了闪屏现象：刷新过程中，正常帧和黑屏交替出现。本文讨论闪屏问题的原因，以及可行的改进方法。
-Tags:
-- Android
-title: Android SurfaceView双缓存机制与闪屏现象分析
----
++++
+Categories = ["Tech"]
+date = "2015-07-26T00:00:00Z"
+Description = "SurfaceView控件适合内存耗费大、需要频繁刷新的场景，常用于显示游戏、动画、视频等。为提升显示性能，SurfaceView使用了双缓存机制。但我在使用过程中出现了闪屏现象：刷新过程中，正常帧和黑屏交替出现。本文讨论闪屏问题的原因，以及可行的改进方法。"
+Tags = ["Android"]
+title = "Android SurfaceView双缓存机制与闪屏现象分析"
++++
 
 ##理解SurfaceView   
 SurfaceView是View的子类，所以View有的特点它都有。但它有特殊之处：它引入了缓存机制，优化了内容刷新的过程，使UI Thread不至于崩溃。更新它的内容，我们要用到与之关联的SurfaceHolder。     

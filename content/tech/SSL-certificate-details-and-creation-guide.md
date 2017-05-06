@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2014-12-06T00:00:00Z
-Description: ' 本文介绍SSL证书的格式标准X.509，CA的层级架构，以及如何在一台Linux服务器上制作Root证书、用制作的Root证书签发SSL证书。  '
-Tags:
-- SSL
-title: SSL证书的细节与制作方法
----
++++
+Categories = ["Tech"]
+date = "2014-12-06T00:00:00Z"
+Description = "本文介绍SSL证书的格式标准X.509，CA的层级架构，以及如何在一台Linux服务器上制作Root证书、用制作的Root证书签发SSL证书"
+Tags = ["SSL"]
+title = "SSL证书的细节与制作方法"
++++
 
 在上篇文章中，讨论了数字证书(digital certificate)的重要意义。在实际中，Internt工程任务组(IETF)PKI X.509专门负责制定数字证书的格式，并提出了一套标准。根据这套标准(X.509)，互联网上的各级单位各自予以实现，从而形成一套完备的公钥基础设施(Public Key Infrastructure, PKI)。这是本篇文章将要讨论的内容。  
 

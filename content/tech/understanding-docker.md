@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2015-01-12T00:00:00Z
-Description: Docker是新兴的一种虚拟化技术，发展势头强劲，而且已经被很多企业投入到实际部署中。本文是Docker.com官方文档的翻译，介绍Docker的技术优势、应用场景、架构、组件以及使用到的技术。个人手工翻译，原创非转载。
-Tags:
-- Docker
-title: 理解Docker -- Docker Official Docs翻译
----
++++
+Categories = ["Tech"]
+date = "2015-01-12T00:00:00Z"
+Description = "Docker是新兴的一种虚拟化技术，发展势头强劲，而且已经被很多企业投入到实际部署中。本文是Docker.com官方文档的翻译，介绍Docker的技术优势、应用场景、架构、组件以及使用到的技术。个人手工翻译，原创非转载。"
+Tags = ["Docker"]
+title = "理解Docker -- Docker Official Docs翻译"
++++
 
 ### Docker是什么
 Docker是用于开发(develop)、转移(ship)、运行(run)程序(application)的一个开放平台。Docker的设计目的是为了更快地传递程序。在Docker的帮助下，你能将程序与硬件基础(infrastructure)隔离、把硬件基础看作一个可管理的程序。Docker能帮你更快地转移代码、测试代码、部署代码，缩短编写代码与运行代码之间的周期。   

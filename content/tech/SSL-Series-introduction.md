@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2014-11-30T00:00:00Z
-Description: 本文是SSL系列学习笔记的前言。
-Tags:
-- SSL
-title: SSL学习笔记 前言
----
++++
+Categories = ["Tech"]
+date = "2014-11-30T00:00:00Z"
+Description = "本文是SSL系列学习笔记的前言。"
+Tags = ["SSL"]
+title = "SSL学习笔记 前言"
++++
 
 最近实习时接触到了SSL协议，CA证书，ssh登录之类的东西，总是一知半解的感觉非常不好，于是我决定好好钻研一下。在网上查找了很多资料后，终于理清了很多以前很模糊的知识点。用几篇博客来记录一下，算是一个总结。   
 

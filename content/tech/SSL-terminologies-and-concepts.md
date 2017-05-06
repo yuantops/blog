@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2014-12-06T00:00:00Z
-Description: 本文是看完阮一峰关于SSL协议的博客后，结合其它资料做的一些笔记，解释了公钥、私钥、信息摘要、数字签名、数字证书等一系列概念。
-Tags:
-- SSL
-title: SSL术语与基本原理
----
++++
+Categories = ["Tech"]
+date =  "2014-12-06T00:00:00Z"
+Description =  "本文是看完阮一峰关于SSL协议的博客后，结合其它资料做的一些笔记，解释了公钥、私钥、信息摘要、数字签名、数字证书等一系列概念。"
+Tags = ["SSL"]
+title = "SSL术语与基本原理"
++++
 
 非对称加密的又一大应用是SSL。对于SSL的介绍，阮一峰有一篇深入浅出的博客，推荐阅读：[数字签名是什么？](http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html)。这篇文章也非常不错：[SSL/TLS Strong Ebcryption: An introduction](http://httpd.apache.org/docs/current/ssl/ssl_intro.html)。  
 

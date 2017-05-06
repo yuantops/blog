@@ -1,13 +1,10 @@
----
-Categories:
-- Tech
-date: 2014-12-23T00:00:00Z
-Description: 本文分析OSC 安卓客户端中界面跳转效果的实现原理。
-Tags:
-- Android
-- OSC
-title: 开源中国安卓客户端源码学习笔记 二 欢迎界面跳转与渐变效果
----
++++
+Categories = ["Tech"]
+date = "2014-12-23T00:00:00Z"
+Description = "本文分析OSC 安卓客户端中界面跳转效果的实现原理。"
+Tags = ["Android","OSC"]
+title = "开源中国安卓客户端源码学习笔记 二 欢迎界面跳转与渐变效果"
++++
 
 OSC客户端启动时会先显示欢迎界面，再跳转到主页，其中跳转过程有渐变效果。  
 

@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2015-01-11T00:00:00Z
-Description: 本文是Oracle Java开发手册中Sockets系列的翻译第二篇，个人手工翻译，非转载。
-Tags:
-- Java
-title: Socket是什么 -- Oracle Java Tutorial 翻译
----
++++
+Categories = ["Tech"]
+date =  "2015-01-11T00:00:00Z"
+Description =  "本文是Oracle Java开发手册中Sockets系列的翻译第二篇，个人手工翻译，非转载。"
+Tags = ["Java"]
+title =  "Socket是什么 -- Oracle Java Tutorial 翻译"
++++
 
 一般而言，一个服务器运行在一台电脑上，这个服务器有一个绑定了端口号的socket。这个服务器一边等待，一边守着socket监听从客户端发过来的连接请求。  
 

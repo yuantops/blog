@@ -1,13 +1,10 @@
----
-Categories:
-- Tech
-date: 2014-12-24T00:00:00Z
-Description: '本文将介绍如何在一台Linux服务器(Redhat Enterprise 6.6)上用OpenSSL工具制作CA(Certificate
-  Authority) Root证书、用制作的Root证书签发SSL证书。 '
-Tags:
-- SSL
-title: 使用OpenSSL工具制作证书的方法
----
++++
+Categories = ["Tech"]
+date = "2014-12-24T00:00:00Z"
+Description = "本文将介绍如何在一台Linux服务器(Redhat Enterprise 6.6)上用OpenSSL工具制作CA(Certificate Authority) Root证书、用制作的Root证书签发SSL证书。 "
+Tags = ["SSL"]
+title = "使用OpenSSL工具制作证书的方法"
++++
 
 <div class="message">
 </div>

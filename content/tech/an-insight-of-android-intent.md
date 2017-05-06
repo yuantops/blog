@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2015-01-11T00:00:00Z
-Description: Android中intent用来定义操作，在启动Activity等场合有极为重要的作用。有很多文章介绍intent的用法，介绍其中原理的文章就很少了。本文转载一篇介绍Intent原理的博客，并附上自己的分析。
-Tags:
-- Android
-title: '[转载]Android Intent原理分析'
----
++++
+Categories = ["Tech"]
+date = "2015-01-11T00:00:00Z"
+Description = "Android中intent用来定义操作，在启动Activity等场合有极为重要的作用。有很多文章介绍intent的用法，介绍其中原理的文章就很少了。本文转载一篇介绍Intent原理的博客，并附上自己的分析。"
+Tags = ["Android"]
+title = "[转载]Android Intent原理分析"
++++
 
 ##原文链接
 [Android Intent原理分析](http://blog.chinaunix.net/uid-741742-id-359319.html)

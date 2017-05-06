@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2015-01-11T00:00:00Z
-Description: Activity有属于自己的生命周期。本文介绍当应用通过intent在两个Activity间跳转时，它们状态的变化。
-Tags:
-- Android
-title: Activity的生命周期以及两个Activity跳转时的状态变化
----
++++
+Categories = ["Tech"]
+date = "2015-01-11T00:00:00Z"
+Description = "Activity有属于自己的生命周期。本文介绍当应用通过intent在两个Activity间跳转时，它们状态的变化。"
+Tags = ["Android"]
+title = "Activity的生命周期以及两个Activity跳转时的状态变化"
++++
 
 ##Android Activity的生命周期
 下面这张图非常清晰地介绍了Activity的生命周期：  

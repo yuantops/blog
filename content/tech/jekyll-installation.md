@@ -1,14 +1,10 @@
----
-Categories:
-- Tech
-date: 2014-12-30T00:00:00Z
-Description: 使用GitHub pages搭建博客越来越流行。GitHub pages使用的文件解析引擎是Jekyll。在本地安装Jekyll，将自己
-  的博客调试合适后再推送到GitHub，会省事很多。本文介绍如何在本地安装Jekyll。
-Tags:
-- gh-pages
-- GitHub
-title: Jekyll安装指南
----
++++
+Categories = ["Tech"]
+date = "2014-12-30T00:00:00Z"
+Description = "使用GitHub pages搭建博客越来越流行。GitHub pages使用的文件解析引擎是Jekyll。在本地安装Jekyll，将自己的博客调试合适后再推送到GitHub，会省事很多。本文介绍如何在本地安装Jekyll。"
+Tags = ["gh-pages","GitHub"]
+title = "Jekyll安装指南"
++++
 
 ### 环境准备
 准备安装Jekyll前，确保系统满足以下条件：  

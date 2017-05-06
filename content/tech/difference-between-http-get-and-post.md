@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2015-01-09T00:00:00Z
-Description: HTTP协议中最常用的两个method是GET和POST，它们俩经常被弄混。本文翻译W3Schools上面一篇文章，介绍并比较它们二者。
-Tags:
-- HTTP
-title: 'HTTP Methods: GET vs. POST'
----
++++
+Categories = ["Tech"]
+date = "2015-01-09T00:00:00Z"
+Description = "HTTP协议中最常用的两个method是GET和POST，它们俩经常被弄混。本文翻译W3Schools上面一篇文章，介绍并比较它们二者。"
+Tags = ["HTTP"]
+title = "HTTP Methods: GET vs. POST"
++++
 
 ##HTTP是什么？  
 超文本传输协议(The Hypertext Transfer Protocol, HTTP)是为客户端(client)与服务器(server)之间的通信(communication)设计的。  
