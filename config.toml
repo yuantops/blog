@@ -8,6 +8,7 @@ copyright = "All rights reserved."
     smartToc = true
     katex = true
     googleAnalytics = "UA-57420914-1"
+    hasCJKLanguage = true
 
 [author]
     name = "yuantops"
