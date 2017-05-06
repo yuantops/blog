@@ -1,13 +1,10 @@
----
-Categories:
-- Tech
-date: 2014-12-31T00:00:00Z
-Description: 使用GitHub pages搭建的博客默认没有添加标签，不方便组织博客内的文章。本文介绍如何通过改动模板文件，在博客内加入标签功能，使博客按照自己的心意组织起来。
-Tags:
-- gh-pages
-- GitHub
-title: 在GitHub pages中添加标签Tags(非插件方式)
----
++++
+Categories = ["Tech"]
+date = "2014-12-31T00:00:00Z"
+Description = "使用GitHub pages搭建的博客默认没有添加标签，不方便组织博客内的文章。本文介绍如何通过改动模板文件，在博客内加入标签功能，使博客按照自己的心意组织起来。"
+Tags = ["gh-pages","GitHub"]
+title = "在GitHub pages中添加标签Tags(非插件方式)"
++++
 
 ### 参考内容
 本文参考了以下内容：  

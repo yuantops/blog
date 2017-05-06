@@ -1,10 +1,9 @@
----
-Categories:
-- Tech
-date: 2015-01-29T00:00:00Z
-Description: REST是什么，框架，协议，还是语言？这篇博客是关于REST的一些基础知识。
-title: REST基础概念笔记
----
++++
+Categories = ["Tech"]
+date =  "2015-01-29T00:00:00Z"
+Description = "REST是什么，框架，协议，还是语言？这篇博客是关于REST的一些基础知识。"
+title = "REST基础概念笔记"
++++
 
 **Representational State Transfer(REST)**    
 REST is an architecture style or design pattern used as a set of guidelines for creating web services which allow anything connected to a network (web servers, private intranets, smartphones, fitness bands, banking systems, traffic cameras, televisions etc.) to communicate with one another via a shared common communications protocol known as Hypertext Transfer Protocol (HTTP). --[REST Wikipedia](http://en.wikipedia.org/wiki/Representational_state_transfer)     

@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2015-01-11T00:00:00Z
-Description: 本文是Oracle Java开发手册中Sockets系列的翻译第一篇，个人手工翻译，非转载。
-Tags:
-- Java
-title: Sockets in Java -- Oracle Java Tutorial 翻译
----
++++
+Categories = ["Tech"]
+date = "2015-01-11T00:00:00Z"
+Description = "本文是Oracle Java开发手册中Sockets系列的翻译第一篇，个人手工翻译，非转载。"
+Tags = ["Java"]
+title = "Sockets in Java -- Oracle Java Tutorial 翻译"
++++
 
 ##课程：关于Sockets的一切
 URL和URLConnection为获取因特网上的资源提供了一种相对高层次(high-level)的机制。但有时候，你的程序需要一种相对低层次(lower-level)的网络通信，譬如说，你可能需要编写一个客户端-服务器(client-server)程序。   

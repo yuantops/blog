@@ -1,11 +1,9 @@
----
-Categories:
-- Tech
-date: 2015-07-23T00:00:00Z
-Description: Helix Server是Real公司旗下的一款流媒体服务器，能提供稳定的视频点播服务（支持HTTP、RTSP多种协议），还提供生成模拟直播流的小工具（SLTA）。本文介绍用Helix
-  Server生成直播流和点播流的方法。
-title: 用Helix Server建立点播流/直播流的方法
----
++++
+Categories = ["Tech"]
+date = "2015-07-23T00:00:00Z"
+Description = "Helix Server是Real公司旗下的一款流媒体服务器，能提供稳定的视频点播服务（支持HTTP、RTSP多种协议），还提供生成模拟直播流的小工具（SLTA）。本文介绍用Helix Server生成直播流和点播流的方法。"
+title = "用Helix Server建立点播流/直播流的方法"
++++
 
 ## 视频文件预处理
 Helix Server支持的视频格式很多，我只使用过MP4格式，其余的格式请自行探索。     

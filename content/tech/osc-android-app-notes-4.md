@@ -1,13 +1,10 @@
----
-Categories:
-- Tech
-date: 2014-12-27T00:00:00Z
-Description: OSC Android App从服务器获取数据，解析数据，再加载到ListView中。本文粗略分析其中的流程，及实现方法。
-Tags:
-- Android
-- OSC
-title: OSC Android源码学习笔记 四 listview初始化、获取数据、加载数据的流程
----
++++
+Categories = ["Tech"]
+date = "2014-12-27T00:00:00Z"
+Description = "OSC Android App从服务器获取数据，解析数据，再加载到ListView中。本文粗略分析其中的流程，及实现方法。"
+Tags = ["Android","OSC"]
+title = "OSC Android源码学习笔记 四 listview初始化、获取数据、加载数据的流程"
++++
 
 OSC App显示的信息分为资讯(news)，博客(blog)，问答(Question)，动弹(tweet)几屏，每屏对应一个ListView。以资讯(news)为例，粗略看一下它的ListView是如何初始化、获取数据、加载数据的。  
 

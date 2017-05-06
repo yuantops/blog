@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2016-04-09T00:00:00Z
-Description: 用Helix＋MySQL＋Tomcat＋Andriod，写一套简单的视频点播系统，档次一下子就上来了。
-Tags:
-- Android
-title: 写一套简易的视频点播系统
----
++++
+Categories = ["Tech"]
+date =  "2016-04-09T00:00:00Z"
+Description = "用Helix＋MySQL＋Tomcat＋Andriod，写一套简单的视频点播系统，档次一下子就上来了。"
+Tags = ["Android"]
+title =  "写一套简易的视频点播系统"
++++
 
 最初实习时，断断续续写Android代码，实现过用Helix架设流媒体服务器、手机播放流媒体视频的功能。后来一份实习，接触到Spring＋MyBatis框架，见识了它们在处理http请求和数据库连接上的便捷。这几天有些时间，想到可以将它们两者糅合到一起，实现一个完整的视频点播系统，既包括服务器(流媒体服务器，数据库，http服务器)，又包括客户端(Android)。虽然简陋，但工作起来毫无问题。   
 

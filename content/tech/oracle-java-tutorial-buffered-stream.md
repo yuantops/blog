@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2014-12-31T00:00:00Z
-Description: 本文是Oracle Java开发手册中关于Buffered Streams章节的翻译，个人手工翻译，非转载。
-Tags:
-- Java
-title: Buffered Streams -- Oracle Java Tutorial 翻译
----
++++
+Categories = ["Tech"]
+date = "2014-12-31T00:00:00Z"
+Description = "本文是Oracle Java开发手册中关于Buffered Streams章节的翻译，个人手工翻译，非转载。"
+Tags = ["Java"]
+title = "Buffered Streams -- Oracle Java Tutorial 翻译"
++++
 
 ## Buffered Streams 缓冲流 
 此前我们所见识的例子使用的大多*非缓冲I/O*。非缓冲，意味着每一次读/写的请求都由底层的OS直接处理。这降低了程序效率，因为每一次请求往往会触发磁盘操作、网络活动、或者其它代价昂贵的操作。  

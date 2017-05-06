@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2016-04-20T00:00:00Z
-Description: 视频播放系统的Web API Server基于Spring MVC结构，是一个最简单、常用的实现。
-Tags:
-- Android
-title: 写一套简易的视频点播系统——API Server
----
++++
+Categories = ["Tech"]
+date =  "2016-04-20T00:00:00Z"
+Description = "视频播放系统的Web API Server基于Spring MVC结构，是一个最简单、常用的实现。"
+Tags = ["Android"]
+title =  "写一套简易的视频点播系统——API Server"
++++
 
 <div id="table-of-contents">
 <h2>目录</h2>

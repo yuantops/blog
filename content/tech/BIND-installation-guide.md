@@ -1,13 +1,10 @@
----
-Categories:
-- Tech
-date: 2014-12-23T00:00:00Z
-Description: ' BIND是Linux平台上最通用、功能强悍的DNS服务器程序。这篇文章介绍如何手动搭建、配置BIND DNS服务器。 '
-Tags:
-- BIND
-- DNS
-title: BIND安装笔记
----
++++
+Categories = ["Tech"]
+date = "2014-12-23T00:00:00Z"
+Description = "BIND是Linux平台上最通用、功能强悍的DNS服务器程序。这篇文章介绍如何手动搭建、配置BIND DNS服务器。"
+Tags = ["BIND","DNS"]
+title = "BIND安装笔记"
++++
 
 ### 安装环境  
 - 网络环境：两台KVM虚拟机，通过NAT方式组成子网(IP地址分别为192.168.100.139, 192.168.100.172)，彼此能ping通，均能访问互联网  

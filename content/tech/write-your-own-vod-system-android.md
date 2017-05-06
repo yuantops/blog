@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2016-04-19T00:00:00Z
-Description: 介绍Android视频播放器的代码结构、启动后数据的加载流程。
-Tags:
-- Android
-title: 写一套简易的视频点播系统——Android视频播放器
----
++++
+Categories = ["Tech"]
+date = "2016-04-19T00:00:00Z"
+Description = "介绍Android视频播放器的代码结构、启动后数据的加载流程。"
+Tags = ["Android"]
+title =  "写一套简易的视频点播系统——Android视频播放器"
++++
 
 作为一个视频点播系统的客户端，播放视频是最基本的功能。本着最精简最偷懒的原则，这个客户端实现的功能包括:   
 

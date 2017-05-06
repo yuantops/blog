@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2015-01-11T00:00:00Z
-Description: Android中Context是十分重要的一个类，它继承自java.lang.Object，几乎在所有代码中都会用到。本文参考其它资料，对Context的常用用法做一个总结。
-Tags:
-- Android
-title: Android中Context的作用
----
++++
+Categories = ["Tech"]
+date = "2015-01-11T00:00:00Z"
+Description = "Android中Context是十分重要的一个类，它继承自java.lang.Object，几乎在所有代码中都会用到。本文参考其它资料，对Context的常用用法做一个总结。"
+Tags = ["Android"]
+title = "Android中Context的作用"
++++
 
 ##官方文档中对Context的介绍
 >Interface to global information about an application environment. This is an abstract class whose implementation is provided by the Android system. It allows access to application-specific resources and classes, as well as up-calls for application-level operations such as launching activities, broadcasting and receiving intents, etc.   

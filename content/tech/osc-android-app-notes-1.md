@@ -1,13 +1,10 @@
----
-Categories:
-- Tech
-date: 2014-12-22T00:00:00Z
-Description: 本文是引言，OSC安卓客户端源代码学习笔记系列的第一篇。
-Tags:
-- Android
-- OSC
-title: 开源中国安卓客户端源码学习笔记 一
----
++++
+Categories = ["Tech"]
+date = "2014-12-22T00:00:00Z"
+Description = "本文是引言，OSC安卓客户端源代码学习笔记系列的第一篇。"
+Tags = ["Android","OSC"]
+title = "开源中国安卓客户端源码学习笔记 一"
++++
 
 ##前言
 开源中国(OSCHINA)是国内一个开源社区,社区自己开发了Android和iOS平台的客户端，而且将各自的代码开源了。值得夸奖的是，他们的Android APP不是基于HTML，而是Android原生API。我最近在学习它Android App的[源代码](http://git.oschina.net/oschina/android-app)，毕竟像它这样性能优秀、注释齐全的开源项目是比较稀少的。  

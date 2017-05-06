@@ -1,13 +1,10 @@
----
-Categories:
-- Tech
-date: 2015-09-17T00:00:00Z
-Description: Java面试题。资料整理，非原创。
-Tags:
-- Java
-- 面试
-title: Java堆内存与栈内存的区别
----
++++
+Categories = ["Tech"]
+date = "2015-09-17T00:00:00Z"
+Description =  "Java面试题。资料整理，非原创。"
+Tags = ["Java","面试"]
+title = "Java堆内存与栈内存的区别"
++++
 
 Java中提供"栈"这种数据结构的实现，java.util.Stack。但此处我们所讨论的不是数据结构，而是JVM内存中的堆与栈，Java Runtime中存放数据的地方。   
 

@@ -1,10 +1,9 @@
----
-Categories:
-- Tech
-date: 2015-09-08T00:00:00Z
-Description: LaTeX是学术界的通行排版工具，期刊会议投稿必备。本文简要记录在Ubuntu上的安装步骤，以及处理pdf字体找不到情况。
-title: LaTeX安装以及生成pdf时字体找不到的处理办法
----
++++
+Categories = ["Tech"]
+date = "2015-09-08T00:00:00Z"
+Description = "LaTeX是学术界的通行排版工具，期刊会议投稿必备。本文简要记录在Ubuntu上的安装步骤，以及处理pdf字体找不到情况。"
+title =  "LaTeX安装以及生成pdf时字体找不到的处理办法"
++++
 
 ## 安装软件包  
 `$ sudo apt-get install texlive texlive-science`

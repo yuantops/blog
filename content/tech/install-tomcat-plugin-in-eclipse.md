@@ -1,12 +1,10 @@
----
-Categories:
-- Tech
-date: 2015-01-21T00:00:00Z
-Description: 在使用Tomcat作为web服务器时，往往需要对它进行实时调试。本文介绍Linux下安装Tomcat、并在Eclipse中添加Tomcat插件的方法
-Tags:
-- Java
-title: Eclipse中添加Tomcat插件
----
++++
+Categories = ["Tech"]
+date = "2015-01-21T00:00:00Z"
+Description = "在使用Tomcat作为web服务器时，往往需要对它进行实时调试。本文介绍Linux下安装Tomcat、并在Eclipse中添加Tomcat插件的方法"
+Tags = ["Java"]
+title = "Eclipse中添加Tomcat插件"
++++
 
 ##安装Tomcat
 **下载链接**:[Tomcat7](http://tomcat.apache.org/download-70.cgi)    
