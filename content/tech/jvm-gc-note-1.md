@@ -11,7 +11,7 @@ title = "JVM 和Java GC 笔记"
 ## 学习材料
 
 - 讲义地址： <http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/gc01/index.html>  
-- Youtube 视频地址：  [Video The JVM and Java Garbage Collection](https://www.youtube.com/watch?v%3DDoJr5QQYsl8)
+- Youtube 视频地址：  [Video The JVM and Java Garbage Collection](https://www.youtube.com/watch?v=DoJr5QQYsl8)
 
 ## Java & JVM概述
 
