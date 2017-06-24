@@ -38,14 +38,12 @@
                 <div class="article-entry" itemprop="articleBody">
                     <p>
                         {{ if .Params.featuredImage }}<img src="{{.Params.featuredImage}}"><br>{{ end }}
-                    {{ .Description }} 
-                    </p>
-                    <p class="article-more-link">
-                        <a href="{{ .RelPermalink }}">Read More </a>
+                    {{ .Description }}
                     </p>
                 </div>
 
-                {{ if .Params.tags }}
+		{{ if .Params.tags }}
+		{{ if gt (len (index .Params.tags 0)) 0 }}
                 <footer class="article-footer">
                     <ul class="article-tag-list">
                         {{ range .Params.tags }}
@@ -57,6 +55,7 @@
                     </ul>
                 </footer>
                 {{ end }}
+		{{ end }}
             </div>
         </article>
         {{ end }}
