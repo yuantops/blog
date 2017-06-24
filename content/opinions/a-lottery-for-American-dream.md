@@ -3,7 +3,7 @@ Categories = ["Opinions"]
 date = "2015-07-31T00:00:00Z"
 Description =  "梦想不是新鲜事。中国梦已经说得烂了，美国梦也听得耳朵起了茧子。This American Life这期所说的故事，却让我意识到，这个世界上不是所有的梦想都有同样的内涵：当我们在说梦想时，也许说的不是同一件事物。"
 Tags = ["阅读"]
-title =  ["一张彩票，一个人的美国梦"]
+title = "一张彩票，一个人的美国梦"
 +++
 
 这是This American Life[最近一期](http://www.thisamericanlife.org/radio-archives/episode/560/abdi-and-the-golden-ticket)里讲述的故事，关于一个人因为一张彩票，到最终拿到美国绿卡的曲折故事。我听完后印象很深，因为故事里描述的另外一个国度的混乱、人们的追求与我所处的环境迥然不同，更因为这个故事加深了我对“美国梦”这个词的理解。     
