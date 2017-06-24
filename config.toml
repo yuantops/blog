@@ -19,15 +19,15 @@ copyright = "All rights reserved."
     weight = 1
     identifier = "archives"
     url = "/archives/"
-[[menu.main]]
-    name = "Categories"
-    weight = 2
-    url = "/categories/"
-[[menu.main]]
-    name = "Tags"
-    weight = 4
-    identifier = "tags"
-    url = "/tags/"
+#[[menu.main]]			
+#    name = "Categories"
+#    weight = 2
+#    url = "/categories/"
+#[[menu.main]]
+#    name = "Tags"
+#    weight = 4
+#    identifier = "tags"
+#    url = "/tags/"
 [[menu.main]]
     name = "About"
     weight = 5

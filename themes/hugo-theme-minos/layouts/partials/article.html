@@ -83,6 +83,7 @@
 
 
         {{ if .Params.tags }}
+	{{ if gt (len (index .Params.tags 0)) 0 }}
         <footer class="article-footer">
             <ul class="article-tag-list">
                 {{ range .Params.tags }}
@@ -94,6 +95,7 @@
             </ul>
         </footer>
         {{ end }}
+	{{ end }}
     </div>
     {{ partial "nav.html" . }}
 </article>
