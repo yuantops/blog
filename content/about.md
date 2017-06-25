@@ -19,5 +19,5 @@ url = "/about/"
 - Hate GFW intensely.  
 
 ## 联系我
-- [邮箱](yuan.tops#gmail.com)
+- 邮箱 yuan.tops#gmail.com
 - [Github](https://github.com/yuantops)
