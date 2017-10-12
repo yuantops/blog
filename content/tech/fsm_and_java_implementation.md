@@ -1,6 +1,6 @@
 +++
 Categories = ["Tech"]
-Description = "有限状态机的Java版简单实现。"
+Description = "有限状态机的Java简单实现。"
 Tags = ["java"]
 date = "2017-10-12T14:30:53+08:00"
 title = "整理Java有限状态机"
