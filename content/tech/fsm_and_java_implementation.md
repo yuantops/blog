@@ -15,7 +15,7 @@ The FSM can change from one state to another in response to some external inputs
 
 ## Java实现<a id="sec-1-2" name="sec-1-2"></a>
 
-根据FSM定义，对应Java的3种数据类型：
+根据FSM定义，可以抽象出Java的3种数据类型：
 
 -   状态(State)
 -   事件(Event)
