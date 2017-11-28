@@ -9,9 +9,11 @@ title = "MyBatis generator生成Dao和Mapper小记"
 ## 需下载文件<a id="sec-1-1" name="sec-1-1"></a>
 
 1.  Mybatis Generator jar包
+
     下载地址 <https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core>
 
 2.  JDBC 驱动jar 包
+
     对MySQL数据库而言，下载MySQL connector。下载地址 <https://mvnrepository.com/artifact/mysql/mysql-connector-java>
 
 ## 配置config.xml<a id="sec-1-2" name="sec-1-2"></a>
@@ -73,4 +75,4 @@ config.xml 文件指定自动生成代码时的一些配置项：数据库的url
 
     java -jar mybatis-generator-core-1.3.0.jar -configfile config.xml -overwrite
 
-自动生成的\`src\`目录包含生成的代码。
+自动生成的`src`目录包含生成的代码。
