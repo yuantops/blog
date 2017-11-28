@@ -14,91 +14,85 @@ Description = "读书摘抄"
 
 ## 术语翻译<a id="sec-1-2" name="sec-1-2"></a>
 
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table border="2" cellpadding="6" >
 
-
-<colgroup>
-<col  class="left" />
-
-<col  class="left" />
-</colgroup>
 <thead>
 <tr>
-<th scope="col" class="left">英文</th>
-<th scope="col" class="left">中文</th>
+<th >英文</th>
+<th >中文</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td class="left">artifact</td>
-<td class="left">构件</td>
+<td >artifact</td>
+<td >构件</td>
 </tr>
 
 
 <tr>
-<td class="left">build</td>
-<td class="left">构建</td>
+<td >build</td>
+<td >构建</td>
 </tr>
 
 
 <tr>
-<td class="left">project</td>
-<td class="left">项目</td>
+<td >project</td>
+<td >项目</td>
 </tr>
 
 
 <tr>
-<td class="left">group</td>
-<td class="left">组</td>
+<td >group</td>
+<td >组</td>
 </tr>
 
 
 <tr>
-<td class="left">module</td>
-<td class="left">模块</td>
+<td >module</td>
+<td >模块</td>
 </tr>
 
 
 <tr>
-<td class="left">archetype</td>
-<td class="left">骨架</td>
+<td >archetype</td>
+<td >骨架</td>
 </tr>
 
 
 <tr>
-<td class="left">dependency mediation</td>
-<td class="left">依赖调解</td>
+<td >dependency mediation</td>
+<td >依赖调解</td>
 </tr>
 
 
 <tr>
-<td class="left">repository</td>
-<td class="left">仓库</td>
+<td >repository</td>
+<td >仓库</td>
 </tr>
 
 
 <tr>
-<td class="left">phase</td>
-<td class="left">阶段</td>
+<td >phase</td>
+<td >阶段</td>
 </tr>
 
 
 <tr>
-<td class="left">aggregation</td>
-<td class="left">聚合</td>
+<td >aggregation</td>
+<td >聚合</td>
 </tr>
 
 
 <tr>
-<td class="left">reactor</td>
-<td class="left">反应堆</td>
+<td >reactor</td>
+<td >反应堆</td>
 </tr>
 
 
 <tr>
-<td class="left">property</td>
-<td class="left">属性</td>
+<td >property</td>
+<td >属性</td>
 </tr>
 </tbody>
 </table>
@@ -118,71 +112,59 @@ Description = "读书摘抄"
 
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
-
-<colgroup>
-<col  class="left" />
-
-<col  class="left" />
-
-<col  class="left" />
-
-<col  class="left" />
-
-<col  class="left" />
-</colgroup>
 <thead>
 <tr>
-<th scope="col" class="left">scope</th>
-<th scope="col" class="left">编译classpath有效</th>
-<th scope="col" class="left">测试classpath有效</th>
-<th scope="col" class="left">运行时classpath有效</th>
-<th scope="col" class="left">例子</th>
+<th scope="col" >scope</th>
+<th scope="col" >编译classpath有效</th>
+<th scope="col" >测试classpath有效</th>
+<th scope="col" >运行时classpath有效</th>
+<th scope="col" >例子</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td class="left">compile</td>
-<td class="left">Y</td>
-<td class="left">Y</td>
-<td class="left">Y</td>
-<td class="left">spring-core</td>
+<td  >compile</td>
+<td  >Y</td>
+<td  >Y</td>
+<td  >Y</td>
+<td  >spring-core</td>
 </tr>
 
 
 <tr>
-<td class="left">test</td>
-<td class="left">-</td>
-<td class="left">Y</td>
-<td class="left">-</td>
-<td class="left">JUnit</td>
+<td  >test</td>
+<td  >-</td>
+<td  >Y</td>
+<td  >-</td>
+<td  >JUnit</td>
 </tr>
 
 
 <tr>
-<td class="left">provided</td>
-<td class="left">Y</td>
-<td class="left">Y</td>
-<td class="left">-</td>
-<td class="left">servlet-api</td>
+<td  >provided</td>
+<td  >Y</td>
+<td  >Y</td>
+<td  >-</td>
+<td  >servlet-api</td>
 </tr>
 
 
 <tr>
-<td class="left">runtime</td>
-<td class="left">-</td>
-<td class="left">Y</td>
-<td class="left">Y</td>
-<td class="left">JDBC驱动实现</td>
+<td  >runtime</td>
+<td  >-</td>
+<td  >Y</td>
+<td  >Y</td>
+<td  >JDBC驱动实现</td>
 </tr>
 
 
 <tr>
-<td class="left">system</td>
-<td class="left">Y</td>
-<td class="left">Y</td>
-<td class="left">-</td>
-<td class="left">&#xa0;</td>
+<td  >system</td>
+<td  >Y</td>
+<td  >Y</td>
+<td  >-</td>
+<td  >&#xa0;</td>
 </tr>
 </tbody>
 </table>
