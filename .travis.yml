@@ -16,12 +16,11 @@ script:
 
 deploy:
   provider: pages
-  local-dir: public 
-  target_branch: gh-pages
-  skip-cleanup: true
-  github_token: $GITHUB_TOKEN
-  fqdn: blog.yuantops.com
+  target-branch: gh-pages
   keep-history: true
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  fqdn: blog.yuantops.com
   verbose: true
   on:
     branch: hugo
