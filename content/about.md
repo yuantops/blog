@@ -10,7 +10,7 @@ url = "/about/"
 
 她的内容很杂很乱，除了技术内容，还包括一些随笔。  
 
-欢迎用[RSS订阅](http://blog.yuantops.com/index.xml) (什么[是RSS订阅?](https://zh.wikipedia.org/wiki/RSS))。
+欢迎用[RSS订阅](https://blog.yuantops.com/index.xml) (什么[是RSS订阅?](https://zh.wikipedia.org/wiki/RSS))。
 
 ## 关于我
 - 2016年北邮毕业，在杭州上班。  
