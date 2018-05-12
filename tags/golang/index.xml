@@ -16,27 +16,6 @@
     
     <item>
       <title>Emacs Golang开发环境配置指南</title>
-      <link>http://blog.yuantops.com/tech/emacs-config-go-dev-environ-2/</link>
-      <pubDate>Thu, 04 Jan 2018 00:31:08 +0000</pubDate>
-      <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/emacs-config-go-dev-environ-2/</guid>
-      <description>安装Go 虽然像是废话，但为了配置过程的完整性，还是记下来吧。
-官网install链接: https://golang.org/doc/install
-装好后记得配置 $GOPATH 。为了能在任何地方使用Go编译出来的命令，还可以把 $GOPATH/bin 附到环境变量$PATH。
-我在Mac上使用iTerm2+oh-my-zsh，所以把它们写到 .zshrc :
-# go path export GOPATH=~/go # add go commands to system path export PATH=$GOPATH/bin:$PATH  让go get命令绕过Great Wall的束缚 有了Go的开发环境，我们就可以用它编译、安装一些十分有用的小命令了。但在此之前，还有一些客观存在的技术障碍需要扫除。
-一般 go get 命令会自动帮我们下载源码、编译、安装命令，如果托管源码的网站被block了(如gopkg.in)，整个过程就会卡住，卡到人抓狂(记得在内心f**k GFW哦~)。
-这时，如果电脑上刚好运行着shadowsocks，事情就变得简单了。go get 支持http_proxy和https_proxy，我们需要动一点手脚，把sock5协议转换成http协议。
-(以下步骤的前提是电脑上运行着shadowsocks。)
- 安装 polipo
-brew install polipo  配置 polipo 在家目录下新建 .polipo 文件，内容如下:
-#必填 socksParentProxy = &amp;quot;localhost:1080&amp;quot; socksProxyType = socks5  运行 polipo
-polipo &amp;amp;  默认会监听8123端口的http请求。
- 在go get命令前加上http_proxy参数</description>
-    </item>
-    
-    <item>
-      <title>Emacs Golang开发环境配置指南</title>
       <link>http://blog.yuantops.com/tech/emacs-config-go-dev-environ/</link>
       <pubDate>Thu, 04 Jan 2018 00:31:08 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
