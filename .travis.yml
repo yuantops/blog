@@ -1,0 +1,24 @@
+language: go
+
+go:
+  - "1.8" 
+
+# Specify which branches to build using a safelist
+branches:
+  only:
+    - hugo
+
+install:
+  - go get github.com/spf13/hugo 
+
+script:
+  - hugo
+
+deploy:
+  provider: pages
+  local_dir: public 
+  target_branch: gh-pages 
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN 
+  on:
+    branch: hugo
