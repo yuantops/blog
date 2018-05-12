@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>sed和awk学习笔记 // Yuantops&#39; Blog</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="sed和awk学习笔记" />
+<meta property="og:description" content="提升效率，随手备查" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="http://blog.yuantops.com/tech/sed_awk_notes/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
+    <link rel="shortcut icon" href="/favicon.png">
+
+    <link href="http://blog.yuantops.com/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="http://blog.yuantops.com/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="http://blog.yuantops.com/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="提升效率，随手备查">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.41-DEV" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="http://blog.yuantops.com/">Yuantops&#39; Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/archives/">Archives</a>
+                
+                <a class="main-nav-link" href="/about/">About</a>
+                
+                <a class="main-nav-link" href="/index.xml">RSS</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">sed和awk学习笔记</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/tech/sed_awk_notes/" class="article-date">
+                <time datetime='2017-12-09T17:12:59.000&#43;08:00' itemprop="datePublished">2017-12-09</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="http://blog.yuantops.com//categories/tech">Tech</a>
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<ol>
+<li><p>为什么加上单引号: 防止shell
+    expansion</p>
+
+<pre><code>Enclosing the instruction in single quotes is not requir ed in all cases but you should get in the habit of always doing it. The enclosing single quotes prevent the shell from interpreting special characters or spaces found in the editing instruction.(The shell uses spaces to determine individual arguments submitted to a program;characters that are special to the shell are expanded before the command is invoked.)
+</code></pre></li>
+
+<li><p>通用语法</p>
+
+<pre><code class="language-bash">awk -f scriptfile file
+sed -f sedscript file
+</code></pre></li>
+
+<li><p>命令的组成: pattern和procedure</p></li>
+</ol>
+
+<h2 id="sed">sed</h2>
+
+<h3 id="sed里的模式空间-pattern-space">sed里的模式空间 pattern space</h3>
+
+<p>Sed maintains a pattern space, a workspace or temporary buffer where a
+single line of input is held while the editing commands are applied.*</p>
+
+<p>pattern space的内容是动态的(dynamic)，sed脚本中的任何一条命令都可能改变其中内容。</p>
+
+<p>As a consequence, any sed command might change the contents of the
+pattern space for the next command.</p>
+
+<h3 id="sed的addressing策略">sed的addressing策略</h3>
+
+<ol>
+<li><p>vim中的替换命令默认只对当前行生效；sed不一样，sed命令默认对所有行生效。</p></li>
+
+<li><p>可以在命令前指定address。address可以是一个正则表达式,a line number,或者line addressing
+symbol</p>
+
+<ul>
+<li>If no address is specified, then the command is applied to each
+line.</li>
+<li>If there is only one address, the command is applied to any line
+matching the address.</li>
+<li>If two comma-separated addresses are specified, the command is
+performed on the first line matching the first address and all
+succeeding lines up to and including a line matching the second
+address.</li>
+<li>If an address is followed by an exclamation mark (!), the
+command is applied to all lines that do not match the address.</li>
+</ul></li>
+
+<li><p>关于行号：sed 内部维护的行号，不是文件的行号。输入是多个文件时，只会有一个行号1。 The line number refers
+to an internal line count maintained by sed. This counter is not
+reset for multiple input files. Thus, no matter how many files were
+specified as input, there is only one line 1 in the input stream</p></li>
+
+<li><p>如果指定了两个address,那么命令只会在它们组成的range内生效。理解为：第一个address enable，第二个address
+disable。</p></li>
+
+<li><p>地址后面出现的惊叹号，作用是反转地址匹配结果。</p></li>
+</ol>
+
+<h3 id="sed的命令分组">sed的命令分组</h3>
+
+<p>用花括号给命令行分组{}，用来在命令里嵌套命令，或者对同一个地址应用多个命令。to nest one address inside
+another or to apply multiple commands at the same address.</p>
+
+<h3 id="sed常用命令">sed常用命令</h3>
+
+<ol>
+<li><p>替换s</p>
+
+<ul>
+<li>syntaxt: [address]s/pattern/replacement/flags</li>
+<li>As a metacharacter, the ampersand (&amp;) represents the extent of
+the pattern match, not the line that was matched.</li>
+</ul></li>
+
+<li><p>删除d</p></li>
+
+<li><p>变形Transform y</p>
+
+<ul>
+<li>syntax: [address] y/abc/xyz</li>
+<li>逐个字符替换，而不是逐个单词替换</li>
+</ul></li>
+
+<li><p>打印p</p>
+
+<ul>
+<li>输出pattern space的内容</li>
+<li>常用来debug</li>
+</ul></li>
+
+<li><p>打印行号= 跟在address后面的等号(=)会打印出匹配行的行号。</p></li>
+
+<li><p>读取文件内容r</p>
+
+<ul>
+<li>syntax: [address]r file</li>
+<li>The read command reads the contents of file into the pattern
+space after the addr essed line</li>
+<li>No subsequent command will affect the lines read from the file.
+For instance, you can’t make any changes to the list of
+companies that you’ve read into the file. However, commands that
+address the original line will work.</li>
+</ul></li>
+
+<li><p>退出命令q</p>
+
+<ul>
+<li>syntax: [line-address]q</li>
+<li>The quit command (q) causes sed to stop reading new input lines
+(and stop sending them to the output)</li>
+<li>例子:
+<br /></li>
+</ul>
+
+<!-- end list -->
+
+<pre><code class="language-bash"># 类似head -n 3
+sed '3q' a.txt
+</code></pre></li>
+</ol>
+
+<h2 id="awk">awk</h2>
+
+<ol>
+<li><p>awk是&rdquo;输入驱动&rdquo; input-driven. That is, nothing happens unless there are
+lines of input on which to act. When you invoke the awk program, it
+reads the script that you supply, checking the syntax of your
+instructions. Then awk attempts to execute the instructions for each
+line of input.</p></li>
+
+<li><p>假定“输入是结构化的”</p></li>
+</ol>
+
+<h3 id="begin-end-pattern">BEGIN/END pattern</h3>
+
+<p>The <strong>BEGIN</strong> pattern specifies actions that are performed before the
+first line of input is read.</p>
+
+<p>If a program has only a BEGIN pattern, and no other statements, awk will
+not process any input files.</p>
+
+<p>A BEGIN rule is executed once only, before the first input record is
+read. Likewise, an END rule is executed once only, after all the input
+is read.</p>
+
+<h3 id="basic-programming-model">Basic programming model</h3>
+
+<p><strong>main input loop</strong>: a routine that reads one line of input from a file
+and makes it available for processing. Awk 默认提供，不需要手动实现。</p>
+
+<p>每一行都会执行。没有可读行时停止。</p>
+
+<h3 id="模式匹配-pattern-matching">模式匹配 pattern matching</h3>
+
+<p>与sed 类似，匹配到某种模式后才会执行命令。</p>
+
+<p>When awk reads an input line, it attempts to match each pattern-matching
+rule in a script. Only the lines matching the particular pattern are the
+object of an action.</p>
+
+<p>If no action is specified, the line that matches the pattern is printed
+(executing the print statement is the default action)</p>
+
+<h3 id="分隔符-fs-file-separator">分隔符 FS file separator</h3>
+
+<ul>
+<li>默认FS: 空格</li>
+<li>单字符作分隔符</li>
+<li>多字符作分隔符: 被当做正则表达式</li>
+<li>一般在BEGIN section中定义FS。 Typically, the field and record separators
+are defined in the BEGIN procedure because you want these values set
+before the first input line is read.</li>
+</ul>
+
+<h3 id="系统变量-system-variables">系统变量 System Variables</h3>
+
+<ul>
+<li>FS: Field Seperator</li>
+<li>NF: 当前输入行的field count</li>
+<li>RS: record separator, 默认是换行符</li>
+<li>NR: 当前输入行的行号 the number of the current input record</li>
+<li>OFS: print 命令中，逗号会输出一个OFS。The output field separator (OFS) is
+generated when a comma is used to separate the arguments in a print
+statement.</li>
+</ul>
+
+<h3 id="格式化输出-formatted-printing-printf">格式化输出 Formatted Printing: <strong>printf</strong></h3>
+
+<ul>
+<li>syntax: printf(format-expression[,arguments])</li>
+<li>format-expression: %-width.precision format-specifier。“-”表示左对齐</li>
+<li>The precision modifier, used for decimal or floating-point values,
+controls the number of digits that appear to the right of the
+decimal point. For string values, it controls the maximum number of
+characters from the string that will be printed.</li>
+</ul>
+
+<h3 id="向脚本中传递参数">向脚本中传递参数</h3>
+
+<ul>
+<li><p>syntax:</p>
+
+<pre><code class="language-bash">awk 'script_content' var=value datafile
+awk -f scriptfile var=value datafile
+</code></pre></li>
+</ul>
+
+<h3 id="字符串操作函数">字符串操作函数</h3>
+
+<p>Awk Function
+Description</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>gsub(r,s,t)</td>
+<td>Globally substitutes s for each match of the regular expression r in the string t. Returns the number of substitutions. If t is not supplied,defaults to $0.</td>
+</tr>
+
+<tr>
+<td>index(s,t)</td>
+<td>Returns position of substring t in string s or zero if not present.</td>
+</tr>
+
+<tr>
+<td>length(s)</td>
+<td>Returns length of string s or length of $0 if no string is supplied.</td>
+</tr>
+
+<tr>
+<td>match(s,r)</td>
+<td>Returns either the position in s wher e the regular expression r begins, or 0 if no occurrences are found. Sets the values of RSTART and RLENGTH.</td>
+</tr>
+
+<tr>
+<td>split(s,a,sep)</td>
+<td>Parses string s into elements of array a using field separator sep;retur ns number of elements. If sep is not supplied, FS is used. Array splitting works the same way as field splitting.</td>
+</tr>
+
+<tr>
+<td>sprintf(“fmt”,expr)</td>
+<td>Uses pr intf for mat specification for expr.</td>
+</tr>
+
+<tr>
+<td>sub(r,s,t)</td>
+<td>Substitutes s for first match of the regular expression r in the string t.Retur ns 1 if successful; 0 otherwise. If t is not supplied, defaults to$0.</td>
+</tr>
+
+<tr>
+<td>substr(s,p,n)</td>
+<td>Returns substring of string s at beginning position p up to amaximum length of n. If n is not supplied, the rest of the string from p is used.</td>
+</tr>
+
+<tr>
+<td>tolower(s)</td>
+<td>Translates all uppercase characters in string s to lowercase and returns the new string.</td>
+</tr>
+
+<tr>
+<td>toupper(s)</td>
+<td>Translates all lowercase characters in string s to uppercase and returns the new string</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="使用-语法调用awk脚本">使用#!语法调用awk脚本</h3>
+
+<ul>
+<li>在脚本开头加上 #!/bin/awk -f</li>
+<li>用法: $ awkscript datafile</li>
+</ul>
+
+        </div>
+
+        
+        
+        <div class="article-toc" style="display:none;">
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#sed">sed</a>
+<ul>
+<li><a href="#sed里的模式空间-pattern-space">sed里的模式空间 pattern space</a></li>
+<li><a href="#sed的addressing策略">sed的addressing策略</a></li>
+<li><a href="#sed的命令分组">sed的命令分组</a></li>
+<li><a href="#sed常用命令">sed常用命令</a></li>
+</ul></li>
+<li><a href="#awk">awk</a>
+<ul>
+<li><a href="#begin-end-pattern">BEGIN/END pattern</a></li>
+<li><a href="#basic-programming-model">Basic programming model</a></li>
+<li><a href="#模式匹配-pattern-matching">模式匹配 pattern matching</a></li>
+<li><a href="#分隔符-fs-file-separator">分隔符 FS file separator</a></li>
+<li><a href="#系统变量-system-variables">系统变量 System Variables</a></li>
+<li><a href="#格式化输出-formatted-printing-printf">格式化输出 Formatted Printing: <strong>printf</strong></a></li>
+<li><a href="#向脚本中传递参数">向脚本中传递参数</a></li>
+<li><a href="#字符串操作函数">字符串操作函数</a></li>
+<li><a href="#使用-语法调用awk脚本">使用#!语法调用awk脚本</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <script>
+            (function() {
+                var $toc = $('#TableOfContents');
+                if ($toc.length > 0) {
+                    var $window = $(window);
+
+                    function onScroll(){
+                        var currentScroll = $window.scrollTop();
+                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                        var id = "";
+                        h.each(function (i, e) {
+                            e = $(e);
+                            if (e.offset().top - 10 <= currentScroll) {
+                                id = e.attr('id');
+                            }
+                        });
+                        var active = $toc.find('a.active');
+                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+                        active.each(function (i, e) {
+                            $(e).removeClass('active').siblings('ul').hide();
+                        });
+                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                            $(e).children('a').addClass('active').siblings('ul').show();
+                        });
+                    }
+
+                    $window.on('scroll', onScroll);
+                    $(document).ready(function() {
+                        $toc.find('a').parent('li').find('ul').hide();
+                        onScroll();
+                        document.getElementsByClassName('article-toc')[0].style.display = '';
+                    });
+                }
+            })();
+        </script>
+        
+
+
+        
+	
+	
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/tech/emacs-macos-chn-font-conf/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            emacs macOS配置中文字体
+        </div>
+    </a>
+    
+    
+    <a href="/tech/maven-in-action-notes/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">《Maven实战》摘抄&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2012-2018 @yuantops&nbsp; </br>
+            Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
+        <script>renderMathInElement(document.body);</script>
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on Yuantops&#39; Blog</title>
+    <link>http://blog.yuantops.com/tags/golang/</link>
+    <description>Recent content in Golang on Yuantops&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
+    <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Thu, 04 Jan 2018 00:31:08 +0000</lastBuildDate>
+    
+	<atom:link href="http://blog.yuantops.com/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Emacs Golang开发环境配置指南</title>
+      <link>http://blog.yuantops.com/tech/emacs-config-go-dev-environ/</link>
+      <pubDate>Thu, 04 Jan 2018 00:31:08 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/emacs-config-go-dev-environ/</guid>
+      <description>安装Go 虽然像是废话，但为了配置过程的完整性，还是记下来吧。
+官网install链接: https://golang.org/doc/install
+装好后记得配置 $GOPATH 。为了能在任何地方使用Go编译出来的命令，还可以把 $GOPATH/bin 附到环境变量$PATH。
+我在Mac上使用iTerm2+oh-my-zsh，所以把它们写到 .zshrc :
+# go path export GOPATH=~/go # add go commands to system path export PATH=$GOPATH/bin:$PATH  让go get命令绕过Great Wall的束缚 有了Go的开发环境，我们就可以用它编译、安装一些十分有用的小命令了。但在此之前，还有一些客观存在的技术障碍需要扫除。
+一般 go get 命令会自动帮我们下载源码、编译、安装命令，如果托管源码的网站被block了(如gopkg.in)，整个过程就会卡住，卡到人抓狂(记得在内心f**k GFW哦~)。
+这时，如果电脑上刚好运行着shadowsocks，事情就变得简单了。go get 支持http_proxy和https_proxy，我们需要动一点手脚，把sock5协议转换成http协议。
+(以下步骤的前提是电脑上运行着shadowsocks。)
+ 安装 polipo
+brew install polipo  配置 polipo 在家目录下新建 .polipo 文件，内容如下:
+#必填 socksParentProxy = &amp;quot;localhost:1080&amp;quot; socksProxyType = socks5  运行 polipo
+polipo &amp;amp;  默认会监听8123端口的http请求。
+ 在go get命令前加上http_proxy参数</description>
+    </item>
+    
+    <item>
+      <title>放弃Jekyll，拥抱Hugo</title>
+      <link>http://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/</link>
+      <pubDate>Sat, 06 May 2017 14:03:44 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/</guid>
+      <description>大约半年前，我更换了自己的工作电脑。装完系统后，开始装各种常用程序。
+一切都是那么美好，直到我开始尝试装Jekyll。各种依赖下不下来，或者版本对不上。前者要问候GFW，后者就是Ruby自己的锅了。我，一个Ruby盲，多次被毫不留情的依赖版本问题整崩溃。哪怕一次次长夜痛哭，最终也没有成功。
+直到有一天，我看到小巧精炼的Hugo。
+Hugo 是用Golang 写的静态网站生成器，只有一个二进制命令，开箱即用。而且，一个命令既可以生成静态文件，又可以直接开http server。所以，那些乱七八糟的gem 包， screw you!
+在将Jekyll迁移到Hugo的过程中，需要重新梳理一下文章的组织结构。不过这些都是小case。
+我的博客托管在Github Pages。Github本身支持Jekyll引擎，以前直接把markdown文件 push上去就可以，Github会自动帮忙渲染源文件。但Github不支持Hugo的文件布局，所以博客内容要先在本地生成html，再push到github。
+我的Github项目地址在这里。hugo分支存放源文件，gh-pages存放编译好的html。
+最后，再次赞美go， 赞美Hugo!</description>
+    </item>
+    
+  </channel>
+</rss>
