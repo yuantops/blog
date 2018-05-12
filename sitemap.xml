@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://blog.yuantops.com/tech/emacs-config-go-dev-environ-2/</loc>
+    <lastmod>2018-01-04T00:31:08+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.yuantops.com/tech/emacs-config-go-dev-environ/</loc>
     <lastmod>2018-01-04T00:31:08+00:00</lastmod>
   </url>

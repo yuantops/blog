@@ -14,6 +14,144 @@
     
     <item>
       <title>Emacs Golang开发环境配置指南</title>
+      <link>http://blog.yuantops.com/tech/emacs-config-go-dev-environ-2/</link>
+      <pubDate>Thu, 04 Jan 2018 00:31:08 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/emacs-config-go-dev-environ-2/</guid>
+      <description>
+
+&lt;h1 id=&#34;安装go&#34;&gt;安装Go&lt;/h1&gt;
+
+&lt;p&gt;虽然像是废话，但为了配置过程的完整性，还是记下来吧。&lt;/p&gt;
+
+&lt;p&gt;官网install链接: &lt;a href=&#34;https://golang.org/doc/install&#34;&gt;https://golang.org/doc/install&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;装好后记得配置 &lt;code&gt;$GOPATH&lt;/code&gt; 。为了能在任何地方使用Go编译出来的命令，还可以把 &lt;code&gt;$GOPATH/bin&lt;/code&gt; 附到环境变量$PATH。&lt;/p&gt;
+
+&lt;p&gt;我在Mac上使用iTerm2+oh-my-zsh，所以把它们写到 &lt;code&gt;.zshrc&lt;/code&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# go path
+export GOPATH=~/go
+# add go commands to system path
+export PATH=$GOPATH/bin:$PATH
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;让go-get命令绕过great-wall的束缚&#34;&gt;让go get命令绕过Great Wall的束缚&lt;/h1&gt;
+
+&lt;p&gt;有了Go的开发环境，我们就可以用它编译、安装一些十分有用的小命令了。但在此之前，还有一些客观存在的技术障碍需要扫除。&lt;/p&gt;
+
+&lt;p&gt;一般 &lt;code&gt;go get&lt;/code&gt;
+命令会自动帮我们下载源码、编译、安装命令，如果托管源码的网站被block了(如gopkg.in)，整个过程就会卡住，卡到人抓狂(记得在内心f**k
+GFW哦~)。&lt;/p&gt;
+
+&lt;p&gt;这时，如果电脑上刚好运行着shadowsocks，事情就变得简单了。go get
+支持http_proxy和https_proxy，我们需要动一点手脚，把sock5协议转换成http协议。&lt;/p&gt;
+
+&lt;p&gt;(以下步骤的前提是电脑上运行着shadowsocks。)&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装 polipo&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;brew install polipo   
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;配置 polipo 在家目录下新建 &lt;code&gt;.polipo&lt;/code&gt; 文件，内容如下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#必填
+socksParentProxy = &amp;quot;localhost:1080&amp;quot;
+socksProxyType = socks5
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;运行 polipo&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;polipo &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;默认会监听8123端口的http请求。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在go get命令前加上http_proxy参数&lt;/p&gt;
+
+&lt;p&gt;以不幸被墙的cobra命令为例,它的代码网址是https协议,用:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;https_proxy=127.0.0.1:8123 go get -v github.com/spf13/cobra/cobra
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果是http_proxy, 用：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http_proxy=127.0.0.1:8123 go get -v github.com/blah/blah
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;安装goimports-gocode等有用工具&#34;&gt;安装goimports，gocode等有用工具&lt;/h1&gt;
+
+&lt;h2 id=&#34;goimports&#34;&gt;goimports&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;goimports命令能自动格式化代码，自动添加、移除imports，而且与Emacs集成良好。可以替代官方gofmt命令。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;安装命令:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;go get -u golang.org/x/tools/cmd/goimports
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;gocode&#34;&gt;gocode&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;gocode命令能为代码自动补全提供后台支持，是Emacs下Go代码补全必不可少的backend。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;安装命令:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;go get -u github.com/nsf/gocode  
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;godef&#34;&gt;godef&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;godef命令能在Go源码变量、函数定义间跳转，是查看变量、函数、文件定义的好助手。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;安装命令：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;go get github.com/rogpeppe/godef
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;安装emacs&#34;&gt;安装Emacs&lt;/h1&gt;
+
+&lt;p&gt;呃。。。这一步就略过吧&lt;/p&gt;
+
+&lt;h1 id=&#34;emacs配置go-mode&#34;&gt;Emacs配置Go mode&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装go-mode&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;添加自动格式化的hook(需要安装goimports命令)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-commonlisp&#34;&gt;;; Call Gofmt before saving
+ (setq gofmt-command &amp;quot;goimports&amp;quot;)
+ (add-hook &#39;before-save-hook &#39;gofmt-before-save)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;配置自动补齐(需要安装gocode命令)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-commonlisp&#34;&gt;;;autocomplete
+(set (make-local-variable &#39;company-backends) &#39;(company-go))
+(company-mode)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;配置自动跳转按键(需要安装godef命令)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-commonlisp&#34;&gt;;; Godef jump key binding
+ (local-set-key (kbd &amp;quot;M-,&amp;quot;) &#39;godef-jump)
+ (local-set-key (kbd &amp;quot;M-.&amp;quot;) &#39;pop-tag-mark)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Emacs Golang开发环境配置指南</title>
       <link>http://blog.yuantops.com/tech/emacs-config-go-dev-environ/</link>
       <pubDate>Thu, 04 Jan 2018 00:31:08 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
