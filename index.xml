@@ -13,12 +13,14 @@
     <atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>本博客现已支持全站HTTPS</title>
+      <title>本博客现已支持HTTPS</title>
       <link>https://blog.yuantops.com/tech/announcement-blog-https-supported/</link>
       <pubDate>Sat, 12 May 2018 12:59:10 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/announcement-blog-https-supported/</guid>
-      <description>&lt;p&gt;赶个时髦，感谢Cloudflare提供的福利，让个人博客也能免费享受SSL。&lt;/p&gt;
+      <description>&lt;p&gt;赶个晚集，给博客加上了HTTPS支持。现在以&lt;code&gt;http://&lt;/code&gt;访问博客，会自动跳转到&lt;code&gt;https://&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;感谢Cloudflare提供的福利，让个人博客也能免费享受SSL。&lt;/p&gt;
 </description>
     </item>
     
