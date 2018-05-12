@@ -9,10 +9,19 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Sat, 12 May 2018 08:45:52 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 12 May 2018 12:59:10 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.yuantops.com/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>本博客现已支持全站HTTPS</title>
+      <link>https://blog.yuantops.com/tech/announcement-blog-https-supported/</link>
+      <pubDate>Sat, 12 May 2018 12:59:10 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/announcement-blog-https-supported/</guid>
+      <description>赶个时髦，感谢Cloudflare提供的福利，让个人博客也能免费享受SSL。</description>
+    </item>
     
     <item>
       <title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages</title>
@@ -82,7 +91,7 @@ Since md is built on top of the HTML back-end, any Org constructs not supported 
     </item>
     
     <item>
-      <title>emacs macOS配置中文字体</title>
+      <title>Emacs macOS配置中文字体</title>
       <link>https://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</link>
       <pubDate>Sun, 10 Dec 2017 00:50:07 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>

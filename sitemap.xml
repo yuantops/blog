@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.yuantops.com/tech/announcement-blog-https-supported/</loc>
+    <lastmod>2018-05-12T12:59:10+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</loc>
     <lastmod>2018-05-12T08:45:52+00:00</lastmod>
   </url>
@@ -494,7 +499,7 @@
   
   <url>
     <loc>https://blog.yuantops.com/tags/</loc>
-    <lastmod>2017-12-09T17:12:59+08:00</lastmod>
+    <lastmod>2018-05-12T12:59:10+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -619,19 +624,19 @@
   
   <url>
     <loc>https://blog.yuantops.com/tags/</loc>
-    <lastmod>2017-12-09T17:12:59+08:00</lastmod>
+    <lastmod>2018-05-12T12:59:10+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yuantops.com/categories/tech/</loc>
-    <lastmod>2018-05-12T08:45:52+00:00</lastmod>
+    <lastmod>2018-05-12T12:59:10+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yuantops.com/tech/</loc>
-    <lastmod>2018-05-12T08:45:52+00:00</lastmod>
+    <lastmod>2018-05-12T12:59:10+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -643,7 +648,7 @@
   
   <url>
     <loc>https://blog.yuantops.com/</loc>
-    <lastmod>2018-05-12T08:45:52+00:00</lastmod>
+    <lastmod>2018-05-12T12:59:10+00:00</lastmod>
     <priority>0</priority>
   </url>
   
