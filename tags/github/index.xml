@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Github on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tags/github/</link>
+    <link>https://blog.yuantops.com/tags/github/</link>
     <description>Recent content in Github on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,15 +11,15 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Tue, 30 Dec 2014 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tags/github/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tags/github/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Jekyll安装指南</title>
-      <link>http://blog.yuantops.com/tech/jekyll-installation/</link>
+      <link>https://blog.yuantops.com/tech/jekyll-installation/</link>
       <pubDate>Tue, 30 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/jekyll-installation/</guid>
+      <guid>https://blog.yuantops.com/tech/jekyll-installation/</guid>
       <description>环境准备 准备安装Jekyll前，确保系统满足以下条件：
  Ruby
  RubyGems

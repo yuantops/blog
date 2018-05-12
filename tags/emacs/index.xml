@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Emacs on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tags/emacs/</link>
+    <link>https://blog.yuantops.com/tags/emacs/</link>
     <description>Recent content in Emacs on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,15 +11,15 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Thu, 04 Jan 2018 00:31:08 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Emacs Golang开发环境配置指南</title>
-      <link>http://blog.yuantops.com/tech/emacs-config-go-dev-environ/</link>
+      <link>https://blog.yuantops.com/tech/emacs-config-go-dev-environ/</link>
       <pubDate>Thu, 04 Jan 2018 00:31:08 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/emacs-config-go-dev-environ/</guid>
+      <guid>https://blog.yuantops.com/tech/emacs-config-go-dev-environ/</guid>
       <description>安装Go 虽然像是废话，但为了配置过程的完整性，还是记下来吧。
 官网install链接: https://golang.org/doc/install
 装好后记得配置 $GOPATH 。为了能在任何地方使用Go编译出来的命令，还可以把 $GOPATH/bin 附到环境变量$PATH。
@@ -37,10 +37,10 @@ polipo &amp;amp;  默认会监听8123端口的http请求。
     
     <item>
       <title>Orgmode利用ox-pandoc导出hugo博客的workflow</title>
-      <link>http://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/</link>
+      <link>https://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/</link>
       <pubDate>Sun, 10 Dec 2017 13:16:22 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/</guid>
+      <guid>https://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/</guid>
       <description>使用Emacs有一年多了吧，终于开始体会到它的强大。这段盘旋上升的磨合期，值得写几篇文章记录一下。这篇博客就是我用orgmode + hugo写博客的个人实践，希望对orgmode中文用户/hugo blogger有所启发。
 之前的workflow 自从转到hugo后，我发博客的workflow是这样的：
  在org文件里添加内容 按下 C-c C-e （export命令），再按 C-s (只导出当前subtree)，再按 m o (导出格式markdown)，生成markdown 内容 把markdown内容保存到 hugo/content/ 目录，手动加上文件头(front matter) 本地部署hugo server，检查效果。无误则运行部署脚本 deploy.sh push到github仓库的 hugo 分支 github上我给 hugo 分支加了webhook，会触发构建，部署生成的html内容到 gh-pages 分支  这段流程一直还凑合，直到我的博客里出现表格：org导出的markdown表格会变成一坨翔，我要在第4步浪费很多时间人肉调整格式。
@@ -50,10 +50,10 @@ Since md is built on top of the HTML back-end, any Org constructs not supported 
     
     <item>
       <title>emacs macOS配置中文字体</title>
-      <link>http://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</link>
+      <link>https://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</link>
       <pubDate>Sun, 10 Dec 2017 00:50:07 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</guid>
+      <guid>https://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</guid>
       <description> 从网上攒来的emacs字体配置地址
 https://github.com/yuantops/emacs.d/blob/universal/lisp/init-fonts.el
  列出系统提供的所有字体
@@ -64,10 +64,10 @@ https://github.com/yuantops/emacs.d/blob/universal/lisp/init-fonts.el
     
     <item>
       <title>Emacs阅读C/C&#43;&#43;代码——生成TAGS文件</title>
-      <link>http://blog.yuantops.com/tech/emacs-create-etags/</link>
+      <link>https://blog.yuantops.com/tech/emacs-create-etags/</link>
       <pubDate>Wed, 19 Jul 2017 21:35:16 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/emacs-create-etags/</guid>
+      <guid>https://blog.yuantops.com/tech/emacs-create-etags/</guid>
       <description> 生成TAGS文件
 $ find . -iname &amp;quot;*.[chCHS]&amp;quot; | etags -  Emacs 导入TAGS文件
 在emacs中，M-x visit-tags-table，选择刚刚生成的TAG文件。

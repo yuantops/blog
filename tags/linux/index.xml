@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tags/linux/</link>
+    <link>https://blog.yuantops.com/tags/linux/</link>
     <description>Recent content in Linux on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,15 +11,15 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Thu, 22 Jan 2015 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Linux确定监听某个端口的进程</title>
-      <link>http://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</link>
+      <link>https://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</link>
       <pubDate>Thu, 22 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</guid>
+      <guid>https://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</guid>
       <description>比较常见的命令有:
  netstat
  lsof

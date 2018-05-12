@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/</link>
+    <link>https://blog.yuantops.com/</link>
     <description>Recent content on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -10,14 +10,14 @@
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Sat, 12 May 2018 08:45:52 +0000</lastBuildDate>
-    <atom:link href="http://blog.yuantops.com/" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages</title>
-      <link>http://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</link>
+      <link>https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</link>
       <pubDate>Sat, 12 May 2018 08:45:52 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</guid>
+      <guid>https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</guid>
       <description>
 
 &lt;p&gt;这个博客托管在GitHub
@@ -119,10 +119,10 @@ CI会自动触发后续的构建、部署动作。&lt;/p&gt;
     
     <item>
       <title>用Benchmark验证sync.Pool对GC latency的优化效果</title>
-      <link>http://blog.yuantops.com/tech/sync-pool-benchmark/</link>
+      <link>https://blog.yuantops.com/tech/sync-pool-benchmark/</link>
       <pubDate>Fri, 11 May 2018 10:33:25 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/sync-pool-benchmark/</guid>
+      <guid>https://blog.yuantops.com/tech/sync-pool-benchmark/</guid>
       <description>
 
 &lt;p&gt;可能是为了避免重复造轮子，Go官方库推出了sync.Pool:一个thread-safe、可回收/重用对象的内存池。对性能优化狂魔而言，sync.Pool无疑是一个优化GC的好工具，因为理论上重用对象会减少了GC次数，缩短latency。这篇文章是sync.Pool的性能验证报告：sync.Pool确实能极大减少GC次数。&lt;/p&gt;
@@ -303,10 +303,10 @@ Worst push time:  36.141858ms
     
     <item>
       <title>Emacs Golang开发环境配置指南</title>
-      <link>http://blog.yuantops.com/tech/emacs-config-go-dev-environ/</link>
+      <link>https://blog.yuantops.com/tech/emacs-config-go-dev-environ/</link>
       <pubDate>Thu, 04 Jan 2018 00:31:08 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/emacs-config-go-dev-environ/</guid>
+      <guid>https://blog.yuantops.com/tech/emacs-config-go-dev-environ/</guid>
       <description>
 
 &lt;h1 id=&#34;安装go&#34;&gt;安装Go&lt;/h1&gt;
@@ -441,10 +441,10 @@ socksProxyType = socks5
     
     <item>
       <title>Orgmode利用ox-pandoc导出hugo博客的workflow</title>
-      <link>http://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/</link>
+      <link>https://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/</link>
       <pubDate>Sun, 10 Dec 2017 13:16:22 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/</guid>
+      <guid>https://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/</guid>
       <description>
 
 &lt;p&gt;使用Emacs有一年多了吧，终于开始体会到它的强大。这段盘旋上升的磨合期，值得写几篇文章记录一下。这篇博客就是我用orgmode + hugo写博客的个人实践，希望对orgmode中文用户/hugo blogger有所启发。&lt;/p&gt;
@@ -596,10 +596,10 @@ Description = &amp;quot;&amp;quot;
     
     <item>
       <title>emacs macOS配置中文字体</title>
-      <link>http://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</link>
+      <link>https://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</link>
       <pubDate>Sun, 10 Dec 2017 00:50:07 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</guid>
+      <guid>https://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</guid>
       <description>&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;从网上攒来的emacs字体配置地址&lt;br /&gt;
 &lt;a href=&#34;https://github.com/yuantops/emacs.d/blob/universal/lisp/init-fonts.el&#34;&gt;https://github.com/yuantops/emacs.d/blob/universal/lisp/init-fonts.el&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
@@ -617,10 +617,10 @@ Description = &amp;quot;&amp;quot;
     
     <item>
       <title>sed和awk学习笔记</title>
-      <link>http://blog.yuantops.com/tech/sed_awk_notes/</link>
+      <link>https://blog.yuantops.com/tech/sed_awk_notes/</link>
       <pubDate>Sat, 09 Dec 2017 17:12:59 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/sed_awk_notes/</guid>
+      <guid>https://blog.yuantops.com/tech/sed_awk_notes/</guid>
       <description>
 
 &lt;ol&gt;
@@ -909,10 +909,10 @@ Description&lt;/p&gt;
     
     <item>
       <title>《Maven实战》摘抄</title>
-      <link>http://blog.yuantops.com/tech/maven-in-action-notes/</link>
+      <link>https://blog.yuantops.com/tech/maven-in-action-notes/</link>
       <pubDate>Tue, 28 Nov 2017 19:16:30 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/maven-in-action-notes/</guid>
+      <guid>https://blog.yuantops.com/tech/maven-in-action-notes/</guid>
       <description>
 
 &lt;h2 id=&#34;关键词-a-id-sec-1-1-name-sec-1-1-a&#34;&gt;关键词&lt;a id=&#34;sec-1-1&#34; name=&#34;sec-1-1&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
@@ -1206,10 +1206,10 @@ Maven 支持很多种激活Profile的方式。
     
     <item>
       <title>MyBatis generator生成Dao和Mapper小记</title>
-      <link>http://blog.yuantops.com/tech/mybatis-mbg-cmd/</link>
+      <link>https://blog.yuantops.com/tech/mybatis-mbg-cmd/</link>
       <pubDate>Tue, 17 Oct 2017 10:30:53 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/mybatis-mbg-cmd/</guid>
+      <guid>https://blog.yuantops.com/tech/mybatis-mbg-cmd/</guid>
       <description>
 
 &lt;h2 id=&#34;需下载文件-a-id-sec-1-1-name-sec-1-1-a&#34;&gt;需下载文件&lt;a id=&#34;sec-1-1&#34; name=&#34;sec-1-1&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
@@ -1292,10 +1292,10 @@ Maven 支持很多种激活Profile的方式。
     
     <item>
       <title>整理Java有限状态机</title>
-      <link>http://blog.yuantops.com/tech/fsm_and_java_implementation/</link>
+      <link>https://blog.yuantops.com/tech/fsm_and_java_implementation/</link>
       <pubDate>Thu, 12 Oct 2017 14:30:53 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/fsm_and_java_implementation/</guid>
+      <guid>https://blog.yuantops.com/tech/fsm_and_java_implementation/</guid>
       <description>
 
 &lt;h2 id=&#34;有限状态机fsm及它的构成要素-a-id-sec-1-1-name-sec-1-1-a&#34;&gt;有限状态机FSM及它的构成要素&lt;a id=&#34;sec-1-1&#34; name=&#34;sec-1-1&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
@@ -1426,10 +1426,10 @@ Maven 支持很多种激活Profile的方式。
     
     <item>
       <title>JMX学习笔记</title>
-      <link>http://blog.yuantops.com/tech/jmx-overview/</link>
+      <link>https://blog.yuantops.com/tech/jmx-overview/</link>
       <pubDate>Sat, 22 Jul 2017 18:26:25 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/jmx-overview/</guid>
+      <guid>https://blog.yuantops.com/tech/jmx-overview/</guid>
       <description>
 
 &lt;p&gt;JMX，全称&lt;code&gt;Java Management Extensions&lt;/code&gt;，借用贾宝玉的一句话描述它：「这个妹妹，我曾见过的。」&lt;/p&gt;
@@ -1498,10 +1498,10 @@ mbs.registerMBean(mbean, name);
     
     <item>
       <title>申请Google Voice号码以及帐号充值小记</title>
-      <link>http://blog.yuantops.com/tech/apply-gv-no-and-purchase-credit/</link>
+      <link>https://blog.yuantops.com/tech/apply-gv-no-and-purchase-credit/</link>
       <pubDate>Fri, 21 Jul 2017 22:30:53 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/apply-gv-no-and-purchase-credit/</guid>
+      <guid>https://blog.yuantops.com/tech/apply-gv-no-and-purchase-credit/</guid>
       <description>
 
 &lt;p&gt;现在，各种网站窥探用户隐私时越来越理直气壮：注册帐号，非得验证手机号不可。&lt;br /&gt;
@@ -1553,10 +1553,10 @@ mbs.registerMBean(mbean, name);
     
     <item>
       <title>Emacs阅读C/C&#43;&#43;代码——生成TAGS文件</title>
-      <link>http://blog.yuantops.com/tech/emacs-create-etags/</link>
+      <link>https://blog.yuantops.com/tech/emacs-create-etags/</link>
       <pubDate>Wed, 19 Jul 2017 21:35:16 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/emacs-create-etags/</guid>
+      <guid>https://blog.yuantops.com/tech/emacs-create-etags/</guid>
       <description>&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;生成TAGS文件&lt;/p&gt;
 
@@ -1578,10 +1578,10 @@ mbs.registerMBean(mbean, name);
     
     <item>
       <title>mkfs 报invalid block count错误</title>
-      <link>http://blog.yuantops.com/tech/mkfs-t-not-supported/</link>
+      <link>https://blog.yuantops.com/tech/mkfs-t-not-supported/</link>
       <pubDate>Tue, 27 Jun 2017 10:34:04 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/mkfs-t-not-supported/</guid>
+      <guid>https://blog.yuantops.com/tech/mkfs-t-not-supported/</guid>
       <description>
 
 &lt;h2 id=&#34;问题&#34;&gt;问题&lt;/h2&gt;
@@ -1622,10 +1622,10 @@ mbs.registerMBean(mbean, name);
     
     <item>
       <title>JVM 和Java GC 笔记</title>
-      <link>http://blog.yuantops.com/tech/jvm-gc-note-1/</link>
+      <link>https://blog.yuantops.com/tech/jvm-gc-note-1/</link>
       <pubDate>Wed, 21 Jun 2017 23:32:37 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/jvm-gc-note-1/</guid>
+      <guid>https://blog.yuantops.com/tech/jvm-gc-note-1/</guid>
       <description>
 
 &lt;h2 id=&#34;学习材料&#34;&gt;学习材料&lt;/h2&gt;
@@ -1720,10 +1720,10 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
     
     <item>
       <title>free as in freedom</title>
-      <link>http://blog.yuantops.com/opinions/free-as-in-freedom/</link>
+      <link>https://blog.yuantops.com/opinions/free-as-in-freedom/</link>
       <pubDate>Sat, 10 Jun 2017 13:42:31 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/free-as-in-freedom/</guid>
+      <guid>https://blog.yuantops.com/opinions/free-as-in-freedom/</guid>
       <description>&lt;p&gt;记得很久以前，博客时代，流行过一种协议：RSS。它让人在不直接访问网站的情况下，也能第一时间得到内容更新。那时流行的还有最好用的RSS 阅读器：google reader。后来因为只花钱不赚钱，google关掉了google reader。再后来美国出现了facebook，中国出现了新浪微博、微信，大家转到社交平台上浏览帖子。而代表了互联网开放和分享的精神的RSS 协议，渐渐淡出了我们的视线，可以说死透了。&lt;/p&gt;
 
 &lt;p&gt;突然回忆起RSS，是因为看到这两天的新闻&lt;a href=&#34;http://www.yicai.com/news/5298103.html&#34;&gt;网信办遏制低俗之风：“毒舌电影”等25个微信公号被永久封杀&lt;/a&gt; 。不止微信一家，百度、新浪微博上的娱乐博主都受波及。哭嚎遍野。令人觉得无比荒诞，又毛骨悚然。因为大家已经很配合地避开所有雷区，以为安安静静谈谈风月地赚钱很安全，但被现实无情打脸。&lt;/p&gt;
@@ -1748,10 +1748,10 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
     
     <item>
       <title>放弃Jekyll，拥抱Hugo</title>
-      <link>http://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/</link>
+      <link>https://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/</link>
       <pubDate>Sat, 06 May 2017 14:03:44 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/</guid>
+      <guid>https://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/</guid>
       <description>&lt;p&gt;大约半年前，我更换了自己的工作电脑。装完系统后，开始装各种常用程序。&lt;/p&gt;
 
 &lt;p&gt;一切都是那么美好，直到我开始尝试装Jekyll。各种依赖下不下来，或者版本对不上。前者要问候GFW，后者就是Ruby自己的锅了。我，一个Ruby盲，多次被毫不留情的依赖版本问题整崩溃。哪怕一次次长夜痛哭，最终也没有成功。&lt;/p&gt;
@@ -1772,10 +1772,10 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
     
     <item>
       <title>About Page</title>
-      <link>http://blog.yuantops.com/about/</link>
+      <link>https://blog.yuantops.com/about/</link>
       <pubDate>Fri, 05 May 2017 14:27:36 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/about/</guid>
+      <guid>https://blog.yuantops.com/about/</guid>
       <description>
 
 &lt;h2 id=&#34;关于博客&#34;&gt;关于博客&lt;/h2&gt;
@@ -1806,19 +1806,19 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
     
     <item>
       <title>Archive Page</title>
-      <link>http://blog.yuantops.com/archives/</link>
+      <link>https://blog.yuantops.com/archives/</link>
       <pubDate>Fri, 05 May 2017 14:27:36 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/archives/</guid>
+      <guid>https://blog.yuantops.com/archives/</guid>
       <description></description>
     </item>
     
     <item>
       <title>写一套简易的视频点播系统——API Server</title>
-      <link>http://blog.yuantops.com/tech/write-your-own-vod-system-api/</link>
+      <link>https://blog.yuantops.com/tech/write-your-own-vod-system-api/</link>
       <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/write-your-own-vod-system-api/</guid>
+      <guid>https://blog.yuantops.com/tech/write-your-own-vod-system-api/</guid>
       <description>
 
 &lt;div id=&#34;table-of-contents&#34;&gt;
@@ -1884,10 +1884,10 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
     
     <item>
       <title>写一套简易的视频点播系统——Android视频播放器</title>
-      <link>http://blog.yuantops.com/tech/write-your-own-vod-system-android/</link>
+      <link>https://blog.yuantops.com/tech/write-your-own-vod-system-android/</link>
       <pubDate>Tue, 19 Apr 2016 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/write-your-own-vod-system-android/</guid>
+      <guid>https://blog.yuantops.com/tech/write-your-own-vod-system-android/</guid>
       <description>
 
 &lt;p&gt;作为一个视频点播系统的客户端，播放视频是最基本的功能。本着最精简最偷懒的原则，这个客户端实现的功能包括:&lt;/p&gt;
@@ -1935,10 +1935,10 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
     
     <item>
       <title>写一套简易的视频点播系统</title>
-      <link>http://blog.yuantops.com/tech/write-your-own-vod-system/</link>
+      <link>https://blog.yuantops.com/tech/write-your-own-vod-system/</link>
       <pubDate>Sat, 09 Apr 2016 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/write-your-own-vod-system/</guid>
+      <guid>https://blog.yuantops.com/tech/write-your-own-vod-system/</guid>
       <description>&lt;p&gt;最初实习时，断断续续写Android代码，实现过用Helix架设流媒体服务器、手机播放流媒体视频的功能。后来一份实习，接触到Spring＋MyBatis框架，见识了它们在处理http请求和数据库连接上的便捷。这几天有些时间，想到可以将它们两者糅合到一起，实现一个完整的视频点播系统，既包括服务器(流媒体服务器，数据库，http服务器)，又包括客户端(Android)。虽然简陋，但工作起来毫无问题。&lt;/p&gt;
 
 &lt;p&gt;整个工程运行起来的效果:&lt;/p&gt;
@@ -1964,10 +1964,10 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
     
     <item>
       <title>权力与自由——重读《笑傲江湖》</title>
-      <link>http://blog.yuantops.com/opinions/power-and-freedom/</link>
+      <link>https://blog.yuantops.com/opinions/power-and-freedom/</link>
       <pubDate>Sun, 07 Feb 2016 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/power-and-freedom/</guid>
+      <guid>https://blog.yuantops.com/opinions/power-and-freedom/</guid>
       <description>
 
 &lt;p&gt;《笑傲江湖》是非常著名的金庸小说，里面有极多典型形象：岳不群、令狐冲、风清扬等人物，独孤九剑、葵花宝典、辟邪剑法等武功以及“五岳剑派，同气连枝”、“无招胜有招”、“欲练此功，挥刀自宫”等带有哲学意味的话语都流传甚广。每隔一段时间把金庸小说过一遍，俨然已经成为习惯。这个寒假重读《笑傲》，除夕这天刚好读完。或许因为阅历增多，居然看出点新东西。&lt;/p&gt;
@@ -2073,10 +2073,10 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
     
     <item>
       <title>2016年来了</title>
-      <link>http://blog.yuantops.com/life/yearly-summary-2015/</link>
+      <link>https://blog.yuantops.com/life/yearly-summary-2015/</link>
       <pubDate>Thu, 14 Jan 2016 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/life/yearly-summary-2015/</guid>
+      <guid>https://blog.yuantops.com/life/yearly-summary-2015/</guid>
       <description>
 
 &lt;p&gt;2015年对我挺重要，这一年我做了这些事：&lt;/p&gt;
@@ -2179,10 +2179,10 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
     
     <item>
       <title>百度，一家作恶的公司</title>
-      <link>http://blog.yuantops.com/opinions/baidu-is-committing-crime/</link>
+      <link>https://blog.yuantops.com/opinions/baidu-is-committing-crime/</link>
       <pubDate>Tue, 12 Jan 2016 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/baidu-is-committing-crime/</guid>
+      <guid>https://blog.yuantops.com/opinions/baidu-is-committing-crime/</guid>
       <description>
 
 &lt;p&gt;百度是一家无节操，无底线的公司。我以前对它仅仅是反感，但最近这股情绪已经变成厌恶。&lt;/p&gt;
@@ -2230,10 +2230,10 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
     
     <item>
       <title>用Android 手机玩延时摄影</title>
-      <link>http://blog.yuantops.com/tech/timelapse-photography-diy-android/</link>
+      <link>https://blog.yuantops.com/tech/timelapse-photography-diy-android/</link>
       <pubDate>Fri, 11 Dec 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/timelapse-photography-diy-android/</guid>
+      <guid>https://blog.yuantops.com/tech/timelapse-photography-diy-android/</guid>
       <description>
 
 &lt;p&gt;延时摄影是一种很精妙细微的展现形式，时间被压缩后有流动的美。每隔固定时间按一次快门，再将照片按某个帧率连续起来，就生成一段流畅的视频。摄影发烧友一般用单反拍照，用快门线控制拍照的周期。鉴于单反不是人人都有（譬如我就没有。。），这里分享一个经济实用的点子，用安卓和电脑来DIY延时摄影。&lt;/p&gt;
@@ -2282,10 +2282,10 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
     
     <item>
       <title>C语言堆与栈的区别</title>
-      <link>http://blog.yuantops.com/tech/c-heap-vs-stack-memory/</link>
+      <link>https://blog.yuantops.com/tech/c-heap-vs-stack-memory/</link>
       <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/c-heap-vs-stack-memory/</guid>
+      <guid>https://blog.yuantops.com/tech/c-heap-vs-stack-memory/</guid>
       <description>
 
 &lt;p&gt;C语言中动态区域由Stack和Heap两部分组成。简单说来，Stack由编译器自动分配释放，存放函数的参数值、局部变量等值，底层的数据结构是LIFO的栈。Heap由程序员分配释放，如果一不小心忘记了释放申请的内存，可能引起内存泄漏。Heap基于的数据结构比较复杂。&lt;/p&gt;
@@ -2322,10 +2322,10 @@ Heap：往往会在堆的头部用一个字节存放堆的大小，以利于free
     
     <item>
       <title>Java堆内存与栈内存的区别</title>
-      <link>http://blog.yuantops.com/tech/java-heap-vs-stack-memory/</link>
+      <link>https://blog.yuantops.com/tech/java-heap-vs-stack-memory/</link>
       <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/java-heap-vs-stack-memory/</guid>
+      <guid>https://blog.yuantops.com/tech/java-heap-vs-stack-memory/</guid>
       <description>
 
 &lt;p&gt;Java中提供&amp;rdquo;栈&amp;rdquo;这种数据结构的实现，java.util.Stack。但此处我们所讨论的不是数据结构，而是JVM内存中的堆与栈，Java Runtime中存放数据的地方。&lt;/p&gt;
@@ -2355,10 +2355,10 @@ Heap：往往会在堆的头部用一个字节存放堆的大小，以利于free
     
     <item>
       <title>LaTeX安装以及生成pdf时字体找不到的处理办法</title>
-      <link>http://blog.yuantops.com/tech/latex-installation-and-basics/</link>
+      <link>https://blog.yuantops.com/tech/latex-installation-and-basics/</link>
       <pubDate>Tue, 08 Sep 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/latex-installation-and-basics/</guid>
+      <guid>https://blog.yuantops.com/tech/latex-installation-and-basics/</guid>
       <description>
 
 &lt;h2 id=&#34;安装软件包&#34;&gt;安装软件包&lt;/h2&gt;
@@ -2391,10 +2391,10 @@ Heap：往往会在堆的头部用一个字节存放堆的大小，以利于free
     
     <item>
       <title>一张彩票，一个人的美国梦</title>
-      <link>http://blog.yuantops.com/opinions/a-lottery-for-american-dream/</link>
+      <link>https://blog.yuantops.com/opinions/a-lottery-for-american-dream/</link>
       <pubDate>Fri, 31 Jul 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/a-lottery-for-american-dream/</guid>
+      <guid>https://blog.yuantops.com/opinions/a-lottery-for-american-dream/</guid>
       <description>&lt;p&gt;这是This American Life&lt;a href=&#34;http://www.thisamericanlife.org/radio-archives/episode/560/abdi-and-the-golden-ticket&#34;&gt;最近一期&lt;/a&gt;里讲述的故事，关于一个人因为一张彩票，到最终拿到美国绿卡的曲折故事。我听完后印象很深，因为故事里描述的另外一个国度的混乱、人们的追求与我所处的环境迥然不同，更因为这个故事加深了我对“美国梦”这个词的理解。&lt;/p&gt;
 
 &lt;p&gt;故事要从一张彩票说起。&lt;/p&gt;
@@ -2428,10 +2428,10 @@ Heap：往往会在堆的头部用一个字节存放堆的大小，以利于free
     
     <item>
       <title>Android SurfaceView双缓存机制与闪屏现象分析</title>
-      <link>http://blog.yuantops.com/tech/surfaceview-dual-cache/</link>
+      <link>https://blog.yuantops.com/tech/surfaceview-dual-cache/</link>
       <pubDate>Sun, 26 Jul 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/surfaceview-dual-cache/</guid>
+      <guid>https://blog.yuantops.com/tech/surfaceview-dual-cache/</guid>
       <description>&lt;p&gt;##理解SurfaceView&lt;br /&gt;
 SurfaceView是View的子类，所以View有的特点它都有。但它有特殊之处：它引入了缓存机制，优化了内容刷新的过程，使UI Thread不至于崩溃。更新它的内容，我们要用到与之关联的SurfaceHolder。&lt;/p&gt;
 
@@ -2461,10 +2461,10 @@ SurfaceView是View的子类，所以View有的特点它都有。但它有特殊�
     
     <item>
       <title>用Helix Server建立点播流/直播流的方法</title>
-      <link>http://blog.yuantops.com/tech/helix-server-streaming-guide/</link>
+      <link>https://blog.yuantops.com/tech/helix-server-streaming-guide/</link>
       <pubDate>Thu, 23 Jul 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/helix-server-streaming-guide/</guid>
+      <guid>https://blog.yuantops.com/tech/helix-server-streaming-guide/</guid>
       <description>
 
 &lt;h2 id=&#34;视频文件预处理&#34;&gt;视频文件预处理&lt;/h2&gt;
@@ -2561,10 +2561,10 @@ Helix 的点播支持Http协议、RTSP协议，直播支持RTSP协议。Helix为
     
     <item>
       <title>Ali面试记录</title>
-      <link>http://blog.yuantops.com/tech/interview-ali-record-1/</link>
+      <link>https://blog.yuantops.com/tech/interview-ali-record-1/</link>
       <pubDate>Thu, 19 Mar 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/interview-ali-record-1/</guid>
+      <guid>https://blog.yuantops.com/tech/interview-ali-record-1/</guid>
       <description>&lt;p&gt;记录：
 1. 以支付宝的输入密码界面为例。当支付宝再次回到前台时，有时会进入输手势密码的界面。请问你的实现思路？&lt;br /&gt;
 面试官的解答：编写一个BaseActivity继承Activity，然后App中所有的Activity都继承BaseActivity。在BaseActivity中设置计时器，重写BaseActivity的onStop()和onStart()方法&amp;hellip;.&lt;/p&gt;
@@ -2589,10 +2589,10 @@ Helix 的点播支持Http协议、RTSP协议，直播支持RTSP协议。Helix为
     
     <item>
       <title>Git重新应用gitignore文件规则</title>
-      <link>http://blog.yuantops.com/tech/refresh-gitigore/</link>
+      <link>https://blog.yuantops.com/tech/refresh-gitigore/</link>
       <pubDate>Tue, 17 Mar 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/refresh-gitigore/</guid>
+      <guid>https://blog.yuantops.com/tech/refresh-gitigore/</guid>
       <description>&lt;p&gt;这个问题参见&lt;a href=&#34;https://stackoverflow.com/questions/11451535/gitignore-not-working&#34;&gt;StackOverflow&lt;/a&gt;，记录在下面：&lt;/p&gt;
 
 &lt;ol&gt;
@@ -2607,10 +2607,10 @@ Helix 的点播支持Http协议、RTSP协议，直播支持RTSP协议。Helix为
     
     <item>
       <title>REST基础概念笔记</title>
-      <link>http://blog.yuantops.com/tech/rest-basics/</link>
+      <link>https://blog.yuantops.com/tech/rest-basics/</link>
       <pubDate>Thu, 29 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/rest-basics/</guid>
+      <guid>https://blog.yuantops.com/tech/rest-basics/</guid>
       <description>
 
 &lt;p&gt;&lt;strong&gt;Representational State Transfer(REST)&lt;/strong&gt;&lt;br /&gt;
@@ -2654,10 +2654,10 @@ REST is an architecture style or design pattern used as a set of guidelines for 
     
     <item>
       <title>视频格式学习笔记</title>
-      <link>http://blog.yuantops.com/tech/video-format-and-container-study/</link>
+      <link>https://blog.yuantops.com/tech/video-format-and-container-study/</link>
       <pubDate>Wed, 28 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/video-format-and-container-study/</guid>
+      <guid>https://blog.yuantops.com/tech/video-format-and-container-study/</guid>
       <description>
 
 &lt;p&gt;在生活语境里所说的“视频格式”，在学术上有两个概念与之对应：Container format (封装格式)和Codec (暂且译为“编解码格式”)。&lt;/p&gt;
@@ -2699,10 +2699,10 @@ Codec是一种压缩标准。而文件的压缩/还原是通过编/解码实现�
     
     <item>
       <title>Linux确定监听某个端口的进程</title>
-      <link>http://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</link>
+      <link>https://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</link>
       <pubDate>Thu, 22 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</guid>
+      <guid>https://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</guid>
       <description>
 
 &lt;p&gt;比较常见的命令有:&lt;/p&gt;
@@ -2792,10 +2792,10 @@ each 		mapping and flags associated with it
     
     <item>
       <title>Eclipse中添加Tomcat插件</title>
-      <link>http://blog.yuantops.com/tech/install-tomcat-plugin-in-eclipse/</link>
+      <link>https://blog.yuantops.com/tech/install-tomcat-plugin-in-eclipse/</link>
       <pubDate>Wed, 21 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/install-tomcat-plugin-in-eclipse/</guid>
+      <guid>https://blog.yuantops.com/tech/install-tomcat-plugin-in-eclipse/</guid>
       <description>&lt;p&gt;##安装Tomcat
 &lt;strong&gt;下载链接&lt;/strong&gt;:&lt;a href=&#34;http://tomcat.apache.org/download-70.cgi&#34;&gt;Tomcat7&lt;/a&gt;&lt;/p&gt;
 
@@ -2831,10 +2831,10 @@ each 		mapping and flags associated with it
     
     <item>
       <title>IPv4协议保留的私有IP段</title>
-      <link>http://blog.yuantops.com/tech/ipv4-private-address-space/</link>
+      <link>https://blog.yuantops.com/tech/ipv4-private-address-space/</link>
       <pubDate>Tue, 20 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ipv4-private-address-space/</guid>
+      <guid>https://blog.yuantops.com/tech/ipv4-private-address-space/</guid>
       <description>&lt;p&gt;这三个保留IP地址段是:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -2849,10 +2849,10 @@ each 		mapping and flags associated with it
     
     <item>
       <title>北邮校园网通过配置IPv6使用Google服务</title>
-      <link>http://blog.yuantops.com/tech/config-ipv6-to-bypass-gfw-in-bupt/</link>
+      <link>https://blog.yuantops.com/tech/config-ipv6-to-bypass-gfw-in-bupt/</link>
       <pubDate>Sat, 17 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/config-ipv6-to-bypass-gfw-in-bupt/</guid>
+      <guid>https://blog.yuantops.com/tech/config-ipv6-to-bypass-gfw-in-bupt/</guid>
       <description>
 
 &lt;h2 id=&#34;前提&#34;&gt;前提&lt;/h2&gt;
@@ -2960,10 +2960,10 @@ nameserver 2001:4860:4860::8844&lt;br /&gt;
     
     <item>
       <title>厘清Java Socket端口问题 -- 服务器的端口是什么</title>
-      <link>http://blog.yuantops.com/tech/some-clarification-about-java-socket-port/</link>
+      <link>https://blog.yuantops.com/tech/some-clarification-about-java-socket-port/</link>
       <pubDate>Tue, 13 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/some-clarification-about-java-socket-port/</guid>
+      <guid>https://blog.yuantops.com/tech/some-clarification-about-java-socket-port/</guid>
       <description>
 
 &lt;p&gt;在我之前翻译的&lt;a href=&#34;http://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/&#34;&gt;Socket是什么&lt;/a&gt;一文中，对java中socket建立的流程有描述。在服务器接受客户端socket连接的部分，它这么说道：&lt;/p&gt;
@@ -3031,10 +3031,10 @@ tcp6       &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;spa
     
     <item>
       <title>理解Docker -- Docker Official Docs翻译</title>
-      <link>http://blog.yuantops.com/tech/understanding-docker/</link>
+      <link>https://blog.yuantops.com/tech/understanding-docker/</link>
       <pubDate>Mon, 12 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/understanding-docker/</guid>
+      <guid>https://blog.yuantops.com/tech/understanding-docker/</guid>
       <description>
 
 &lt;h3 id=&#34;docker是什么&#34;&gt;Docker是什么&lt;/h3&gt;
@@ -3232,10 +3232,10 @@ $ sudo docker run -i -t ubuntu /bin/bash&lt;/p&gt;
     
     <item>
       <title>Activity的生命周期以及两个Activity跳转时的状态变化</title>
-      <link>http://blog.yuantops.com/tech/android-activity-lifecycle-with-two-activites/</link>
+      <link>https://blog.yuantops.com/tech/android-activity-lifecycle-with-two-activites/</link>
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/android-activity-lifecycle-with-two-activites/</guid>
+      <guid>https://blog.yuantops.com/tech/android-activity-lifecycle-with-two-activites/</guid>
       <description>&lt;p&gt;##Android Activity的生命周期
 下面这张图非常清晰地介绍了Activity的生命周期：&lt;br /&gt;
 &lt;img src=&#34;http://www.startandroid.ru/images/stories/lessons/L0023/L0023_010_en.jpg&#34; alt=&#34;Activity Lifecycle&#34; /&gt;&lt;/p&gt;
@@ -3279,10 +3279,10 @@ ActivityTwo: onDestroy()
     
     <item>
       <title>Android中Context的作用</title>
-      <link>http://blog.yuantops.com/tech/use-of-context-in-android/</link>
+      <link>https://blog.yuantops.com/tech/use-of-context-in-android/</link>
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/use-of-context-in-android/</guid>
+      <guid>https://blog.yuantops.com/tech/use-of-context-in-android/</guid>
       <description>&lt;p&gt;##官方文档中对Context的介绍
 &amp;gt;Interface to global information about an application environment. This is an abstract class whose implementation is provided by the Android system. It allows access to application-specific resources and classes, as well as up-calls for application-level operations such as launching activities, broadcasting and receiving intents, etc.&lt;/p&gt;
 
@@ -3315,10 +3315,10 @@ ListAdapter adapter = new SimpleCursorAdapter(getApplicationContext(), &amp;hell
     
     <item>
       <title>Sockets in Java -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/java-all-about-sockets-oracle-java-tutorial/</link>
+      <link>https://blog.yuantops.com/tech/java-all-about-sockets-oracle-java-tutorial/</link>
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/java-all-about-sockets-oracle-java-tutorial/</guid>
+      <guid>https://blog.yuantops.com/tech/java-all-about-sockets-oracle-java-tutorial/</guid>
       <description>&lt;p&gt;##课程：关于Sockets的一切
 URL和URLConnection为获取因特网上的资源提供了一种相对高层次(high-level)的机制。但有时候，你的程序需要一种相对低层次(lower-level)的网络通信，譬如说，你可能需要编写一个客户端-服务器(client-server)程序。&lt;/p&gt;
 
@@ -3342,10 +3342,10 @@ URL和URLConnection为获取因特网上的资源提供了一种相对高层次(
     
     <item>
       <title>Socket是什么 -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/</link>
+      <link>https://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/</link>
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/</guid>
+      <guid>https://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/</guid>
       <description>&lt;p&gt;一般而言，一个服务器运行在一台电脑上，这个服务器有一个绑定了端口号的socket。这个服务器一边等待，一边守着socket监听从客户端发过来的连接请求。&lt;/p&gt;
 
 &lt;p&gt;在客户端：客户端知道服务器所在的主机的主机名(hostname)和服务器正在监听的端口号。为了发出连接请求，客户端尝试着连接服务器所在的主机名和端口。客户端同时也需要向服务器端证明自己的身份，因此它也绑定了一个本地的端口号以便在本次连接中使用。这一般是由系统指定的。&lt;br /&gt;
@@ -3377,10 +3377,10 @@ Socket是网络上运行着的两个程序所形成的双向通信连接的一�
     
     <item>
       <title>[转载]Android Intent原理分析</title>
-      <link>http://blog.yuantops.com/tech/an-insight-of-android-intent/</link>
+      <link>https://blog.yuantops.com/tech/an-insight-of-android-intent/</link>
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/an-insight-of-android-intent/</guid>
+      <guid>https://blog.yuantops.com/tech/an-insight-of-android-intent/</guid>
       <description>&lt;p&gt;##原文链接
 &lt;a href=&#34;http://blog.chinaunix.net/uid-741742-id-359319.html&#34;&gt;Android Intent原理分析&lt;/a&gt;&lt;/p&gt;
 
@@ -3753,10 +3753,10 @@ scheduleRegisteredReceiver；&lt;/p&gt;
     
     <item>
       <title>HTTP Methods: GET vs. POST</title>
-      <link>http://blog.yuantops.com/tech/difference-between-http-get-and-post/</link>
+      <link>https://blog.yuantops.com/tech/difference-between-http-get-and-post/</link>
       <pubDate>Fri, 09 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/difference-between-http-get-and-post/</guid>
+      <guid>https://blog.yuantops.com/tech/difference-between-http-get-and-post/</guid>
       <description>&lt;p&gt;##HTTP是什么？&lt;br /&gt;
 超文本传输协议(The Hypertext Transfer Protocol, HTTP)是为客户端(client)与服务器(server)之间的通信(communication)设计的。&lt;/p&gt;
 
@@ -3866,10 +3866,10 @@ name1=value1&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&
     
     <item>
       <title>Buffered Streams -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</link>
+      <link>https://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</link>
       <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</guid>
+      <guid>https://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</guid>
       <description>
 
 &lt;h2 id=&#34;buffered-streams-缓冲流&#34;&gt;Buffered Streams 缓冲流&lt;/h2&gt;
@@ -3904,10 +3904,10 @@ outputStream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span s
     
     <item>
       <title>在GitHub pages中添加标签Tags(非插件方式)</title>
-      <link>http://blog.yuantops.com/tech/add-tags-in-gh-pages/</link>
+      <link>https://blog.yuantops.com/tech/add-tags-in-gh-pages/</link>
       <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/add-tags-in-gh-pages/</guid>
+      <guid>https://blog.yuantops.com/tech/add-tags-in-gh-pages/</guid>
       <description>
 
 &lt;h3 id=&#34;参考内容&#34;&gt;参考内容&lt;/h3&gt;
@@ -3983,10 +3983,10 @@ description: &amp;#34;An archive of posts sorted by tag.&amp;#34;
     
     <item>
       <title>Jekyll安装指南</title>
-      <link>http://blog.yuantops.com/tech/jekyll-installation/</link>
+      <link>https://blog.yuantops.com/tech/jekyll-installation/</link>
       <pubDate>Tue, 30 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/jekyll-installation/</guid>
+      <guid>https://blog.yuantops.com/tech/jekyll-installation/</guid>
       <description>
 
 &lt;h3 id=&#34;环境准备&#34;&gt;环境准备&lt;/h3&gt;
@@ -4036,10 +4036,10 @@ gem &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;github-pages&amp;#39;&lt;
     
     <item>
       <title>Byte Streams -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</link>
+      <link>https://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</link>
       <pubDate>Mon, 29 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</guid>
+      <guid>https://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</guid>
       <description>
 
 &lt;h2 id=&#34;byte-streams-字节流&#34;&gt;Byte Streams 字节流&lt;/h2&gt;
@@ -4105,10 +4105,10 @@ gem &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;github-pages&amp;#39;&lt;
     
     <item>
       <title>Character Streams -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</link>
+      <link>https://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</link>
       <pubDate>Mon, 29 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</guid>
+      <guid>https://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</guid>
       <description>
 
 &lt;h2 id=&#34;character-streams-字符流&#34;&gt;Character Streams 字符流&lt;/h2&gt;
@@ -4207,10 +4207,10 @@ gem &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;github-pages&amp;#39;&lt;
     
     <item>
       <title>OSC Android源码学习笔记 四 listview初始化、获取数据、加载数据的流程</title>
-      <link>http://blog.yuantops.com/tech/osc-android-app-notes-4/</link>
+      <link>https://blog.yuantops.com/tech/osc-android-app-notes-4/</link>
       <pubDate>Sat, 27 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-4/</guid>
+      <guid>https://blog.yuantops.com/tech/osc-android-app-notes-4/</guid>
       <description>&lt;p&gt;OSC App显示的信息分为资讯(news)，博客(blog)，问答(Question)，动弹(tweet)几屏，每屏对应一个ListView。以资讯(news)为例，粗略看一下它的ListView是如何初始化、获取数据、加载数据的。&lt;/p&gt;
 
 &lt;ol&gt;
@@ -4242,10 +4242,10 @@ ListViewNewsApapter这个类继承BaseAdapter，重写了getView()方法。值�
     
     <item>
       <title>开源中国安卓客户端源码学习笔记 三 自定义Exception类</title>
-      <link>http://blog.yuantops.com/tech/osc-android-app-notes-3/</link>
+      <link>https://blog.yuantops.com/tech/osc-android-app-notes-3/</link>
       <pubDate>Thu, 25 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-3/</guid>
+      <guid>https://blog.yuantops.com/tech/osc-android-app-notes-3/</guid>
       <description>&lt;p&gt;net.oschina.app包中包含四个类的定义文件，它们分别是AppConfig, AppException, AppManager, AppStart。其中AppStart类继承Activity，是跳转界面。AppException类是Exception的子类，是自定义的异常类。&lt;/p&gt;
 
 &lt;p&gt;AppException类中有8个final static类型的类变量，定义异常类型: network, socket, http, xml, io, run, jason几种。这个类中有对应的静态方法，以Exception为形参，返回对应的新建对象。值得注意的是，代码中预留了debug的选项，如果在新建AppException对象时传入“debug”参数，那么对应的Exception信息会被写到文件中保存。&lt;/p&gt;
@@ -4256,10 +4256,10 @@ ListViewNewsApapter这个类继承BaseAdapter，重写了getView()方法。值�
     
     <item>
       <title>使用OpenSSL工具制作证书的方法</title>
-      <link>http://blog.yuantops.com/tech/ssl-creation-guide/</link>
+      <link>https://blog.yuantops.com/tech/ssl-creation-guide/</link>
       <pubDate>Wed, 24 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssl-creation-guide/</guid>
+      <guid>https://blog.yuantops.com/tech/ssl-creation-guide/</guid>
       <description>
 
 &lt;div class=&#34;message&#34;&gt;
@@ -4367,10 +4367,10 @@ For some fields there will be a default value,
     
     <item>
       <title>BIND安装笔记</title>
-      <link>http://blog.yuantops.com/tech/bind-installation-guide/</link>
+      <link>https://blog.yuantops.com/tech/bind-installation-guide/</link>
       <pubDate>Tue, 23 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/bind-installation-guide/</guid>
+      <guid>https://blog.yuantops.com/tech/bind-installation-guide/</guid>
       <description>
 
 &lt;h3 id=&#34;安装环境&#34;&gt;安装环境&lt;/h3&gt;
@@ -4521,10 +4521,10 @@ logging {&lt;br /&gt;
     
     <item>
       <title>开源中国安卓客户端源码学习笔记 二 欢迎界面跳转与渐变效果</title>
-      <link>http://blog.yuantops.com/tech/osc-android-app-notes-2/</link>
+      <link>https://blog.yuantops.com/tech/osc-android-app-notes-2/</link>
       <pubDate>Tue, 23 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-2/</guid>
+      <guid>https://blog.yuantops.com/tech/osc-android-app-notes-2/</guid>
       <description>&lt;p&gt;OSC客户端启动时会先显示欢迎界面，再跳转到主页，其中跳转过程有渐变效果。&lt;/p&gt;
 
 &lt;p&gt;这里使用了AlphaAnimation类。AlphaAnimation类能实现渐进渐出的效果，官方文档里说“This animation ends up changing the alpha property of a Transformation”。alpha property可以理解为透明度，&amp;rdquo;0.0&amp;rdquo;为全透明，“0.5”为半透明，“1.0”时不透明。&lt;/p&gt;
@@ -4553,10 +4553,10 @@ logging {&lt;br /&gt;
     
     <item>
       <title>开源中国安卓客户端源码学习笔记 一</title>
-      <link>http://blog.yuantops.com/tech/osc-android-app-notes-1/</link>
+      <link>https://blog.yuantops.com/tech/osc-android-app-notes-1/</link>
       <pubDate>Mon, 22 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-1/</guid>
+      <guid>https://blog.yuantops.com/tech/osc-android-app-notes-1/</guid>
       <description>&lt;p&gt;##前言
 开源中国(OSCHINA)是国内一个开源社区,社区自己开发了Android和iOS平台的客户端，而且将各自的代码开源了。值得夸奖的是，他们的Android APP不是基于HTML，而是Android原生API。我最近在学习它Android App的&lt;a href=&#34;http://git.oschina.net/oschina/android-app&#34;&gt;源代码&lt;/a&gt;，毕竟像它这样性能优秀、注释齐全的开源项目是比较稀少的。&lt;/p&gt;
 
@@ -4589,10 +4589,10 @@ There is normally no need to subclass Application. In most situation, static sin
     
     <item>
       <title>制作属于自己的字母favicon</title>
-      <link>http://blog.yuantops.com/tech/make-custom-character-favicon/</link>
+      <link>https://blog.yuantops.com/tech/make-custom-character-favicon/</link>
       <pubDate>Sat, 20 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/make-custom-character-favicon/</guid>
+      <guid>https://blog.yuantops.com/tech/make-custom-character-favicon/</guid>
       <description>&lt;p&gt;每个自己搭建博客的人，应该都想自己的博客更具个性。favicon是浏览器浏览网页时标签左边的那个小图标，是可以自己设计的。&lt;/p&gt;
 
 &lt;p&gt;这里，推荐一个网站：&lt;a href=&#34;http://faviconist.com/&#34;&gt;faviconist.com&lt;/a&gt;。你可以输入一个字母，得到这个字母的图标，而且字体、文字前景色、背景色都可以调整。调整到满意后，下载到本地，保存到对应的网页文件夹，就可以了。&lt;/p&gt;
@@ -4603,10 +4603,10 @@ There is normally no need to subclass Application. In most situation, static sin
     
     <item>
       <title>Java 的一些术语解释</title>
-      <link>http://blog.yuantops.com/tech/java-terminology-explanation/</link>
+      <link>https://blog.yuantops.com/tech/java-terminology-explanation/</link>
       <pubDate>Sun, 14 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/java-terminology-explanation/</guid>
+      <guid>https://blog.yuantops.com/tech/java-terminology-explanation/</guid>
       <description>
 
 &lt;p&gt;作为JAVA初学者，往往弄不清楚一系列术语的概念。这篇文章搬运&lt;a href=&#34;http://stackoverflow.com/questions/1906445/what-is-the-difference-between-jdk-and-jre&#34;&gt;文章一&lt;/a&gt;与&lt;a href=&#34;http://stackoverflow.com/questions/10858193/java-jdk-sdk-se&#34;&gt;文章二&lt;/a&gt;，解释JRE与JDK, JavaSE、JavaME与JavaEE，Java版本等术语 。&lt;/p&gt;
@@ -4648,10 +4648,10 @@ Java 1.7是我机器上的java版本号，它也被称为Java 7：它们是一�
     
     <item>
       <title>SSL术语与基本原理</title>
-      <link>http://blog.yuantops.com/tech/ssl-terminologies-and-concepts/</link>
+      <link>https://blog.yuantops.com/tech/ssl-terminologies-and-concepts/</link>
       <pubDate>Sat, 06 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssl-terminologies-and-concepts/</guid>
+      <guid>https://blog.yuantops.com/tech/ssl-terminologies-and-concepts/</guid>
       <description>
 
 &lt;p&gt;非对称加密的又一大应用是SSL。对于SSL的介绍，阮一峰有一篇深入浅出的博客，推荐阅读：&lt;a href=&#34;http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html&#34;&gt;数字签名是什么？&lt;/a&gt;。这篇文章也非常不错：&lt;a href=&#34;http://httpd.apache.org/docs/current/ssl/ssl_intro.html&#34;&gt;SSL/TLS Strong Ebcryption: An introduction&lt;/a&gt;。&lt;/p&gt;
@@ -4724,10 +4724,10 @@ Java 1.7是我机器上的java版本号，它也被称为Java 7：它们是一�
     
     <item>
       <title>SSL证书的细节与制作方法</title>
-      <link>http://blog.yuantops.com/tech/ssl-certificate-details-and-creation-guide/</link>
+      <link>https://blog.yuantops.com/tech/ssl-certificate-details-and-creation-guide/</link>
       <pubDate>Sat, 06 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssl-certificate-details-and-creation-guide/</guid>
+      <guid>https://blog.yuantops.com/tech/ssl-certificate-details-and-creation-guide/</guid>
       <description>
 
 &lt;p&gt;在上篇文章中，讨论了数字证书(digital certificate)的重要意义。在实际中，Internt工程任务组(IETF)PKI X.509专门负责制定数字证书的格式，并提出了一套标准。根据这套标准(X.509)，互联网上的各级单位各自予以实现，从而形成一套完备的公钥基础设施(Public Key Infrastructure, PKI)。这是本篇文章将要讨论的内容。&lt;/p&gt;
@@ -4899,10 +4899,10 @@ Java 1.7是我机器上的java版本号，它也被称为Java 7：它们是一�
     
     <item>
       <title>SSH登录原理</title>
-      <link>http://blog.yuantops.com/tech/ssh-login-procedure/</link>
+      <link>https://blog.yuantops.com/tech/ssh-login-procedure/</link>
       <pubDate>Fri, 05 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssh-login-procedure/</guid>
+      <guid>https://blog.yuantops.com/tech/ssh-login-procedure/</guid>
       <description>
 
 &lt;p&gt;关于SSH登录的原理，阮一峰的这篇博客写得很清楚，值得一看。&lt;br /&gt;
@@ -4973,10 +4973,10 @@ Java 1.7是我机器上的java版本号，它也被称为Java 7：它们是一�
     
     <item>
       <title>关于Git,需要理解的几个关键概念</title>
-      <link>http://blog.yuantops.com/tech/key-concepts-to-understand-git/</link>
+      <link>https://blog.yuantops.com/tech/key-concepts-to-understand-git/</link>
       <pubDate>Fri, 05 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/key-concepts-to-understand-git/</guid>
+      <guid>https://blog.yuantops.com/tech/key-concepts-to-understand-git/</guid>
       <description>
 
 &lt;p&gt;Git的控制哲学十分优雅,特别是了解它后会更为之倾倒。Git的入门在此不赘述。在掌握常用命令之后,再思考下面这些概念,相信对Git的认识会得到提升。&lt;/p&gt;
@@ -5021,10 +5021,10 @@ Java 1.7是我机器上的java版本号，它也被称为Java 7：它们是一�
     
     <item>
       <title>SSL学习笔记 前言</title>
-      <link>http://blog.yuantops.com/tech/ssl-series-introduction/</link>
+      <link>https://blog.yuantops.com/tech/ssl-series-introduction/</link>
       <pubDate>Sun, 30 Nov 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssl-series-introduction/</guid>
+      <guid>https://blog.yuantops.com/tech/ssl-series-introduction/</guid>
       <description>&lt;p&gt;最近实习时接触到了SSL协议，CA证书，ssh登录之类的东西，总是一知半解的感觉非常不好，于是我决定好好钻研一下。在网上查找了很多资料后，终于理清了很多以前很模糊的知识点。用几篇博客来记录一下，算是一个总结。&lt;/p&gt;
 
 &lt;p&gt;SSL(Secured Sockets Layer)与SSH(Secure Shell)，是用来解决网络传输中安全问题的协议。如何保证传输安全，使消息不被窃听、不被篡改，这需要用到加密技术。所以，要理解SSL中CA certificate的意义、ssh登录的工作原理，首先得理解它们所基于的加密原理: &lt;strong&gt;非对称加密&lt;/strong&gt;。&lt;/p&gt;
@@ -5043,10 +5043,10 @@ Java 1.7是我机器上的java版本号，它也被称为Java 7：它们是一�
     
     <item>
       <title>vim增加markdown语法高亮支持</title>
-      <link>http://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</link>
+      <link>https://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</link>
       <pubDate>Sun, 30 Nov 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</guid>
+      <guid>https://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</guid>
       <description>&lt;p&gt;markdown是一种非常简洁美观的语法格式，非常适合用来撰写博客(&lt;a href=&#34;http://www.jianshu.com/p/q81RER&#34;&gt;简书 语法简介&lt;/a&gt;)。在linux下，我个人最习惯用vim做文本编辑器。那么，如何使vim支持markdown的语法高亮呢？&lt;/p&gt;
 
 &lt;p&gt;vim是支持自定义语法高亮插件的。于是，问题就变成了两部分：&lt;br /&gt;
@@ -5080,10 +5080,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>自杀，沉重的日常</title>
-      <link>http://blog.yuantops.com/opinions/heavy-topic-of-suicides-in-china/</link>
+      <link>https://blog.yuantops.com/opinions/heavy-topic-of-suicides-in-china/</link>
       <pubDate>Sat, 09 Aug 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/heavy-topic-of-suicides-in-china/</guid>
+      <guid>https://blog.yuantops.com/opinions/heavy-topic-of-suicides-in-china/</guid>
       <description>&lt;p&gt;自杀什么时候成了流行话题？每天都有媒体报导形形色色的自杀，理由千奇百怪：避债、情困、喊冤……实在数不过来。这些新闻往往出现在报纸的社会版块，是吸引读者的猎奇故事。&lt;/p&gt;
 
 &lt;p&gt;自杀是困扰全世界的大难题。The economist的&lt;a href=&#34;http://www.economist.com/news/china/21605942-first-two-articles-chinas-suicide-rate-looks-effect-urbanisation-back&#34;&gt;这篇文章&lt;/a&gt;将目光转向中国，讨论了中国近几年自杀率急剧下降的现象。下面梳理下文章的内容。&lt;/p&gt;
@@ -5126,10 +5126,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>独裁的伟人——读《邓小平时代》</title>
-      <link>http://blog.yuantops.com/opinions/dengxiaoping-a-dictatorial-great-man/</link>
+      <link>https://blog.yuantops.com/opinions/dengxiaoping-a-dictatorial-great-man/</link>
       <pubDate>Wed, 14 Aug 2013 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/dengxiaoping-a-dictatorial-great-man/</guid>
+      <guid>https://blog.yuantops.com/opinions/dengxiaoping-a-dictatorial-great-man/</guid>
       <description>&lt;p&gt;在与华莱士谈笑风生时，江哥面对华莱士一定要扣给他的”独裁者”帽子，十分坚定地予以否认。多才多艺多门外语流畅辩才无碍的江哥，当然知道”独裁者”不是什么好词。他本人固然是不肯承认，但他没底气承受也是事实。《海贼王》里伟大的白胡子说道，”我是旧时代的残党，新时代没有承载我的船”。同样，在邓小平谢幕后，中国这片大海已不再会承载”独裁者”这艘船。邓小平是中国最后一位独裁者。&lt;/p&gt;
 
 &lt;p&gt;中国领导人的个人传记往往是十分敏感的，特别是这位”独裁者”和”伟人”身份合一的小个子领导。而一本面世的传记，除了关心其资料的质量，也要注意作者个人的立场倾向。这本书原本用英文写就，后续再翻译成中文的。这本书的史料翔实，以时间为脉络介绍邓的一生，每章一个阶段，章后附有很长的引用表，显得很严谨。总的说来，是一部很踏实的传记。&lt;/p&gt;
@@ -5148,10 +5148,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>农民没有了土地</title>
-      <link>http://blog.yuantops.com/opinions/when-farmers-have-no-land/</link>
+      <link>https://blog.yuantops.com/opinions/when-farmers-have-no-land/</link>
       <pubDate>Wed, 27 Mar 2013 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/when-farmers-have-no-land/</guid>
+      <guid>https://blog.yuantops.com/opinions/when-farmers-have-no-land/</guid>
       <description>&lt;p&gt;今天（3月17号）两会闭幕，新总理李克强参加新闻发布会。新华社一位记者问城镇化问题，说有人担心随着城镇化的推进，会有很多农民失去土地，进而形成一个新的阶层–城市贫民阶层，问总理怎么看。&lt;/p&gt;
 
 &lt;p&gt;李Sir的回答避开了城市贫民阶层这点。他说，中国的城镇化规模是人类历史上罕见的，是广大农民的愿望。同时，这一工程非常复杂，还需要各项配套改革推进。总而言之，城镇化有难度，但不会放弃。&lt;/p&gt;
@@ -5172,10 +5172,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>读前人笔记</title>
-      <link>http://blog.yuantops.com/opinions/book-review-of-some-ancient-notes/</link>
+      <link>https://blog.yuantops.com/opinions/book-review-of-some-ancient-notes/</link>
       <pubDate>Fri, 22 Mar 2013 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/book-review-of-some-ancient-notes/</guid>
+      <guid>https://blog.yuantops.com/opinions/book-review-of-some-ancient-notes/</guid>
       <description>
 
 &lt;p&gt;最近看了一些前人的笔记，觉得很有意思。它们比较轻松，又有点猎奇，体裁短小，很适合作睡前读物。&lt;/p&gt;
@@ -5208,10 +5208,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>《三娘子·包公案》</title>
-      <link>http://blog.yuantops.com/opinions/a-short-story-from-baogong-records/</link>
+      <link>https://blog.yuantops.com/opinions/a-short-story-from-baogong-records/</link>
       <pubDate>Sun, 17 Mar 2013 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/a-short-story-from-baogong-records/</guid>
+      <guid>https://blog.yuantops.com/opinions/a-short-story-from-baogong-records/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;话说广东潮州府揭阳县有赵信者，与周义相交。义相约同往京中买布，先一日讨定张潮艄公船只，约次日黎明船上会。至期，赵信先到船，张潮见时值四更，路上无人，将船撑向深处去，将赵信推落水中而死，再撑船近岸，依然假睡。黎明，周义至，叫艄公，张潮方起。等至早饭过，不见赵信来，周义乃令艄公去催。张潮到信家，连叫几声，三娘子方出开门，盖因早起造饭，夫去后复睡，故反起迟。潮因问信妻孙氏道：”汝三官人昨约周官人来船，今周官人等候已久，三官人缘何不来？”孙氏惊道：”三官人出门甚早，如何尚未到船？”潮回报周义，义亦回去，与孙氏家追寻四处，三日无踪。义思：”信与我约同买卖，人所共知，今不见下落，恐人归罪于我。”因往县去首明，为急救人命事，外开干证艄公张潮，左右邻舍赵质、赵协及孙氏等。&lt;/p&gt;
 
@@ -5238,10 +5238,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>了不起的葡萄——读《第九个寡妇》</title>
-      <link>http://blog.yuantops.com/opinions/the-greatness-of-widow-putao/</link>
+      <link>https://blog.yuantops.com/opinions/the-greatness-of-widow-putao/</link>
       <pubDate>Sun, 25 Nov 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/the-greatness-of-widow-putao/</guid>
+      <guid>https://blog.yuantops.com/opinions/the-greatness-of-widow-putao/</guid>
       <description>&lt;p&gt;《第九个寡妇》，看名字容易让人想入非非。但很遗憾，这本书讲的不是寡妇门前的风流韵事，而是一个寡妇一辈子的波折。&lt;/p&gt;
 
 &lt;p&gt;故事发生在关中平原，时间横跨民国和红朝。一个女孩子（葡萄）在荒年被卖，给人买了作童养媳。她和买她的一家人在动荡年景里生活，历尽坎坷。她最了不起的一件事，是把在政治运动中受了枪决的公公救回来，藏在地窖里几十年。&lt;/p&gt;
@@ -5268,10 +5268,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>为信仰感动——读《旧约 出埃及记》</title>
-      <link>http://blog.yuantops.com/opinions/moved-by-their-faith-of-god/</link>
+      <link>https://blog.yuantops.com/opinions/moved-by-their-faith-of-god/</link>
       <pubDate>Sun, 18 Nov 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/moved-by-their-faith-of-god/</guid>
+      <guid>https://blog.yuantops.com/opinions/moved-by-their-faith-of-god/</guid>
       <description>&lt;p&gt;圣经旧约故事里，除了亚当和夏娃的犯错，最出名的大概是《出埃及记》（ Exodus ）。上帝施大能，派摩西拯救在埃及受苦的子民，指引他们走向流着奶与蜜的应许之地。千百年来，无数民族曾于黑夜里等待光明，坚信上帝会再次施展神迹，就像他曾经所为。这个故事给了他们期望，成为他们所守护的信仰。&lt;/p&gt;
 
 &lt;p&gt;迪斯尼以这个故事为原型出过一部动画片《埃及王子》，制作十分精良。我先的看动画，再看文字。动画本身的画面和音乐都十分精彩。还有一首歌《Exodus》，气势颇磅礴。相关的文学作品和艺术创作不胜枚举，为这个本身就很感人的故事再增添血肉。&lt;/p&gt;
@@ -5292,10 +5292,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>初读莫言</title>
-      <link>http://blog.yuantops.com/opinions/first-response-to-moyan-novel/</link>
+      <link>https://blog.yuantops.com/opinions/first-response-to-moyan-novel/</link>
       <pubDate>Mon, 12 Nov 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/first-response-to-moyan-novel/</guid>
+      <guid>https://blog.yuantops.com/opinions/first-response-to-moyan-novel/</guid>
       <description>&lt;p&gt;很早之前，我在高中的一本读物上读到过莫言。这篇文章讨论到地域对作家的语言的影响，说即使是出生地那么近的两个作家，莫言的语言就明显带有故土的气息，而另一个作家（名字忘了）则淡得多。我全然没接触过莫言的作品，直到莫言得到今年的诺贝尔文学奖，我脑海中也只有个模糊印象，知道他是乡土一派的作家。&lt;/p&gt;
 
 &lt;p&gt;最近开始读莫言的作品，最先读的小说是《牛》。之后，读了他的散文集《会唱歌的墙》和《透明的胡萝卜》。莫言是个十分高产的作家，作品的风格多变，反映的主题也十分丰富。这三本书，已经能使我印证这一点。&lt;/p&gt;
@@ -5324,10 +5324,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>一场包皮引发的抗议</title>
-      <link>http://blog.yuantops.com/opinions/a-protest-caused-by-foreskin/</link>
+      <link>https://blog.yuantops.com/opinions/a-protest-caused-by-foreskin/</link>
       <pubDate>Fri, 26 Oct 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/a-protest-caused-by-foreskin/</guid>
+      <guid>https://blog.yuantops.com/opinions/a-protest-caused-by-foreskin/</guid>
       <description>&lt;p&gt;9月15日 的《经济学人》上有一篇文章，介绍德国柏林穆斯林和犹太教徒的一起抗议：示威者们上街游行，反对当地政府新颁布的“割礼”干涉令。在我们看来难登大雅之堂的“那话儿”，居然引发了一场几百人参与的示威，不禁让人咂舌。&lt;/p&gt;
 
 &lt;p&gt;“割礼”(circumcision)远不止割一刀那么简单。在亚伯拉罕宗教(犹太教、基督教、伊斯兰教)流行的地区，“割礼”有着特定的宗教含义。世界上大约三分之一的男子做过这个手术。&lt;/p&gt;
@@ -5346,10 +5346,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>板荡里的两代人——读《白鹿原》</title>
-      <link>http://blog.yuantops.com/opinions/two-generations-in-the-age-of-turbulence/</link>
+      <link>https://blog.yuantops.com/opinions/two-generations-in-the-age-of-turbulence/</link>
       <pubDate>Sun, 21 Oct 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/two-generations-in-the-age-of-turbulence/</guid>
+      <guid>https://blog.yuantops.com/opinions/two-generations-in-the-age-of-turbulence/</guid>
       <description>&lt;p&gt;近来《白鹿原》被拍成电影，宣传铺天盖地，走在大街上都能听到人议论。一部文学作品突然走红，往往是借了商业或娱乐的东风。这也勾起了我的兴趣，于是翻出书看了一遍。&lt;/p&gt;
 
 &lt;p&gt;之前我看过陈忠实的其他几部短篇，对他笔下的黄土风情略有了解。这部蜚声文坛的《白鹿原》，的确了得，可以算作他的巅峰之作。叙事恢弘，时间跨度从晚清到红朝，基本涵盖一部中国近代史；书中白家和鹿家两个家族的诸多人物，线索繁多，被时代大浪裹挟，编织个人的家族的喜怒悲情。&lt;/p&gt;
@@ -5374,10 +5374,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>木月之死</title>
-      <link>http://blog.yuantops.com/opinions/the-death-of-kizuki/</link>
+      <link>https://blog.yuantops.com/opinions/the-death-of-kizuki/</link>
       <pubDate>Mon, 08 Oct 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/the-death-of-kizuki/</guid>
+      <guid>https://blog.yuantops.com/opinions/the-death-of-kizuki/</guid>
       <description>&lt;p&gt;木月死了。木月永远以十七岁的年龄活在这个世界。他的死亡延续了他的生命。&lt;/p&gt;
 
 &lt;p&gt;村上春树的《挪威的森林》，木月是未出场的主角，他的死亡被渡边无数次想起，并深深地影响了直子的人生。他不是书中唯一自杀的人，直子的姐姐，直子，初美，他们都选择了生命的另一种形式。青春的迷惘、惶然和不知所措，让他们于平静安详的决定中关上生命的大门。&lt;/p&gt;
@@ -5400,10 +5400,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>黄土作家陈忠实</title>
-      <link>http://blog.yuantops.com/opinions/chenzhongshi-the-loess-writer/</link>
+      <link>https://blog.yuantops.com/opinions/chenzhongshi-the-loess-writer/</link>
       <pubDate>Sat, 08 Sep 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/chenzhongshi-the-loess-writer/</guid>
+      <guid>https://blog.yuantops.com/opinions/chenzhongshi-the-loess-writer/</guid>
       <description>&lt;p&gt;这几天看完了陈忠实的几篇中篇小说，尤以《梆子老太》《蓝袍先生》两篇给我留下的印象最深。&lt;/p&gt;
 
 &lt;p&gt;《梆子老太》是一篇人物传记。一个脸长得像梆子的媳妇嫁给了梆子井村里一个老实人，但她不能生育，在受到各种歧视后，养成了一种“盼人穷”的怪心理。政治运动来了，这位受到各种冷眼的苦媳妇翻了身，被推为“典型”“模范”，在运动中积极表现，把村里的人几乎得罪了个遍而不觉有错。形势变了，运动冷淡下来，她又成了人人厌恶的“梆子老太”，甚至死后连帮忙抬棺材的人都没有。&lt;/p&gt;
@@ -5420,10 +5420,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>who is afraid of Huawei</title>
-      <link>http://blog.yuantops.com/opinions/who-is-afaid-of-huawei/</link>
+      <link>https://blog.yuantops.com/opinions/who-is-afaid-of-huawei/</link>
       <pubDate>Sun, 12 Aug 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/who-is-afaid-of-huawei/</guid>
+      <guid>https://blog.yuantops.com/opinions/who-is-afaid-of-huawei/</guid>
       <description>&lt;p&gt;The Economist 的八月四号刊中，专题报道了中国的华为。封面标题是本文的标题，“谁在害怕华为？”。这是个很不错的话题。&lt;/p&gt;
 
 &lt;p&gt;华为是中国新兴企业的代表。这个公司在八十年代成立，到今天不过三十多年，就从一个名不见经传的小企业发展成有十几万雇员、遍布全球的通信业巨型企业，营业额甚至一度超过了爱立信。外国人眼中的中国企业印象，不外乎抄袭、山寨、劣质，但华为不同，它走的是高科技道路，不是靠苦力挣钱，而且产品性价比高。华为在高新产业内站稳了脚跟，为新一代的中国企业树立了标杆。&lt;/p&gt;
@@ -5450,10 +5450,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>七月七日长生殿——读《长恨传》</title>
-      <link>http://blog.yuantops.com/opinions/story-of-song-of-eternal-sorrow/</link>
+      <link>https://blog.yuantops.com/opinions/story-of-song-of-eternal-sorrow/</link>
       <pubDate>Sun, 29 Jul 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/story-of-song-of-eternal-sorrow/</guid>
+      <guid>https://blog.yuantops.com/opinions/story-of-song-of-eternal-sorrow/</guid>
       <description>&lt;p&gt;杨贵妃是历史上的四大美女之一。她和唐明皇的爱情故事，通过白居易的一首《长恨歌》千古流传，让无数人为之心折。&lt;/p&gt;
 
 &lt;p&gt;最近看唐人笔记《酉阳杂俎》，里面专门录有杨贵妃的故事，十分详尽。在图书馆借的一本唐人传奇，鲁迅当年校录的，里面收录了陈鸿撰的《长恨传》，语言传神，再次重温，同样感到触动。&lt;/p&gt;
@@ -5480,10 +5480,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>英伦风情的奥运会</title>
-      <link>http://blog.yuantops.com/opinions/the-opening-ceremony-of-london-olympics/</link>
+      <link>https://blog.yuantops.com/opinions/the-opening-ceremony-of-london-olympics/</link>
       <pubDate>Sun, 29 Jul 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/the-opening-ceremony-of-london-olympics/</guid>
+      <guid>https://blog.yuantops.com/opinions/the-opening-ceremony-of-london-olympics/</guid>
       <description>&lt;p&gt;凌晨早起看奥运开幕式，见识了一把英伦风情。英国人的心态和我们当真不同，从开幕式就看出来了。&lt;/p&gt;
 
 &lt;p&gt;伦敦奥运会，全过程视频不断。视频固然精彩，但好歹是堂堂的奥运会开幕式现场，用这种取巧的方法让人觉得不太厚道。从开始的牛羊聚会展现出的田园风情，到工业革命时竖起几根“硕大”无比的烟囱，之后信息时代里一对恋人通过互联网邂逅相爱，整个过程显得十分随意。慢悠悠不慌忙，没有架子，完全没有当年北京奥运会的那种磅礴气势。&lt;/p&gt;
@@ -5502,10 +5502,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>98年的洪水记忆</title>
-      <link>http://blog.yuantops.com/life/memory-of-the-flood-in-1998/</link>
+      <link>https://blog.yuantops.com/life/memory-of-the-flood-in-1998/</link>
       <pubDate>Wed, 25 Jul 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/life/memory-of-the-flood-in-1998/</guid>
+      <guid>https://blog.yuantops.com/life/memory-of-the-flood-in-1998/</guid>
       <description>&lt;p&gt;最近北京暴雨，造成惨重的人员伤亡，由此引发了社会上对防汛和水灾的热烈讨论。多少年了，类似这样大规模的公众担忧再次出现，在互联网时代显得格外热闹。水灾其实离我们很近。长江黄河历史上都是影响国家稳定的重要因素，决堤倒口造成的流离失所和苦难，几乎是每代人都能经历的。&lt;/p&gt;
 
 &lt;p&gt;我家在长江边上的江汉平原，属于“荆江分洪区”内。所谓“荆江分洪区”，是个近代概念。建国后，当时的领导打算治理长江水患，于是在“万里长江，险在荆江”的荆江流域，划出一块地方作缓冲区，在其四周新建一道堤，提前埋好炸药。当荆江大堤不能抗住大水时，为了保住江汉平原和大城市武汉的安全，就炸开新堤把江水泄出来。生活在这地方的八十多万人，是某种意义上的“牺牲品”。万幸分洪区建立后，只在竣工后第二年(1954年)唯一启用过一次。三峡修成前，每逢汛期，其间百姓的提心吊胆都比别处更甚。&lt;/p&gt;
@@ -5532,10 +5532,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>《戏梦人生》</title>
-      <link>http://blog.yuantops.com/opinions/the-puppet-master/</link>
+      <link>https://blog.yuantops.com/opinions/the-puppet-master/</link>
       <pubDate>Thu, 19 Jul 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/the-puppet-master/</guid>
+      <guid>https://blog.yuantops.com/opinions/the-puppet-master/</guid>
       <description>&lt;p&gt;候导的《戏梦人生》，是一部自传性质的电影。虽然相当于一部纪录片，但其艺术水准丝毫不差。&lt;/p&gt;
 
 &lt;p&gt;李天禄老人是台湾的国宝级布袋艺术大师。他于日据时代出生，很小就跟着父亲学习家传手艺。母亲去世后，继母刻薄，他很小就跟着剧团演出闯荡。他之后入赘剧团团长家。此后抗战爆发，布袋戏被禁，他转战台北出演哥仔剧，结识了女朋友丽珠。布袋戏解禁，他的剧团与时俱进上演了一些日军宣传剧，和日本人有了不错交情。一家人逃避空袭到南部，失去了两个亲人，自己也染上疟疾，而事实上日军第二天就投降了。&lt;/p&gt;
@@ -5552,10 +5552,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>《海上花》</title>
-      <link>http://blog.yuantops.com/opinions/flowers-of-shanghai/</link>
+      <link>https://blog.yuantops.com/opinions/flowers-of-shanghai/</link>
       <pubDate>Thu, 19 Jul 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/flowers-of-shanghai/</guid>
+      <guid>https://blog.yuantops.com/opinions/flowers-of-shanghai/</guid>
       <description>&lt;p&gt;侯孝贤电影专场，今天上午连续放映《海上花》和《戏梦人生》。两部电影的长镜头，几乎达到令人发指的地步。一如既往的沉缓风格，气氛压抑。&lt;/p&gt;
 
 &lt;p&gt;《海上花》曾经由张爱玲改编，拍成电影时又经编剧朱天文裁剪。片中人物几乎都用上海话对白，场景全在昏暗的妓院室内，不见天光，整部片子的色彩都是煤油灯下的暗黄色。真把张爱玲笔下的上海滩世界拍的生灵活现。&lt;/p&gt;
@@ -5578,10 +5578,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>她的故事</title>
-      <link>http://blog.yuantops.com/opinions/her-story/</link>
+      <link>https://blog.yuantops.com/opinions/her-story/</link>
       <pubDate>Tue, 19 Jun 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/her-story/</guid>
+      <guid>https://blog.yuantops.com/opinions/her-story/</guid>
       <description>&lt;p&gt;##一 开始&lt;/p&gt;
 
 &lt;p&gt;午后，穿堂风吹过教室旁的走道，白色的阳光刺人眼睛。简陋的教室里传来读书声，狭小的校园格外静。我等下一节课开始，给二年级的孩子带一节英语课。时间尚早，我要找个地方坐下躲避日光。&lt;/p&gt;
@@ -5659,10 +5659,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>爸爸的十八岁</title>
-      <link>http://blog.yuantops.com/life/dad-in-his-18/</link>
+      <link>https://blog.yuantops.com/life/dad-in-his-18/</link>
       <pubDate>Mon, 18 Jun 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/life/dad-in-his-18/</guid>
+      <guid>https://blog.yuantops.com/life/dad-in-his-18/</guid>
       <description>&lt;p&gt;从客车上下来，远远看见爸爸的背影。他在街上和一个熟人说话，摩托车停在旁边。我走过去，把手搭上他肩，拍他一下。对面的叔叔一笑，打声招呼走了。爸爸转过身看到是我，十分高兴又略显局促地说，你到啦，那上车走吧，天好热。我坐上摩托车的后座，车开动。&lt;/p&gt;
 
 &lt;p&gt;他真的老了，我在心里不情愿地承认。刚刚下车，看到他背影的第一眼，我很诧异：他显得好沧桑！站在那儿，明显不如以前挺直。我走近，他转过身，我突然意识到他居然没有我高。在印象中，我一直在仰视他。现在，我却高过他了。坐在摩托车后座上，我一边跟他说话，一边看他——在他头上竟然看到不止一根白头发。爹爹在的时候曾跟我说，我们家的遗传是不白头发，他七十多了还是满头乌。现在，他的小儿子可是真真实实长出了白头发。我心里越发不是滋味。时间真残忍，守不住岁月的秘密，任由它爬上脸庞、发梢，让人心碎。&lt;/p&gt;
@@ -5689,10 +5689,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>关于我成长经历的事</title>
-      <link>http://blog.yuantops.com/life/about-my-growing-up-experience/</link>
+      <link>https://blog.yuantops.com/life/about-my-growing-up-experience/</link>
       <pubDate>Sat, 09 Jun 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/life/about-my-growing-up-experience/</guid>
+      <guid>https://blog.yuantops.com/life/about-my-growing-up-experience/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;在我们成长中，有过很多有趣的事，当然也会有一些烦恼。&lt;/p&gt;
 
@@ -5732,10 +5732,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>真诚的人死了，虚伪的人却活下来</title>
-      <link>http://blog.yuantops.com/opinions/the-honest-dead-the-hypocrisy-alive/</link>
+      <link>https://blog.yuantops.com/opinions/the-honest-dead-the-hypocrisy-alive/</link>
       <pubDate>Mon, 04 Jun 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/the-honest-dead-the-hypocrisy-alive/</guid>
+      <guid>https://blog.yuantops.com/opinions/the-honest-dead-the-hypocrisy-alive/</guid>
       <description>&lt;p&gt;在Facebook上看到这句话，觉得写得真好。&lt;/p&gt;
 
 &lt;p&gt;23年前的今天，发生了世界震惊的大事件。持续将近两个月的学生的请愿活动，最终在广场上被暴力驱散。借用韩寒的一句话，“本该在心中的热血，它涂在地上”。清场前后的死伤流血，至今没有权威的统计数字；事后众“领袖”逃的逃，抓的抓，情景凄凉。直到今天，23年过去了，伤痕离愈合还远得很。&lt;/p&gt;
@@ -5764,10 +5764,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>欠蒋介石一个客观评价</title>
-      <link>http://blog.yuantops.com/opinions/own-chiang-a-fair-appraise/</link>
+      <link>https://blog.yuantops.com/opinions/own-chiang-a-fair-appraise/</link>
       <pubDate>Sun, 27 May 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/own-chiang-a-fair-appraise/</guid>
+      <guid>https://blog.yuantops.com/opinions/own-chiang-a-fair-appraise/</guid>
       <description>&lt;p&gt;蒋介石在中国近代史上地位独特。他发起北伐，基本上完成中国的统一；领导中国进行艰苦卓绝的八年抗战，取得胜利；他治下，中国成为联合国的四个创始国之一，大大提升了国际地位。但他也对共产党人和左翼知识分子进行血腥镇压。内战失利后，他从大陆退守台湾，从此再也未能踏上大陆的土地。自此，大陆和台湾两地对他的评价走向两个极端。&lt;/p&gt;
 
 &lt;p&gt;成王败寇，原属平常，两岸皆然，况且是人生如此戏剧化的领导人。两岸在49年后所走的路线迥然不同，意识形态一度处于极端对立状态。新时期的两岸关系趋于缓和，但在历史的认识方面仍存在极大不同。两岸从学界还是民间，最集中的分歧之一就体现在对蒋介石的评价。&lt;/p&gt;
@@ -5790,10 +5790,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>要勇敢追求——有感而发</title>
-      <link>http://blog.yuantops.com/opinions/have-the-courage-to-pursue/</link>
+      <link>https://blog.yuantops.com/opinions/have-the-courage-to-pursue/</link>
       <pubDate>Sat, 26 May 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/have-the-courage-to-pursue/</guid>
+      <guid>https://blog.yuantops.com/opinions/have-the-courage-to-pursue/</guid>
       <description>&lt;p&gt;我亲眼见证了一件勇敢的追求事件，深受触动。想到自己，感到很惭愧。&lt;/p&gt;
 
 &lt;p&gt;一个女生，在图书馆邂逅并喜欢上了我们班的一个男生，但当时没有行动，错过了。于是，她把当时照的一张相片发到微博上，求转发扩散，求联系方式。恰好我关注了她的一个室友，回复了一句。之后，这个女生持之以恒地问我那个男生的情况。我自己觉得，向一个陌生人透露同学的信息不太合适，不太肯告诉她详细信息。表达了这一想法，告诉她我们是哪个大班的后，我就准备不理她的问题了。&lt;/p&gt;
@@ -5814,10 +5814,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>七心海棠的眼泪</title>
-      <link>http://blog.yuantops.com/opinions/love-tear-of-a-flower-like-girl/</link>
+      <link>https://blog.yuantops.com/opinions/love-tear-of-a-flower-like-girl/</link>
       <pubDate>Mon, 21 May 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/love-tear-of-a-flower-like-girl/</guid>
+      <guid>https://blog.yuantops.com/opinions/love-tear-of-a-flower-like-girl/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;“小妹子对情郎——恩情深，
 你莫负了妹子——一段情，
@@ -5873,10 +5873,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>天才都很独特</title>
-      <link>http://blog.yuantops.com/opinions/a-genius-is-always-unique/</link>
+      <link>https://blog.yuantops.com/opinions/a-genius-is-always-unique/</link>
       <pubDate>Fri, 18 May 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/a-genius-is-always-unique/</guid>
+      <guid>https://blog.yuantops.com/opinions/a-genius-is-always-unique/</guid>
       <description>&lt;p&gt;《月亮和六便士》是我首次接触的毛姆小说。毛姆在小说界的地位显赫，而最近才注意到。在图书馆中心书库里找到这本书的出版日期是1982年，标价0.8元。摸着发黄稍脆的纸张，看着八十年代的美术封面风格，能感受到时间的痕迹。&lt;/p&gt;
 
 &lt;p&gt;如果要给书的体裁做个诠释，不妨看将其看做一本泛回忆性质的传记，不是自传，而是关于个性画家查理斯·斯特里克兰德。作者（或者说书的第一人称叙述者）在年轻时代开始接触查理斯·斯特里克兰德的家庭，作为一个旁观者兼朋友的角色见证了斯特里克兰德的一生。&lt;/p&gt;
@@ -5917,10 +5917,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>《边城》的文字美</title>
-      <link>http://blog.yuantops.com/opinions/the-word-beauty-of-biancheng/</link>
+      <link>https://blog.yuantops.com/opinions/the-word-beauty-of-biancheng/</link>
       <pubDate>Wed, 16 May 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/the-word-beauty-of-biancheng/</guid>
+      <guid>https://blog.yuantops.com/opinions/the-word-beauty-of-biancheng/</guid>
       <description>&lt;p&gt;沈从文，湘西凤凰人。他的代表作《边城》，开篇写道：&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -5955,10 +5955,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>刀在口上之日——纪念她</title>
-      <link>http://blog.yuantops.com/opinions/in-memory-of-linzhao/</link>
+      <link>https://blog.yuantops.com/opinions/in-memory-of-linzhao/</link>
       <pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/in-memory-of-linzhao/</guid>
+      <guid>https://blog.yuantops.com/opinions/in-memory-of-linzhao/</guid>
       <description>&lt;p&gt;今天是林昭去世的纪念日，纪念她。&lt;/p&gt;
 
 &lt;p&gt;林昭生于民国，少年时迎来新中国的成立，在“革命”中度过最宝贵的青年时代。&lt;/p&gt;
@@ -5977,10 +5977,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>读历史-宋 武功稍逊</title>
-      <link>http://blog.yuantops.com/opinions/song-dynasty-imperfection-of-the-military/</link>
+      <link>https://blog.yuantops.com/opinions/song-dynasty-imperfection-of-the-military/</link>
       <pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/song-dynasty-imperfection-of-the-military/</guid>
+      <guid>https://blog.yuantops.com/opinions/song-dynasty-imperfection-of-the-military/</guid>
       <description>&lt;p&gt;三岁孩童都知道，中国传统文化的代表是唐诗宋词。历史上很多政权都曾以“宋”为国号，但此处的宋指的是赵家官人建立的“赵宋”。宋朝之前的统一朝代是唐，唐灭亡后陷入四分五裂，是五代十国时期(五代在北方，十国大多在南方)。宋代开国君主赵匡胤原本是周朝大将，在陈桥“黄袍加身”，受拥为帝，之后废黜周朝君主，南征北战统一中国，建立宋朝基业。宋朝的故事正式开场。&lt;/p&gt;
 
 &lt;p&gt;宋太祖“陈桥兵变”的故事是正史所载，历来传唱。但有人考证，所谓军士哗变、“黄袍加身”，不得已称帝，完全是赵匡胤自导自演的一出戏。起事前，赵匡胤把家人藏了起来。当时传言有契丹人入侵，城中官民人心惶惶，而周帝孤儿寡母不能支持，太祖为主持大局继位。但登基后契丹人始终不见来。至于是谁散布的谣言也无人敢追究了。这是宋朝建国的故事，颇具温情色彩。朝代的更替没有发生大规模的流血事件，在血腥的中国历史上可算独树一帜。而温和，似乎也是宋朝的基调。&lt;/p&gt;
@@ -6009,10 +6009,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>读历史-宋 风流无双</title>
-      <link>http://blog.yuantops.com/opinions/song-dynasty-reaching-the-civilization-peak/</link>
+      <link>https://blog.yuantops.com/opinions/song-dynasty-reaching-the-civilization-peak/</link>
       <pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/song-dynasty-reaching-the-civilization-peak/</guid>
+      <guid>https://blog.yuantops.com/opinions/song-dynasty-reaching-the-civilization-peak/</guid>
       <description>&lt;p&gt;宋朝是个不以武功见长的朝代。终其一朝，宋朝都没能达到其他帝国的疆域规模。先与北方辽国对峙百年，同时西方还有西夏，其后被金人赶到江南，连皇帝都被人掳走。在江南偏安又是一个半世纪，最终被蒙古人铁蹄灭了国。但另一方面，宋代的文采之胜，历代莫能与之争。&lt;/p&gt;
 
 &lt;p&gt;武功懦弱和文采风流，很难分清二者到底是因果关系还是并列关系。宋代留给我们的，是优美的诗词、书画和文章。“好男不当兵，好铁不打钉”，宋代的民谚很好体现了当时浓厚的重文轻武思想。&lt;/p&gt;
@@ -6051,10 +6051,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>读历史-明 与崛起擦肩而过</title>
-      <link>http://blog.yuantops.com/opinions/ming-dynasty-missing-the-opportunity/</link>
+      <link>https://blog.yuantops.com/opinions/ming-dynasty-missing-the-opportunity/</link>
       <pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/ming-dynasty-missing-the-opportunity/</guid>
+      <guid>https://blog.yuantops.com/opinions/ming-dynasty-missing-the-opportunity/</guid>
       <description>&lt;p&gt;黄仁宇先生有一本《万历十五年》，红遍大江南北。我在大二时读的这本书，感觉之后深受其影响。在这本书中，黄仁宇先生提出了“大历史”观，即用整体的眼光看待历史的发展。即使只是一个帝国毫不起眼的一年，也能看出它的脉络。这本书改变了我的历史观。我的明朝认识，主要出自这本书和当年明月的《明朝那些事儿》。&lt;/p&gt;
 
 &lt;p&gt;明朝从放牛娃朱元璋建国，到崇祯帝煤山(现在的景山公园)自缢，持续时间两百六十多年。作为封建时代最后一个“正统”的汉人政权，其影响深远。中国在宋代达到封建时代的最顶峰，其后开始从明朝走缓慢下坡，直到清朝的败象。明代是承上启下的朝代。&lt;/p&gt;
@@ -6085,10 +6085,10 @@ vim自定义配置文件的导入和安装见&lt;a href=&#34;http://www.fleiner.
     
     <item>
       <title>读历史-总述 历史是中国的宗教</title>
-      <link>http://blog.yuantops.com/opinions/history-is-our-religion/</link>
+      <link>https://blog.yuantops.com/opinions/history-is-our-religion/</link>
       <pubDate>Sat, 28 Apr 2012 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/opinions/history-is-our-religion/</guid>
+      <guid>https://blog.yuantops.com/opinions/history-is-our-religion/</guid>
       <description>&lt;p&gt;很多人都持有这样的观点：中国是一个没有宗教信仰的国家。大街上随便问一个人，你信什么教，他最大的可能反应是摇头。少数人会承认他是佛教徒，道教徒就更少了。就普通中国人本身而言，他的心中关于玉帝佛祖菩萨的概念是模糊的——反正我拜就是了。既然如此，这个观点似乎也并无不妥。&lt;/p&gt;
 
 &lt;p&gt;不妨将宗教的最重要一面“信仰”取出来。从这个角度看来，中国的确能算作有宗教——历史就是中国的宗教。一个中国人，只要他不生活在深山老林里，他就一定听说过曹操和诸葛亮的故事，或者对岳飞崇拜至极，更远一点，姜太公的传说也很不错。他从历史故事中学到道德观，形成自己的善恶价值系统。&lt;/p&gt;

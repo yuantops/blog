@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Git on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tags/git/</link>
+    <link>https://blog.yuantops.com/tags/git/</link>
     <description>Recent content in Git on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,15 +11,15 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Fri, 05 Dec 2014 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>关于Git,需要理解的几个关键概念</title>
-      <link>http://blog.yuantops.com/tech/key-concepts-to-understand-git/</link>
+      <link>https://blog.yuantops.com/tech/key-concepts-to-understand-git/</link>
       <pubDate>Fri, 05 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/key-concepts-to-understand-git/</guid>
+      <guid>https://blog.yuantops.com/tech/key-concepts-to-understand-git/</guid>
       <description>Git的控制哲学十分优雅,特别是了解它后会更为之倾倒。Git的入门在此不赘述。在掌握常用命令之后,再思考下面这些概念,相信对Git的认识会得到提升。
 Git基于Commit,每个Commit有独一无二的SHA 1作为标志 Git有Working Tree,Index,Repo的概念。Working Tree指当前的工作目录,当这个目录下有改动时,通过add命令将改动添加到Index区域。当改动都被加到了Index、需要提交时,使用commit命令将它们提交到Repo中。这次提交会形成一个Commit记录,它相当于当前状态的一个SnapShot。
 基于Commit的版本控制是十分优雅的想法。原因在于：

@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tags/java/</link>
+    <link>https://blog.yuantops.com/tags/java/</link>
     <description>Recent content in Java on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,24 +11,24 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Tue, 28 Nov 2017 19:16:30 +0800</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tags/java/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tags/java/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>《Maven实战》摘抄</title>
-      <link>http://blog.yuantops.com/tech/maven-in-action-notes/</link>
+      <link>https://blog.yuantops.com/tech/maven-in-action-notes/</link>
       <pubDate>Tue, 28 Nov 2017 19:16:30 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/maven-in-action-notes/</guid>
+      <guid>https://blog.yuantops.com/tech/maven-in-action-notes/</guid>
       <description>关键词  “约定优于配置” Convention Over Configuration 生命周期管理 依赖管理：GAV坐标+scope  术语翻译   英文 中文     artifact 构件   build 构建   project 项目   group 组   module 模块   archetype 骨架   dependency mediation 依赖调解   repository 仓库   phase 阶段   aggregation 聚合   reactor 反应堆   property 属性    关于主代码和测试代码位置 在绝大多数情况下，应该把项目主代码放到src/main/java 目录下(遵循Maven的约定)，而无需额外的配置，Maven会自动搜寻该目录找到项目主代码。其次，该Java类的包名是com.</description>
     </item>
     
     <item>
       <title>MyBatis generator生成Dao和Mapper小记</title>
-      <link>http://blog.yuantops.com/tech/mybatis-mbg-cmd/</link>
+      <link>https://blog.yuantops.com/tech/mybatis-mbg-cmd/</link>
       <pubDate>Tue, 17 Oct 2017 10:30:53 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/mybatis-mbg-cmd/</guid>
+      <guid>https://blog.yuantops.com/tech/mybatis-mbg-cmd/</guid>
       <description>需下载文件  Mybatis Generator jar包
 下载地址 https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core
  JDBC 驱动jar 包
@@ -41,10 +41,10 @@
     
     <item>
       <title>整理Java有限状态机</title>
-      <link>http://blog.yuantops.com/tech/fsm_and_java_implementation/</link>
+      <link>https://blog.yuantops.com/tech/fsm_and_java_implementation/</link>
       <pubDate>Thu, 12 Oct 2017 14:30:53 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/fsm_and_java_implementation/</guid>
+      <guid>https://blog.yuantops.com/tech/fsm_and_java_implementation/</guid>
       <description>有限状态机FSM及它的构成要素 The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition.
 有限状态机由状态集合, 初始状态, 状态转移条件定义。
 Java实现 根据FSM定义，可以抽象出Java的3种数据类型：
@@ -59,10 +59,10 @@ public State run() { for (State s = initState; s !</description>
     
     <item>
       <title>JMX学习笔记</title>
-      <link>http://blog.yuantops.com/tech/jmx-overview/</link>
+      <link>https://blog.yuantops.com/tech/jmx-overview/</link>
       <pubDate>Sat, 22 Jul 2017 18:26:25 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/jmx-overview/</guid>
+      <guid>https://blog.yuantops.com/tech/jmx-overview/</guid>
       <description>JMX，全称Java Management Extensions，借用贾宝玉的一句话描述它：「这个妹妹，我曾见过的。」
 见过却不熟悉，它在我心中是Java规范中比较冷门的一个角落。
 几次看到Java的招聘JD要求对JMX的理解，所以，在Oracle官网翻到教程，跟着学习学习。
@@ -88,20 +88,20 @@ MBeanServer mbs = ManagementFactory.getPlatformMBeanServer(); ObjectName name = 
     
     <item>
       <title>JVM 和Java GC 笔记</title>
-      <link>http://blog.yuantops.com/tech/jvm-gc-note-1/</link>
+      <link>https://blog.yuantops.com/tech/jvm-gc-note-1/</link>
       <pubDate>Wed, 21 Jun 2017 23:32:37 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/jvm-gc-note-1/</guid>
+      <guid>https://blog.yuantops.com/tech/jvm-gc-note-1/</guid>
       <description>学习材料  讲义地址： http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/gc01/index.html
  Youtube 视频地址： Video The JVM and Java Garbage Collection  Java &amp;amp; JVM概述  Garbage Collection is automatic. Java source code is compiled into byte code. Byte code is stored in .class files .class files are loaded into a Java Virtual Machine(JVM) and executed. A seperated JVM is created for each Java application. (备注：！每个Java程序都对应着一个单独的JVM)  GC 的职责  为新对象分配memory 确保被引用的对象留在memory Ensuring that any referenced objects(live objects) remain in memory 回收死掉的对象占用的memory Recovering memory used by objects that no longer reachable(dead objects)  GC的stages step 1.</description>
     </item>
     
     <item>
       <title>Java堆内存与栈内存的区别</title>
-      <link>http://blog.yuantops.com/tech/java-heap-vs-stack-memory/</link>
+      <link>https://blog.yuantops.com/tech/java-heap-vs-stack-memory/</link>
       <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/java-heap-vs-stack-memory/</guid>
+      <guid>https://blog.yuantops.com/tech/java-heap-vs-stack-memory/</guid>
       <description> Java中提供&amp;rdquo;栈&amp;rdquo;这种数据结构的实现，java.util.Stack。但此处我们所讨论的不是数据结构，而是JVM内存中的堆与栈，Java Runtime中存放数据的地方。
 JVM中的堆 Java Runtime使用Heap为Object分配内存。所有的对象，无论是何时何地创建的，都保存在Heap中。垃圾回收(Garbage Collection)在Heap上运行，释放不被引用的Object。Heap中生存的Object能在程序的任何地方被引用。
 JVM中的栈 Stack memory是为执行的thread分配的，包含一些生存时间短的值和指向Heap中对象的引用。Stack Memory总是LIFO的。当调用一个Method时，Stack Memory会为它分配一块区域，用来存储本地的primitive value和对Object的引用。一旦这个method结束，这块区域将变得不可用，下一次Method调用时又可以使用它。
@@ -116,10 +116,10 @@ JVM中的栈 Stack memory是为执行的thread分配的，包含一些生存时�
     
     <item>
       <title>Eclipse中添加Tomcat插件</title>
-      <link>http://blog.yuantops.com/tech/install-tomcat-plugin-in-eclipse/</link>
+      <link>https://blog.yuantops.com/tech/install-tomcat-plugin-in-eclipse/</link>
       <pubDate>Wed, 21 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/install-tomcat-plugin-in-eclipse/</guid>
+      <guid>https://blog.yuantops.com/tech/install-tomcat-plugin-in-eclipse/</guid>
       <description>##安装Tomcat 下载链接:Tomcat7
  下载tar.gz包到本地，譬如到/home/yuan/Downloads目录
  通过tar -zxf **.**.tar.gz命令解压tar.gz包，将解压出来的文件夹转移到你希望保存的目的地(譬如说/home/yuan/tomcat7)
@@ -141,10 +141,10 @@ export JRE_HOME=/usr/lib/jvm/java-7-openjdk-i386/jre
     
     <item>
       <title>厘清Java Socket端口问题 -- 服务器的端口是什么</title>
-      <link>http://blog.yuantops.com/tech/some-clarification-about-java-socket-port/</link>
+      <link>https://blog.yuantops.com/tech/some-clarification-about-java-socket-port/</link>
       <pubDate>Tue, 13 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/some-clarification-about-java-socket-port/</guid>
+      <guid>https://blog.yuantops.com/tech/some-clarification-about-java-socket-port/</guid>
       <description>在我之前翻译的Socket是什么一文中，对java中socket建立的流程有描述。在服务器接受客户端socket连接的部分，它这么说道：
  如果一切顺利，服务器会接受连接。一旦接受了连接，服务器会得到一个绑定了本地相同端口的新socket，这个socket的另一端被置为客户端的地址和端口。服务器需要一个新的socket,所以它能一边继续在原来的socket监听连接请求，一边处理已建立连接的客户端的需求。
 (原文)
@@ -153,10 +153,10 @@ If everything goes well, the server accepts the connection. Upon acceptance, the
     
     <item>
       <title>Sockets in Java -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/java-all-about-sockets-oracle-java-tutorial/</link>
+      <link>https://blog.yuantops.com/tech/java-all-about-sockets-oracle-java-tutorial/</link>
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/java-all-about-sockets-oracle-java-tutorial/</guid>
+      <guid>https://blog.yuantops.com/tech/java-all-about-sockets-oracle-java-tutorial/</guid>
       <description>##课程：关于Sockets的一切 URL和URLConnection为获取因特网上的资源提供了一种相对高层次(high-level)的机制。但有时候，你的程序需要一种相对低层次(lower-level)的网络通信，譬如说，你可能需要编写一个客户端-服务器(client-server)程序。
 在客户端-服务器程序中，服务器端提供一些服务：譬如处理数据库查询，或者发送当前的期货价格。客户端利用服务器提供的这些服务器，用来向用户显示数据库查询的结果，或者给投资者提供期货的购买建议。客户端和服务器端的通信因此必须是可信的。换言之，数据不能丢失，而且它到达客户端的顺序必须与服务器的发送顺序一致。
 TCP协议提供了一个可信的、点到点的通信信道，因特网上的客户端-服务器端程序可以使用它来通信。为了基于TCP通信，客户端程序和服务器程序要和对方建立连接。每个程序各自将一个socket绑定到连接的一头。当通信时，客户端和服务器各自从与连接绑定的socket里面读/写数据。
@@ -168,10 +168,10 @@ TCP协议提供了一个可信的、点到点的通信信道，因特网上的�
     
     <item>
       <title>Socket是什么 -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/</link>
+      <link>https://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/</link>
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/</guid>
+      <guid>https://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/</guid>
       <description>一般而言，一个服务器运行在一台电脑上，这个服务器有一个绑定了端口号的socket。这个服务器一边等待，一边守着socket监听从客户端发过来的连接请求。
 在客户端：客户端知道服务器所在的主机的主机名(hostname)和服务器正在监听的端口号。为了发出连接请求，客户端尝试着连接服务器所在的主机名和端口。客户端同时也需要向服务器端证明自己的身份，因此它也绑定了一个本地的端口号以便在本次连接中使用。这一般是由系统指定的。
 如果一切顺利，服务器会接受连接。一旦接受了连接，服务器会得到一个绑定了本地相同端口的新socket，这个socket的另一端被置为客户端的地址和端口。服务器需要一个新的socket,所以它能一边继续在原来的socket监听连接请求，一边处理已建立连接的客户端的需求。
@@ -188,10 +188,10 @@ Java平台上的java.net包提供了Socket这个类，它实现了Java程序和�
     
     <item>
       <title>Buffered Streams -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</link>
+      <link>https://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</link>
       <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</guid>
+      <guid>https://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</guid>
       <description>Buffered Streams 缓冲流 此前我们所见识的例子使用的大多*非缓冲I/O*。非缓冲，意味着每一次读/写的请求都由底层的OS直接处理。这降低了程序效率，因为每一次请求往往会触发磁盘操作、网络活动、或者其它代价昂贵的操作。
 为了减少这类消耗，Java平台实现了*缓冲I/O*流。输入缓冲流从一块别名为&amp;rdquo;缓存&amp;rdquo;(buffer)的内存区域中读入数据;只有当缓存区变空的时候，原生的输入API才会被调用。类似地，缓冲的输出流向一块缓存中写数据，只有当缓存区满了的时候，原生的API的输出API才会被调用。
 程序能把一个非缓冲流转化为缓冲流。我们已经使用过几次这样的&amp;rdquo;包装类&amp;rdquo;了：非缓冲流作为参数传入缓冲流类的构造函数。下面就是一个例子，你可以在用它替代CopyCharacters代码中的构造函数以使用缓冲I/O：
@@ -206,10 +206,10 @@ inputStream = new BufferedReader(new FileReader(&amp;#34;xanadu.txt&amp;#34;)); 
     
     <item>
       <title>Byte Streams -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</link>
+      <link>https://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</link>
       <pubDate>Mon, 29 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</guid>
+      <guid>https://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</guid>
       <description>Byte Streams 字节流 程序使用*字节流*来处理8bit字节的输入和输出。所有的字节流类都派生(descend)自InputStream和OutputStream。
 字节流类有很多。为了演示字节流的工作原理，我们将关注文件的I/O字节流,FileInputStream和FileOutputStream。其它字节流类的使用方法往往与之类似，仅在构造的方法上存在差别。
 使用字节流 下面我们通过一段代码CopyBytes来演示FileInputStream和FileOutputStream的用法。这段代码通过字节流逐字节地拷贝xanadu.txt。
@@ -218,10 +218,10 @@ import java.io.FileInputStream; import java.io.FileOutputStream; import java.io.
     
     <item>
       <title>Character Streams -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</link>
+      <link>https://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</link>
       <pubDate>Mon, 29 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</guid>
+      <guid>https://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</guid>
       <description>Character Streams 字符流 Java平台使用Unicode字符集存储字符值(character value)。字符流I/O自动将内部的Unicode格式翻译成本地的字符集，反之亦然。在西方的使用环境(locale)下，本地字符集往往是8bit的ASCII码的超集(superset)。
 对大多数程序来说，使用字符流的I/O不会比使用字节流的I/O更复杂。与输入和输出相关的流类会自动完成与本地字符集的翻译过程。一个使用字符流而不是字节流的程序，它会自动使用本地字符集，而且它可以完成国际化的过程——不需要程序员付出过多的额外工作。
 如果国际化的需求优先级不高，你尽管以最简单的方式使用字符流类，而不需太关注字符集的问题。如果之后有了国际化的需求，你的程序也可以轻松地予以修改。参见国际化的章节了解更多。
@@ -231,10 +231,10 @@ import java.io.FileReader; import java.io.FileWriter; import java.io.IOException
     
     <item>
       <title>Java 的一些术语解释</title>
-      <link>http://blog.yuantops.com/tech/java-terminology-explanation/</link>
+      <link>https://blog.yuantops.com/tech/java-terminology-explanation/</link>
       <pubDate>Sun, 14 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/java-terminology-explanation/</guid>
+      <guid>https://blog.yuantops.com/tech/java-terminology-explanation/</guid>
       <description>作为JAVA初学者，往往弄不清楚一系列术语的概念。这篇文章搬运文章一与文章二，解释JRE与JDK, JavaSE、JavaME与JavaEE，Java版本等术语 。
 JRE vs JDK JRE: Java Runtime Environment
 基本说来它是Java Virtual Machine，你的Java程序在它上面运行。它也为浏览器提供Applet运行插件。

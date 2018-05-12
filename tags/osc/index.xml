@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Osc on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tags/osc/</link>
+    <link>https://blog.yuantops.com/tags/osc/</link>
     <description>Recent content in Osc on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,15 +11,15 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Sat, 27 Dec 2014 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tags/osc/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tags/osc/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>OSC Android源码学习笔记 四 listview初始化、获取数据、加载数据的流程</title>
-      <link>http://blog.yuantops.com/tech/osc-android-app-notes-4/</link>
+      <link>https://blog.yuantops.com/tech/osc-android-app-notes-4/</link>
       <pubDate>Sat, 27 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-4/</guid>
+      <guid>https://blog.yuantops.com/tech/osc-android-app-notes-4/</guid>
       <description>OSC App显示的信息分为资讯(news)，博客(blog)，问答(Question)，动弹(tweet)几屏，每屏对应一个ListView。以资讯(news)为例，粗略看一下它的ListView是如何初始化、获取数据、加载数据的。
  实例化一个ListViewNewsApapter并添加到lvNews：
 lvNewsAdapter = new ListViewNewsAdapter(this, lvNewsData, R.layout.news_listitem); ListViewNewsApapter这个类继承BaseAdapter，重写了getView()方法。值得注意的是，getView()方法中news实体被被作为Tag添加到了listView的ItemView中。
@@ -36,10 +36,10 @@ loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT);
     
     <item>
       <title>开源中国安卓客户端源码学习笔记 三 自定义Exception类</title>
-      <link>http://blog.yuantops.com/tech/osc-android-app-notes-3/</link>
+      <link>https://blog.yuantops.com/tech/osc-android-app-notes-3/</link>
       <pubDate>Thu, 25 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-3/</guid>
+      <guid>https://blog.yuantops.com/tech/osc-android-app-notes-3/</guid>
       <description>net.oschina.app包中包含四个类的定义文件，它们分别是AppConfig, AppException, AppManager, AppStart。其中AppStart类继承Activity，是跳转界面。AppException类是Exception的子类，是自定义的异常类。
 AppException类中有8个final static类型的类变量，定义异常类型: network, socket, http, xml, io, run, jason几种。这个类中有对应的静态方法，以Exception为形参，返回对应的新建对象。值得注意的是，代码中预留了debug的选项，如果在新建AppException对象时传入“debug”参数，那么对应的Exception信息会被写到文件中保存。
 这个类中定义了异常的处理方式：收集错误信息，然后显示异常信息&amp;amp;发送错误报告。显示异常信息和发送错误报告的过程在新建的Thread里完成。</description>
@@ -47,10 +47,10 @@ AppException类中有8个final static类型的类变量，定义异常类型: ne
     
     <item>
       <title>开源中国安卓客户端源码学习笔记 二 欢迎界面跳转与渐变效果</title>
-      <link>http://blog.yuantops.com/tech/osc-android-app-notes-2/</link>
+      <link>https://blog.yuantops.com/tech/osc-android-app-notes-2/</link>
       <pubDate>Tue, 23 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-2/</guid>
+      <guid>https://blog.yuantops.com/tech/osc-android-app-notes-2/</guid>
       <description>OSC客户端启动时会先显示欢迎界面，再跳转到主页，其中跳转过程有渐变效果。
 这里使用了AlphaAnimation类。AlphaAnimation类能实现渐进渐出的效果，官方文档里说“This animation ends up changing the alpha property of a Transformation”。alpha property可以理解为透明度，&amp;rdquo;0.0&amp;rdquo;为全透明，“0.5”为半透明，“1.0”时不透明。
 //渐变展示启动屏 	AlphaAnimation aa = new AlphaAnimation(0.3f,1.0f); aa.setDuration(3000); view.startAnimation(aa); aa.setAnimationListener(new AnimationListener() { @Override public void onAnimationEnd(Animation arg0) { redirectTo(); } @Override public void onAnimationRepeat(Animation animation) {} @Override public void onAnimationStart(Animation animation) {} }); 另外，欢迎界面的图片可以更新。从代码分析，在将View设置为ContentView之前，程序会检查欢迎界面对应缓存文件夹里的图片文件，图片文件的文件名有一个时间期限，如果今天正好落在这个期限内，那么就将它设为背景图片。如此可以推测APP会在启动后自动下载新的图片文件(如果存在的话)到缓存文件夹，从而达到更新效果。
@@ -59,10 +59,10 @@ AppException类中有8个final static类型的类变量，定义异常类型: ne
     
     <item>
       <title>开源中国安卓客户端源码学习笔记 一</title>
-      <link>http://blog.yuantops.com/tech/osc-android-app-notes-1/</link>
+      <link>https://blog.yuantops.com/tech/osc-android-app-notes-1/</link>
       <pubDate>Mon, 22 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-1/</guid>
+      <guid>https://blog.yuantops.com/tech/osc-android-app-notes-1/</guid>
       <description>##前言 开源中国(OSCHINA)是国内一个开源社区,社区自己开发了Android和iOS平台的客户端，而且将各自的代码开源了。值得夸奖的是，他们的Android APP不是基于HTML，而是Android原生API。我最近在学习它Android App的源代码，毕竟像它这样性能优秀、注释齐全的开源项目是比较稀少的。
 希望能通过阅读源代码，学到一些Android开发的实战技巧，并加深对已有知识的理解。
 ##学习笔记一 利用getApplication()共享全局数据

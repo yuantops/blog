@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ssl on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tags/ssl/</link>
+    <link>https://blog.yuantops.com/tags/ssl/</link>
     <description>Recent content in Ssl on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,15 +11,15 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Wed, 24 Dec 2014 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tags/ssl/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tags/ssl/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>使用OpenSSL工具制作证书的方法</title>
-      <link>http://blog.yuantops.com/tech/ssl-creation-guide/</link>
+      <link>https://blog.yuantops.com/tech/ssl-creation-guide/</link>
       <pubDate>Wed, 24 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssl-creation-guide/</guid>
+      <guid>https://blog.yuantops.com/tech/ssl-creation-guide/</guid>
       <description>之前一篇文章介绍了SSL证书的一些细节，这篇文章介绍OpenSSL工具的基本使用方法。老实说，OpenSSL工具实在是太难用了，我参考了How To Setup a CA和基于 OpenSSL 的 CA 建立及证书签发这两篇文章，捣鼓了很久才理清流程。虽然原理很清楚，但是操作起来却不那么容易，这告诉我们要多实践才对，不然发现不了问题。
 一些坑 在使用openssl ca命令时，如果不手动指定-config参数，它会自动调用/etc/pki/tls/openssl.cnf作为-config配置文件，这个openssl.cnf文件里定义了要调用的CA证书、私钥路径。如果我们在创建CA时将它的证书和私钥等文件保存在了别处，或者/etc/pki/tls/openssl.cnf里的定义的那些文件不存在，那么在openssl ca找不到要使用的这些文件时，就会报错。其中典型的错误有：
 Using configuration from /etc/pki/tls/openssl.cnf unable to load CA private key 139911890630472:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: ANY PRIVATE KEY  所以，我们如果想自定义CA的目录位置，那么要事先1）按照OpenSSL的默认配置建立相应的目录结构，2）定制openssl.cnf文件，修改CA目录的路径定义。
@@ -32,10 +32,10 @@ Using configuration from /etc/pki/tls/openssl.cnf unable to load CA private key 
     
     <item>
       <title>SSL术语与基本原理</title>
-      <link>http://blog.yuantops.com/tech/ssl-terminologies-and-concepts/</link>
+      <link>https://blog.yuantops.com/tech/ssl-terminologies-and-concepts/</link>
       <pubDate>Sat, 06 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssl-terminologies-and-concepts/</guid>
+      <guid>https://blog.yuantops.com/tech/ssl-terminologies-and-concepts/</guid>
       <description>非对称加密的又一大应用是SSL。对于SSL的介绍，阮一峰有一篇深入浅出的博客，推荐阅读：数字签名是什么？。这篇文章也非常不错：SSL/TLS Strong Ebcryption: An introduction。
 SSL协议对互联网的安全十分重要。要理解SSL协议，必须先理解几个基本概念：信息摘要(message digest)，数字签名(digital signature)，数字证书(digital certificate)。阮一峰的博客里写得十分清楚了，看完后做一点自己的笔记。
 SSL术语  公钥(public key): 非对称加密密钥对中可以分发给其它人的一方。
@@ -59,10 +59,10 @@ SSL术语  公钥(public key): 非对称加密密钥对中可以分发给其它�
     
     <item>
       <title>SSL证书的细节与制作方法</title>
-      <link>http://blog.yuantops.com/tech/ssl-certificate-details-and-creation-guide/</link>
+      <link>https://blog.yuantops.com/tech/ssl-certificate-details-and-creation-guide/</link>
       <pubDate>Sat, 06 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssl-certificate-details-and-creation-guide/</guid>
+      <guid>https://blog.yuantops.com/tech/ssl-certificate-details-and-creation-guide/</guid>
       <description>在上篇文章中，讨论了数字证书(digital certificate)的重要意义。在实际中，Internt工程任务组(IETF)PKI X.509专门负责制定数字证书的格式，并提出了一套标准。根据这套标准(X.509)，互联网上的各级单位各自予以实现，从而形成一套完备的公钥基础设施(Public Key Infrastructure, PKI)。这是本篇文章将要讨论的内容。
 SSL证书的X.509标准 X.509 规定一份digital certificate应该由这几部分构成：
  Certificate Data
@@ -78,10 +78,10 @@ SSL证书的X.509标准 X.509 规定一份digital certificate应该由这几部�
     
     <item>
       <title>SSH登录原理</title>
-      <link>http://blog.yuantops.com/tech/ssh-login-procedure/</link>
+      <link>https://blog.yuantops.com/tech/ssh-login-procedure/</link>
       <pubDate>Fri, 05 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssh-login-procedure/</guid>
+      <guid>https://blog.yuantops.com/tech/ssh-login-procedure/</guid>
       <description>关于SSH登录的原理，阮一峰的这篇博客写得很清楚，值得一看。
 &amp;gt;SSH原理与运用(一)
 读完这篇博客后，下面是笔记和摘抄。
@@ -113,10 +113,10 @@ SSH公钥登录的方式也是同理。对一台远程主机而言，当用户�
     
     <item>
       <title>SSL学习笔记 前言</title>
-      <link>http://blog.yuantops.com/tech/ssl-series-introduction/</link>
+      <link>https://blog.yuantops.com/tech/ssl-series-introduction/</link>
       <pubDate>Sun, 30 Nov 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssl-series-introduction/</guid>
+      <guid>https://blog.yuantops.com/tech/ssl-series-introduction/</guid>
       <description>最近实习时接触到了SSL协议，CA证书，ssh登录之类的东西，总是一知半解的感觉非常不好，于是我决定好好钻研一下。在网上查找了很多资料后，终于理清了很多以前很模糊的知识点。用几篇博客来记录一下，算是一个总结。
 SSL(Secured Sockets Layer)与SSH(Secure Shell)，是用来解决网络传输中安全问题的协议。如何保证传输安全，使消息不被窃听、不被篡改，这需要用到加密技术。所以，要理解SSL中CA certificate的意义、ssh登录的工作原理，首先得理解它们所基于的加密原理: 非对称加密。
 非对称加密技术是在信息论的理论基础上，以数学为工具的现代加密技术。它是现在最先进、最不易破解的加密技术。由于非对称加密技术在这一系列概念中的基础性地位，会有单独一篇文章介绍它的历史渊源和数学原理。

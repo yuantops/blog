@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Gh Pages on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tags/gh-pages/</link>
+    <link>https://blog.yuantops.com/tags/gh-pages/</link>
     <description>Recent content in Gh Pages on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,15 +11,15 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Sat, 12 May 2018 08:45:52 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tags/gh-pages/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tags/gh-pages/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages</title>
-      <link>http://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</link>
+      <link>https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</link>
       <pubDate>Sat, 12 May 2018 08:45:52 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</guid>
+      <guid>https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</guid>
       <description>这个博客托管在GitHub Pages上已经有一段时间。最初使用的静态站点生成工具是Jekyll，后来换成Hugo，因为是免费，一直都还比较满意。只有一个小痛点，博客从写完到部署的步骤多：写文章 -&amp;gt; build -&amp;gt; deploy…
 我之前写过一篇用Emacs写博客的workflow，把&amp;rdquo;写文章&amp;rdquo;的流程优化了一把。之后又小打小闹，用GitHub的webhook做了一个commit message关键字触发的小服务，把&amp;rdquo;build&amp;rdquo;和&amp;rdquo;deploy&amp;rdquo;做成自动化。这个服务跑在免费的Google Cloud上，使用体验还不错，可惜主机没续费，服务直接停掉，源码也丢失了。
 随手Google一把GitHub Page的持续集成，才后知后觉地发现自己想要的东东已经有了成熟解决方案，而且还可以 免费 用：Travis CI。于是我颇愉快地接受它，并简单地在这里记录下来。
@@ -34,10 +34,10 @@ Token一会儿就会隐藏，不能找回，所以拷贝好，进入下一步。
     
     <item>
       <title>在GitHub pages中添加标签Tags(非插件方式)</title>
-      <link>http://blog.yuantops.com/tech/add-tags-in-gh-pages/</link>
+      <link>https://blog.yuantops.com/tech/add-tags-in-gh-pages/</link>
       <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/add-tags-in-gh-pages/</guid>
+      <guid>https://blog.yuantops.com/tech/add-tags-in-gh-pages/</guid>
       <description>参考内容 本文参考了以下内容：
  Alphabetizing Jekyll Page Tags In Pure Liquid (Without Plugins)
  Tips For Sorting Tags In GitHub Page With Jekyll
@@ -52,10 +52,10 @@ Token一会儿就会隐藏，不能找回，所以拷贝好，进入下一步。
     
     <item>
       <title>Jekyll安装指南</title>
-      <link>http://blog.yuantops.com/tech/jekyll-installation/</link>
+      <link>https://blog.yuantops.com/tech/jekyll-installation/</link>
       <pubDate>Tue, 30 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/jekyll-installation/</guid>
+      <guid>https://blog.yuantops.com/tech/jekyll-installation/</guid>
       <description>环境准备 准备安装Jekyll前，确保系统满足以下条件：
  Ruby
  RubyGems
@@ -78,10 +78,10 @@ source &amp;#39;https://rubygems.org&amp;#39; gem &amp;#39;github-pages&amp;#39;
     
     <item>
       <title>制作属于自己的字母favicon</title>
-      <link>http://blog.yuantops.com/tech/make-custom-character-favicon/</link>
+      <link>https://blog.yuantops.com/tech/make-custom-character-favicon/</link>
       <pubDate>Sat, 20 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/make-custom-character-favicon/</guid>
+      <guid>https://blog.yuantops.com/tech/make-custom-character-favicon/</guid>
       <description>每个自己搭建博客的人，应该都想自己的博客更具个性。favicon是浏览器浏览网页时标签左边的那个小图标，是可以自己设计的。
 这里，推荐一个网站：faviconist.com。你可以输入一个字母，得到这个字母的图标，而且字体、文字前景色、背景色都可以调整。调整到满意后，下载到本地，保存到对应的网页文件夹，就可以了。
 效果可以参见我的网页。</description>

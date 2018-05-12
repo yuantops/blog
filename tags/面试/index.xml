@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>面试 on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tags/%E9%9D%A2%E8%AF%95/</link>
+    <link>https://blog.yuantops.com/tags/%E9%9D%A2%E8%AF%95/</link>
     <description>Recent content in 面试 on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,15 +11,15 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Thu, 17 Sep 2015 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tags/%E9%9D%A2%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tags/%E9%9D%A2%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>C语言堆与栈的区别</title>
-      <link>http://blog.yuantops.com/tech/c-heap-vs-stack-memory/</link>
+      <link>https://blog.yuantops.com/tech/c-heap-vs-stack-memory/</link>
       <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/c-heap-vs-stack-memory/</guid>
+      <guid>https://blog.yuantops.com/tech/c-heap-vs-stack-memory/</guid>
       <description>C语言中动态区域由Stack和Heap两部分组成。简单说来，Stack由编译器自动分配释放，存放函数的参数值、局部变量等值，底层的数据结构是LIFO的栈。Heap由程序员分配释放，如果一不小心忘记了释放申请的内存，可能引起内存泄漏。Heap基于的数据结构比较复杂。
 区别 申请方式 Stack由系统自动分配，存放局部变量等。 Heap由程序员调用malloc, realloc, calloc申请，并用free释放。
 申请效率 Stack由系统自动分配，速度快，程序员无法控制。
@@ -35,10 +35,10 @@ Heap：往往会在堆的头部用一个字节存放堆的大小，以利于free
     
     <item>
       <title>Java堆内存与栈内存的区别</title>
-      <link>http://blog.yuantops.com/tech/java-heap-vs-stack-memory/</link>
+      <link>https://blog.yuantops.com/tech/java-heap-vs-stack-memory/</link>
       <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/java-heap-vs-stack-memory/</guid>
+      <guid>https://blog.yuantops.com/tech/java-heap-vs-stack-memory/</guid>
       <description> Java中提供&amp;rdquo;栈&amp;rdquo;这种数据结构的实现，java.util.Stack。但此处我们所讨论的不是数据结构，而是JVM内存中的堆与栈，Java Runtime中存放数据的地方。
 JVM中的堆 Java Runtime使用Heap为Object分配内存。所有的对象，无论是何时何地创建的，都保存在Heap中。垃圾回收(Garbage Collection)在Heap上运行，释放不被引用的Object。Heap中生存的Object能在程序的任何地方被引用。
 JVM中的栈 Stack memory是为执行的thread分配的，包含一些生存时间短的值和指向Heap中对象的引用。Stack Memory总是LIFO的。当调用一个Method时，Stack Memory会为它分配一块区域，用来存储本地的primitive value和对Object的引用。一旦这个method结束，这块区域将变得不可用，下一次Method调用时又可以使用它。

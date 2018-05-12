@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tags/docker/</link>
+    <link>https://blog.yuantops.com/tags/docker/</link>
     <description>Recent content in Docker on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,15 +11,15 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Mon, 12 Jan 2015 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>理解Docker -- Docker Official Docs翻译</title>
-      <link>http://blog.yuantops.com/tech/understanding-docker/</link>
+      <link>https://blog.yuantops.com/tech/understanding-docker/</link>
       <pubDate>Mon, 12 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/understanding-docker/</guid>
+      <guid>https://blog.yuantops.com/tech/understanding-docker/</guid>
       <description>Docker是什么 Docker是用于开发(develop)、转移(ship)、运行(run)程序(application)的一个开放平台。Docker的设计目的是为了更快地传递程序。在Docker的帮助下，你能将程序与硬件基础(infrastructure)隔离、把硬件基础看作一个可管理的程序。Docker能帮你更快地转移代码、测试代码、部署代码，缩短编写代码与运行代码之间的周期。
 Docker将一种轻量级的容器虚拟化平台技术(container virtualization platform)与相应的工作流程和工具结合起来，从而能帮你管理、部署自己的程序。
 在核心层面，Docker支持在一个容器(container)中安全(securely)、独立(isolated)地运行几乎任何一种程序。这种独立性、安全性允许你在主机(host)上同时运行多个容器。容器在运行时不需要分配额外负载给监视程序(hypervisor)，它的这种轻量级特性意味着你能更大限度地使用硬件资源。

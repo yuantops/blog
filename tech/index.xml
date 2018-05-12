@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Teches on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tech/</link>
+    <link>https://blog.yuantops.com/tech/</link>
     <description>Recent content in Teches on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,15 +11,15 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Sat, 12 May 2018 08:45:52 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tech/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tech/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages</title>
-      <link>http://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</link>
+      <link>https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</link>
       <pubDate>Sat, 12 May 2018 08:45:52 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</guid>
+      <guid>https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</guid>
       <description>这个博客托管在GitHub Pages上已经有一段时间。最初使用的静态站点生成工具是Jekyll，后来换成Hugo，因为是免费，一直都还比较满意。只有一个小痛点，博客从写完到部署的步骤多：写文章 -&amp;gt; build -&amp;gt; deploy…
 我之前写过一篇用Emacs写博客的workflow，把&amp;rdquo;写文章&amp;rdquo;的流程优化了一把。之后又小打小闹，用GitHub的webhook做了一个commit message关键字触发的小服务，把&amp;rdquo;build&amp;rdquo;和&amp;rdquo;deploy&amp;rdquo;做成自动化。这个服务跑在免费的Google Cloud上，使用体验还不错，可惜主机没续费，服务直接停掉，源码也丢失了。
 随手Google一把GitHub Page的持续集成，才后知后觉地发现自己想要的东东已经有了成熟解决方案，而且还可以 免费 用：Travis CI。于是我颇愉快地接受它，并简单地在这里记录下来。
@@ -34,10 +34,10 @@ Token一会儿就会隐藏，不能找回，所以拷贝好，进入下一步。
     
     <item>
       <title>用Benchmark验证sync.Pool对GC latency的优化效果</title>
-      <link>http://blog.yuantops.com/tech/sync-pool-benchmark/</link>
+      <link>https://blog.yuantops.com/tech/sync-pool-benchmark/</link>
       <pubDate>Fri, 11 May 2018 10:33:25 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/sync-pool-benchmark/</guid>
+      <guid>https://blog.yuantops.com/tech/sync-pool-benchmark/</guid>
       <description>可能是为了避免重复造轮子，Go官方库推出了sync.Pool:一个thread-safe、可回收/重用对象的内存池。对性能优化狂魔而言，sync.Pool无疑是一个优化GC的好工具，因为理论上重用对象会减少了GC次数，缩短latency。这篇文章是sync.Pool的性能验证报告：sync.Pool确实能极大减少GC次数。
 Benchmark关注什么？ 在写Benchmark代码之前，要先确定如何衡量GC效果。很直观地，GC次数越少，效果越好。但GC次数的粒度太大，说服力不够，还需要其他的指标。
 这篇文章Golang real time gc 给我了答案。不断往一个size固定的buffer里覆盖写入数据，记录写入耗时。被覆盖掉的数据会变成垃圾，继而触发GC，所以耗时就是latency。
@@ -49,10 +49,10 @@ package main import ( &amp;quot;fmt&amp;quot; &amp;quot;time&amp;quot; ) const (
     
     <item>
       <title>Emacs Golang开发环境配置指南</title>
-      <link>http://blog.yuantops.com/tech/emacs-config-go-dev-environ/</link>
+      <link>https://blog.yuantops.com/tech/emacs-config-go-dev-environ/</link>
       <pubDate>Thu, 04 Jan 2018 00:31:08 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/emacs-config-go-dev-environ/</guid>
+      <guid>https://blog.yuantops.com/tech/emacs-config-go-dev-environ/</guid>
       <description>安装Go 虽然像是废话，但为了配置过程的完整性，还是记下来吧。
 官网install链接: https://golang.org/doc/install
 装好后记得配置 $GOPATH 。为了能在任何地方使用Go编译出来的命令，还可以把 $GOPATH/bin 附到环境变量$PATH。
@@ -70,10 +70,10 @@ polipo &amp;amp;  默认会监听8123端口的http请求。
     
     <item>
       <title>Orgmode利用ox-pandoc导出hugo博客的workflow</title>
-      <link>http://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/</link>
+      <link>https://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/</link>
       <pubDate>Sun, 10 Dec 2017 13:16:22 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/</guid>
+      <guid>https://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/</guid>
       <description>使用Emacs有一年多了吧，终于开始体会到它的强大。这段盘旋上升的磨合期，值得写几篇文章记录一下。这篇博客就是我用orgmode + hugo写博客的个人实践，希望对orgmode中文用户/hugo blogger有所启发。
 之前的workflow 自从转到hugo后，我发博客的workflow是这样的：
  在org文件里添加内容 按下 C-c C-e （export命令），再按 C-s (只导出当前subtree)，再按 m o (导出格式markdown)，生成markdown 内容 把markdown内容保存到 hugo/content/ 目录，手动加上文件头(front matter) 本地部署hugo server，检查效果。无误则运行部署脚本 deploy.sh push到github仓库的 hugo 分支 github上我给 hugo 分支加了webhook，会触发构建，部署生成的html内容到 gh-pages 分支  这段流程一直还凑合，直到我的博客里出现表格：org导出的markdown表格会变成一坨翔，我要在第4步浪费很多时间人肉调整格式。
@@ -83,10 +83,10 @@ Since md is built on top of the HTML back-end, any Org constructs not supported 
     
     <item>
       <title>emacs macOS配置中文字体</title>
-      <link>http://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</link>
+      <link>https://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</link>
       <pubDate>Sun, 10 Dec 2017 00:50:07 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</guid>
+      <guid>https://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</guid>
       <description> 从网上攒来的emacs字体配置地址
 https://github.com/yuantops/emacs.d/blob/universal/lisp/init-fonts.el
  列出系统提供的所有字体
@@ -97,29 +97,29 @@ https://github.com/yuantops/emacs.d/blob/universal/lisp/init-fonts.el
     
     <item>
       <title>sed和awk学习笔记</title>
-      <link>http://blog.yuantops.com/tech/sed_awk_notes/</link>
+      <link>https://blog.yuantops.com/tech/sed_awk_notes/</link>
       <pubDate>Sat, 09 Dec 2017 17:12:59 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/sed_awk_notes/</guid>
+      <guid>https://blog.yuantops.com/tech/sed_awk_notes/</guid>
       <description>为什么加上单引号: 防止shell expansion
 Enclosing the instruction in single quotes is not requir ed in all cases but you should get in the habit of always doing it. The enclosing single quotes prevent the shell from interpreting special characters or spaces found in the editing instruction.(The shell uses spaces to determine individual arguments submitted to a program;characters that are special to the shell are expanded before the command is invoked.</description>
     </item>
     
     <item>
       <title>《Maven实战》摘抄</title>
-      <link>http://blog.yuantops.com/tech/maven-in-action-notes/</link>
+      <link>https://blog.yuantops.com/tech/maven-in-action-notes/</link>
       <pubDate>Tue, 28 Nov 2017 19:16:30 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/maven-in-action-notes/</guid>
+      <guid>https://blog.yuantops.com/tech/maven-in-action-notes/</guid>
       <description>关键词  “约定优于配置” Convention Over Configuration 生命周期管理 依赖管理：GAV坐标+scope  术语翻译   英文 中文     artifact 构件   build 构建   project 项目   group 组   module 模块   archetype 骨架   dependency mediation 依赖调解   repository 仓库   phase 阶段   aggregation 聚合   reactor 反应堆   property 属性    关于主代码和测试代码位置 在绝大多数情况下，应该把项目主代码放到src/main/java 目录下(遵循Maven的约定)，而无需额外的配置，Maven会自动搜寻该目录找到项目主代码。其次，该Java类的包名是com.</description>
     </item>
     
     <item>
       <title>MyBatis generator生成Dao和Mapper小记</title>
-      <link>http://blog.yuantops.com/tech/mybatis-mbg-cmd/</link>
+      <link>https://blog.yuantops.com/tech/mybatis-mbg-cmd/</link>
       <pubDate>Tue, 17 Oct 2017 10:30:53 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/mybatis-mbg-cmd/</guid>
+      <guid>https://blog.yuantops.com/tech/mybatis-mbg-cmd/</guid>
       <description>需下载文件  Mybatis Generator jar包
 下载地址 https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core
  JDBC 驱动jar 包
@@ -132,10 +132,10 @@ Enclosing the instruction in single quotes is not requir ed in all cases but you
     
     <item>
       <title>整理Java有限状态机</title>
-      <link>http://blog.yuantops.com/tech/fsm_and_java_implementation/</link>
+      <link>https://blog.yuantops.com/tech/fsm_and_java_implementation/</link>
       <pubDate>Thu, 12 Oct 2017 14:30:53 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/fsm_and_java_implementation/</guid>
+      <guid>https://blog.yuantops.com/tech/fsm_and_java_implementation/</guid>
       <description>有限状态机FSM及它的构成要素 The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition.
 有限状态机由状态集合, 初始状态, 状态转移条件定义。
 Java实现 根据FSM定义，可以抽象出Java的3种数据类型：
@@ -150,10 +150,10 @@ public State run() { for (State s = initState; s !</description>
     
     <item>
       <title>JMX学习笔记</title>
-      <link>http://blog.yuantops.com/tech/jmx-overview/</link>
+      <link>https://blog.yuantops.com/tech/jmx-overview/</link>
       <pubDate>Sat, 22 Jul 2017 18:26:25 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/jmx-overview/</guid>
+      <guid>https://blog.yuantops.com/tech/jmx-overview/</guid>
       <description>JMX，全称Java Management Extensions，借用贾宝玉的一句话描述它：「这个妹妹，我曾见过的。」
 见过却不熟悉，它在我心中是Java规范中比较冷门的一个角落。
 几次看到Java的招聘JD要求对JMX的理解，所以，在Oracle官网翻到教程，跟着学习学习。
@@ -179,10 +179,10 @@ MBeanServer mbs = ManagementFactory.getPlatformMBeanServer(); ObjectName name = 
     
     <item>
       <title>申请Google Voice号码以及帐号充值小记</title>
-      <link>http://blog.yuantops.com/tech/apply-gv-no-and-purchase-credit/</link>
+      <link>https://blog.yuantops.com/tech/apply-gv-no-and-purchase-credit/</link>
       <pubDate>Fri, 21 Jul 2017 22:30:53 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/apply-gv-no-and-purchase-credit/</guid>
+      <guid>https://blog.yuantops.com/tech/apply-gv-no-and-purchase-credit/</guid>
       <description>现在，各种网站窥探用户隐私时越来越理直气壮：注册帐号，非得验证手机号不可。
 （当然，他们往往打着《网络安全法》实施的旗号。）
 在知乎上看完网友写的在国内拥有一个美国电话号码的必要性，我立刻决定，自己也要来一个美国号码。
@@ -205,10 +205,10 @@ Google Voice是个不错的选择 用户可以在Google Voice上申请虚拟美�
     
     <item>
       <title>Emacs阅读C/C&#43;&#43;代码——生成TAGS文件</title>
-      <link>http://blog.yuantops.com/tech/emacs-create-etags/</link>
+      <link>https://blog.yuantops.com/tech/emacs-create-etags/</link>
       <pubDate>Wed, 19 Jul 2017 21:35:16 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/emacs-create-etags/</guid>
+      <guid>https://blog.yuantops.com/tech/emacs-create-etags/</guid>
       <description> 生成TAGS文件
 $ find . -iname &amp;quot;*.[chCHS]&amp;quot; | etags -  Emacs 导入TAGS文件
 在emacs中，M-x visit-tags-table，选择刚刚生成的TAG文件。
@@ -220,10 +220,10 @@ $ find . -iname &amp;quot;*.[chCHS]&amp;quot; | etags -  Emacs 导入TAGS文件
     
     <item>
       <title>mkfs 报invalid block count错误</title>
-      <link>http://blog.yuantops.com/tech/mkfs-t-not-supported/</link>
+      <link>https://blog.yuantops.com/tech/mkfs-t-not-supported/</link>
       <pubDate>Tue, 27 Jun 2017 10:34:04 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/mkfs-t-not-supported/</guid>
+      <guid>https://blog.yuantops.com/tech/mkfs-t-not-supported/</guid>
       <description> 问题 在rh 5u7 上用mkfs 创建文件系统，命令
 $ mkfs -q -t ext3 -L disk0 /dev/sdb1  居然报错：
 ……invalid blocks count……  排查 仔细阅读man mkfs使用文档，是这样写的，没发现哪里用得不对。
@@ -236,20 +236,20 @@ $ mkfs.ext4 -q -t ext3 -L disk0 /dev/sdb1   </description>
     
     <item>
       <title>JVM 和Java GC 笔记</title>
-      <link>http://blog.yuantops.com/tech/jvm-gc-note-1/</link>
+      <link>https://blog.yuantops.com/tech/jvm-gc-note-1/</link>
       <pubDate>Wed, 21 Jun 2017 23:32:37 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/jvm-gc-note-1/</guid>
+      <guid>https://blog.yuantops.com/tech/jvm-gc-note-1/</guid>
       <description>学习材料  讲义地址： http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/gc01/index.html
  Youtube 视频地址： Video The JVM and Java Garbage Collection  Java &amp;amp; JVM概述  Garbage Collection is automatic. Java source code is compiled into byte code. Byte code is stored in .class files .class files are loaded into a Java Virtual Machine(JVM) and executed. A seperated JVM is created for each Java application. (备注：！每个Java程序都对应着一个单独的JVM)  GC 的职责  为新对象分配memory 确保被引用的对象留在memory Ensuring that any referenced objects(live objects) remain in memory 回收死掉的对象占用的memory Recovering memory used by objects that no longer reachable(dead objects)  GC的stages step 1.</description>
     </item>
     
     <item>
       <title>放弃Jekyll，拥抱Hugo</title>
-      <link>http://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/</link>
+      <link>https://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/</link>
       <pubDate>Sat, 06 May 2017 14:03:44 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/</guid>
+      <guid>https://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/</guid>
       <description>大约半年前，我更换了自己的工作电脑。装完系统后，开始装各种常用程序。
 一切都是那么美好，直到我开始尝试装Jekyll。各种依赖下不下来，或者版本对不上。前者要问候GFW，后者就是Ruby自己的锅了。我，一个Ruby盲，多次被毫不留情的依赖版本问题整崩溃。哪怕一次次长夜痛哭，最终也没有成功。
 直到有一天，我看到小巧精炼的Hugo。
@@ -262,10 +262,10 @@ Hugo 是用Golang 写的静态网站生成器，只有一个二进制命令，�
     
     <item>
       <title>写一套简易的视频点播系统——API Server</title>
-      <link>http://blog.yuantops.com/tech/write-your-own-vod-system-api/</link>
+      <link>https://blog.yuantops.com/tech/write-your-own-vod-system-api/</link>
       <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/write-your-own-vod-system-api/</guid>
+      <guid>https://blog.yuantops.com/tech/write-your-own-vod-system-api/</guid>
       <description>目录 1. 前言 2. 工程代码结构 3. 数据加载流程      前言 作为一个视频点播系统的后台，应该为客户端(见 《写一套简易的视频点播系统&amp;#x2013;Android视频播放器》) 提供合理良好的API接口。同样，这里我们完成了最简单最基本的功能: 基于Spring MVC结构，当有http请求到来时，从MySQL数据库获取数据，返回json格式的数据。
 工程代码结构 如下所示(省略了一些文件):
 . ├── main/ │ ├── java/ │ │ └── com/ │ │ └── yuantops/ │ │ ├── exception/ //Exception包 │ │ ├── tv/ │ │ │ ├── bean/ //Video对象，对应数据库中数据模型 │ │ │ ├── controller/ //Spring MVC中的C │ │ │ ├── dao/ //数据库增删改查 │ │ │ ├── impl/ //service接口实现 │ │ │ └── service/ //service接口 │ │ └── utils/ //工具类 │ ├── resources/ │ │ ├── application-root-context.</description>
@@ -273,10 +273,10 @@ Hugo 是用Golang 写的静态网站生成器，只有一个二进制命令，�
     
     <item>
       <title>写一套简易的视频点播系统——Android视频播放器</title>
-      <link>http://blog.yuantops.com/tech/write-your-own-vod-system-android/</link>
+      <link>https://blog.yuantops.com/tech/write-your-own-vod-system-android/</link>
       <pubDate>Tue, 19 Apr 2016 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/write-your-own-vod-system-android/</guid>
+      <guid>https://blog.yuantops.com/tech/write-your-own-vod-system-android/</guid>
       <description> 作为一个视频点播系统的客户端，播放视频是最基本的功能。本着最精简最偷懒的原则，这个客户端实现的功能包括:
  列表显示服务器上的直播视频、点播视频
  点击列表条目，播放视频
@@ -288,10 +288,10 @@ Hugo 是用Golang 写的静态网站生成器，只有一个二进制命令，�
     
     <item>
       <title>写一套简易的视频点播系统</title>
-      <link>http://blog.yuantops.com/tech/write-your-own-vod-system/</link>
+      <link>https://blog.yuantops.com/tech/write-your-own-vod-system/</link>
       <pubDate>Sat, 09 Apr 2016 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/write-your-own-vod-system/</guid>
+      <guid>https://blog.yuantops.com/tech/write-your-own-vod-system/</guid>
       <description>最初实习时，断断续续写Android代码，实现过用Helix架设流媒体服务器、手机播放流媒体视频的功能。后来一份实习，接触到Spring＋MyBatis框架，见识了它们在处理http请求和数据库连接上的便捷。这几天有些时间，想到可以将它们两者糅合到一起，实现一个完整的视频点播系统，既包括服务器(流媒体服务器，数据库，http服务器)，又包括客户端(Android)。虽然简陋，但工作起来毫无问题。
 整个工程运行起来的效果:
  打开手机App，填写http服务器提供的api root URL，出现两个列表: 点播视频列表和直播列表。点击列表条目，开始播放视频。
@@ -305,10 +305,10 @@ Hugo 是用Golang 写的静态网站生成器，只有一个二进制命令，�
     
     <item>
       <title>用Android 手机玩延时摄影</title>
-      <link>http://blog.yuantops.com/tech/timelapse-photography-diy-android/</link>
+      <link>https://blog.yuantops.com/tech/timelapse-photography-diy-android/</link>
       <pubDate>Fri, 11 Dec 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/timelapse-photography-diy-android/</guid>
+      <guid>https://blog.yuantops.com/tech/timelapse-photography-diy-android/</guid>
       <description>延时摄影是一种很精妙细微的展现形式，时间被压缩后有流动的美。每隔固定时间按一次快门，再将照片按某个帧率连续起来，就生成一段流畅的视频。摄影发烧友一般用单反拍照，用快门线控制拍照的周期。鉴于单反不是人人都有（譬如我就没有。。），这里分享一个经济实用的点子，用安卓和电脑来DIY延时摄影。
 思路 Android 系统开放了一些接口，Debug模式下电脑可以通过Android SDK提供的adb 命令调用它们，模拟启动相机、聚焦、拍照动作，并将照片保存到电脑硬盘。将这一连串操作用脚本记录下来，并设置linux定时任务，周期执行。最后，通过ffmpeg 或者其他视频编辑软件将照片变成视频/gif。
 器材 一部安卓手机 + 一台电脑(假设为Linux) + 一根USB线
@@ -328,10 +328,10 @@ Github例子 我的Shell脚本见这个项目。
     
     <item>
       <title>C语言堆与栈的区别</title>
-      <link>http://blog.yuantops.com/tech/c-heap-vs-stack-memory/</link>
+      <link>https://blog.yuantops.com/tech/c-heap-vs-stack-memory/</link>
       <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/c-heap-vs-stack-memory/</guid>
+      <guid>https://blog.yuantops.com/tech/c-heap-vs-stack-memory/</guid>
       <description>C语言中动态区域由Stack和Heap两部分组成。简单说来，Stack由编译器自动分配释放，存放函数的参数值、局部变量等值，底层的数据结构是LIFO的栈。Heap由程序员分配释放，如果一不小心忘记了释放申请的内存，可能引起内存泄漏。Heap基于的数据结构比较复杂。
 区别 申请方式 Stack由系统自动分配，存放局部变量等。 Heap由程序员调用malloc, realloc, calloc申请，并用free释放。
 申请效率 Stack由系统自动分配，速度快，程序员无法控制。
@@ -347,10 +347,10 @@ Heap：往往会在堆的头部用一个字节存放堆的大小，以利于free
     
     <item>
       <title>Java堆内存与栈内存的区别</title>
-      <link>http://blog.yuantops.com/tech/java-heap-vs-stack-memory/</link>
+      <link>https://blog.yuantops.com/tech/java-heap-vs-stack-memory/</link>
       <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/java-heap-vs-stack-memory/</guid>
+      <guid>https://blog.yuantops.com/tech/java-heap-vs-stack-memory/</guid>
       <description> Java中提供&amp;rdquo;栈&amp;rdquo;这种数据结构的实现，java.util.Stack。但此处我们所讨论的不是数据结构，而是JVM内存中的堆与栈，Java Runtime中存放数据的地方。
 JVM中的堆 Java Runtime使用Heap为Object分配内存。所有的对象，无论是何时何地创建的，都保存在Heap中。垃圾回收(Garbage Collection)在Heap上运行，释放不被引用的Object。Heap中生存的Object能在程序的任何地方被引用。
 JVM中的栈 Stack memory是为执行的thread分配的，包含一些生存时间短的值和指向Heap中对象的引用。Stack Memory总是LIFO的。当调用一个Method时，Stack Memory会为它分配一块区域，用来存储本地的primitive value和对Object的引用。一旦这个method结束，这块区域将变得不可用，下一次Method调用时又可以使用它。
@@ -365,10 +365,10 @@ JVM中的栈 Stack memory是为执行的thread分配的，包含一些生存时�
     
     <item>
       <title>LaTeX安装以及生成pdf时字体找不到的处理办法</title>
-      <link>http://blog.yuantops.com/tech/latex-installation-and-basics/</link>
+      <link>https://blog.yuantops.com/tech/latex-installation-and-basics/</link>
       <pubDate>Tue, 08 Sep 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/latex-installation-and-basics/</guid>
+      <guid>https://blog.yuantops.com/tech/latex-installation-and-basics/</guid>
       <description>安装软件包 $ sudo apt-get install texlive texlive-science
 编译命令  tex编译: $ latex hello.tex
  输出为pdf: $ dvipdf hello.dvi
@@ -386,10 +386,10 @@ $ pdffonts new.pdf</description>
     
     <item>
       <title>Android SurfaceView双缓存机制与闪屏现象分析</title>
-      <link>http://blog.yuantops.com/tech/surfaceview-dual-cache/</link>
+      <link>https://blog.yuantops.com/tech/surfaceview-dual-cache/</link>
       <pubDate>Sun, 26 Jul 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/surfaceview-dual-cache/</guid>
+      <guid>https://blog.yuantops.com/tech/surfaceview-dual-cache/</guid>
       <description>##理解SurfaceView
 SurfaceView是View的子类，所以View有的特点它都有。但它有特殊之处：它引入了缓存机制，优化了内容刷新的过程，使UI Thread不至于崩溃。更新它的内容，我们要用到与之关联的SurfaceHolder。
 比较特殊的在于SurfaceView的“双缓存”(Double-buffer)机制。更新SurfaceView的常见流程是&amp;rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&amp;rdquo;, 如果你遇到SurfaceView闪烁的情况，像鬼片里电视机的那种闪法，那十之八九是栽倒在双缓存的坑里了。Google告诉了我这个问题的答案，希望你能用上。
@@ -406,10 +406,10 @@ SurfaceView是View的子类，所以View有的特点它都有。但它有特殊�
     
     <item>
       <title>用Helix Server建立点播流/直播流的方法</title>
-      <link>http://blog.yuantops.com/tech/helix-server-streaming-guide/</link>
+      <link>https://blog.yuantops.com/tech/helix-server-streaming-guide/</link>
       <pubDate>Thu, 23 Jul 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/helix-server-streaming-guide/</guid>
+      <guid>https://blog.yuantops.com/tech/helix-server-streaming-guide/</guid>
       <description>视频文件预处理 Helix Server支持的视频格式很多，我只使用过MP4格式，其余的格式请自行探索。
 一个MP4格式的视频文件要想被Helix流化，必须具有符合要求的头部信息。mp4box这个小命令正是用来做这件事的，它是开源软件GPAC内提供的命令。先安装GPAC(https://gpac.wp.mines-telecom.fr/mp4box/)， 后在安装目录下找到MP4BOX.exe。如何调用命令不赘言。它的使用格式是：
 mp4box mymovie.mp4 -hint
@@ -448,10 +448,10 @@ Helix 的点播支持Http协议、RTSP协议，直播支持RTSP协议。Helix为
     
     <item>
       <title>Ali面试记录</title>
-      <link>http://blog.yuantops.com/tech/interview-ali-record-1/</link>
+      <link>https://blog.yuantops.com/tech/interview-ali-record-1/</link>
       <pubDate>Thu, 19 Mar 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/interview-ali-record-1/</guid>
+      <guid>https://blog.yuantops.com/tech/interview-ali-record-1/</guid>
       <description>记录： 1. 以支付宝的输入密码界面为例。当支付宝再次回到前台时，有时会进入输手势密码的界面。请问你的实现思路？
 面试官的解答：编写一个BaseActivity继承Activity，然后App中所有的Activity都继承BaseActivity。在BaseActivity中设置计时器，重写BaseActivity的onStop()和onStart()方法&amp;hellip;.
  百度、腾讯等旗下有多款App，这些App有的在后台共享SDK数据。请问其中原理？
@@ -466,10 +466,10 @@ Helix 的点播支持Http协议、RTSP协议，直播支持RTSP协议。Helix为
     
     <item>
       <title>Git重新应用gitignore文件规则</title>
-      <link>http://blog.yuantops.com/tech/refresh-gitigore/</link>
+      <link>https://blog.yuantops.com/tech/refresh-gitigore/</link>
       <pubDate>Tue, 17 Mar 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/refresh-gitigore/</guid>
+      <guid>https://blog.yuantops.com/tech/refresh-gitigore/</guid>
       <description>这个问题参见StackOverflow，记录在下面：
  保险起见，先对当前Repo提交一个commit，以防丢失数据；
  然后，
@@ -481,10 +481,10 @@ git commit -m &amp;ldquo;fixed untracked files&amp;rdquo;
     
     <item>
       <title>REST基础概念笔记</title>
-      <link>http://blog.yuantops.com/tech/rest-basics/</link>
+      <link>https://blog.yuantops.com/tech/rest-basics/</link>
       <pubDate>Thu, 29 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/rest-basics/</guid>
+      <guid>https://blog.yuantops.com/tech/rest-basics/</guid>
       <description>Representational State Transfer(REST)
 REST is an architecture style or design pattern used as a set of guidelines for creating web services which allow anything connected to a network (web servers, private intranets, smartphones, fitness bands, banking systems, traffic cameras, televisions etc.) to communicate with one another via a shared common communications protocol known as Hypertext Transfer Protocol (HTTP). &amp;ndash;REST Wikipedia
 REST是一种架构风格，设计模式，因此没有一本语法书规定REST应该这样实现，应该那样实现。它不是一种标准。它是一种风格，具有指导意义，凡是遵循这种风格的设计，都可以称之为&amp;rdquo;RESTful&amp;rdquo;。
@@ -496,10 +496,10 @@ REST的常见应用场景是Web服务。在RESTful API的实际实现中，往�
     
     <item>
       <title>视频格式学习笔记</title>
-      <link>http://blog.yuantops.com/tech/video-format-and-container-study/</link>
+      <link>https://blog.yuantops.com/tech/video-format-and-container-study/</link>
       <pubDate>Wed, 28 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/video-format-and-container-study/</guid>
+      <guid>https://blog.yuantops.com/tech/video-format-and-container-study/</guid>
       <description> 在生活语境里所说的“视频格式”，在学术上有两个概念与之对应：Container format (封装格式)和Codec (暂且译为“编解码格式”)。
  Container format (封装格式) Container format 描述了视频文件的结构。正如它的字面含义所说，它是对一个“容器”的规范。一个视频文件往往会包含图像和音频，还有一些配置信息(如图像和音频的关联，如何解码它们等)：这些内容需要按照一定的规则组织、存储起来，Container format就是这些规则。
 如果一个视频文件是以某个Container format封装起来的，那么它的后缀名一般会体现出来。所以，后缀名只是形式，只是为了便于识别(例如，windows系统会根据文件的后缀名决定以什么程序打开它)，不代表实质性的内容。
@@ -517,10 +517,10 @@ Codec是一种压缩标准。而文件的压缩/还原是通过编/解码实现�
     
     <item>
       <title>Linux确定监听某个端口的进程</title>
-      <link>http://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</link>
+      <link>https://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</link>
       <pubDate>Thu, 22 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</guid>
+      <guid>https://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</guid>
       <description>比较常见的命令有:
  netstat
  lsof
@@ -540,10 +540,10 @@ ps # ps aux 参数解释: -a 显示所有用户的进程
     
     <item>
       <title>Eclipse中添加Tomcat插件</title>
-      <link>http://blog.yuantops.com/tech/install-tomcat-plugin-in-eclipse/</link>
+      <link>https://blog.yuantops.com/tech/install-tomcat-plugin-in-eclipse/</link>
       <pubDate>Wed, 21 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/install-tomcat-plugin-in-eclipse/</guid>
+      <guid>https://blog.yuantops.com/tech/install-tomcat-plugin-in-eclipse/</guid>
       <description>##安装Tomcat 下载链接:Tomcat7
  下载tar.gz包到本地，譬如到/home/yuan/Downloads目录
  通过tar -zxf **.**.tar.gz命令解压tar.gz包，将解压出来的文件夹转移到你希望保存的目的地(譬如说/home/yuan/tomcat7)
@@ -565,10 +565,10 @@ export JRE_HOME=/usr/lib/jvm/java-7-openjdk-i386/jre
     
     <item>
       <title>IPv4协议保留的私有IP段</title>
-      <link>http://blog.yuantops.com/tech/ipv4-private-address-space/</link>
+      <link>https://blog.yuantops.com/tech/ipv4-private-address-space/</link>
       <pubDate>Tue, 20 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ipv4-private-address-space/</guid>
+      <guid>https://blog.yuantops.com/tech/ipv4-private-address-space/</guid>
       <description>这三个保留IP地址段是:
  10.0.0.0/8 IP addresses: 10.0.0.0 &amp;ndash; 10.255.255.255
  172.16.0.0/12 IP addresses: 172.16.0.0 &amp;ndash; 172.31.255.255
@@ -578,10 +578,10 @@ export JRE_HOME=/usr/lib/jvm/java-7-openjdk-i386/jre
     
     <item>
       <title>北邮校园网通过配置IPv6使用Google服务</title>
-      <link>http://blog.yuantops.com/tech/config-ipv6-to-bypass-gfw-in-bupt/</link>
+      <link>https://blog.yuantops.com/tech/config-ipv6-to-bypass-gfw-in-bupt/</link>
       <pubDate>Sat, 17 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/config-ipv6-to-bypass-gfw-in-bupt/</guid>
+      <guid>https://blog.yuantops.com/tech/config-ipv6-to-bypass-gfw-in-bupt/</guid>
       <description>前提 首先，本文针对的是北邮校园网。我在北邮学十亲测，机器是Linux Mint。
 其次，请确保:
  自己的机器支持IPv6。Win7默认安装了IPv6协议，WinXP可能需要自己手动安装。我自己的Linux mint默认安装了IPv6。
@@ -612,10 +612,10 @@ GoogleDNS服务器的IPv6地址是:
     
     <item>
       <title>厘清Java Socket端口问题 -- 服务器的端口是什么</title>
-      <link>http://blog.yuantops.com/tech/some-clarification-about-java-socket-port/</link>
+      <link>https://blog.yuantops.com/tech/some-clarification-about-java-socket-port/</link>
       <pubDate>Tue, 13 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/some-clarification-about-java-socket-port/</guid>
+      <guid>https://blog.yuantops.com/tech/some-clarification-about-java-socket-port/</guid>
       <description>在我之前翻译的Socket是什么一文中，对java中socket建立的流程有描述。在服务器接受客户端socket连接的部分，它这么说道：
  如果一切顺利，服务器会接受连接。一旦接受了连接，服务器会得到一个绑定了本地相同端口的新socket，这个socket的另一端被置为客户端的地址和端口。服务器需要一个新的socket,所以它能一边继续在原来的socket监听连接请求，一边处理已建立连接的客户端的需求。
 (原文)
@@ -624,10 +624,10 @@ If everything goes well, the server accepts the connection. Upon acceptance, the
     
     <item>
       <title>理解Docker -- Docker Official Docs翻译</title>
-      <link>http://blog.yuantops.com/tech/understanding-docker/</link>
+      <link>https://blog.yuantops.com/tech/understanding-docker/</link>
       <pubDate>Mon, 12 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/understanding-docker/</guid>
+      <guid>https://blog.yuantops.com/tech/understanding-docker/</guid>
       <description>Docker是什么 Docker是用于开发(develop)、转移(ship)、运行(run)程序(application)的一个开放平台。Docker的设计目的是为了更快地传递程序。在Docker的帮助下，你能将程序与硬件基础(infrastructure)隔离、把硬件基础看作一个可管理的程序。Docker能帮你更快地转移代码、测试代码、部署代码，缩短编写代码与运行代码之间的周期。
 Docker将一种轻量级的容器虚拟化平台技术(container virtualization platform)与相应的工作流程和工具结合起来，从而能帮你管理、部署自己的程序。
 在核心层面，Docker支持在一个容器(container)中安全(securely)、独立(isolated)地运行几乎任何一种程序。这种独立性、安全性允许你在主机(host)上同时运行多个容器。容器在运行时不需要分配额外负载给监视程序(hypervisor)，它的这种轻量级特性意味着你能更大限度地使用硬件资源。
@@ -664,10 +664,10 @@ Docker客户端 Docker客户端，往往是二进制形式的docker程序，是D
     
     <item>
       <title>Activity的生命周期以及两个Activity跳转时的状态变化</title>
-      <link>http://blog.yuantops.com/tech/android-activity-lifecycle-with-two-activites/</link>
+      <link>https://blog.yuantops.com/tech/android-activity-lifecycle-with-two-activites/</link>
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/android-activity-lifecycle-with-two-activites/</guid>
+      <guid>https://blog.yuantops.com/tech/android-activity-lifecycle-with-two-activites/</guid>
       <description>##Android Activity的生命周期 下面这张图非常清晰地介绍了Activity的生命周期：
 ##当通过intent跳转时的状态变化 一个Activity的状态有三个：Stopped(存在但看不见)，Paused(部分可见，但无焦点)，Resumed(激活状态，拥有焦点，可以与之交互)。如果将不存在也算作一个状态，那样一共就有四个状态。
 这篇文章非常详细地讨论了当通过intent在一个Activity中启动另一个Activity时，它们两个Activity的状态变化过程。
@@ -682,10 +682,10 @@ Docker客户端 Docker客户端，往往是二进制形式的docker程序，是D
     
     <item>
       <title>Android中Context的作用</title>
-      <link>http://blog.yuantops.com/tech/use-of-context-in-android/</link>
+      <link>https://blog.yuantops.com/tech/use-of-context-in-android/</link>
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/use-of-context-in-android/</guid>
+      <guid>https://blog.yuantops.com/tech/use-of-context-in-android/</guid>
       <description>##官方文档中对Context的介绍 &amp;gt;Interface to global information about an application environment. This is an abstract class whose implementation is provided by the Android system. It allows access to application-specific resources and classes, as well as up-calls for application-level operations such as launching activities, broadcasting and receiving intents, etc.
 翻译：
 Context是Android应用的全局信息的接口。它是一个虚类，它的实现由Android系统完成。它提供了对某个应用的资源和类的访问权限，也提供对应用层面操作(如启动Activity，发送broadcast，接受intent)的调用接口。
@@ -699,10 +699,10 @@ TextView tv = new TextView(getContext()); ListAdapter adapter = new SimpleCursor
     
     <item>
       <title>Sockets in Java -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/java-all-about-sockets-oracle-java-tutorial/</link>
+      <link>https://blog.yuantops.com/tech/java-all-about-sockets-oracle-java-tutorial/</link>
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/java-all-about-sockets-oracle-java-tutorial/</guid>
+      <guid>https://blog.yuantops.com/tech/java-all-about-sockets-oracle-java-tutorial/</guid>
       <description>##课程：关于Sockets的一切 URL和URLConnection为获取因特网上的资源提供了一种相对高层次(high-level)的机制。但有时候，你的程序需要一种相对低层次(lower-level)的网络通信，譬如说，你可能需要编写一个客户端-服务器(client-server)程序。
 在客户端-服务器程序中，服务器端提供一些服务：譬如处理数据库查询，或者发送当前的期货价格。客户端利用服务器提供的这些服务器，用来向用户显示数据库查询的结果，或者给投资者提供期货的购买建议。客户端和服务器端的通信因此必须是可信的。换言之，数据不能丢失，而且它到达客户端的顺序必须与服务器的发送顺序一致。
 TCP协议提供了一个可信的、点到点的通信信道，因特网上的客户端-服务器端程序可以使用它来通信。为了基于TCP通信，客户端程序和服务器程序要和对方建立连接。每个程序各自将一个socket绑定到连接的一头。当通信时，客户端和服务器各自从与连接绑定的socket里面读/写数据。
@@ -714,10 +714,10 @@ TCP协议提供了一个可信的、点到点的通信信道，因特网上的�
     
     <item>
       <title>Socket是什么 -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/</link>
+      <link>https://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/</link>
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/</guid>
+      <guid>https://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/</guid>
       <description>一般而言，一个服务器运行在一台电脑上，这个服务器有一个绑定了端口号的socket。这个服务器一边等待，一边守着socket监听从客户端发过来的连接请求。
 在客户端：客户端知道服务器所在的主机的主机名(hostname)和服务器正在监听的端口号。为了发出连接请求，客户端尝试着连接服务器所在的主机名和端口。客户端同时也需要向服务器端证明自己的身份，因此它也绑定了一个本地的端口号以便在本次连接中使用。这一般是由系统指定的。
 如果一切顺利，服务器会接受连接。一旦接受了连接，服务器会得到一个绑定了本地相同端口的新socket，这个socket的另一端被置为客户端的地址和端口。服务器需要一个新的socket,所以它能一边继续在原来的socket监听连接请求，一边处理已建立连接的客户端的需求。
@@ -734,10 +734,10 @@ Java平台上的java.net包提供了Socket这个类，它实现了Java程序和�
     
     <item>
       <title>[转载]Android Intent原理分析</title>
-      <link>http://blog.yuantops.com/tech/an-insight-of-android-intent/</link>
+      <link>https://blog.yuantops.com/tech/an-insight-of-android-intent/</link>
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/an-insight-of-android-intent/</guid>
+      <guid>https://blog.yuantops.com/tech/an-insight-of-android-intent/</guid>
       <description>##原文链接 Android Intent原理分析
 ##转载原文正文 Revision History
 wylhistory
@@ -777,10 +777,10 @@ mContext.sendBroadcast(intent);
     
     <item>
       <title>HTTP Methods: GET vs. POST</title>
-      <link>http://blog.yuantops.com/tech/difference-between-http-get-and-post/</link>
+      <link>https://blog.yuantops.com/tech/difference-between-http-get-and-post/</link>
       <pubDate>Fri, 09 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/difference-between-http-get-and-post/</guid>
+      <guid>https://blog.yuantops.com/tech/difference-between-http-get-and-post/</guid>
       <description>##HTTP是什么？
 超文本传输协议(The Hypertext Transfer Protocol, HTTP)是为客户端(client)与服务器(server)之间的通信(communication)设计的。
 HTTP是在客户端与服务器之间以请求-响应(request-response)方式工作的协议。
@@ -809,10 +809,10 @@ POST /test/demo_form.asp HTTP/1.1 Host: w3schools.com name1=value1&amp;amp;name2
     
     <item>
       <title>Buffered Streams -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</link>
+      <link>https://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</link>
       <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</guid>
+      <guid>https://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</guid>
       <description>Buffered Streams 缓冲流 此前我们所见识的例子使用的大多*非缓冲I/O*。非缓冲，意味着每一次读/写的请求都由底层的OS直接处理。这降低了程序效率，因为每一次请求往往会触发磁盘操作、网络活动、或者其它代价昂贵的操作。
 为了减少这类消耗，Java平台实现了*缓冲I/O*流。输入缓冲流从一块别名为&amp;rdquo;缓存&amp;rdquo;(buffer)的内存区域中读入数据;只有当缓存区变空的时候，原生的输入API才会被调用。类似地，缓冲的输出流向一块缓存中写数据，只有当缓存区满了的时候，原生的API的输出API才会被调用。
 程序能把一个非缓冲流转化为缓冲流。我们已经使用过几次这样的&amp;rdquo;包装类&amp;rdquo;了：非缓冲流作为参数传入缓冲流类的构造函数。下面就是一个例子，你可以在用它替代CopyCharacters代码中的构造函数以使用缓冲I/O：
@@ -827,10 +827,10 @@ inputStream = new BufferedReader(new FileReader(&amp;#34;xanadu.txt&amp;#34;)); 
     
     <item>
       <title>在GitHub pages中添加标签Tags(非插件方式)</title>
-      <link>http://blog.yuantops.com/tech/add-tags-in-gh-pages/</link>
+      <link>https://blog.yuantops.com/tech/add-tags-in-gh-pages/</link>
       <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/add-tags-in-gh-pages/</guid>
+      <guid>https://blog.yuantops.com/tech/add-tags-in-gh-pages/</guid>
       <description>参考内容 本文参考了以下内容：
  Alphabetizing Jekyll Page Tags In Pure Liquid (Without Plugins)
  Tips For Sorting Tags In GitHub Page With Jekyll
@@ -845,10 +845,10 @@ inputStream = new BufferedReader(new FileReader(&amp;#34;xanadu.txt&amp;#34;)); 
     
     <item>
       <title>Jekyll安装指南</title>
-      <link>http://blog.yuantops.com/tech/jekyll-installation/</link>
+      <link>https://blog.yuantops.com/tech/jekyll-installation/</link>
       <pubDate>Tue, 30 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/jekyll-installation/</guid>
+      <guid>https://blog.yuantops.com/tech/jekyll-installation/</guid>
       <description>环境准备 准备安装Jekyll前，确保系统满足以下条件：
  Ruby
  RubyGems
@@ -871,10 +871,10 @@ source &amp;#39;https://rubygems.org&amp;#39; gem &amp;#39;github-pages&amp;#39;
     
     <item>
       <title>Byte Streams -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</link>
+      <link>https://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</link>
       <pubDate>Mon, 29 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</guid>
+      <guid>https://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</guid>
       <description>Byte Streams 字节流 程序使用*字节流*来处理8bit字节的输入和输出。所有的字节流类都派生(descend)自InputStream和OutputStream。
 字节流类有很多。为了演示字节流的工作原理，我们将关注文件的I/O字节流,FileInputStream和FileOutputStream。其它字节流类的使用方法往往与之类似，仅在构造的方法上存在差别。
 使用字节流 下面我们通过一段代码CopyBytes来演示FileInputStream和FileOutputStream的用法。这段代码通过字节流逐字节地拷贝xanadu.txt。
@@ -883,10 +883,10 @@ import java.io.FileInputStream; import java.io.FileOutputStream; import java.io.
     
     <item>
       <title>Character Streams -- Oracle Java Tutorial 翻译</title>
-      <link>http://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</link>
+      <link>https://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</link>
       <pubDate>Mon, 29 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</guid>
+      <guid>https://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</guid>
       <description>Character Streams 字符流 Java平台使用Unicode字符集存储字符值(character value)。字符流I/O自动将内部的Unicode格式翻译成本地的字符集，反之亦然。在西方的使用环境(locale)下，本地字符集往往是8bit的ASCII码的超集(superset)。
 对大多数程序来说，使用字符流的I/O不会比使用字节流的I/O更复杂。与输入和输出相关的流类会自动完成与本地字符集的翻译过程。一个使用字符流而不是字节流的程序，它会自动使用本地字符集，而且它可以完成国际化的过程——不需要程序员付出过多的额外工作。
 如果国际化的需求优先级不高，你尽管以最简单的方式使用字符流类，而不需太关注字符集的问题。如果之后有了国际化的需求，你的程序也可以轻松地予以修改。参见国际化的章节了解更多。
@@ -896,10 +896,10 @@ import java.io.FileReader; import java.io.FileWriter; import java.io.IOException
     
     <item>
       <title>OSC Android源码学习笔记 四 listview初始化、获取数据、加载数据的流程</title>
-      <link>http://blog.yuantops.com/tech/osc-android-app-notes-4/</link>
+      <link>https://blog.yuantops.com/tech/osc-android-app-notes-4/</link>
       <pubDate>Sat, 27 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-4/</guid>
+      <guid>https://blog.yuantops.com/tech/osc-android-app-notes-4/</guid>
       <description>OSC App显示的信息分为资讯(news)，博客(blog)，问答(Question)，动弹(tweet)几屏，每屏对应一个ListView。以资讯(news)为例，粗略看一下它的ListView是如何初始化、获取数据、加载数据的。
  实例化一个ListViewNewsApapter并添加到lvNews：
 lvNewsAdapter = new ListViewNewsAdapter(this, lvNewsData, R.layout.news_listitem); ListViewNewsApapter这个类继承BaseAdapter，重写了getView()方法。值得注意的是，getView()方法中news实体被被作为Tag添加到了listView的ItemView中。
@@ -916,10 +916,10 @@ loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT);
     
     <item>
       <title>开源中国安卓客户端源码学习笔记 三 自定义Exception类</title>
-      <link>http://blog.yuantops.com/tech/osc-android-app-notes-3/</link>
+      <link>https://blog.yuantops.com/tech/osc-android-app-notes-3/</link>
       <pubDate>Thu, 25 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-3/</guid>
+      <guid>https://blog.yuantops.com/tech/osc-android-app-notes-3/</guid>
       <description>net.oschina.app包中包含四个类的定义文件，它们分别是AppConfig, AppException, AppManager, AppStart。其中AppStart类继承Activity，是跳转界面。AppException类是Exception的子类，是自定义的异常类。
 AppException类中有8个final static类型的类变量，定义异常类型: network, socket, http, xml, io, run, jason几种。这个类中有对应的静态方法，以Exception为形参，返回对应的新建对象。值得注意的是，代码中预留了debug的选项，如果在新建AppException对象时传入“debug”参数，那么对应的Exception信息会被写到文件中保存。
 这个类中定义了异常的处理方式：收集错误信息，然后显示异常信息&amp;amp;发送错误报告。显示异常信息和发送错误报告的过程在新建的Thread里完成。</description>
@@ -927,10 +927,10 @@ AppException类中有8个final static类型的类变量，定义异常类型: ne
     
     <item>
       <title>使用OpenSSL工具制作证书的方法</title>
-      <link>http://blog.yuantops.com/tech/ssl-creation-guide/</link>
+      <link>https://blog.yuantops.com/tech/ssl-creation-guide/</link>
       <pubDate>Wed, 24 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssl-creation-guide/</guid>
+      <guid>https://blog.yuantops.com/tech/ssl-creation-guide/</guid>
       <description>之前一篇文章介绍了SSL证书的一些细节，这篇文章介绍OpenSSL工具的基本使用方法。老实说，OpenSSL工具实在是太难用了，我参考了How To Setup a CA和基于 OpenSSL 的 CA 建立及证书签发这两篇文章，捣鼓了很久才理清流程。虽然原理很清楚，但是操作起来却不那么容易，这告诉我们要多实践才对，不然发现不了问题。
 一些坑 在使用openssl ca命令时，如果不手动指定-config参数，它会自动调用/etc/pki/tls/openssl.cnf作为-config配置文件，这个openssl.cnf文件里定义了要调用的CA证书、私钥路径。如果我们在创建CA时将它的证书和私钥等文件保存在了别处，或者/etc/pki/tls/openssl.cnf里的定义的那些文件不存在，那么在openssl ca找不到要使用的这些文件时，就会报错。其中典型的错误有：
 Using configuration from /etc/pki/tls/openssl.cnf unable to load CA private key 139911890630472:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: ANY PRIVATE KEY  所以，我们如果想自定义CA的目录位置，那么要事先1）按照OpenSSL的默认配置建立相应的目录结构，2）定制openssl.cnf文件，修改CA目录的路径定义。
@@ -943,10 +943,10 @@ Using configuration from /etc/pki/tls/openssl.cnf unable to load CA private key 
     
     <item>
       <title>BIND安装笔记</title>
-      <link>http://blog.yuantops.com/tech/bind-installation-guide/</link>
+      <link>https://blog.yuantops.com/tech/bind-installation-guide/</link>
       <pubDate>Tue, 23 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/bind-installation-guide/</guid>
+      <guid>https://blog.yuantops.com/tech/bind-installation-guide/</guid>
       <description>安装环境  网络环境：两台KVM虚拟机，通过NAT方式组成子网(IP地址分别为192.168.100.139, 192.168.100.172)，彼此能ping通，均能访问互联网
  系统：Redhat 6.6
  要解析的域名：yuantops.com  安装BIND软件包  $ yum install bind bind-utils
@@ -970,10 +970,10 @@ rndc是BIND安装包提供的一种域名服务控制工具，它可以运行在
     
     <item>
       <title>开源中国安卓客户端源码学习笔记 二 欢迎界面跳转与渐变效果</title>
-      <link>http://blog.yuantops.com/tech/osc-android-app-notes-2/</link>
+      <link>https://blog.yuantops.com/tech/osc-android-app-notes-2/</link>
       <pubDate>Tue, 23 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-2/</guid>
+      <guid>https://blog.yuantops.com/tech/osc-android-app-notes-2/</guid>
       <description>OSC客户端启动时会先显示欢迎界面，再跳转到主页，其中跳转过程有渐变效果。
 这里使用了AlphaAnimation类。AlphaAnimation类能实现渐进渐出的效果，官方文档里说“This animation ends up changing the alpha property of a Transformation”。alpha property可以理解为透明度，&amp;rdquo;0.0&amp;rdquo;为全透明，“0.5”为半透明，“1.0”时不透明。
 //渐变展示启动屏 	AlphaAnimation aa = new AlphaAnimation(0.3f,1.0f); aa.setDuration(3000); view.startAnimation(aa); aa.setAnimationListener(new AnimationListener() { @Override public void onAnimationEnd(Animation arg0) { redirectTo(); } @Override public void onAnimationRepeat(Animation animation) {} @Override public void onAnimationStart(Animation animation) {} }); 另外，欢迎界面的图片可以更新。从代码分析，在将View设置为ContentView之前，程序会检查欢迎界面对应缓存文件夹里的图片文件，图片文件的文件名有一个时间期限，如果今天正好落在这个期限内，那么就将它设为背景图片。如此可以推测APP会在启动后自动下载新的图片文件(如果存在的话)到缓存文件夹，从而达到更新效果。
@@ -982,10 +982,10 @@ rndc是BIND安装包提供的一种域名服务控制工具，它可以运行在
     
     <item>
       <title>开源中国安卓客户端源码学习笔记 一</title>
-      <link>http://blog.yuantops.com/tech/osc-android-app-notes-1/</link>
+      <link>https://blog.yuantops.com/tech/osc-android-app-notes-1/</link>
       <pubDate>Mon, 22 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-1/</guid>
+      <guid>https://blog.yuantops.com/tech/osc-android-app-notes-1/</guid>
       <description>##前言 开源中国(OSCHINA)是国内一个开源社区,社区自己开发了Android和iOS平台的客户端，而且将各自的代码开源了。值得夸奖的是，他们的Android APP不是基于HTML，而是Android原生API。我最近在学习它Android App的源代码，毕竟像它这样性能优秀、注释齐全的开源项目是比较稀少的。
 希望能通过阅读源代码，学到一些Android开发的实战技巧，并加深对已有知识的理解。
 ##学习笔记一 利用getApplication()共享全局数据
@@ -999,10 +999,10 @@ AppContext类是Application类的子类。Google了getApplication()函数，找�
     
     <item>
       <title>制作属于自己的字母favicon</title>
-      <link>http://blog.yuantops.com/tech/make-custom-character-favicon/</link>
+      <link>https://blog.yuantops.com/tech/make-custom-character-favicon/</link>
       <pubDate>Sat, 20 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/make-custom-character-favicon/</guid>
+      <guid>https://blog.yuantops.com/tech/make-custom-character-favicon/</guid>
       <description>每个自己搭建博客的人，应该都想自己的博客更具个性。favicon是浏览器浏览网页时标签左边的那个小图标，是可以自己设计的。
 这里，推荐一个网站：faviconist.com。你可以输入一个字母，得到这个字母的图标，而且字体、文字前景色、背景色都可以调整。调整到满意后，下载到本地，保存到对应的网页文件夹，就可以了。
 效果可以参见我的网页。</description>
@@ -1010,10 +1010,10 @@ AppContext类是Application类的子类。Google了getApplication()函数，找�
     
     <item>
       <title>Java 的一些术语解释</title>
-      <link>http://blog.yuantops.com/tech/java-terminology-explanation/</link>
+      <link>https://blog.yuantops.com/tech/java-terminology-explanation/</link>
       <pubDate>Sun, 14 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/java-terminology-explanation/</guid>
+      <guid>https://blog.yuantops.com/tech/java-terminology-explanation/</guid>
       <description>作为JAVA初学者，往往弄不清楚一系列术语的概念。这篇文章搬运文章一与文章二，解释JRE与JDK, JavaSE、JavaME与JavaEE，Java版本等术语 。
 JRE vs JDK JRE: Java Runtime Environment
 基本说来它是Java Virtual Machine，你的Java程序在它上面运行。它也为浏览器提供Applet运行插件。
@@ -1034,10 +1034,10 @@ java version &amp;#34;1.7.0_71&amp;#34; Java 1.7是我机器上的java版本号�
     
     <item>
       <title>SSL术语与基本原理</title>
-      <link>http://blog.yuantops.com/tech/ssl-terminologies-and-concepts/</link>
+      <link>https://blog.yuantops.com/tech/ssl-terminologies-and-concepts/</link>
       <pubDate>Sat, 06 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssl-terminologies-and-concepts/</guid>
+      <guid>https://blog.yuantops.com/tech/ssl-terminologies-and-concepts/</guid>
       <description>非对称加密的又一大应用是SSL。对于SSL的介绍，阮一峰有一篇深入浅出的博客，推荐阅读：数字签名是什么？。这篇文章也非常不错：SSL/TLS Strong Ebcryption: An introduction。
 SSL协议对互联网的安全十分重要。要理解SSL协议，必须先理解几个基本概念：信息摘要(message digest)，数字签名(digital signature)，数字证书(digital certificate)。阮一峰的博客里写得十分清楚了，看完后做一点自己的笔记。
 SSL术语  公钥(public key): 非对称加密密钥对中可以分发给其它人的一方。
@@ -1061,10 +1061,10 @@ SSL术语  公钥(public key): 非对称加密密钥对中可以分发给其它�
     
     <item>
       <title>SSL证书的细节与制作方法</title>
-      <link>http://blog.yuantops.com/tech/ssl-certificate-details-and-creation-guide/</link>
+      <link>https://blog.yuantops.com/tech/ssl-certificate-details-and-creation-guide/</link>
       <pubDate>Sat, 06 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssl-certificate-details-and-creation-guide/</guid>
+      <guid>https://blog.yuantops.com/tech/ssl-certificate-details-and-creation-guide/</guid>
       <description>在上篇文章中，讨论了数字证书(digital certificate)的重要意义。在实际中，Internt工程任务组(IETF)PKI X.509专门负责制定数字证书的格式，并提出了一套标准。根据这套标准(X.509)，互联网上的各级单位各自予以实现，从而形成一套完备的公钥基础设施(Public Key Infrastructure, PKI)。这是本篇文章将要讨论的内容。
 SSL证书的X.509标准 X.509 规定一份digital certificate应该由这几部分构成：
  Certificate Data
@@ -1080,10 +1080,10 @@ SSL证书的X.509标准 X.509 规定一份digital certificate应该由这几部�
     
     <item>
       <title>SSH登录原理</title>
-      <link>http://blog.yuantops.com/tech/ssh-login-procedure/</link>
+      <link>https://blog.yuantops.com/tech/ssh-login-procedure/</link>
       <pubDate>Fri, 05 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssh-login-procedure/</guid>
+      <guid>https://blog.yuantops.com/tech/ssh-login-procedure/</guid>
       <description>关于SSH登录的原理，阮一峰的这篇博客写得很清楚，值得一看。
 &amp;gt;SSH原理与运用(一)
 读完这篇博客后，下面是笔记和摘抄。
@@ -1115,10 +1115,10 @@ SSH公钥登录的方式也是同理。对一台远程主机而言，当用户�
     
     <item>
       <title>关于Git,需要理解的几个关键概念</title>
-      <link>http://blog.yuantops.com/tech/key-concepts-to-understand-git/</link>
+      <link>https://blog.yuantops.com/tech/key-concepts-to-understand-git/</link>
       <pubDate>Fri, 05 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/key-concepts-to-understand-git/</guid>
+      <guid>https://blog.yuantops.com/tech/key-concepts-to-understand-git/</guid>
       <description>Git的控制哲学十分优雅,特别是了解它后会更为之倾倒。Git的入门在此不赘述。在掌握常用命令之后,再思考下面这些概念,相信对Git的认识会得到提升。
 Git基于Commit,每个Commit有独一无二的SHA 1作为标志 Git有Working Tree,Index,Repo的概念。Working Tree指当前的工作目录,当这个目录下有改动时,通过add命令将改动添加到Index区域。当改动都被加到了Index、需要提交时,使用commit命令将它们提交到Repo中。这次提交会形成一个Commit记录,它相当于当前状态的一个SnapShot。
 基于Commit的版本控制是十分优雅的想法。原因在于：
@@ -1136,10 +1136,10 @@ Branch, HEAD, TAG本质上都是为Commit所取的别名 只有先理解“Git�
     
     <item>
       <title>SSL学习笔记 前言</title>
-      <link>http://blog.yuantops.com/tech/ssl-series-introduction/</link>
+      <link>https://blog.yuantops.com/tech/ssl-series-introduction/</link>
       <pubDate>Sun, 30 Nov 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/ssl-series-introduction/</guid>
+      <guid>https://blog.yuantops.com/tech/ssl-series-introduction/</guid>
       <description>最近实习时接触到了SSL协议，CA证书，ssh登录之类的东西，总是一知半解的感觉非常不好，于是我决定好好钻研一下。在网上查找了很多资料后，终于理清了很多以前很模糊的知识点。用几篇博客来记录一下，算是一个总结。
 SSL(Secured Sockets Layer)与SSH(Secure Shell)，是用来解决网络传输中安全问题的协议。如何保证传输安全，使消息不被窃听、不被篡改，这需要用到加密技术。所以，要理解SSL中CA certificate的意义、ssh登录的工作原理，首先得理解它们所基于的加密原理: 非对称加密。
 非对称加密技术是在信息论的理论基础上，以数学为工具的现代加密技术。它是现在最先进、最不易破解的加密技术。由于非对称加密技术在这一系列概念中的基础性地位，会有单独一篇文章介绍它的历史渊源和数学原理。
@@ -1151,10 +1151,10 @@ SSL(Secured Sockets Layer)与SSH(Secure Shell)，是用来解决网络传输中�
     
     <item>
       <title>vim增加markdown语法高亮支持</title>
-      <link>http://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</link>
+      <link>https://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</link>
       <pubDate>Sun, 30 Nov 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</guid>
+      <guid>https://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</guid>
       <description>markdown是一种非常简洁美观的语法格式，非常适合用来撰写博客(简书 语法简介)。在linux下，我个人最习惯用vim做文本编辑器。那么，如何使vim支持markdown的语法高亮呢？
 vim是支持自定义语法高亮插件的。于是，问题就变成了两部分：
 1. 找到markdown语法高亮显示的vim配置文件

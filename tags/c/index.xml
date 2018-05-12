@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>C on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tags/c/</link>
+    <link>https://blog.yuantops.com/tags/c/</link>
     <description>Recent content in C on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,15 +11,15 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Thu, 17 Sep 2015 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tags/c/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tags/c/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>C语言堆与栈的区别</title>
-      <link>http://blog.yuantops.com/tech/c-heap-vs-stack-memory/</link>
+      <link>https://blog.yuantops.com/tech/c-heap-vs-stack-memory/</link>
       <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/c-heap-vs-stack-memory/</guid>
+      <guid>https://blog.yuantops.com/tech/c-heap-vs-stack-memory/</guid>
       <description>C语言中动态区域由Stack和Heap两部分组成。简单说来，Stack由编译器自动分配释放，存放函数的参数值、局部变量等值，底层的数据结构是LIFO的栈。Heap由程序员分配释放，如果一不小心忘记了释放申请的内存，可能引起内存泄漏。Heap基于的数据结构比较复杂。
 区别 申请方式 Stack由系统自动分配，存放局部变量等。 Heap由程序员调用malloc, realloc, calloc申请，并用free释放。
 申请效率 Stack由系统自动分配，速度快，程序员无法控制。

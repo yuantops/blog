@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vim on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tags/vim/</link>
+    <link>https://blog.yuantops.com/tags/vim/</link>
     <description>Recent content in Vim on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,15 +11,15 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Sun, 30 Nov 2014 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tags/vim/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>vim增加markdown语法高亮支持</title>
-      <link>http://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</link>
+      <link>https://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</link>
       <pubDate>Sun, 30 Nov 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</guid>
+      <guid>https://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</guid>
       <description>markdown是一种非常简洁美观的语法格式，非常适合用来撰写博客(简书 语法简介)。在linux下，我个人最习惯用vim做文本编辑器。那么，如何使vim支持markdown的语法高亮呢？
 vim是支持自定义语法高亮插件的。于是，问题就变成了两部分：
 1. 找到markdown语法高亮显示的vim配置文件

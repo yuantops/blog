@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bind on Yuantops&#39; Blog</title>
-    <link>http://blog.yuantops.com/tags/bind/</link>
+    <link>https://blog.yuantops.com/tags/bind/</link>
     <description>Recent content in Bind on Yuantops&#39; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,15 +11,15 @@
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Tue, 23 Dec 2014 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.yuantops.com/tags/bind/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.yuantops.com/tags/bind/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>BIND安装笔记</title>
-      <link>http://blog.yuantops.com/tech/bind-installation-guide/</link>
+      <link>https://blog.yuantops.com/tech/bind-installation-guide/</link>
       <pubDate>Tue, 23 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/bind-installation-guide/</guid>
+      <guid>https://blog.yuantops.com/tech/bind-installation-guide/</guid>
       <description>安装环境  网络环境：两台KVM虚拟机，通过NAT方式组成子网(IP地址分别为192.168.100.139, 192.168.100.172)，彼此能ping通，均能访问互联网
  系统：Redhat 6.6
  要解析的域名：yuantops.com  安装BIND软件包  $ yum install bind bind-utils
