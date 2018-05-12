@@ -7,6 +7,9 @@ go:
 branches:
   only:
     - hugo
+    
+before_install:
+- export TZ=Asia/Shanghai
 
 install:
   - go get github.com/spf13/hugo 
@@ -22,6 +25,5 @@ deploy:
   github-token: $GITHUB_TOKEN
   fqdn: blog.yuantops.com
   keep-history: true
-  verbose: true
   on:
     branch: hugo
