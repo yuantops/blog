@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Emacs Golang开发环境配置指南 // Yuantops&#39; Blog</title>
+    <title>用Benchmark验证sync.Pool对GC latency的优化效果 // Yuantops&#39; Blog</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="Emacs Golang开发环境配置指南" />
-<meta property="og:description" content="换过几次电脑，每次配Golang环境都要求助Google，比较浪费时间。刚刚在公司的Mac上把Golang&#43;Emacs开发环境搭好，趁着记忆还热乎，把步骤记录下来。" />
+    <meta property="og:title" content="用Benchmark验证sync.Pool对GC latency的优化效果" />
+<meta property="og:description" content="sync.Pool确实能极大减少GC次数。" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="http://blog.yuantops.com/tech/emacs-config-go-dev-environ/" />
+<meta property="og:url" content="http://blog.yuantops.com/tech/sync-pool-benchmark/" />
 
 
     <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
@@ -26,7 +26,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-    <meta name="description" content="换过几次电脑，每次配Golang环境都要求助Google，比较浪费时间。刚刚在公司的Mac上把Golang&#43;Emacs开发环境搭好，趁着记忆还热乎，把步骤记录下来。">
+    <meta name="description" content="sync.Pool确实能极大减少GC次数。">
     <meta name="keywords" content="">
     <meta name="author" content="">
 
@@ -63,12 +63,12 @@
     <div class="article-inner">
         
         <header class="article-header">
-            <h1 class="article-title" itemprop="name">Emacs Golang开发环境配置指南</h1>
+            <h1 class="article-title" itemprop="name">用Benchmark验证sync.Pool对GC latency的优化效果</h1>
         </header>
         
         <div class="article-meta">
-            <a href="/tech/emacs-config-go-dev-environ/" class="article-date">
-                <time datetime='2018-01-04T00:31:08.000&#43;00:00' itemprop="datePublished">2018-01-04</time>
+            <a href="/tech/sync-pool-benchmark/" class="article-date">
+                <time datetime='2018-05-11T10:33:25.000&#43;00:00' itemprop="datePublished">2018-05-11</time>
             </a>
             
             
@@ -86,133 +86,179 @@
         <div class="article-entry" itemprop="articleBody">
             
 
-<h1 id="安装go">安装Go</h1>
+<p>可能是为了避免重复造轮子，Go官方库推出了sync.Pool:一个thread-safe、可回收/重用对象的内存池。对性能优化狂魔而言，sync.Pool无疑是一个优化GC的好工具，因为理论上重用对象会减少了GC次数，缩短latency。这篇文章是sync.Pool的性能验证报告：sync.Pool确实能极大减少GC次数。</p>
 
-<p>虽然像是废话，但为了配置过程的完整性，还是记下来吧。</p>
+<h1 id="benchmark关注什么">Benchmark关注什么？</h1>
 
-<p>官网install链接: <a href="https://golang.org/doc/install">https://golang.org/doc/install</a></p>
+<p>在写Benchmark代码之前，要先确定如何衡量GC效果。很直观地，GC次数越少，效果越好。但GC次数的粒度太大，说服力不够，还需要其他的指标。</p>
 
-<p>装好后记得配置 <code>$GOPATH</code> 。为了能在任何地方使用Go编译出来的命令，还可以把 <code>$GOPATH/bin</code> 附到环境变量$PATH。</p>
+<p>这篇文章<a href="https://making.pusher.com/golangs-real-time-gc-in-theory-and-practice/">Golang real time
+gc</a>
+给我了答案。不断往一个size固定的buffer里覆盖写入数据，记录写入耗时。被覆盖掉的数据会变成垃圾，继而触发GC，所以耗时就是latency。</p>
 
-<p>我在Mac上使用iTerm2+oh-my-zsh，所以把它们写到 <code>.zshrc</code> :</p>
+<p>原文引述如下：</p>
 
-<pre><code class="language-bash"># go path
-export GOPATH=~/go
-# add go commands to system path
-export PATH=$GOPATH/bin:$PATH
+<pre><code>The benchmark program repeatedly pushes messages into a size-limited buffer. Old messages constantly expire and become garbage.
 </code></pre>
 
-<h1 id="让go-get命令绕过great-wall的束缚">让go get命令绕过Great Wall的束缚</h1>
-
-<p>有了Go的开发环境，我们就可以用它编译、安装一些十分有用的小命令了。但在此之前，还有一些客观存在的技术障碍需要扫除。</p>
-
-<p>一般 <code>go get</code>
-命令会自动帮我们下载源码、编译、安装命令，如果托管源码的网站被block了(如gopkg.in)，整个过程就会卡住，卡到人抓狂(记得在内心f**k
-GFW哦~)。</p>
-
-<p>这时，如果电脑上刚好运行着shadowsocks，事情就变得简单了。go get
-支持http_proxy和https_proxy，我们需要动一点手脚，把sock5协议转换成http协议。</p>
-
-<p>(以下步骤的前提是电脑上运行着shadowsocks。)</p>
+<p>于是，Benchmark的实现，以及关注的指标就确定了：</p>
 
 <ol>
-<li><p>安装 polipo</p>
-
-<pre><code>brew install polipo   
-</code></pre></li>
-
-<li><p>配置 polipo 在家目录下新建 <code>.polipo</code> 文件，内容如下:</p>
-
-<pre><code>#必填
-socksParentProxy = &quot;localhost:1080&quot;
-socksProxyType = socks5
-</code></pre></li>
-
-<li><p>运行 polipo</p>
-
-<pre><code>polipo &amp;
-</code></pre>
-
-<p>默认会监听8123端口的http请求。</p></li>
-
-<li><p>在go get命令前加上http_proxy参数</p>
-
-<p>以不幸被墙的cobra命令为例,它的代码网址是https协议,用:</p>
-
-<pre><code>https_proxy=127.0.0.1:8123 go get -v github.com/spf13/cobra/cobra
-</code></pre>
-
-<p>如果是http_proxy, 用：</p>
-
-<pre><code>http_proxy=127.0.0.1:8123 go get -v github.com/blah/blah
-</code></pre></li>
+<li>GC次数</li>
+<li>数据写入耗时</li>
 </ol>
 
-<h1 id="安装goimports-gocode等有用工具">安装goimports，gocode等有用工具</h1>
+<h1 id="代码实现">代码实现</h1>
 
-<h2 id="goimports">goimports</h2>
+<h2 id="不用sync-pool的实现">不用sync.Pool的实现</h2>
 
-<ul>
-<li><p>goimports命令能自动格式化代码，自动添加、移除imports，而且与Emacs集成良好。可以替代官方gofmt命令。</p></li>
+<p>见<a href="https://play.golang.org/p/049Xmy1lTfV">https://play.golang.org/p/049Xmy1lTfV</a></p>
 
-<li><p>安装命令:</p>
+<pre><code class="language-go">   package main
 
-<pre><code>go get -u golang.org/x/tools/cmd/goimports
-</code></pre></li>
-</ul>
+import (
+  &quot;fmt&quot;
+  &quot;time&quot;
+)
 
-<h2 id="gocode">gocode</h2>
+const (
+  windowSize = 200000
+  msgCount   = 100000000
+)
 
-<ul>
-<li><p>gocode命令能为代码自动补全提供后台支持，是Emacs下Go代码补全必不可少的backend。</p></li>
+type (
+  message []byte
+  buffer  map[int]message
+)
 
-<li><p>安装命令:</p>
+var worst time.Duration
 
-<pre><code>go get -u github.com/nsf/gocode  
-</code></pre></li>
-</ul>
+func mkMessage(n int) message {
+  m := make(message, 1024)
+  for i := range m {
+      m[i] = byte(n)
+  }
+  return m
+}
 
-<h2 id="godef">godef</h2>
+func pushMsg(b *buffer, highID int) {
+  start := time.Now()
+  m := mkMessage(highID)
+  (*b)[highID%windowSize] = m
+  elapsed := time.Since(start)
+  if elapsed &gt; worst {
+      worst = elapsed
+  }
+}
 
-<ul>
-<li><p>godef命令能在Go源码变量、函数定义间跳转，是查看变量、函数、文件定义的好助手。</p></li>
+func main() {
+  b := make(buffer, windowSize)
+  for i := 0; i &lt; msgCount; i++ {
+      pushMsg(&amp;b, i)
+  }
+  fmt.Println(&quot;Worst push time: &quot;, worst)
+}
+</code></pre>
 
-<li><p>安装命令：</p>
+<h2 id="用sync-pool的实现">用sync.Pool的实现</h2>
 
-<pre><code>go get github.com/rogpeppe/godef
-</code></pre></li>
-</ul>
+<p>见<a href="https://play.golang.org/p/Wop29wN7">https://play.golang.org/p/Wop29wN7</a><sub>Dp</sub></p>
 
-<h1 id="安装emacs">安装Emacs</h1>
+<pre><code class="language-go">   package main
 
-<p>呃。。。这一步就略过吧</p>
+import (
+  &quot;fmt&quot;
+  &quot;sync&quot;
+  &quot;time&quot;
+)
 
-<h1 id="emacs配置go-mode">Emacs配置Go mode</h1>
+const (
+  windowSize = 200000
+  msgCount   = 100000000
+)
 
-<ol>
-<li><p>安装go-mode</p></li>
+type (
+  message []byte
+  buffer  map[int]message
+)
 
-<li><p>添加自动格式化的hook(需要安装goimports命令)</p>
+var worst time.Duration
 
-<pre><code class="language-commonlisp">;; Call Gofmt before saving
- (setq gofmt-command &quot;goimports&quot;)
- (add-hook 'before-save-hook 'gofmt-before-save)
-</code></pre></li>
+//pool for statistics model
+var statModelPool = sync.Pool{
+  New: func() interface{} {
+      return make(message, 1024)
+  },
+}
 
-<li><p>配置自动补齐(需要安装gocode命令)</p>
+func mkMessage(n int) message {
+  m := statModelPool.Get().(message)
+  for i := range m {
+      m[i] = byte(n)
+  }
+  return m
+}
 
-<pre><code class="language-commonlisp">;;autocomplete
-(set (make-local-variable 'company-backends) '(company-go))
-(company-mode)
-</code></pre></li>
+func pushMsg(b *buffer, highID int) {
+  start := time.Now()
+  m := mkMessage(highID)
+  if highID &gt; windowSize {
+      statModelPool.Put((*b)[highID%windowSize])
+  }
 
-<li><p>配置自动跳转按键(需要安装godef命令)</p>
+  (*b)[highID%windowSize] = m
+  elapsed := time.Since(start)
+  if elapsed &gt; worst {
+      worst = elapsed
+  }
+}
 
-<pre><code class="language-commonlisp">;; Godef jump key binding
- (local-set-key (kbd &quot;M-,&quot;) 'godef-jump)
- (local-set-key (kbd &quot;M-.&quot;) 'pop-tag-mark)
-</code></pre></li>
-</ol>
+func main() {
+  b := make(buffer, windowSize)
+  for i := 0; i &lt; msgCount; i++ {
+      pushMsg(&amp;b, i)
+  }
+  fmt.Println(&quot;Worst push time: &quot;, worst)
+}
+</code></pre>
+
+<h1 id="运行代码">运行代码</h1>
+
+<p>因为要观察GC次数，我们需要打开GODEBUG的GCTRACE开关`GODEBUG=gctrace=1`。</p>
+
+<p>(下面的数据是在我的Thinkpad T450上跑出来的。)</p>
+
+<h2 id="不使用sync-pool的实现">不使用sync.Pool的实现</h2>
+
+<p>触发454次GC，最差写入耗时50.40ms。</p>
+
+<p>摘录一部分output:</p>
+
+<pre><code class="language-shell">$ GODEBUG=gctrace=1 go run benchmark_gc.go
+gc 1 @0.041s 0%: 0.044+0.39+0.037 ms clock, 0.13+0.19/0.26/0.40+0.11 ms cpu, 4-&gt;4-&gt;0 MB, 5 MB goal, 4 P
+...
+gc 454 @106.994s 4%: 0.012+29+0.045 ms clock, 0.048+1.6/26/39+0.18 ms cpu, 422-&gt;437-&gt;219 MB, 439 MB goal, 4 P
+Worst push time:  50.401524ms
+</code></pre>
+
+<h2 id="用sync-pool的实现-1">用sync.Pool的实现</h2>
+
+<p>触发22次GC，最差写入耗时36.14ms</p>
+
+<p>摘录一部分output:</p>
+
+<pre><code class="language-shell"> GODEBUG=gctrace=1 go run benchmark_gc_pool.go 
+gc 1 @0.045s 0%: 0.047+1.2+0.077 ms clock, 0.19+0.12/1.1/0.50+0.30 ms cpu, 4-&gt;4-&gt;0 MB, 5 MB goal, 4 P
+# command-line-arguments
+gc 1 @0.007s 6%: 0.051+2.2+0.024 ms clock, 0.15+0.32/2.1/1.5+0.073 ms cpu, 4-&gt;4-&gt;3 MB, 5 MB goal, 4 P
+.....
+gc 22 @76.006s 0%: 0.015+53+0.039 ms clock, 0.062+1.7/32/0.62+0.15 ms cpu, 401-&gt;401-&gt;205 MB, 411 MB goal, 4 P
+Worst push time:  36.141858ms
+</code></pre>
+
+<h1 id="结论">结论</h1>
+
+<p>sync.Pool的效果很不错，值得尝试。</p>
 
         </div>
 
@@ -222,16 +268,18 @@ socksProxyType = socks5
             <h3>Contents</h3>
             <nav id="TableOfContents">
 <ul>
-<li><a href="#安装go">安装Go</a></li>
-<li><a href="#让go-get命令绕过great-wall的束缚">让go get命令绕过Great Wall的束缚</a></li>
-<li><a href="#安装goimports-gocode等有用工具">安装goimports，gocode等有用工具</a>
+<li><a href="#benchmark关注什么">Benchmark关注什么？</a></li>
+<li><a href="#代码实现">代码实现</a>
 <ul>
-<li><a href="#goimports">goimports</a></li>
-<li><a href="#gocode">gocode</a></li>
-<li><a href="#godef">godef</a></li>
+<li><a href="#不用sync-pool的实现">不用sync.Pool的实现</a></li>
+<li><a href="#用sync-pool的实现">用sync.Pool的实现</a></li>
 </ul></li>
-<li><a href="#安装emacs">安装Emacs</a></li>
-<li><a href="#emacs配置go-mode">Emacs配置Go mode</a></li>
+<li><a href="#运行代码">运行代码</a>
+<ul>
+<li><a href="#不使用sync-pool的实现">不使用sync.Pool的实现</a></li>
+<li><a href="#用sync-pool的实现-1">用sync.Pool的实现</a></li>
+</ul></li>
+<li><a href="#结论">结论</a></li>
 </ul>
 </nav>
         </div>
@@ -285,11 +333,6 @@ socksProxyType = socks5
             <ul class="article-tag-list">
                 
                 <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="http://blog.yuantops.com//tags/emacs">Emacs
-                    </a>
-                </li>
-                
-                <li class="article-tag-list-item">
                     <a class="article-tag-list-link" href="http://blog.yuantops.com//tags/golang">Golang
                     </a>
                 </li>
@@ -301,15 +344,9 @@ socksProxyType = socks5
     </div>
     <nav id="article-nav">
     
-    <a href="/tech/sync-pool-benchmark/" id="article-nav-newer" class="article-nav-link-wrap">
-        <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            用Benchmark验证sync.Pool对GC latency的优化效果
-        </div>
-    </a>
     
-    
-    <a href="/tech/emacs-orgmode-hugo-with-oxpandoc/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">Orgmode利用ox-pandoc导出hugo博客的workflow&nbsp;<span>&gt;</span></div>
+    <a href="/tech/emacs-config-go-dev-environ/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Emacs Golang开发环境配置指南&nbsp;<span>&gt;</span></div>
     </a>
     
 </nav>

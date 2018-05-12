@@ -9,10 +9,25 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Thu, 04 Jan 2018 00:31:08 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 11 May 2018 10:33:25 +0000</lastBuildDate>
     
 	<atom:link href="http://blog.yuantops.com/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>用Benchmark验证sync.Pool对GC latency的优化效果</title>
+      <link>http://blog.yuantops.com/tech/sync-pool-benchmark/</link>
+      <pubDate>Fri, 11 May 2018 10:33:25 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/sync-pool-benchmark/</guid>
+      <description>可能是为了避免重复造轮子，Go官方库推出了sync.Pool:一个thread-safe、可回收/重用对象的内存池。对性能优化狂魔而言，sync.Pool无疑是一个优化GC的好工具，因为理论上重用对象会减少了GC次数，缩短latency。这篇文章是sync.Pool的性能验证报告：sync.Pool确实能极大减少GC次数。
+Benchmark关注什么？ 在写Benchmark代码之前，要先确定如何衡量GC效果。很直观地，GC次数越少，效果越好。但GC次数的粒度太大，说服力不够，还需要其他的指标。
+这篇文章Golang real time gc 给我了答案。不断往一个size固定的buffer里覆盖写入数据，记录写入耗时。被覆盖掉的数据会变成垃圾，继而触发GC，所以耗时就是latency。
+原文引述如下：
+The benchmark program repeatedly pushes messages into a size-limited buffer. Old messages constantly expire and become garbage.  于是，Benchmark的实现，以及关注的指标就确定了：
+ GC次数 数据写入耗时  代码实现 不用sync.Pool的实现 见https://play.golang.org/p/049Xmy1lTfV
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;time&amp;quot; ) const ( windowSize = 200000 msgCount = 100000000 ) type ( message []byte buffer map[int]message ) var worst time.Duration func mkMessage(n int) message { m := make(message, 1024) for i := range m { m[i] = byte(n) } return m } func pushMsg(b *buffer, highID int) { start := time.</description>
+    </item>
     
     <item>
       <title>Emacs Golang开发环境配置指南</title>
