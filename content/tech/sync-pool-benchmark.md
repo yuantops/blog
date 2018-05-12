@@ -1,6 +1,6 @@
 +++
 title = "用Benchmark验证sync.Pool对GC latency的优化效果"
-date = "2018-05-12T10:33:25Z"
+date = "2018-05-11T10:33:25Z"
 Categories = ["Tech"]
 Tags = ["Golang"]
 Description = "sync.Pool确实能极大减少GC次数。"
