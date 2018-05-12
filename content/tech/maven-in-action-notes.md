@@ -1,0 +1,277 @@
++++
+title = "《Maven实战》摘抄"
+date = 2017-11-28T19:16:30+08:00
+Categories = ["Tech"]
+Tags = ["Java"]
+Description = "读书摘抄"
++++
+
+## 关键词<a id="sec-1-1" name="sec-1-1"></a>
+
+1.  “约定优于配置” Convention Over Configuration
+2.  生命周期管理
+3.  依赖管理：GAV坐标+scope
+
+## 术语翻译<a id="sec-1-2" name="sec-1-2"></a>
+
+<table border="2" cellpadding="6" >
+
+<thead>
+<tr>
+<th >英文</th>
+<th >中文</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td >artifact</td>
+<td >构件</td>
+</tr>
+
+
+<tr>
+<td >build</td>
+<td >构建</td>
+</tr>
+
+
+<tr>
+<td >project</td>
+<td >项目</td>
+</tr>
+
+
+<tr>
+<td >group</td>
+<td >组</td>
+</tr>
+
+
+<tr>
+<td >module</td>
+<td >模块</td>
+</tr>
+
+
+<tr>
+<td >archetype</td>
+<td >骨架</td>
+</tr>
+
+
+<tr>
+<td >dependency mediation</td>
+<td >依赖调解</td>
+</tr>
+
+
+<tr>
+<td >repository</td>
+<td >仓库</td>
+</tr>
+
+
+<tr>
+<td >phase</td>
+<td >阶段</td>
+</tr>
+
+
+<tr>
+<td >aggregation</td>
+<td >聚合</td>
+</tr>
+
+
+<tr>
+<td >reactor</td>
+<td >反应堆</td>
+</tr>
+
+
+<tr>
+<td >property</td>
+<td >属性</td>
+</tr>
+</tbody>
+</table>
+
+## 关于主代码和测试代码位置<a id="sec-1-3" name="sec-1-3"></a>
+
+    在绝大多数情况下，应该把项目主代码放到src/main/java 目录下(遵循Maven的约定)，而无需额外的配置，Maven会自动搜寻该目录找到项目主代码。其次，该Java类的包名是com.juvenxu.mvnbook.helloword，这与之前在POM中定义的groupId和artifactId相吻合。一般来说，项目中Java类的包都应该基于项目的groupId和artifactId，这样更清晰，更加符合逻辑，也方便搜索构建或者Java类。
+
+    为了使项目结构保持清晰，主代码与测试代码应该分别位于独立的目录中。Maven项目中默认的主代码目录是src/main/java, 对应的，Maven项目中默认的测试代码目录是src/test/java。
+
+## 关于POM配置中的scope<a id="sec-1-4" name="sec-1-4"></a>
+
+    Maven 在编译项目主代码的时候需要使用一套classpath。其次，Maven在编译和执行测试时会使用另外一套classpath。上例中的JUnit就是一个很好的例子，该文件也以依赖的方式引入测试使用的classpath中，不同的是这里的依赖范围是test。最后，实际运行Maven项目的时候，又会使用一套classpath。
+    依赖范围就是用来控制依赖与这三种classpath(编译classpath, 测试classpath, 运行classpath)的关系。
+
+    scope为依赖范围，若依赖范围为test则表示该依赖只对测试有效(该依赖只会被加入到测试代码的classpath中)。换句话说，测试代码中的import JUnit代码是没有问题的，但是如果在主代码中用import JUnit代码，就会造成编译错误。如果不声明依赖范围，那么默认值就是compile，表示该依赖对主代码和测试代码都有效。
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+<thead>
+<tr>
+<th scope="col" >scope</th>
+<th scope="col" >编译classpath有效</th>
+<th scope="col" >测试classpath有效</th>
+<th scope="col" >运行时classpath有效</th>
+<th scope="col" >例子</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td  >compile</td>
+<td  >Y</td>
+<td  >Y</td>
+<td  >Y</td>
+<td  >spring-core</td>
+</tr>
+
+
+<tr>
+<td  >test</td>
+<td  >-</td>
+<td  >Y</td>
+<td  >-</td>
+<td  >JUnit</td>
+</tr>
+
+
+<tr>
+<td  >provided</td>
+<td  >Y</td>
+<td  >Y</td>
+<td  >-</td>
+<td  >servlet-api</td>
+</tr>
+
+
+<tr>
+<td  >runtime</td>
+<td  >-</td>
+<td  >Y</td>
+<td  >Y</td>
+<td  >JDBC驱动实现</td>
+</tr>
+
+
+<tr>
+<td  >system</td>
+<td  >Y</td>
+<td  >Y</td>
+<td  >-</td>
+<td  >&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+## 关于打包生成可直接运行的jar<a id="sec-1-5" name="sec-1-5"></a>
+
+    默认打包生成的jar是不能够直接运行的，因为带有main方法的类信息不会添加到manifest中(打开jar文件中的META-INF/MANIFEST.MF文件，将无法看到Main-Class一行)。为了生成可执行的jar文件，需要借助maven-shade-plugin.
+
+## 关于Maven的坐标<a id="sec-1-6" name="sec-1-6"></a>
+
+    Maven 坐标为各种构件引入了秩序，任何一个构件都必须明确定义自己的坐标，而一组Maven坐标是通过一些元素定义的，它们是groupId, artifactId，version, packaging, classifier。
+    上述5个元素中，groupId, artifactId, version是必须定义的，packaging是可选的(默认为Jar)，而classifier是不能直接定义的。
+
+    groupId: 定义当前Maven项目隶属的实际项目。首先，Maven项目和实际项目不一定是一对一的关系。比如SpringFramework这一实际项目，其对应的Maven项目会有很多，如spring-core, spring-context等。这是由于Maven中模块的概念，因此，一个实际项目往往会被划分成很多模块。其次，groupId不应该对应项目隶属的组织或公司。原因很简单，一个组织下会有很多实际项目，如果groupId只定义到组织级别，而后面我们将看到，artifactId只能定义Maven项目(模块)，那么实际项目这个层将难以定义。最后，groupId的表示方式与Java包名的表示方式类似，通常与域名反向一一对应。
+
+    artifactId:该元素定义实际项目中的一个Maven项目(模块)，推荐的做法是使用实际项目名称作为artifactId的前缀。比如上例中的artifactId是nexus-indexer，使用了实际项目名nexus作为前缀，这样做的好处是方便寻找实际构件。
+
+    classifier:该元素用来帮助定义构建输出的一些附属附件。附属构件与主构件对应，。。。.javadoc和sources就是这两个附属构件的classifier。这样，附属构件也就拥有了自己唯一的坐标。。。。注意，不能直接定义项目的classifier，因为附属构件不是项目默认生成的，而是由附加的插件帮助生成的。
+
+    一般来说，一个项目的子模块都应该使用同样的groupId,如果它们一起开发和发布，还应该使用同样的version。此外，它们的artifactId还应该使用一致的前缀，以方便和其他项目区分。
+
+## 关于Maven构件的文件名<a id="sec-1-7" name="sec-1-7"></a>
+
+    项目构件的文件名是与坐标相对应的，一般的规则为artifactId-version[-classifier].packaging, [-classifier]表示可选。
+    这里还要强调的一点是，packaging并非一定与构件扩展名对应，比如packaging为maven-plugin的构件构件扩展名为jar。
+
+## 关于Maven仓库<a id="sec-1-8" name="sec-1-8"></a>
+
+    得益于坐标机制，任何Maven项目使用任何一个构件的方式都是完全相同的。在此基础上，Maven可以在某个位置统一存储所有Maven项目共享的构件，这个统一的位置就是仓库。实际的Maven项目将不再各自存储其依赖文件，它们只需要声明这些依赖的坐标，在需要的时候（例如，编译项目的时候需要将依赖加入到classpath中），Maven会自动根据坐标找到仓库中的构件，并使用它们。
+
+    仓库布局：仓库路径与坐标的大致对应关系为groupId/artifactid/version/artifactId-verison.packaging
+
+    对于Maven来说，仓库只分两类：本地仓库和远程仓库。当Maven根据坐标寻找构件的时候，它首选会查看本地仓库，如果本地仓库存在此构件，则直接使用；如果本地仓库不存在此构件，或者需要查看是否有更新的构件版本，Maven仓库就会去远程仓库查找，发现需要的构件之后，下载到本地仓库再使用。如果本地仓库和远程仓库都没有需要的构件，Maven就会报错。
+
+## 关于快照版本<a id="sec-1-9" name="sec-1-9"></a>
+
+    在Maven的世界中，任何一个项目或者构件都必须有自己的版本。版本的的值可能是1.0.0,1.3-alpha-4,2.0,2.1-SNAPSHOT或者2.1-20091212.221212-12。其中，2.0,2.1-SNAPSHOT或者2.1-20091212.221212-12是不稳定的快照版本。
+
+    快照版本只应该在组织内部的项目或模块间依赖使用，因为这时，组织对于这些快照版本的依赖具有完全的理解以及控制权。项目不应该依赖于任何组织外部的快照版本依赖，由于快照版本的不稳定性，这样的依赖会造成现在的危险。
+
+## 关于生命周期与插件绑定<a id="sec-1-10" name="sec-1-10"></a>
+
+    Maven 拥有三套相互独立的生命周期，它们分别是clean, default和site。clean生命周期的目的是清理项目，default生命周期的目的是构建项目，而site生命周期的目的是建立项目站点。
+    每个生命周期包含一些阶段(phase),这些阶段是有顺序，并且后面的阶段依赖于前面的阶段，用户和Maven最直接的交互方式就是调用这些生命周期阶段。
+
+    Maven的生命周期与插件相互绑定，用以完成实际的构建任务。具体而言，是生命周期的阶段与插件的目标相互绑定，以完成某个具体的构建任务。
+    
+    Maven在核心为一些主要的生命周期阶段绑定了很多插件的目标，当用户通过命令行调用生命周期阶段的时候，对应的插件目标就会执行相应的任务。
+    
+    如果多个目标被绑定到同一个阶段的时候，这些插件声明的先后顺序决定了目标的执行顺序。
+
+    插件解析机制
+
+## 关于聚合(多模块)<a id="sec-1-11" name="sec-1-11"></a>
+
+    为了方便用户构建项目，通常将聚合模块放在项目目录的最顶层，其他模块则作为聚合模块的子目录存在，这样当用户得到源码的时候，第一眼发现的就是聚合模块的POM，不用从多个模块中去寻找聚合模块来构建整个项目。
+
+    Maven会首先解析聚合模块的POM、分析要构建的模块、并计算出一个反应堆构建顺序(Reactor Build Order)，然后根据这个顺序依次构建各个模块。反应堆是所有模块组成的一个构建结构。
+
+## 关于继承与聚合的关系<a id="sec-1-12" name="sec-1-12"></a>
+
+    多模块项目中的聚合与继承其实是两个概念，其目的是完全不同的。前者主要是为了方便快速构建项目，后者主要是为了消除重复配置。
+    
+    对于聚合模块来说，它知道有哪些被聚合的模块，但那些被聚合的模块不知道这个聚合模块的存在。
+    
+    对于继承关系的父POM来说，它不知道有哪些子模块继承于它，但那些子模块都必须知道自己的父POM是什么。
+
+    在现有的实际项目中，读者往往发现一个POM既是聚合POM，又是父POM，这么做主要是为了方便。
+
+## 关于反应堆的构建顺序<a id="sec-1-13" name="sec-1-13"></a>
+
+    在一个多模块的Maven项目中，反应堆(Reactor)是指所有模块组成的一个构建结构。对于单模块的项目，反应堆就是该模块本身，但对于多模块项目来说，反应堆就包含了各模块之间继承与依赖的关系，从而能够自动计算出合理的模块构建顺序。
+
+    模块间的依赖关系会将反应堆构成一个有向非循环图(DAG)，各个模块是该图的节点，依赖关系构成了有向边。这个图不允许出现循环，因此，当出现模块A依赖于B，而B又依赖于A的情况出现时，Maven就会报错。
+
+## 关于选择性构建单个多个模块<a id="sec-1-14" name="sec-1-14"></a>
+
+    -am, --also-make 同时构建所列模块的依赖模块
+    
+    -amd, --also-make-dependencies 同时构建依赖于所列模块的模块
+    
+    -pl, --projects <args> 构建指定的模块，模块间用逗号隔开
+
+## 关于Maven灵活构建->属性<a id="sec-1-15" name="sec-1-15"></a>
+
+    Maven支持的6类属性分别为：
+    1. 内置属性：主要有两个内置属性--${basedir}表示项目根目录，即包含pom.xml文件的目录；${version}表示项目版本
+    2. POM属性：用户可以使用该类属性引用POM文件中对应元素的值。例如，${project.artifactId}就对应了<project><artifactId>元素的值。
+    3. 自定义属性：用户可以在POM的<properties>元素下自定义的Maven属性。
+    4. Settings属性：与POM属性同理，用户使用以setting. 开头的属性引用settings.xml 文件中XML元素的值，如常用的${settings.localRepository}指向用户本地仓库的地址。
+    5. Java系统属性：所有Java系统属性都可以使用Maven属性引用。例如${user.home}指向了用户目录。用户可以使用mvn help:system 查看所有的Java系统属性。
+    6. 环境变量属性：所有环境变量都可以使用以env. 开头的Maven属性引用。例如${env.JAVA_HOME}指代了JAVA_HOME环境变量的值。用户可以使用mvn help:system 查看所有的环境变量
+
+## 关于Maven灵活构建->资源过滤<a id="sec-1-16" name="sec-1-16"></a>
+
+    Maven属性默认只有在POM中才会被解析。也就是说，${db.username}放到POM中会变成test，但是如果放到src/main/resources/目录下的文件中，构建的时候它仍然还是${db.username}。
+    
+    资源文件的处理其实是maven-resource-plugin做的事情。它默认的行为只是将项目主资源文件复制到主代码编译输出目录中，将测试资源文件复制到测试代码编译输出目录中。不过只要通过一些简单的POM配置，该插件就能够解析资源文件中的Maven属性，即开启资源过滤。
+
+## 关于Maven灵活构建->Profile<a id="sec-1-17" name="sec-1-17"></a>
+
+    为了能让构建在各个环境下方便地移植，Maven引入了profile的概念。profile能够在构建的时候修改POM的一个子集，或者添加额外的配置元素。用户可以通过使用很多方式激活profile，以实现构建在不同环境下的移植。
+
+    Maven 支持很多种激活Profile的方式。
+    1. 命令行激活
+    2. settings文件激活
+    3. 系统属性激活
+    4. 操作系统环境激活
+    5. 文件存在与否激活
+    6. 默认激活

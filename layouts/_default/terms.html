@@ -1,0 +1,25 @@
+{{ partial "head.html" . }}
+<body>
+  <div id="container">
+    {{ partial "header.html" . }}
+    <section id="main" class="outer">
+      <section class="layout-wrap">
+
+	<div class="layout-title">
+          <span>{{ .Title }}</span>
+        </div>
+
+	<ul>
+	  {{ range .Paginator.Pages.ByDate.Reverse }}
+	  {{if .Title}}
+	  <li><a href="{{ .Permalink }}">{{ .Title }}</a> ({{ $.Data.Terms.Count .Data.Term }})</li>
+	  {{end}}
+	  {{ end }}
+	</ul>
+      </section>
+
+    </section>
+    {{ partial "footer.html" . }}
+  </div>
+</body>
+</html>
