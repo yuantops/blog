@@ -9,28 +9,10 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Wed, 31 Dec 2014 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 30 Dec 2014 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://blog.yuantops.com/tags/github/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>在GitHub pages中添加标签Tags(非插件方式)</title>
-      <link>http://blog.yuantops.com/tech/add-tags-in-gh-pages/</link>
-      <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
-      <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>http://blog.yuantops.com/tech/add-tags-in-gh-pages/</guid>
-      <description>参考内容 本文参考了以下内容：
- Alphabetizing Jekyll Page Tags In Pure Liquid (Without Plugins)
- Tips For Sorting Tags In GitHub Page With Jekyll
- HOW TO USE TAGS AND CATEGORIES ON GITHUB PAGES WITHOUT PLUGINS
-  思路 Jekyll引擎按照post/page文件-layout模板-HTML文件的逻辑处理、生成数据，因此添加Tags功能时也应遵循对应的顺序。
-1. 在_posts目录下新建post文件时，在yaml头中加入tags变量。如果有多个tag，那么用中括号括起来、逗号分开。
-2. 在_layouts目录下，post文件引用的模板文件中，加入解析单个post文件的tags的逻辑，并显示。
-3. 在博客文件夹的根目录下新建一个tags.html文件，列出博客所有文章的tags，通过Html定位符确定每个tag的位置。将这个页面的链接摆放在首页或者其它合适的地方。
-步骤 Step 1 在_layouts目录下的post.html文件中，在你想Tags出现的地方加入下面的代码：
-&amp;lt;p class=&amp;#34;entry-tags&amp;#34;&amp;gt; {% for tag in page.tags %}&amp;lt;a href=&amp;#34;{{ site.url }}/tags.html#{{ tag | cgi_ e scape }}&amp;#34; title=&amp;#34;Pages tagged {{ tag }}&amp;#34; rel=&amp;#34;tag&amp;#34; class=&amp;#34;post-tag&amp;#34;&amp;gt;{{ tag }}&amp;lt;/a&amp;gt;{% unless forloop.</description>
-    </item>
     
     <item>
       <title>Jekyll安装指南</title>

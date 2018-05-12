@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>用Benchmark验证sync.Pool对GC latency的优化效果 // Yuantops&#39; Blog</title>
+    <title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; Github Pages // Yuantops&#39; Blog</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="用Benchmark验证sync.Pool对GC latency的优化效果" />
-<meta property="og:description" content="sync.Pool确实能极大减少GC次数。" />
+    <meta property="og:title" content="Blog自动部署实践: Hugo &#43; Travis CI -&gt; Github Pages" />
+<meta property="og:description" content="这篇文章记录了如何使用免费Travis CI平台，将Hugo生成的静态博客站点自动部署到Github Pages。" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="http://blog.yuantops.com/tech/sync-pool-benchmark/" />
+<meta property="og:url" content="http://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/" />
 
 
     <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
@@ -26,7 +26,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-    <meta name="description" content="sync.Pool确实能极大减少GC次数。">
+    <meta name="description" content="这篇文章记录了如何使用免费Travis CI平台，将Hugo生成的静态博客站点自动部署到Github Pages。">
     <meta name="keywords" content="">
     <meta name="author" content="">
 
@@ -63,12 +63,12 @@
     <div class="article-inner">
         
         <header class="article-header">
-            <h1 class="article-title" itemprop="name">用Benchmark验证sync.Pool对GC latency的优化效果</h1>
+            <h1 class="article-title" itemprop="name">Blog自动部署实践: Hugo &#43; Travis CI -&gt; Github Pages</h1>
         </header>
         
         <div class="article-meta">
-            <a href="/tech/sync-pool-benchmark/" class="article-date">
-                <time datetime='2018-05-11T10:33:25.000&#43;00:00' itemprop="datePublished">2018-05-11</time>
+            <a href="/tech/hugo-travis-ci-auto-deploy-to-gh-pages/" class="article-date">
+                <time datetime='2018-05-12T08:45:52.000&#43;00:00' itemprop="datePublished">2018-05-12</time>
             </a>
             
             
@@ -86,179 +86,100 @@
         <div class="article-entry" itemprop="articleBody">
             
 
-<p>可能是为了避免重复造轮子，Go官方库推出了sync.Pool:一个thread-safe、可回收/重用对象的内存池。对性能优化狂魔而言，sync.Pool无疑是一个优化GC的好工具，因为理论上重用对象会减少了GC次数，缩短latency。这篇文章是sync.Pool的性能验证报告：sync.Pool确实能极大减少GC次数。</p>
+<p>这个博客托管在Github
+Pages上已经有一段时间。最初使用的静态站点生成工具是Jekyll，后来<a href="http://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/">换成Hugo</a>，因为是免费，一直都还比较满意。只有一个小痛点，博客从写完到部署的步骤多：写文章
+-&gt; build -&gt;
+deploy…</p>
 
-<h1 id="benchmark关注什么">Benchmark关注什么？</h1>
+<p>我之前<a href="http://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/">写过一篇用Emacs写博客的workflow</a>，把&rdquo;写文章&rdquo;的流程优化了一把。之后又小打小闹，用Github的webhook做了一个commit
+message关键字触发的小服务，把&rdquo;build&rdquo;和&rdquo;deploy&rdquo;做成自动化。这个服务跑在免费的Google
+Cloud上，使用体验还不错，可惜主机没续费，服务直接停掉，源码也丢失了。</p>
 
-<p>在写Benchmark代码之前，要先确定如何衡量GC效果。很直观地，GC次数越少，效果越好。但GC次数的粒度太大，说服力不够，还需要其他的指标。</p>
+<p>随手Google一把Github Page的持续集成，才后知后觉地发现自己想要的东东已经有了成熟解决方案，而且还可以 <strong>免费</strong>
+用：<a href="https://travis-ci.org/">Travis CI</a>。于是我颇愉快地接受它，并简单地在这里记录下来。</p>
 
-<p>这篇文章<a href="https://making.pusher.com/golangs-real-time-gc-in-theory-and-practice/">Golang real time
-gc</a>
-给我了答案。不断往一个size固定的buffer里覆盖写入数据，记录写入耗时。被覆盖掉的数据会变成垃圾，继而触发GC，所以耗时就是latency。</p>
+<h1 id="什么是travis-ci">什么是Travis CI</h1>
 
-<p>原文引述如下：</p>
+<p>一个持续化集成平台，类似Jenkins。功能强大，和Github的集成尤其好，我们用它部署个人博客算大材小用。它有两个版本:</p>
 
-<pre><code>The benchmark program repeatedly pushes messages into a size-limited buffer. Old messages constantly expire and become garbage.
-</code></pre>
+<ul>
+<li><a href="https://travis-ci.org/">https://travis-ci.org/</a> 免费版本，可以集成Github的public项目</li>
+<li><a href="https://travis-ci.com/">https://travis-ci.com/</a> 商业版本，可以集成Github的private项目</li>
+</ul>
 
-<p>于是，Benchmark的实现，以及关注的指标就确定了：</p>
+<p>我们使用第一个，免费版本。</p>
+
+<h1 id="本博客现状回顾">本博客现状回顾</h1>
+
+<p>在进一步描述具体步骤之前，有必要先简要回顾本博客的现状：</p>
+
+<ul>
+<li>用<a href="https://gohugo.io/">Hugo</a>生成静态站点文件</li>
+<li>两个git分支, <code>hugo</code>: 存放博客源码, <code>gh-pages</code>: 存放Hugo生成的静态站点文件</li>
+<li>自定义域名: `blog.yuantops.com`, 而不是默认的yuantops.github.io</li>
+</ul>
+
+<h1 id="配置travis-ci">配置Travis CI</h1>
+
+<h2 id="为travis-ci生成github-token">为Travis CI生成Github Token</h2>
+
+<p>打开Github。路径: &ldquo;Settings&rdquo;-&gt;&ldquo;Developer settings&rdquo;-&gt;&ldquo;Personal access
+tokens&rdquo;-&gt;&ldquo;Generate new token&rdquo;。</p>
+
+<p>因为是public项目，而且Travis CI是用来push代码，所以只需勾选 <code>public_repo</code>, <code>repo:status</code>,
+<code>repo_deployment</code> 三项。</p>
+
+<p>Token一会儿就会隐藏，不能找回，所以拷贝好，进入下一步。</p>
+
+<h2 id="配置travis-ci构建选项">配置Travis CI构建选项</h2>
 
 <ol>
-<li>GC次数</li>
-<li>数据写入耗时</li>
+<li>用Github方式登录Travis CI(<a href="https://travis-ci.org/">https://travis-ci.org/</a>)</li>
+<li>&ldquo;Settings&rdquo;-&ldquo;General&rdquo; 勾选&rdquo;Build only if .travis.yml is present&rdquo;和&rdquo;Build
+pushed branches&rdquo;两项。</li>
+<li>&ldquo;Settings&rdquo;-&ldquo;Environment Variables&rdquo;
+添加&rdquo;GITHUB<sub>TOKEN</sub>&ldquo;，值是上一步得到的Token</li>
 </ol>
 
-<h1 id="代码实现">代码实现</h1>
+<h2 id="在git根目录下添加-travis-yml-文件">在git根目录下添加 <code>.travis.yml</code> 文件</h2>
 
-<h2 id="不用sync-pool的实现">不用sync.Pool的实现</h2>
+<pre><code>language: go
 
-<p>见<a href="https://play.golang.org/p/049Xmy1lTfV">https://play.golang.org/p/049Xmy1lTfV</a></p>
+go:
+  - &quot;1.8&quot;  # 指定Golang 1.8
 
-<pre><code class="language-go">   package main
+# Specify which branches to build using a safelist
+# 分支白名单限制: 只有hugo分支的提交才会触发构建
+branches:
+  only:
+    - hugo 
 
-import (
-  &quot;fmt&quot;
-  &quot;time&quot;
-)
+install:
+# 安装最新的hugo
+  - go get github.com/spf13/hugo 
 
-const (
-  windowSize = 200000
-  msgCount   = 100000000
-)
+script:
+# 运行hugo命令
+  - hugo
 
-type (
-  message []byte
-  buffer  map[int]message
-)
-
-var worst time.Duration
-
-func mkMessage(n int) message {
-  m := make(message, 1024)
-  for i := range m {
-      m[i] = byte(n)
-  }
-  return m
-}
-
-func pushMsg(b *buffer, highID int) {
-  start := time.Now()
-  m := mkMessage(highID)
-  (*b)[highID%windowSize] = m
-  elapsed := time.Since(start)
-  if elapsed &gt; worst {
-      worst = elapsed
-  }
-}
-
-func main() {
-  b := make(buffer, windowSize)
-  for i := 0; i &lt; msgCount; i++ {
-      pushMsg(&amp;b, i)
-  }
-  fmt.Println(&quot;Worst push time: &quot;, worst)
-}
+deploy:
+  provider: pages # 重要，指定这是一份github pages的部署配置
+  skip-cleanup: true # 重要，不能省略
+  local-dir: public # 静态站点文件所在目录
+  target-branch: gh-pages # 要将静态站点文件发布到哪个分支
+  github-token: $GITHUB_TOKEN # 重要，$GITHUB_TOKEN是变量，需要在Github上申请、再到配置到Travis
+  fqdn: blog.yuantops.com # 如果是自定义域名，此处要填
+  keep-history: true # 是否保持target-branch分支的提交记录
+  on:
+    branch: hugo # 博客源码的分支
 </code></pre>
 
-<h2 id="用sync-pool的实现">用sync.Pool的实现</h2>
+<p>把 <code>.travis.yml</code> 放到hugo分支，push到Github。</p>
 
-<p>见<a href="https://play.golang.org/p/Wop29wN7">https://play.golang.org/p/Wop29wN7</a><sub>Dp</sub></p>
+<h1 id="自动部署">自动部署</h1>
 
-<pre><code class="language-go">   package main
-
-import (
-  &quot;fmt&quot;
-  &quot;sync&quot;
-  &quot;time&quot;
-)
-
-const (
-  windowSize = 200000
-  msgCount   = 100000000
-)
-
-type (
-  message []byte
-  buffer  map[int]message
-)
-
-var worst time.Duration
-
-//pool for statistics model
-var statModelPool = sync.Pool{
-  New: func() interface{} {
-      return make(message, 1024)
-  },
-}
-
-func mkMessage(n int) message {
-  m := statModelPool.Get().(message)
-  for i := range m {
-      m[i] = byte(n)
-  }
-  return m
-}
-
-func pushMsg(b *buffer, highID int) {
-  start := time.Now()
-  m := mkMessage(highID)
-  if highID &gt; windowSize {
-      statModelPool.Put((*b)[highID%windowSize])
-  }
-
-  (*b)[highID%windowSize] = m
-  elapsed := time.Since(start)
-  if elapsed &gt; worst {
-      worst = elapsed
-  }
-}
-
-func main() {
-  b := make(buffer, windowSize)
-  for i := 0; i &lt; msgCount; i++ {
-      pushMsg(&amp;b, i)
-  }
-  fmt.Println(&quot;Worst push time: &quot;, worst)
-}
-</code></pre>
-
-<h1 id="运行代码">运行代码</h1>
-
-<p>因为要观察GC次数，我们需要打开GODEBUG的GCTRACE开关`GODEBUG=gctrace=1`。</p>
-
-<p>(下面的数据是在我的Thinkpad T450上跑出来的。)</p>
-
-<h2 id="不使用sync-pool的实现">不使用sync.Pool的实现</h2>
-
-<p>触发454次GC，最差写入耗时50.40ms。</p>
-
-<p>摘录一部分output:</p>
-
-<pre><code class="language-shell">$ GODEBUG=gctrace=1 go run benchmark_gc.go
-gc 1 @0.041s 0%: 0.044+0.39+0.037 ms clock, 0.13+0.19/0.26/0.40+0.11 ms cpu, 4-&gt;4-&gt;0 MB, 5 MB goal, 4 P
-...
-gc 454 @106.994s 4%: 0.012+29+0.045 ms clock, 0.048+1.6/26/39+0.18 ms cpu, 422-&gt;437-&gt;219 MB, 439 MB goal, 4 P
-Worst push time:  50.401524ms
-</code></pre>
-
-<h2 id="用sync-pool的实现-1">用sync.Pool的实现</h2>
-
-<p>触发22次GC，最差写入耗时36.14ms</p>
-
-<p>摘录一部分output:</p>
-
-<pre><code class="language-shell"> GODEBUG=gctrace=1 go run benchmark_gc_pool.go 
-gc 1 @0.045s 0%: 0.047+1.2+0.077 ms clock, 0.19+0.12/1.1/0.50+0.30 ms cpu, 4-&gt;4-&gt;0 MB, 5 MB goal, 4 P
-# command-line-arguments
-gc 1 @0.007s 6%: 0.051+2.2+0.024 ms clock, 0.15+0.32/2.1/1.5+0.073 ms cpu, 4-&gt;4-&gt;3 MB, 5 MB goal, 4 P
-.....
-gc 22 @76.006s 0%: 0.015+53+0.039 ms clock, 0.062+1.7/32/0.62+0.15 ms cpu, 401-&gt;401-&gt;205 MB, 411 MB goal, 4 P
-Worst push time:  36.141858ms
-</code></pre>
-
-<h1 id="结论">结论</h1>
-
-<p>sync.Pool的效果很不错，值得尝试。</p>
+<p>上述操作完成后，自动部署就生效了。我们写完一篇博客，只需在hugo分支提交commit、再push到Github，Travis
+CI会自动触发后续的构建、部署动作。</p>
 
         </div>
 
@@ -268,18 +189,15 @@ Worst push time:  36.141858ms
             <h3>Contents</h3>
             <nav id="TableOfContents">
 <ul>
-<li><a href="#benchmark关注什么">Benchmark关注什么？</a></li>
-<li><a href="#代码实现">代码实现</a>
+<li><a href="#什么是travis-ci">什么是Travis CI</a></li>
+<li><a href="#本博客现状回顾">本博客现状回顾</a></li>
+<li><a href="#配置travis-ci">配置Travis CI</a>
 <ul>
-<li><a href="#不用sync-pool的实现">不用sync.Pool的实现</a></li>
-<li><a href="#用sync-pool的实现">用sync.Pool的实现</a></li>
+<li><a href="#为travis-ci生成github-token">为Travis CI生成Github Token</a></li>
+<li><a href="#配置travis-ci构建选项">配置Travis CI构建选项</a></li>
+<li><a href="#在git根目录下添加-travis-yml-文件">在git根目录下添加 <code>.travis.yml</code> 文件</a></li>
 </ul></li>
-<li><a href="#运行代码">运行代码</a>
-<ul>
-<li><a href="#不使用sync-pool的实现">不使用sync.Pool的实现</a></li>
-<li><a href="#用sync-pool的实现-1">用sync.Pool的实现</a></li>
-</ul></li>
-<li><a href="#结论">结论</a></li>
+<li><a href="#自动部署">自动部署</a></li>
 </ul>
 </nav>
         </div>
@@ -333,7 +251,7 @@ Worst push time:  36.141858ms
             <ul class="article-tag-list">
                 
                 <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="http://blog.yuantops.com//tags/golang">Golang
+                    <a class="article-tag-list-link" href="http://blog.yuantops.com//tags/gh-pages">gh-pages
                     </a>
                 </li>
                 
@@ -344,15 +262,9 @@ Worst push time:  36.141858ms
     </div>
     <nav id="article-nav">
     
-    <a href="/tech/hugo-travis-ci-auto-deploy-to-gh-pages/" id="article-nav-newer" class="article-nav-link-wrap">
-        <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            Blog自动部署实践: Hugo &#43; Travis CI -&gt; Github Pages
-        </div>
-    </a>
     
-    
-    <a href="/tech/emacs-config-go-dev-environ/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">Emacs Golang开发环境配置指南&nbsp;<span>&gt;</span></div>
+    <a href="/tech/sync-pool-benchmark/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">用Benchmark验证sync.Pool对GC latency的优化效果&nbsp;<span>&gt;</span></div>
     </a>
     
 </nav>

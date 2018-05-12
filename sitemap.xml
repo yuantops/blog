@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</loc>
+    <lastmod>2018-05-12T08:45:52+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.yuantops.com/tech/sync-pool-benchmark/</loc>
     <lastmod>2018-05-11T10:33:25+00:00</lastmod>
   </url>
@@ -536,7 +541,7 @@
   
   <url>
     <loc>http://blog.yuantops.com/tags/gh-pages/</loc>
-    <lastmod>2014-12-31T00:00:00+00:00</lastmod>
+    <lastmod>2018-05-12T08:45:52+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -548,7 +553,7 @@
   
   <url>
     <loc>http://blog.yuantops.com/tags/github/</loc>
-    <lastmod>2014-12-31T00:00:00+00:00</lastmod>
+    <lastmod>2014-12-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -620,13 +625,13 @@
   
   <url>
     <loc>http://blog.yuantops.com/categories/tech/</loc>
-    <lastmod>2018-05-11T10:33:25+00:00</lastmod>
+    <lastmod>2018-05-12T08:45:52+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://blog.yuantops.com/tech/</loc>
-    <lastmod>2018-05-11T10:33:25+00:00</lastmod>
+    <lastmod>2018-05-12T08:45:52+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -638,7 +643,7 @@
   
   <url>
     <loc>http://blog.yuantops.com/</loc>
-    <lastmod>2018-05-11T10:33:25+00:00</lastmod>
+    <lastmod>2018-05-12T08:45:52+00:00</lastmod>
     <priority>0</priority>
   </url>
   
