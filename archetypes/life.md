@@ -1,5 +1,0 @@
-+++
-Categories = ["Life"]
-Tags = [""]
-Description = ""
-+++

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>关于Git,需要理解的几个关键概念 // Yuantops&#39; Blog</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="关于Git,需要理解的几个关键概念" />
+<meta property="og:description" content="Git是十分强大的文件版本控制工具,是程序员必备的基本技能,掌握它是很有必要的。我接触Git很长时间了,但惭愧一般只用add, commit两个命令。最近听了Git专家的一次讲座,觉得收获很大,对Git的理解加深了很多。可见“内行一句话,胜读半月书”,要多向牛人请教。本文是自己对Git原理性知识的一些理解。" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="http://blog.yuantops.com/tech/key-concepts-to-understand-git/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
+    <link rel="shortcut icon" href="/favicon.png">
+
+    <link href="http://blog.yuantops.com/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="http://blog.yuantops.com/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="http://blog.yuantops.com/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="Git是十分强大的文件版本控制工具,是程序员必备的基本技能,掌握它是很有必要的。我接触Git很长时间了,但惭愧一般只用add, commit两个命令。最近听了Git专家的一次讲座,觉得收获很大,对Git的理解加深了很多。可见“内行一句话,胜读半月书”,要多向牛人请教。本文是自己对Git原理性知识的一些理解。">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.41-DEV" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="http://blog.yuantops.com/">Yuantops&#39; Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/archives/">Archives</a>
+                
+                <a class="main-nav-link" href="/about/">About</a>
+                
+                <a class="main-nav-link" href="/index.xml">RSS</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">关于Git,需要理解的几个关键概念</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/tech/key-concepts-to-understand-git/" class="article-date">
+                <time datetime='2014-12-05T00:00:00.000&#43;00:00' itemprop="datePublished">2014-12-05</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="http://blog.yuantops.com//categories/tech">Tech</a>
+                    
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<p>Git的控制哲学十分优雅,特别是了解它后会更为之倾倒。Git的入门在此不赘述。在掌握常用命令之后,再思考下面这些概念,相信对Git的认识会得到提升。</p>
+
+<h3 id="git基于commit-每个commit有独一无二的sha-1作为标志">Git基于Commit,每个Commit有独一无二的SHA 1作为标志</h3>
+
+<p>Git有Working Tree,Index,Repo的概念。Working Tree指当前的工作目录,当这个目录下有改动时,通过add命令将改动添加到Index区域。当改动都被加到了Index、需要提交时,使用commit命令将它们提交到Repo中。这次提交会形成一个Commit记录,它相当于当前状态的一个SnapShot。</p>
+
+<p>基于Commit的版本控制是十分优雅的想法。原因在于：</p>
+
+<ul>
+<li>每次Commit,系统只是保存了<strong>文件的改变</strong>(而不是改变后的文件),这样节省了磁盘空间</li>
+<li>每次Commit都是在上次Commit的基础上发生的(当Git Repo初始化时建立第一个Commit,它是所有Commit的最终基础),包含了对上次Commit的引用,因此一次次的Commit形成了一个链式结构</li>
+<li>每个Commit都有<strong>唯一</strong>的标志符号: (一般为)SHA 1值。它是Commit的内容经过数学计算得到的。<br /></li>
+</ul>
+
+<p>通过引入Commit,我们的所有改动都被纳入系统中,使改动变得有迹可循。</p>
+
+<h3 id="branch-head-tag本质上都是为commit所取的别名">Branch, HEAD, TAG本质上都是为Commit所取的别名</h3>
+
+<p>只有先理解“Git基于Commit”,才能理解上面这句话。</p>
+
+<p>因为Repo的更改记录是以一个个Commit组织起来的,它们就像一个个节点,能确定某个确定时刻的目录状态。因此,当我们想要切换到某个状态时,就要在庞大的Commit网络中定位某个Commit,并转到那个Commit。但唯一标准Commit的SHA 1值是很长的一串数字,为了方便识别与输入,就给这些SHA 1添加字符串的别名。因此Branch,HEAD,TAG本质上都是SHA 1的别名,确定Commit用的。</p>
+
+<p>但Branch, HEAD, TAG毕竟有特殊的地方(不然为什么不给所有的Commit都取别名呢？),它们标记的是特殊的Commit：</p>
+
+<ul>
+<li><p>Branch标记某个分支上离现在时刻最近的那次Commit。显然,随着在分支上不断提交Commit,Branch的指向对象也不断前进。试想一棵有枝干和树叶的树,那么Branch就是所有树枝末端的那片叶子。又因为每个Commit都包含它父Commit的标识(SHA 1值),所以确定了一个分叉的末端,就相当于确定了这个分叉上的所有Commit。一般而言,Git Repo都默认存在一个叫master的Branch。</p></li>
+
+<li><p>HEAD标记当前工作在哪个Commit位置。试想我正在开发软件项目,5个不同分支对应相对5个独立的功能,我要接着修改哪一个分支,就把HEAD移到这个分支上。又因为Branch指向分支的最新Commit,所以也就是把HEAD移到了这个Branch上。当然,如果我不想接着某个Branch的最新进度修改,当然也是可以的,直接切换到那个Commit即可。总之,可以将HEAD想象成*我此时此刻站着干活的地方*。</p></li>
+
+<li><p>TAG是单纯的给Commit的SHA 1取的别名。</p></li>
+</ul>
+
+<h3 id="checkout其实是在移动head">Checkout其实是在移动HEAD</h3>
+
+<p>只有理解了HEAD的意义,才能理解上面这句话。</p>
+
+<p>当我们谈论“在不同branch之间切换时”,真正起作用的是HEAD。既然HEAD指向的是某个Commit,那么checkout的参数可以是任何能确定Commit的标志(Branch,TAG,或者直接某个SHA 1值)。当然,checkout命令的用法很多,也有特殊情况checkout命令不会改变HEAD指向的Commit。</p>
+
+        </div>
+
+        
+        
+        <div class="article-toc" style="display:none;">
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#git基于commit-每个commit有独一无二的sha-1作为标志">Git基于Commit,每个Commit有独一无二的SHA 1作为标志</a></li>
+<li><a href="#branch-head-tag本质上都是为commit所取的别名">Branch, HEAD, TAG本质上都是为Commit所取的别名</a></li>
+<li><a href="#checkout其实是在移动head">Checkout其实是在移动HEAD</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <script>
+            (function() {
+                var $toc = $('#TableOfContents');
+                if ($toc.length > 0) {
+                    var $window = $(window);
+
+                    function onScroll(){
+                        var currentScroll = $window.scrollTop();
+                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                        var id = "";
+                        h.each(function (i, e) {
+                            e = $(e);
+                            if (e.offset().top - 10 <= currentScroll) {
+                                id = e.attr('id');
+                            }
+                        });
+                        var active = $toc.find('a.active');
+                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+                        active.each(function (i, e) {
+                            $(e).removeClass('active').siblings('ul').hide();
+                        });
+                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                            $(e).children('a').addClass('active').siblings('ul').show();
+                        });
+                    }
+
+                    $window.on('scroll', onScroll);
+                    $(document).ready(function() {
+                        $toc.find('a').parent('li').find('ul').hide();
+                        onScroll();
+                        document.getElementsByClassName('article-toc')[0].style.display = '';
+                    });
+                }
+            })();
+        </script>
+        
+
+
+        
+	
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="http://blog.yuantops.com//tags/git">Git
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+	
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/tech/ssh-login-procedure/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            SSH登录原理
+        </div>
+    </a>
+    
+    
+    <a href="/tech/ssl-series-introduction/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">SSL学习笔记 前言&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2012-2018 @yuantops&nbsp; </br>
+            Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
+        <script>renderMathInElement(document.body);</script>
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android on Yuantops&#39; Blog</title>
+    <link>http://blog.yuantops.com/tags/android/</link>
+    <description>Recent content in Android on Yuantops&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
+    <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Wed, 20 Apr 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://blog.yuantops.com/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>写一套简易的视频点播系统——API Server</title>
+      <link>http://blog.yuantops.com/tech/write-your-own-vod-system-api/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/write-your-own-vod-system-api/</guid>
+      <description>目录 1. 前言 2. 工程代码结构 3. 数据加载流程      前言 作为一个视频点播系统的后台，应该为客户端(见 《写一套简易的视频点播系统&amp;#x2013;Android视频播放器》) 提供合理良好的API接口。同样，这里我们完成了最简单最基本的功能: 基于Spring MVC结构，当有http请求到来时，从MySQL数据库获取数据，返回json格式的数据。
+工程代码结构 如下所示(省略了一些文件):
+. ├── main/ │ ├── java/ │ │ └── com/ │ │ └── yuantops/ │ │ ├── exception/ //Exception包 │ │ ├── tv/ │ │ │ ├── bean/ //Video对象，对应数据库中数据模型 │ │ │ ├── controller/ //Spring MVC中的C │ │ │ ├── dao/ //数据库增删改查 │ │ │ ├── impl/ //service接口实现 │ │ │ └── service/ //service接口 │ │ └── utils/ //工具类 │ ├── resources/ │ │ ├── application-root-context.</description>
+    </item>
+    
+    <item>
+      <title>写一套简易的视频点播系统——Android视频播放器</title>
+      <link>http://blog.yuantops.com/tech/write-your-own-vod-system-android/</link>
+      <pubDate>Tue, 19 Apr 2016 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/write-your-own-vod-system-android/</guid>
+      <description> 作为一个视频点播系统的客户端，播放视频是最基本的功能。本着最精简最偷懒的原则，这个客户端实现的功能包括:
+ 列表显示服务器上的直播视频、点播视频
+ 点击列表条目，播放视频
+  工程代码结构 客户端用Android Studio开发，整个项目的结构按gradle风格组织，代码路径是TopsTVPlayer/app/src/main/java。
+. └── com └── yuantops └── tvplayer ├── adapter 加载list的Adapter ├── player 播放器组件 ├── ui Fragment和Activity显示界面 └── util 工具类  在player/包下，为直播视频和点播视频分别建立了一个类，因为Android原生的MediaPlayer组件对RTSP协议的直播流支持不全面，所以用原生的MediaPlayer播放点播视频(http)，用Vitamio提供的MediaPlayer播放直播视频(rtsp)。
+数据加载流程 所有与网络的数据交流方法都封装在util/VolleySingleton.java文件中，使用了Volley这个优秀的开源http包。
+ app启动时，首先加载WebAPIServerActivity.java界面，填写web服务器(提供api接口的服务器，不是多媒体服务器)的Base URL。点击确认按钮，会跳转到MainActivity。 MainActivity包含两个Fragment。在Fragment被加载时，会调用VolleySingleton.java里的方法从web服务器上获取json格式的视频列表数据。数据下载完成后，会以list的形式显示出来。 点击listView中的item，会跳转到VideoPlayActivity，初始化对应的直播/点播MediaPlayer。MediaPlayer组件根据视频的URL，从视频服务器获取数据，开始播放。  引用的库  ActionbarSherlock Vitamio SDK Android Volley  </description>
+    </item>
+    
+    <item>
+      <title>写一套简易的视频点播系统</title>
+      <link>http://blog.yuantops.com/tech/write-your-own-vod-system/</link>
+      <pubDate>Sat, 09 Apr 2016 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/write-your-own-vod-system/</guid>
+      <description>最初实习时，断断续续写Android代码，实现过用Helix架设流媒体服务器、手机播放流媒体视频的功能。后来一份实习，接触到Spring＋MyBatis框架，见识了它们在处理http请求和数据库连接上的便捷。这几天有些时间，想到可以将它们两者糅合到一起，实现一个完整的视频点播系统，既包括服务器(流媒体服务器，数据库，http服务器)，又包括客户端(Android)。虽然简陋，但工作起来毫无问题。
+整个工程运行起来的效果:
+ 打开手机App，填写http服务器提供的api root URL，出现两个列表: 点播视频列表和直播列表。点击列表条目，开始播放视频。
+ 通过手动添加视频文件、修改数据库记录，可以更新视频列表。
+  这样一个小系统，代码部分包括:
+ http服务器: 暴露api给访问者，返回json数据。使用了Spring＋MyBatis框架，用Apache Tomcat做Web服务的容器。
+ Android客户端: 访问http服务器获取数据，并播放流媒体服务器推送的流媒体。
+  除了写代码，还有一部分配置操作，主要是流媒体服务器Helix。
+写代码和配置服务器软件的工作量，加起来与计算机专业本科的课程设计工作量相当。这些工作将由三篇文章分别介绍。</description>
+    </item>
+    
+    <item>
+      <title>用Android 手机玩延时摄影</title>
+      <link>http://blog.yuantops.com/tech/timelapse-photography-diy-android/</link>
+      <pubDate>Fri, 11 Dec 2015 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/timelapse-photography-diy-android/</guid>
+      <description>延时摄影是一种很精妙细微的展现形式，时间被压缩后有流动的美。每隔固定时间按一次快门，再将照片按某个帧率连续起来，就生成一段流畅的视频。摄影发烧友一般用单反拍照，用快门线控制拍照的周期。鉴于单反不是人人都有（譬如我就没有。。），这里分享一个经济实用的点子，用安卓和电脑来DIY延时摄影。
+思路 Android 系统开放了一些接口，Debug模式下电脑可以通过Android SDK提供的adb 命令调用它们，模拟启动相机、聚焦、拍照动作，并将照片保存到电脑硬盘。将这一连串操作用脚本记录下来，并设置linux定时任务，周期执行。最后，通过ffmpeg 或者其他视频编辑软件将照片变成视频/gif。
+器材 一部安卓手机 + 一台电脑(假设为Linux) + 一根USB线
+拍摄主题 玫瑰花绽放
+做法 我手头有一部大概一年前买的红米，测试了下拍照效果，虽然比不上正在用的5c但也相当凑和。笔记本刚刚重装了个系统(Arch)，在官网上下好了新鲜热乎的Android SDK。
+用USB线将手机连到笔记本，打开手机的Debug模式。另外，推荐将手机设置为Debug模式下屏幕常亮。用Android SDK的platform-tools目录下的adb命令检查是否顺利连接了手机。我在自己的机器上折腾红米的挂载还颇费了一点力气，具体操作可以google之，此处不赘述。
+用脚本调用adb命令，实现启动相机、聚焦、拍照、保存照片到电脑、删除手机上的照片等一连串操作。将照片从手机上删除是考虑到手机SD的容量有限。Shell脚本实现起来最简单。这里不得不赞叹adb的强大，不仅可以用&amp;rdquo;adb shell&amp;rdquo;像普通linux系统一样操作Android设备，还可以向设备发送按键动作、模拟触屏动作等。如何发送Keyevent，如何捕捉(capture)、记录(record)、发送屏幕触摸动作，可以Google之，此处不赘述。
+将脚本作为系统的定时任务执行。Linux下用crontab可以非常方便地实现。如何设置定时任务的时间间隔，需要做一点小数学题，用拍摄对象的总耗时与视频的帧率算出来，具体参考博客。
+做完前期的技术准备后，该拍摄主角登场了。我选择的拍摄主题是“鲜花绽放”，所谓一支浓艳露凝香，在我心中玫瑰是坠吼不过的了。在花店用3人民币买了一朵含苞待放的玫瑰花骨朵儿。给它粘个背景，插在一个透明酸奶罐子中，架好灯光（淘宝买的USB LED灯）。固定好手机，缚得牢牢的，不要让它晃动。
+静静地让程序跑，跑，跑。。。。（宿舍晚上会熄灯，这是比较麻烦的，暂时我还没想到解决办法。不过幸亏玫瑰花儿开得快，白天就很饱满了。）
+时间大概过去了五个小时。。。
+好了，花儿开好了。
+打开电脑上存放照片的目录，用ffmpeg或者别的视频编辑软件，将它们合成视频。（我这里为了方便合成的是gif。）
+Github例子 我的Shell脚本见这个项目。
+最后是gif效果图，考虑到博客容量我降低了图片尺寸和质量。</description>
+    </item>
+    
+    <item>
+      <title>Android SurfaceView双缓存机制与闪屏现象分析</title>
+      <link>http://blog.yuantops.com/tech/surfaceview-dual-cache/</link>
+      <pubDate>Sun, 26 Jul 2015 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/surfaceview-dual-cache/</guid>
+      <description>##理解SurfaceView
+SurfaceView是View的子类，所以View有的特点它都有。但它有特殊之处：它引入了缓存机制，优化了内容刷新的过程，使UI Thread不至于崩溃。更新它的内容，我们要用到与之关联的SurfaceHolder。
+比较特殊的在于SurfaceView的“双缓存”(Double-buffer)机制。更新SurfaceView的常见流程是&amp;rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&amp;rdquo;, 如果你遇到SurfaceView闪烁的情况，像鬼片里电视机的那种闪法，那十之八九是栽倒在双缓存的坑里了。Google告诉了我这个问题的答案，希望你能用上。
+##双缓存(Double-buffer)与黑屏闪烁
+以下内容来自邮件列表的讨论，我对它们进行一点梳理。
+ 每个SurfaceView 对象有两个独立的graphic buffer，官方SDK将它们称作&amp;rdquo;front buffer&amp;rdquo;和&amp;rdquo;back buffer&amp;rdquo;。
+ 常规的&amp;rdquo;double-buffer&amp;rdquo;会这么做：每一帧的数据都被绘制到back buffer，然后back buffer的内容被持续翻转(flip)到front buffer；屏幕一直显示front buffer。但Android SurfaceView的&amp;rdquo;double-buffer&amp;rdquo;却是这么做的：在buffer A里绘制内容，然后让屏幕显示buffer A; 下一个循环，在buffer B里绘制内容，然后让屏幕显示buffer B; 如此往复。于是，屏幕上显示的内容依次来自buffer A, B, A, B,&amp;hellip;.这样看来，两个buffer其实没有主从的分别，与其称之为&amp;rdquo;front buffer&amp;rdquo;&amp;ldquo;back buffer&amp;rdquo;，毋宁称之为&amp;rdquo;buffer A&amp;rdquo;&amp;ldquo;buffer B&amp;rdquo;。
+ Android中&amp;rdquo;double-buffer&amp;rdquo;的实现机制，可以很好地解释闪屏现象。在第一个&amp;rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&amp;rdquo;循环中，更新的是buffer A的内容；到下一个&amp;rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&amp;rdquo;循环中，更新的是buffer B的内容。如果buffer A与buffer B中某个buffer内容为空，当屏幕轮流显示它们时，就会出现画面黑屏闪烁现象。
+  ##解决方法 出现黑屏是因为buffer A与buffer B中一者内容为空，而且为空的一方还被post到了屏幕。于是有两种解决思路：
+ 不让空buffer出现：每次向一个buffer写完内容并post之后，顺便用这个buffer的内容填充另一个buffer。这样能保证两个buffer的内容是同步的，缺点是做了无用功，耗费性能。
+ 不post空buffer到屏幕：当准备更新内容时，先判断内容是否为空，只有非空时才启动&amp;rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&amp;rdquo;这个流程。
+  </description>
+    </item>
+    
+    <item>
+      <title>Activity的生命周期以及两个Activity跳转时的状态变化</title>
+      <link>http://blog.yuantops.com/tech/android-activity-lifecycle-with-two-activites/</link>
+      <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/android-activity-lifecycle-with-two-activites/</guid>
+      <description>##Android Activity的生命周期 下面这张图非常清晰地介绍了Activity的生命周期：
+##当通过intent跳转时的状态变化 一个Activity的状态有三个：Stopped(存在但看不见)，Paused(部分可见，但无焦点)，Resumed(激活状态，拥有焦点，可以与之交互)。如果将不存在也算作一个状态，那样一共就有四个状态。
+这篇文章非常详细地讨论了当通过intent在一个Activity中启动另一个Activity时，它们两个Activity的状态变化过程。
+当由MainActivity跳转到ActivityTwo时，下面是方法的调用顺序：
+ MainActivity: onPause() ActivityTwo: onCreate() ActivityTwo: onStart() ActivityTwo: onResume() MainActivity: onStop()  步骤为：MainActivity失去焦点，转到Paused状态-&amp;gt;ActivityTwo新建但不可见,处于Stopped状态-&amp;gt;ActivityTwo可见，处于Paused状态-&amp;gt;ActivityTwo获得焦点，处于Resumed状态-&amp;gt;MainActivity不可见，处于Stopped状态。
+值得注意的是，当ActivityTwo位于前台时，MainActivity并没有被销毁，而是仍保存在内存中。
+按下后退键，由ActivityTwo返回MainActivity时，方法的调用顺序为：
+ ActivityTwo: onPause() MainActivity: onRestart() MainActivity: onStart() MainActivity: onResume() ActivityTwo: onStop() ActivityTwo: onDestroy()  步骤与上一步类似。值得注意之处有二：
+ 其一，MainActivity.onRestart方法先于MainActivity.onStart方法调用。如果Activity不是从无到有新建出来的，那么在onStart方法前都会先调用onRestart方法。
+ 其二，ActivityTwo被销毁了。至于为什么此时ActivityTwo会被销毁，涉及到Task的原理。在这篇文章中有介绍。  </description>
+    </item>
+    
+    <item>
+      <title>Android中Context的作用</title>
+      <link>http://blog.yuantops.com/tech/use-of-context-in-android/</link>
+      <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/use-of-context-in-android/</guid>
+      <description>##官方文档中对Context的介绍 &amp;gt;Interface to global information about an application environment. This is an abstract class whose implementation is provided by the Android system. It allows access to application-specific resources and classes, as well as up-calls for application-level operations such as launching activities, broadcasting and receiving intents, etc.
+翻译：
+Context是Android应用的全局信息的接口。它是一个虚类，它的实现由Android系统完成。它提供了对某个应用的资源和类的访问权限，也提供对应用层面操作(如启动Activity，发送broadcast，接受intent)的调用接口。
+##总结 StackoverFlow.com上有人根据自己的理解总结了Context的用法，说得很有道理，以下是我的翻译。
+正如Context的名字所说，它是一个应用/对象(applicaton/object)当前状态的上下文。它让新建的对象知道当前正在发生着什么。典型的用法，你可以调用它来得到关于你程序其它部分(Activity，package/application等)的信息。
+你可以通过以下方式得到context: getApplicationContext(), getContext(), getBaseContext()或者this(当位于一个Activity class中时)。
+典型用法：
+ 新建对象：新建views, adapters, listeners等：
+TextView tv = new TextView(getContext()); ListAdapter adapter = new SimpleCursorAdapter(getApplicationContext(), &amp;hellip;);</description>
+    </item>
+    
+    <item>
+      <title>[转载]Android Intent原理分析</title>
+      <link>http://blog.yuantops.com/tech/an-insight-of-android-intent/</link>
+      <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/an-insight-of-android-intent/</guid>
+      <description>##原文链接 Android Intent原理分析
+##转载原文正文 Revision History
+wylhistory
+ Abstract
+ Introduction
+ Intent的架构
+ Intent的发送过程
+4.1 Intent消息在发送进程的逻辑
+4.2 Intent发送在服务器端的执行
+4.2.1 进入消息队列之前
+4.2.2 进入消息队列后的处理
+4.2.3 消息的分发过程
+4.2.4 deliverToRegisteredReceiver的逻辑
+4.2.5 processCurBroadcastLocked的逻辑
+4.2.6 startProcessLocked的逻辑
+ Intent的接收过程
+5.1 Receiver的注册
+5.2 scheduleReceiver
+5.3 scheduleRegisteredReceiver的逻辑
+ 未分析
+ Abstract
+  主要是分析一下android的IPC通讯之Intent；
+ Introduction  任何一个操作系统，都有自己的IPC通讯机制，Android也不例外；
+IPC通讯在linux下面通常包括共享内存，管道，消息队列等，这其中共享内存的效率比较高，我想；
+这里将要说的Intent的通讯机制是基于Binder的，而Binder的机制本质上是共享内存；
+Intent中文翻译为：n.意图，意向，目的 a.专心的；急切的；没有一个特别适合，所以我还是决定用英文；
+它的作用，我想就是传达一些信息各特定的对象，或者广播一些信息各某些对象；这里涉及两方面的内容：
+A） 消息的发送；
+B） 消息的接收；
+后面就会具体的展开；
+讨论之前先看一个简单的例子： Intent intent = new Intent(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
+mContext.sendBroadcast(intent);
+这是摘自HeadsetObserver.java的代码；
+后面将会以此为例，分析发送和接收的过程；
+ Intent的架构  Intent的架构包括三方面：</description>
+    </item>
+    
+    <item>
+      <title>OSC Android源码学习笔记 四 listview初始化、获取数据、加载数据的流程</title>
+      <link>http://blog.yuantops.com/tech/osc-android-app-notes-4/</link>
+      <pubDate>Sat, 27 Dec 2014 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-4/</guid>
+      <description>OSC App显示的信息分为资讯(news)，博客(blog)，问答(Question)，动弹(tweet)几屏，每屏对应一个ListView。以资讯(news)为例，粗略看一下它的ListView是如何初始化、获取数据、加载数据的。
+ 实例化一个ListViewNewsApapter并添加到lvNews：
+lvNewsAdapter = new ListViewNewsAdapter(this, lvNewsData, R.layout.news_listitem); ListViewNewsApapter这个类继承BaseAdapter，重写了getView()方法。值得注意的是，getView()方法中news实体被被作为Tag添加到了listView的ItemView中。
+  为lvNews设置lvNewsAdapter。lvNews和lvNewsAdapter都是Main这个类持有的变量，而不是某个函数的局部变量。
+ 为lvNews设置OnClickListener，这个Listener以匿名内部类方式初始化： 当点击单个item view时，从view中取出news这个Tag，然后使用UIHelper.showNewsRedirect()方法跳转到新闻阅读详情页。
+ 实例化一个lvNewsHandler：
+lvNewsHandler = this.getLvHandler(lvNews, lvNewsAdapter, lvNews_foot_more, lvNews_foot_progress, AppContext.PAGE_SIZE);
+  这个Handler定义了当接收到有数据更新的通知时，应该作何处理。主要是通知adapter数据发生了变化：
+adapter.notifyDataSetChanged();
+ 下载数据，加载数据：
+loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT); 新开进程，调用appContext.getNewList()从服务器获取数据。数据获取完成后，通过传入的lvNewsHandler发送Message，回调handleMessage(Message msg)方法。
+  </description>
+    </item>
+    
+    <item>
+      <title>开源中国安卓客户端源码学习笔记 三 自定义Exception类</title>
+      <link>http://blog.yuantops.com/tech/osc-android-app-notes-3/</link>
+      <pubDate>Thu, 25 Dec 2014 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-3/</guid>
+      <description>net.oschina.app包中包含四个类的定义文件，它们分别是AppConfig, AppException, AppManager, AppStart。其中AppStart类继承Activity，是跳转界面。AppException类是Exception的子类，是自定义的异常类。
+AppException类中有8个final static类型的类变量，定义异常类型: network, socket, http, xml, io, run, jason几种。这个类中有对应的静态方法，以Exception为形参，返回对应的新建对象。值得注意的是，代码中预留了debug的选项，如果在新建AppException对象时传入“debug”参数，那么对应的Exception信息会被写到文件中保存。
+这个类中定义了异常的处理方式：收集错误信息，然后显示异常信息&amp;amp;发送错误报告。显示异常信息和发送错误报告的过程在新建的Thread里完成。</description>
+    </item>
+    
+    <item>
+      <title>开源中国安卓客户端源码学习笔记 二 欢迎界面跳转与渐变效果</title>
+      <link>http://blog.yuantops.com/tech/osc-android-app-notes-2/</link>
+      <pubDate>Tue, 23 Dec 2014 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-2/</guid>
+      <description>OSC客户端启动时会先显示欢迎界面，再跳转到主页，其中跳转过程有渐变效果。
+这里使用了AlphaAnimation类。AlphaAnimation类能实现渐进渐出的效果，官方文档里说“This animation ends up changing the alpha property of a Transformation”。alpha property可以理解为透明度，&amp;rdquo;0.0&amp;rdquo;为全透明，“0.5”为半透明，“1.0”时不透明。
+//渐变展示启动屏 	AlphaAnimation aa = new AlphaAnimation(0.3f,1.0f); aa.setDuration(3000); view.startAnimation(aa); aa.setAnimationListener(new AnimationListener() { @Override public void onAnimationEnd(Animation arg0) { redirectTo(); } @Override public void onAnimationRepeat(Animation animation) {} @Override public void onAnimationStart(Animation animation) {} }); 另外，欢迎界面的图片可以更新。从代码分析，在将View设置为ContentView之前，程序会检查欢迎界面对应缓存文件夹里的图片文件，图片文件的文件名有一个时间期限，如果今天正好落在这个期限内，那么就将它设为背景图片。如此可以推测APP会在启动后自动下载新的图片文件(如果存在的话)到缓存文件夹，从而达到更新效果。
+果然，在跳转到Main Activity后，在onCreate()方法里调用了checkBackGround()方法。这个方法会新开一个Thread去服务器检查是否有新的图片需要下载，如果有，那么会下载下来。</description>
+    </item>
+    
+    <item>
+      <title>开源中国安卓客户端源码学习笔记 一</title>
+      <link>http://blog.yuantops.com/tech/osc-android-app-notes-1/</link>
+      <pubDate>Mon, 22 Dec 2014 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>http://blog.yuantops.com/tech/osc-android-app-notes-1/</guid>
+      <description>##前言 开源中国(OSCHINA)是国内一个开源社区,社区自己开发了Android和iOS平台的客户端，而且将各自的代码开源了。值得夸奖的是，他们的Android APP不是基于HTML，而是Android原生API。我最近在学习它Android App的源代码，毕竟像它这样性能优秀、注释齐全的开源项目是比较稀少的。
+希望能通过阅读源代码，学到一些Android开发的实战技巧，并加深对已有知识的理解。
+##学习笔记一 利用getApplication()共享全局数据
+程序启动Activity是net.oschina.app.AppStart。这个Activity类持有一个自定义的AppContext成员。查看net.oschina.app.AppContext类的定义，作者说它是“全局应用程序类，用于保存和调用全局应用配置及访问网络数据”。
+AppContext类是Application类的子类。Google了getApplication()函数，找到了一篇介绍得比较明白的文章：
+- android利用getApplication()共享全局数据
+在平时开发中，如果需要一些能被所有Activity和View访问到的全局数据，就可以自定义一个继承Application类的子类，扩展它所持有的成员。值得注意，还需在android Manifest.xml文件中将application的android:name属性指定为自定义的类。
+另外,关于getApplication()和getApplicationContext()的区别,stackoverflow上有人这么解释:
+虽然当前Anroid Activity和Service的实现方式使得getApplication()和getApplicationContext()返回相同的object，但不能保证它们将来会一直这样。 如果你想在Manifest.xml文件中注册Application class，那么**永远不要**调用getApplicationContext()并将其cast为你的application类，因为它返回的很可能不是你的application实例。 getApplication()仅仅在Activity和Service类中可以被调用，而getApplicationContext()则是在Context类中被声明的。这意味着，譬如说你写了一个Broadcast Receiver，Broadcast Receiver本身不是一个Context类，尽管它能通过onReceive()方式获得一个Context类的引用，这时你就只能调用getApplicationContext()了——这也就意味着，不能确保在BroadcastReceiver中访问到application。 另外，Android的官方文档中提到，你**不应该**需要去继承Application类: There is normally no need to subclass Application. In most situation, static singletons can provide the same functionality in a more modular way. If your singleton needs a global context (for example to register broadcast receivers), the function to retrieve it can be given a Context which internally uses Context.</description>
+    </item>
+    
+  </channel>
+</rss>
