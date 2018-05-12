@@ -1,6 +1,6 @@
 languageCode = "en-us"
 title = "Yuantops' Blog"
-baseurl = "http://blog.yuantops.com/"
+baseurl = "https://blog.yuantops.com/"
 theme = "hugo-theme-minos"  
 copyright = "All rights reserved."
 
