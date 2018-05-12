@@ -2,11 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; Github Pages // Yuantops&#39; Blog</title>
+    <title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages // Yuantops&#39; Blog</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="Blog自动部署实践: Hugo &#43; Travis CI -&gt; Github Pages" />
-<meta property="og:description" content="这篇文章记录了如何使用免费Travis CI平台，将Hugo生成的静态博客站点自动部署到Github Pages。" />
+    <meta property="og:title" content="Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages" />
+<meta property="og:description" content="这篇文章记录了如何使用免费Travis CI平台，将Hugo生成的静态博客站点自动部署到GitHub Pages。" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:url" content="http://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/" />
@@ -26,7 +26,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-    <meta name="description" content="这篇文章记录了如何使用免费Travis CI平台，将Hugo生成的静态博客站点自动部署到Github Pages。">
+    <meta name="description" content="这篇文章记录了如何使用免费Travis CI平台，将Hugo生成的静态博客站点自动部署到GitHub Pages。">
     <meta name="keywords" content="">
     <meta name="author" content="">
 
@@ -63,7 +63,7 @@
     <div class="article-inner">
         
         <header class="article-header">
-            <h1 class="article-title" itemprop="name">Blog自动部署实践: Hugo &#43; Travis CI -&gt; Github Pages</h1>
+            <h1 class="article-title" itemprop="name">Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages</h1>
         </header>
         
         <div class="article-meta">
@@ -86,25 +86,25 @@
         <div class="article-entry" itemprop="articleBody">
             
 
-<p>这个博客托管在Github
+<p>这个博客托管在GitHub
 Pages上已经有一段时间。最初使用的静态站点生成工具是Jekyll，后来<a href="http://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/">换成Hugo</a>，因为是免费，一直都还比较满意。只有一个小痛点，博客从写完到部署的步骤多：写文章
 -&gt; build -&gt;
 deploy…</p>
 
-<p>我之前<a href="http://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/">写过一篇用Emacs写博客的workflow</a>，把&rdquo;写文章&rdquo;的流程优化了一把。之后又小打小闹，用Github的webhook做了一个commit
+<p>我之前<a href="http://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/">写过一篇用Emacs写博客的workflow</a>，把&rdquo;写文章&rdquo;的流程优化了一把。之后又小打小闹，用GitHub的webhook做了一个commit
 message关键字触发的小服务，把&rdquo;build&rdquo;和&rdquo;deploy&rdquo;做成自动化。这个服务跑在免费的Google
 Cloud上，使用体验还不错，可惜主机没续费，服务直接停掉，源码也丢失了。</p>
 
-<p>随手Google一把Github Page的持续集成，才后知后觉地发现自己想要的东东已经有了成熟解决方案，而且还可以 <strong>免费</strong>
+<p>随手Google一把GitHub Page的持续集成，才后知后觉地发现自己想要的东东已经有了成熟解决方案，而且还可以 <strong>免费</strong>
 用：<a href="https://travis-ci.org/">Travis CI</a>。于是我颇愉快地接受它，并简单地在这里记录下来。</p>
 
 <h1 id="什么是travis-ci">什么是Travis CI</h1>
 
-<p>一个持续化集成平台，类似Jenkins。功能强大，和Github的集成尤其好，我们用它部署个人博客算大材小用。它有两个版本:</p>
+<p>一个持续化集成平台，类似Jenkins。功能强大，和GitHub的集成尤其好，我们用它部署个人博客算大材小用。它有两个版本:</p>
 
 <ul>
-<li><a href="https://travis-ci.org/">https://travis-ci.org/</a> 免费版本，可以集成Github的public项目</li>
-<li><a href="https://travis-ci.com/">https://travis-ci.com/</a> 商业版本，可以集成Github的private项目</li>
+<li><a href="https://travis-ci.org/">https://travis-ci.org/</a> 免费版本，可以集成GitHub的public项目</li>
+<li><a href="https://travis-ci.com/">https://travis-ci.com/</a> 商业版本，可以集成GitHub的private项目</li>
 </ul>
 
 <p>我们使用第一个，免费版本。</p>
@@ -121,9 +121,9 @@ Cloud上，使用体验还不错，可惜主机没续费，服务直接停掉，
 
 <h1 id="配置travis-ci">配置Travis CI</h1>
 
-<h2 id="为travis-ci生成github-token">为Travis CI生成Github Token</h2>
+<h2 id="为travis-ci生成github-token">为Travis CI生成GitHub Token</h2>
 
-<p>打开Github。路径: &ldquo;Settings&rdquo;-&gt;&ldquo;Developer settings&rdquo;-&gt;&ldquo;Personal access
+<p>打开GitHub。路径: &ldquo;Settings&rdquo;-&gt;&ldquo;Developer settings&rdquo;-&gt;&ldquo;Personal access
 tokens&rdquo;-&gt;&ldquo;Generate new token&rdquo;。</p>
 
 <p>因为是public项目，而且Travis CI是用来push代码，所以只需勾选 <code>public_repo</code>, <code>repo:status</code>,
@@ -134,7 +134,7 @@ tokens&rdquo;-&gt;&ldquo;Generate new token&rdquo;。</p>
 <h2 id="配置travis-ci构建选项">配置Travis CI构建选项</h2>
 
 <ol>
-<li>用Github方式登录Travis CI(<a href="https://travis-ci.org/">https://travis-ci.org/</a>)</li>
+<li>用GitHub方式登录Travis CI(<a href="https://travis-ci.org/">https://travis-ci.org/</a>)</li>
 <li>&ldquo;Settings&rdquo;-&ldquo;General&rdquo; 勾选&rdquo;Build only if .travis.yml is present&rdquo;和&rdquo;Build
 pushed branches&rdquo;两项。</li>
 <li>&ldquo;Settings&rdquo;-&ldquo;Environment Variables&rdquo;
@@ -167,18 +167,18 @@ deploy:
   skip-cleanup: true # 重要，不能省略
   local-dir: public # 静态站点文件所在目录
   target-branch: gh-pages # 要将静态站点文件发布到哪个分支
-  github-token: $GITHUB_TOKEN # 重要，$GITHUB_TOKEN是变量，需要在Github上申请、再到配置到Travis
+  github-token: $GITHUB_TOKEN # 重要，$GITHUB_TOKEN是变量，需要在GitHub上申请、再到配置到Travis
   fqdn: blog.yuantops.com # 如果是自定义域名，此处要填
   keep-history: true # 是否保持target-branch分支的提交记录
   on:
     branch: hugo # 博客源码的分支
 </code></pre>
 
-<p>把 <code>.travis.yml</code> 放到hugo分支，push到Github。</p>
+<p>把 <code>.travis.yml</code> 放到hugo分支，push到GitHub。</p>
 
 <h1 id="自动部署">自动部署</h1>
 
-<p>上述操作完成后，自动部署就生效了。我们写完一篇博客，只需在hugo分支提交commit、再push到Github，Travis
+<p>上述操作完成后，自动部署就生效了。我们写完一篇博客，只需在hugo分支提交commit、再push到GitHub，Travis
 CI会自动触发后续的构建、部署动作。</p>
 
         </div>
@@ -193,7 +193,7 @@ CI会自动触发后续的构建、部署动作。</p>
 <li><a href="#本博客现状回顾">本博客现状回顾</a></li>
 <li><a href="#配置travis-ci">配置Travis CI</a>
 <ul>
-<li><a href="#为travis-ci生成github-token">为Travis CI生成Github Token</a></li>
+<li><a href="#为travis-ci生成github-token">为Travis CI生成GitHub Token</a></li>
 <li><a href="#配置travis-ci构建选项">配置Travis CI构建选项</a></li>
 <li><a href="#在git根目录下添加-travis-yml-文件">在git根目录下添加 <code>.travis.yml</code> 文件</a></li>
 </ul></li>

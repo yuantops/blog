@@ -13,32 +13,32 @@
     <atom:link href="http://blog.yuantops.com/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; Github Pages</title>
+      <title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages</title>
       <link>http://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</link>
       <pubDate>Sat, 12 May 2018 08:45:52 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>http://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</guid>
       <description>
 
-&lt;p&gt;这个博客托管在Github
+&lt;p&gt;这个博客托管在GitHub
 Pages上已经有一段时间。最初使用的静态站点生成工具是Jekyll，后来&lt;a href=&#34;http://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/&#34;&gt;换成Hugo&lt;/a&gt;，因为是免费，一直都还比较满意。只有一个小痛点，博客从写完到部署的步骤多：写文章
 -&amp;gt; build -&amp;gt;
 deploy…&lt;/p&gt;
 
-&lt;p&gt;我之前&lt;a href=&#34;http://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/&#34;&gt;写过一篇用Emacs写博客的workflow&lt;/a&gt;，把&amp;rdquo;写文章&amp;rdquo;的流程优化了一把。之后又小打小闹，用Github的webhook做了一个commit
+&lt;p&gt;我之前&lt;a href=&#34;http://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/&#34;&gt;写过一篇用Emacs写博客的workflow&lt;/a&gt;，把&amp;rdquo;写文章&amp;rdquo;的流程优化了一把。之后又小打小闹，用GitHub的webhook做了一个commit
 message关键字触发的小服务，把&amp;rdquo;build&amp;rdquo;和&amp;rdquo;deploy&amp;rdquo;做成自动化。这个服务跑在免费的Google
 Cloud上，使用体验还不错，可惜主机没续费，服务直接停掉，源码也丢失了。&lt;/p&gt;
 
-&lt;p&gt;随手Google一把Github Page的持续集成，才后知后觉地发现自己想要的东东已经有了成熟解决方案，而且还可以 &lt;strong&gt;免费&lt;/strong&gt;
+&lt;p&gt;随手Google一把GitHub Page的持续集成，才后知后觉地发现自己想要的东东已经有了成熟解决方案，而且还可以 &lt;strong&gt;免费&lt;/strong&gt;
 用：&lt;a href=&#34;https://travis-ci.org/&#34;&gt;Travis CI&lt;/a&gt;。于是我颇愉快地接受它，并简单地在这里记录下来。&lt;/p&gt;
 
 &lt;h1 id=&#34;什么是travis-ci&#34;&gt;什么是Travis CI&lt;/h1&gt;
 
-&lt;p&gt;一个持续化集成平台，类似Jenkins。功能强大，和Github的集成尤其好，我们用它部署个人博客算大材小用。它有两个版本:&lt;/p&gt;
+&lt;p&gt;一个持续化集成平台，类似Jenkins。功能强大，和GitHub的集成尤其好，我们用它部署个人博客算大材小用。它有两个版本:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://travis-ci.org/&#34;&gt;https://travis-ci.org/&lt;/a&gt; 免费版本，可以集成Github的public项目&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://travis-ci.com/&#34;&gt;https://travis-ci.com/&lt;/a&gt; 商业版本，可以集成Github的private项目&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://travis-ci.org/&#34;&gt;https://travis-ci.org/&lt;/a&gt; 免费版本，可以集成GitHub的public项目&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://travis-ci.com/&#34;&gt;https://travis-ci.com/&lt;/a&gt; 商业版本，可以集成GitHub的private项目&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;我们使用第一个，免费版本。&lt;/p&gt;
@@ -55,9 +55,9 @@ Cloud上，使用体验还不错，可惜主机没续费，服务直接停掉，
 
 &lt;h1 id=&#34;配置travis-ci&#34;&gt;配置Travis CI&lt;/h1&gt;
 
-&lt;h2 id=&#34;为travis-ci生成github-token&#34;&gt;为Travis CI生成Github Token&lt;/h2&gt;
+&lt;h2 id=&#34;为travis-ci生成github-token&#34;&gt;为Travis CI生成GitHub Token&lt;/h2&gt;
 
-&lt;p&gt;打开Github。路径: &amp;ldquo;Settings&amp;rdquo;-&amp;gt;&amp;ldquo;Developer settings&amp;rdquo;-&amp;gt;&amp;ldquo;Personal access
+&lt;p&gt;打开GitHub。路径: &amp;ldquo;Settings&amp;rdquo;-&amp;gt;&amp;ldquo;Developer settings&amp;rdquo;-&amp;gt;&amp;ldquo;Personal access
 tokens&amp;rdquo;-&amp;gt;&amp;ldquo;Generate new token&amp;rdquo;。&lt;/p&gt;
 
 &lt;p&gt;因为是public项目，而且Travis CI是用来push代码，所以只需勾选 &lt;code&gt;public_repo&lt;/code&gt;, &lt;code&gt;repo:status&lt;/code&gt;,
@@ -68,7 +68,7 @@ tokens&amp;rdquo;-&amp;gt;&amp;ldquo;Generate new token&amp;rdquo;。&lt;/p&gt;
 &lt;h2 id=&#34;配置travis-ci构建选项&#34;&gt;配置Travis CI构建选项&lt;/h2&gt;
 
 &lt;ol&gt;
-&lt;li&gt;用Github方式登录Travis CI(&lt;a href=&#34;https://travis-ci.org/&#34;&gt;https://travis-ci.org/&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;用GitHub方式登录Travis CI(&lt;a href=&#34;https://travis-ci.org/&#34;&gt;https://travis-ci.org/&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;&amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;General&amp;rdquo; 勾选&amp;rdquo;Build only if .travis.yml is present&amp;rdquo;和&amp;rdquo;Build
 pushed branches&amp;rdquo;两项。&lt;/li&gt;
 &lt;li&gt;&amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;Environment Variables&amp;rdquo;
@@ -101,18 +101,18 @@ deploy:
   skip-cleanup: true # 重要，不能省略
   local-dir: public # 静态站点文件所在目录
   target-branch: gh-pages # 要将静态站点文件发布到哪个分支
-  github-token: $GITHUB_TOKEN # 重要，$GITHUB_TOKEN是变量，需要在Github上申请、再到配置到Travis
+  github-token: $GITHUB_TOKEN # 重要，$GITHUB_TOKEN是变量，需要在GitHub上申请、再到配置到Travis
   fqdn: blog.yuantops.com # 如果是自定义域名，此处要填
   keep-history: true # 是否保持target-branch分支的提交记录
   on:
     branch: hugo # 博客源码的分支
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;把 &lt;code&gt;.travis.yml&lt;/code&gt; 放到hugo分支，push到Github。&lt;/p&gt;
+&lt;p&gt;把 &lt;code&gt;.travis.yml&lt;/code&gt; 放到hugo分支，push到GitHub。&lt;/p&gt;
 
 &lt;h1 id=&#34;自动部署&#34;&gt;自动部署&lt;/h1&gt;
 
-&lt;p&gt;上述操作完成后，自动部署就生效了。我们写完一篇博客，只需在hugo分支提交commit、再push到Github，Travis
+&lt;p&gt;上述操作完成后，自动部署就生效了。我们写完一篇博客，只需在hugo分支提交commit、再push到GitHub，Travis
 CI会自动触发后续的构建、部署动作。&lt;/p&gt;
 </description>
     </item>

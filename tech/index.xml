@@ -15,21 +15,21 @@
     
     
     <item>
-      <title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; Github Pages</title>
+      <title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages</title>
       <link>http://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</link>
       <pubDate>Sat, 12 May 2018 08:45:52 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>http://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</guid>
-      <description>这个博客托管在Github Pages上已经有一段时间。最初使用的静态站点生成工具是Jekyll，后来换成Hugo，因为是免费，一直都还比较满意。只有一个小痛点，博客从写完到部署的步骤多：写文章 -&amp;gt; build -&amp;gt; deploy…
-我之前写过一篇用Emacs写博客的workflow，把&amp;rdquo;写文章&amp;rdquo;的流程优化了一把。之后又小打小闹，用Github的webhook做了一个commit message关键字触发的小服务，把&amp;rdquo;build&amp;rdquo;和&amp;rdquo;deploy&amp;rdquo;做成自动化。这个服务跑在免费的Google Cloud上，使用体验还不错，可惜主机没续费，服务直接停掉，源码也丢失了。
-随手Google一把Github Page的持续集成，才后知后觉地发现自己想要的东东已经有了成熟解决方案，而且还可以 免费 用：Travis CI。于是我颇愉快地接受它，并简单地在这里记录下来。
-什么是Travis CI 一个持续化集成平台，类似Jenkins。功能强大，和Github的集成尤其好，我们用它部署个人博客算大材小用。它有两个版本:
- https://travis-ci.org/ 免费版本，可以集成Github的public项目 https://travis-ci.com/ 商业版本，可以集成Github的private项目  我们使用第一个，免费版本。
+      <description>这个博客托管在GitHub Pages上已经有一段时间。最初使用的静态站点生成工具是Jekyll，后来换成Hugo，因为是免费，一直都还比较满意。只有一个小痛点，博客从写完到部署的步骤多：写文章 -&amp;gt; build -&amp;gt; deploy…
+我之前写过一篇用Emacs写博客的workflow，把&amp;rdquo;写文章&amp;rdquo;的流程优化了一把。之后又小打小闹，用GitHub的webhook做了一个commit message关键字触发的小服务，把&amp;rdquo;build&amp;rdquo;和&amp;rdquo;deploy&amp;rdquo;做成自动化。这个服务跑在免费的Google Cloud上，使用体验还不错，可惜主机没续费，服务直接停掉，源码也丢失了。
+随手Google一把GitHub Page的持续集成，才后知后觉地发现自己想要的东东已经有了成熟解决方案，而且还可以 免费 用：Travis CI。于是我颇愉快地接受它，并简单地在这里记录下来。
+什么是Travis CI 一个持续化集成平台，类似Jenkins。功能强大，和GitHub的集成尤其好，我们用它部署个人博客算大材小用。它有两个版本:
+ https://travis-ci.org/ 免费版本，可以集成GitHub的public项目 https://travis-ci.com/ 商业版本，可以集成GitHub的private项目  我们使用第一个，免费版本。
 本博客现状回顾 在进一步描述具体步骤之前，有必要先简要回顾本博客的现状：
- 用Hugo生成静态站点文件 两个git分支, hugo: 存放博客源码, gh-pages: 存放Hugo生成的静态站点文件 自定义域名: `blog.yuantops.com`, 而不是默认的yuantops.github.io  配置Travis CI 为Travis CI生成Github Token 打开Github。路径: &amp;ldquo;Settings&amp;rdquo;-&amp;gt;&amp;ldquo;Developer settings&amp;rdquo;-&amp;gt;&amp;ldquo;Personal access tokens&amp;rdquo;-&amp;gt;&amp;ldquo;Generate new token&amp;rdquo;。
+ 用Hugo生成静态站点文件 两个git分支, hugo: 存放博客源码, gh-pages: 存放Hugo生成的静态站点文件 自定义域名: `blog.yuantops.com`, 而不是默认的yuantops.github.io  配置Travis CI 为Travis CI生成GitHub Token 打开GitHub。路径: &amp;ldquo;Settings&amp;rdquo;-&amp;gt;&amp;ldquo;Developer settings&amp;rdquo;-&amp;gt;&amp;ldquo;Personal access tokens&amp;rdquo;-&amp;gt;&amp;ldquo;Generate new token&amp;rdquo;。
 因为是public项目，而且Travis CI是用来push代码，所以只需勾选 public_repo, repo:status, repo_deployment 三项。
 Token一会儿就会隐藏，不能找回，所以拷贝好，进入下一步。
-配置Travis CI构建选项  用Github方式登录Travis CI(https://travis-ci.org/) &amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;General&amp;rdquo; 勾选&amp;rdquo;Build only if .travis.yml is present&amp;rdquo;和&amp;rdquo;Build pushed branches&amp;rdquo;两项。 &amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;Environment Variables&amp;rdquo; 添加&amp;rdquo;GITHUBTOKEN&amp;ldquo;，值是上一步得到的Token  在git根目录下添加 .</description>
+配置Travis CI构建选项  用GitHub方式登录Travis CI(https://travis-ci.org/) &amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;General&amp;rdquo; 勾选&amp;rdquo;Build only if .travis.yml is present&amp;rdquo;和&amp;rdquo;Build pushed branches&amp;rdquo;两项。 &amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;Environment Variables&amp;rdquo; 添加&amp;rdquo;GITHUBTOKEN&amp;ldquo;，值是上一步得到的Token  在git根目录下添加 .</description>
     </item>
     
     <item>
