@@ -9,7 +9,10 @@ branches:
     - hugo
     
 install:
-  - go get github.com/spf13/hugo 
+  - go get -d github.com/spf13/hugo 
+  - cd $GOPATH/src/github.com/spf13/hugo
+  - git checkout tags/v0.20.7
+  - go install
 
 script:
   - hugo
