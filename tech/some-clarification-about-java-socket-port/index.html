@@ -30,7 +30,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <meta name="generator" content="Hugo 0.41-DEV" />
+    <meta name="generator" content="Hugo 0.20.7" />
 </head>
 
 
@@ -134,16 +134,20 @@ If everything goes well, the server accepts the connection. Upon acceptance, the
 java KnockKnockServer 4444</p>
 
 <p>使用<code>netstat -na</code> 命令查看机器上打开的端口，(省略无关条目)：<br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Proto Recv-Q Send-Q Local Address   Foreign Address         State      
-tcp6       <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        :::4444       :::*               LISTEN</code></pre></div></p>
+
+Proto Recv-Q Send-Q Local Address   Foreign Address         State      
+tcp6       0      0        :::4444       :::*               LISTEN
+</p>
 
 <p>再运行客户端代码，它与本机上的服务器程序建立socket连接。<br />
 java KnockKnockClient 127.0.0.1 4444<br />
 再使用<code>netstat -na</code> 命令查看机器上打开的端口，(省略无关条目)：<br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Proto Recv-Q Send-Q Local Address   Foreign Address         State      
-tcp6       <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span> :::4444                 :::*                    LISTEN     
-tcp6       <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">127</span>.0.0.1:50031         <span style="color:#ae81ff">127</span>.0.0.1:4444          ESTABLISHED  
-tcp6       <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">127</span>.0.0.1:4444          <span style="color:#ae81ff">127</span>.0.0.1:50031         ESTABLISHED  </code></pre></div></p>
+
+Proto Recv-Q Send-Q Local Address   Foreign Address         State      
+tcp6       0      0 :::4444                 :::*                    LISTEN     
+tcp6       0      0 127.0.0.1:50031         127.0.0.1:4444          ESTABLISHED  
+tcp6       0      0 127.0.0.1:4444          127.0.0.1:50031         ESTABLISHED  
+</p>
 
 <p>有两条socket的记录。其中一条是服务器的，另一条是客户端的。它们的local address和foreign address刚好是相反的，这对应了socket的local和remote概念。从这两条记录看，建立的socket连接，服务器端占用的端口还是监听端口(4444)，而且此时服务器还在端口(4444)监听连接请求。</p>
 
@@ -251,6 +255,13 @@ tcp6       <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff"
         </div>
     </div>
     
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-57420914-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>

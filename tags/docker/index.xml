@@ -10,9 +10,7 @@
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Mon, 12 Jan 2015 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://blog.yuantops.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="https://blog.yuantops.com/tags/docker/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>理解Docker -- Docker Official Docs翻译</title>
@@ -20,38 +18,199 @@
       <pubDate>Mon, 12 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/understanding-docker/</guid>
-      <description>Docker是什么 Docker是用于开发(develop)、转移(ship)、运行(run)程序(application)的一个开放平台。Docker的设计目的是为了更快地传递程序。在Docker的帮助下，你能将程序与硬件基础(infrastructure)隔离、把硬件基础看作一个可管理的程序。Docker能帮你更快地转移代码、测试代码、部署代码，缩短编写代码与运行代码之间的周期。
-Docker将一种轻量级的容器虚拟化平台技术(container virtualization platform)与相应的工作流程和工具结合起来，从而能帮你管理、部署自己的程序。
-在核心层面，Docker支持在一个容器(container)中安全(securely)、独立(isolated)地运行几乎任何一种程序。这种独立性、安全性允许你在主机(host)上同时运行多个容器。容器在运行时不需要分配额外负载给监视程序(hypervisor)，它的这种轻量级特性意味着你能更大限度地使用硬件资源。
-基于容器虚拟化，Docker提供的工具和平台能帮助你：
- 将你的程序(和支持的组件)放到Docker容器中
- 分发(distribute)、转移(ship)这些容器给自己的团队成员，以便他们后续的开发和测试
- 把这些程序部署到产品环境中，不管你的产品环境位于本地数据中心还是在云中
-  我能用Docker做什么？ 更快地转移程序
-Docker是帮你处理开发周期的绝好工具。Docker能允许开发者在包含你的程序和服务的本地容器上开发，然后它能整合到一个连续的整合、部署工作流程中。
-举个例子。开发者在本地编写程序，通过Docker将开发环境与同事共享。当他们的工作完成时，开发者将他们的代码和开发环境推送到一个测试环境上，并且执行任何必要的测试。然后，你能从测试环境将Docker镜像(image)推送到产品，部署代码。
-更方便地部署、扩展
-Docker基于容器的平台支持高便携性(portable)的工作负载(workload)。Docker容器能运行在开发者的本地机器上、数据中心的物理/虚拟机器上，也能运行在云端。
-支持更高密度，运行更多工作负载
-Docker是轻量级的，而且很快。与基于监督程序(hypervisor)的虚拟机相比，它提供了可变的、低消耗的替代方案。在高密度(high density)的工作环境中，这一点就显得格外重要，例如：当搭建你自己的云或者Platform-as-a-service服务时。不止如此，当你想尽可能地利用你的资源来做小型/中型的部署时，Docker也同样有用。
-Docker的主要组件有哪些？ Docker主要组件有两个：
- Docker: 开源的容器虚拟化平台 Docker Hub：Software-as-a-Service平台，用来分享、管理Docker容器
-  注意：Docker受开源协议Apache 2.0约束
-Docker的架构 Docker使用客户端-服务器架构。Docker客户端(client)与Docker守护进程(deamon)通信，后者来完成建立版本(build)、运行(run)、分发(distribute)Docker容器等工作。Docker客户端和守护进程*可以*同时运行在一个系统上；你也可以将Docker客户端连接到一个远程Docker守护进程。Docker客户端和Docker守护进程通过socket或者REST API通信。
-Docker守护进程 如上图所示，Docker守护进程运行在一台宿主机器上。用户不直接与守护进程通信，而是通过客户端与之通信。
-Docker客户端 Docker客户端，往往是二进制形式的docker程序，是Docker最主要的用户使用接口。它接收来自用户的命令，将它来回地与守护程序进行通信。
-在Docker内部 为了理解Docker的内部原理，你需要理解三个组件：
- 镜像(image)
- 仓库(registry)
- 容器(container)
-  #镜像 镜像是一个只读(read-only)的模板。例如，一个镜像可能包含安装了Apache和你的Web服务器的一个Ubuntu操作系统。镜像是用来创造Docker容器的。通过Docker，你能以简单的方式创建新的镜像、更新现存的镜像，或者下载别人已经创建好了的镜像。Docker镜像是Docker的创建(build)组件。
-仓库 仓库保存镜像。它们是你用来上传、下载镜像的私有/公有场所。官方的Docker仓库是Docker Hub，它提供了一个巨大的镜像仓库集以供你使用。你可以自己创建镜像，也可以使用别人事先已经建好了的镜像。Docker仓库是Docker的分发(distribute)组件。
-容器 容器与目录类似。容器包含了运行一个程序所需要的所有东西。每个容器都是创建自一个镜像。容器可以被运行、启动、停止、移动、删除。每个容器都是一个隔离、安全的程序平台。Docker容器是Docker的运行(run)组件。
-那么，Docker到底如何工作？ 现在，我们已经知道：
- 你可以创建Docker镜像来保存程序
- 你可以从Docker镜像中新建Docker容器来运行程序
- 你可以通过Docker Hub或者自己的私有仓库来分享Docker镜像
-  下面，让我们看看这些组件是如何协作起来使Docker工作的。</description>
+      <description>
+
+&lt;h3 id=&#34;docker是什么&#34;&gt;Docker是什么&lt;/h3&gt;
+
+&lt;p&gt;Docker是用于开发(develop)、转移(ship)、运行(run)程序(application)的一个开放平台。Docker的设计目的是为了更快地传递程序。在Docker的帮助下，你能将程序与硬件基础(infrastructure)隔离、把硬件基础看作一个可管理的程序。Docker能帮你更快地转移代码、测试代码、部署代码，缩短编写代码与运行代码之间的周期。&lt;/p&gt;
+
+&lt;p&gt;Docker将一种轻量级的容器虚拟化平台技术(container virtualization platform)与相应的工作流程和工具结合起来，从而能帮你管理、部署自己的程序。&lt;/p&gt;
+
+&lt;p&gt;在核心层面，Docker支持在一个容器(container)中安全(securely)、独立(isolated)地运行几乎任何一种程序。这种独立性、安全性允许你在主机(host)上同时运行多个容器。容器在运行时不需要分配额外负载给监视程序(hypervisor)，它的这种轻量级特性意味着你能更大限度地使用硬件资源。&lt;/p&gt;
+
+&lt;p&gt;基于容器虚拟化，Docker提供的工具和平台能帮助你：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;将你的程序(和支持的组件)放到Docker容器中&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;分发(distribute)、转移(ship)这些容器给自己的团队成员，以便他们后续的开发和测试&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;把这些程序部署到产品环境中，不管你的产品环境位于本地数据中心还是在云中&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;我能用docker做什么&#34;&gt;我能用Docker做什么？&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;更快地转移程序&lt;/em&gt;&lt;br /&gt;
+Docker是帮你处理开发周期的绝好工具。Docker能允许开发者在包含你的程序和服务的本地容器上开发，然后它能整合到一个连续的整合、部署工作流程中。&lt;/p&gt;
+
+&lt;p&gt;举个例子。开发者在本地编写程序，通过Docker将开发环境与同事共享。当他们的工作完成时，开发者将他们的代码和开发环境推送到一个测试环境上，并且执行任何必要的测试。然后，你能从测试环境将Docker镜像(image)推送到产品，部署代码。&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;更方便地部署、扩展&lt;/em&gt;&lt;br /&gt;
+Docker基于容器的平台支持高便携性(portable)的工作负载(workload)。Docker容器能运行在开发者的本地机器上、数据中心的物理/虚拟机器上，也能运行在云端。&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;支持更高密度，运行更多工作负载&lt;/em&gt;&lt;br /&gt;
+Docker是轻量级的，而且很快。与基于监督程序(hypervisor)的虚拟机相比，它提供了可变的、低消耗的替代方案。在高密度(high density)的工作环境中，这一点就显得格外重要，例如：当搭建你自己的云或者Platform-as-a-service服务时。不止如此，当你想尽可能地利用你的资源来做小型/中型的部署时，Docker也同样有用。&lt;/p&gt;
+
+&lt;h2 id=&#34;docker的主要组件有哪些&#34;&gt;Docker的主要组件有哪些？&lt;/h2&gt;
+
+&lt;p&gt;Docker主要组件有两个：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Docker: 开源的容器虚拟化平台&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://hub.docker.com/&#34;&gt;Docker Hub&lt;/a&gt;：Software-as-a-Service平台，用来分享、管理Docker容器&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：Docker受开源协议Apache 2.0约束&lt;/p&gt;
+
+&lt;h2 id=&#34;docker的架构&#34;&gt;Docker的架构&lt;/h2&gt;
+
+&lt;p&gt;Docker使用客户端-服务器架构。Docker&lt;em&gt;客户端&lt;/em&gt;(client)与Docker&lt;em&gt;守护进程&lt;/em&gt;(deamon)通信，后者来完成建立版本(build)、运行(run)、分发(distribute)Docker容器等工作。Docker客户端和守护进程*可以*同时运行在一个系统上；你也可以将Docker客户端连接到一个远程Docker守护进程。Docker客户端和Docker守护进程通过socket或者REST API通信。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://docs.docker.com/article-img/architecture.svg&#34; alt=&#34;Docker Arch&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;docker守护进程&#34;&gt;Docker守护进程&lt;/h3&gt;
+
+&lt;p&gt;如上图所示，Docker守护进程运行在一台宿主机器上。用户不直接与守护进程通信，而是通过客户端与之通信。&lt;/p&gt;
+
+&lt;h3 id=&#34;docker客户端&#34;&gt;Docker客户端&lt;/h3&gt;
+
+&lt;p&gt;Docker客户端，往往是二进制形式的&lt;code&gt;docker&lt;/code&gt;程序，是Docker最主要的用户使用接口。它接收来自用户的命令，将它来回地与守护程序进行通信。&lt;/p&gt;
+
+&lt;h3 id=&#34;在docker内部&#34;&gt;在Docker内部&lt;/h3&gt;
+
+&lt;p&gt;为了理解Docker的内部原理，你需要理解三个组件：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;镜像(image)&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;仓库(registry)&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;容器(container)&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;镜像&#34;&gt;#镜像&lt;/h3&gt;
+
+&lt;p&gt;镜像是一个只读(read-only)的模板。例如，一个镜像可能包含安装了Apache和你的Web服务器的一个Ubuntu操作系统。镜像是用来创造Docker容器的。通过Docker，你能以简单的方式创建新的镜像、更新现存的镜像，或者下载别人已经创建好了的镜像。Docker镜像是Docker的&lt;strong&gt;创建(build)&lt;/strong&gt;组件。&lt;/p&gt;
+
+&lt;h3 id=&#34;仓库&#34;&gt;仓库&lt;/h3&gt;
+
+&lt;p&gt;仓库保存镜像。它们是你用来上传、下载镜像的私有/公有场所。官方的Docker仓库是&lt;a href=&#34;https://hub.docker.com/&#34;&gt;Docker Hub&lt;/a&gt;，它提供了一个巨大的镜像仓库集以供你使用。你可以自己创建镜像，也可以使用别人事先已经建好了的镜像。Docker仓库是Docker的&lt;strong&gt;分发(distribute)&lt;/strong&gt;组件。&lt;/p&gt;
+
+&lt;h3 id=&#34;容器&#34;&gt;容器&lt;/h3&gt;
+
+&lt;p&gt;容器与目录类似。容器包含了运行一个程序所需要的所有东西。每个容器都是创建自一个镜像。容器可以被运行、启动、停止、移动、删除。每个容器都是一个隔离、安全的程序平台。Docker容器是Docker的&lt;strong&gt;运行(run)&lt;/strong&gt;组件。&lt;/p&gt;
+
+&lt;h2 id=&#34;那么-docker到底如何工作&#34;&gt;那么，Docker到底如何工作？&lt;/h2&gt;
+
+&lt;p&gt;现在，我们已经知道：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;你可以创建Docker镜像来保存程序&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;你可以从Docker镜像中新建Docker容器来运行程序&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;你可以通过&lt;a href=&#34;https://hub.docker.com/&#34;&gt;Docker Hub&lt;/a&gt;或者自己的私有仓库来分享Docker镜像&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;下面，让我们看看这些组件是如何协作起来使Docker工作的。&lt;/p&gt;
+
+&lt;h2 id=&#34;镜像如何工作&#34;&gt;镜像如何工作？&lt;/h2&gt;
+
+&lt;p&gt;我们已经知道，镜像是只读模板，由它们启动容器。每个镜像由一系列层(layer)组成。Docker利用&lt;a href=&#34;http://en.wikipedia.org/wiki/UnionFS&#34;&gt;union file system&lt;/a&gt;将这些层组合成单个镜像。Union file system允许独立文件系统的文件和目录(被称作branch)被透明地叠架起来(overlaid)，以此组成一个单个紧密的文件系统。&lt;/p&gt;
+
+&lt;p&gt;Docker被称为“轻量级”，原因之一就在于这些层。当你改变一个镜像的时候，譬如说将某个程序更新到了新版本，一个层会被新建出来。如果我们使用的是虚拟机，这时候往往需要替换整个镜像，要不就是整体再创建一个版本。对比之下，Docker只需添加或者更新一个层。如此，你不必再去分发一整个镜像，而仅仅需要更新层就好了，这使得发布Docker的镜像变得更快、更容易。&lt;/p&gt;
+
+&lt;p&gt;每个镜像都以一个基础镜像为起点，譬如&lt;code&gt;ubuntu&lt;/code&gt;，一个基础的Ubuntu镜像，或者&lt;code&gt;fedora&lt;/code&gt;，一个基础的Fedora镜像。你也可以用自己的镜像做新镜像的基础镜像，譬如如果你有个基础的Apache镜像，你就能用它作你所有网页程序镜像的基础。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;注意：Docker一般从&lt;a href=&#34;https://hub.docker.com/&#34;&gt;Docker Hub&lt;/a&gt;中获取基础镜像。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;从基础镜像出发，我们能通过简单、描述性的一系列步骤(我们称其为&lt;em&gt;指示(instructions)&lt;/em&gt;)新建一个镜像。每一步都会在我们的镜像中新建一个层。这些步骤包括以下动作：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;运行命令&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;添加文件或者目录&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;创建环境变量&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;定义当启动从这个镜像创建的容器时，应该运行那些进程&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这些指示被保存在&lt;code&gt;Dockerfile&lt;/code&gt;文件中。当你申请从镜像生成一个版本(build)时，Docker会读取&lt;code&gt;Dockerfile&lt;/code&gt;、执行指示，然后返回最终的镜像。&lt;/p&gt;
+
+&lt;h2 id=&#34;仓库如何工作&#34;&gt;仓库如何工作？&lt;/h2&gt;
+
+&lt;p&gt;仓库是Docker镜像的存储之处。当你创建了一个镜像，你可以将它推送到公共仓库&lt;a href=&#34;https://hub.docker.com/&#34;&gt;Docker Hub&lt;/a&gt;或者自己防火墙之内的私有仓库。&lt;/p&gt;
+
+&lt;p&gt;使用Docker客户端，你能搜索已发布的镜像，然后将它们拉去到本地的Docker主机，再从它里面创建容器。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://hub.docker.com/&#34;&gt;Docker Hub&lt;/a&gt;提供镜像的公有和私有存储。公有存储可以被任何人搜索、下载。私有存储不显示在搜索结果中，而且只有你和你的用户能从中拉取镜像、用这些镜像来生成容器。&lt;/p&gt;
+
+&lt;h2 id=&#34;容器如何工作&#34;&gt;容器如何工作？&lt;/h2&gt;
+
+&lt;p&gt;容器由操作系统、用户添加的文件和元文件(meta-data)构成。我们已经知道，每个容器都由一个镜像创建。这个镜像告诉Docker应该持有什么、在启动容器时应该运行什么，以及其他一系列的配置文件。镜像是只读的。当Docker从镜像创建一个容器时，它在镜像的顶端加上一个读写层(read-write layer)，这样我们的程序就能在它上面运行了。&lt;/p&gt;
+
+&lt;h2 id=&#34;启动一个容器时-发生了什么&#34;&gt;启动一个容器时，发生了什么&lt;/h2&gt;
+
+&lt;p&gt;不论通过&lt;code&gt;docker&lt;/code&gt;命令还是API，Docker客户端通知Docker守护进程去启动一个容器。&lt;br /&gt;
+$ sudo docker run -i -t ubuntu /bin/bash&lt;/p&gt;
+
+&lt;p&gt;我们将这条命令分解来看。Docker客户端通过带&lt;code&gt;run&lt;/code&gt;参数的&lt;code&gt;docker&lt;/code&gt;命令新启动一个容器。为了启动一个容器，Docker客户端至少需要告知Docker守护进程：&lt;br /&gt;
+- 容器应该创建自哪个Docker镜像。在这里是&lt;code&gt;ubuntu&lt;/code&gt;，一个基础Ubuntu镜像。&lt;br /&gt;
+- 当容器启动后，你要在容器内运行什么命令。这里是&lt;code&gt;/bin/bash&lt;/code&gt;，它在容器内启动了Bash shell。&lt;/p&gt;
+
+&lt;p&gt;那么，当我们运行这条命令时，后台发生了什么呢？&lt;/p&gt;
+
+&lt;p&gt;Docker按顺序做了如下事情：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;拉取ubunut镜像&lt;/strong&gt;：Docker检查&lt;code&gt;ubuntu&lt;/code&gt;镜像是否存在，如果在本地不存在，那么它从&lt;a href=&#34;https://hub.docker.com/&#34;&gt;Docker Hub&lt;/a&gt;下载镜像；如果镜像已经存在，Docker将利用它启动新容器。&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;创建新容器&lt;/strong&gt;：Docker有了镜像，用它来新建一个容器。&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;分配文件系统，挂载读写层&lt;/strong&gt;：在文件系统中新建了容器，并给镜像新添了一个读写层。&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;分配网络/网桥接口&lt;/strong&gt;：新建一个网络接口，使Docker容器能与本地主机通信。&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;设置IP地址&lt;/strong&gt;：从地址池中找到一个可用IP，将它关联到容器。&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;执行你指定的程序&lt;/strong&gt;：运行程序。&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;捕获、提供程序输出结果&lt;/strong&gt;：连接并记录标准输入、标准输出、标准错误，使你能看到程序的运行情况。&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;恭喜，你有了一个运行中的容器！从这里，你可以管理容器，与程序交互，然后当结束后停止、移除容器。&lt;/p&gt;
+
+&lt;h2 id=&#34;底层技术&#34;&gt;底层技术&lt;/h2&gt;
+
+&lt;p&gt;Docker用Go语言编写，而且利用了Linux 内核的相关特性来完成上述的功能。&lt;/p&gt;
+
+&lt;h3 id=&#34;命名空间-namespace&#34;&gt;命名空间(namespace)&lt;/h3&gt;
+
+&lt;p&gt;Docker使用了一项叫作&lt;code&gt;命名空间(namespace)&lt;/code&gt;的技术来为容器提供隔离的工作空间。当我们启动一个容器时，Docker会为它创建一系列命名空间。&lt;/p&gt;
+
+&lt;p&gt;这样形成了一个隔离层：容器的每个部分都在它自己的命名空间里运行，而且没有访问它之外的权限。&lt;/p&gt;
+
+&lt;p&gt;Docker使用的部分命名空间包括：&lt;br /&gt;
+- &lt;strong&gt;pid命名空间&lt;/strong&gt;：用于进程隔离(PID, Process ID)&lt;br /&gt;
+- &lt;strong&gt;net命名空间&lt;/strong&gt;：用于管理网络接口(NET, networking)&lt;br /&gt;
+- &lt;strong&gt;ipc命名空间&lt;/strong&gt;：用于管理IPC资源(IPC, InterProcess Communication进程间通信)&lt;br /&gt;
+- &lt;strong&gt;mnt命名空间&lt;/strong&gt;：用于管理挂载点(MNT, Mount)&lt;br /&gt;
+- &lt;strong&gt;uts命名空间&lt;/strong&gt;：用于内核和版本标志隔离(UTS, Unix Timesharing System)&lt;/p&gt;
+
+&lt;h3 id=&#34;组控制-control-groups&#34;&gt;组控制(Control groups)&lt;/h3&gt;
+
+&lt;p&gt;Docker还用到&lt;code&gt;cgroups&lt;/code&gt;技术来进行组控制。隔离运行中程序的关键一点在于，让它们只使用你想让它使用的资源。这确保这些容器在宿主机器上能规规矩矩的。组控制允许Docker能向容器共享硬件资源，而且在必要时候设置资源的上限和限制。例如，可以设置某个特定容器的内存上限。&lt;/p&gt;
+
+&lt;h3 id=&#34;union-file-systems&#34;&gt;Union file Systems&lt;/h3&gt;
+
+&lt;p&gt;Union file Systems，或者UnionFS，是通过创建层的方式运行的，轻量、快速的文件系统。Docker使用Union file Systems为容器提供块(block)。Docker能利用包括AUFS, btrfs, vfs, 和DeviceMapper在内的Union file Systems。&lt;/p&gt;
+
+&lt;h3 id=&#34;容器格式&#34;&gt;容器格式&lt;/h3&gt;
+
+&lt;p&gt;Docker将这些组件结合成一个我们称之为容器格式的包裹层(wrapper)。默认的容器格式被称作&lt;code&gt;libcontainer&lt;/code&gt;。Docker也支持使用&lt;a href=&#34;https://linuxcontainers.org/&#34;&gt;LXC&lt;/a&gt;的传统Linux容器。未来，Docker可能会支持更多的容器格式，例如可能会整合BSD Jail或者Solaris Zone。&lt;/p&gt;
+
+&lt;h2 id=&#34;下一步&#34;&gt;下一步&lt;/h2&gt;
+
+&lt;h3 id=&#34;安装docker&#34;&gt;安装Docker&lt;/h3&gt;
+
+&lt;p&gt;访问&lt;a href=&#34;https://docs.docker.com/installation/#installation&#34;&gt;installation guide&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;docker用户指南&#34;&gt;Docker用户指南&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://docs.docker.com/userguide/&#34;&gt;Learn Docker in depth&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;原文链接&#34;&gt;原文链接&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://docs.docker.com/introduction/understanding-docker/&#34;&gt;About Docker&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
   </channel>

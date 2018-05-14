@@ -30,7 +30,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <meta name="generator" content="Hugo 0.41-DEV" />
+    <meta name="generator" content="Hugo 0.20.7" />
 </head>
 
 
@@ -93,8 +93,10 @@
 <p>为了减少这类消耗，Java平台实现了*缓冲I/O*流。输入缓冲流从一块别名为&rdquo;缓存&rdquo;(<em>buffer</em>)的内存区域中读入数据;只有当缓存区变空的时候，原生的输入API才会被调用。类似地，缓冲的输出流向一块缓存中写数据，只有当缓存区满了的时候，原生的API的输出API才会被调用。</p>
 
 <p>程序能把一个非缓冲流转化为缓冲流。我们已经使用过几次这样的&rdquo;包装类&rdquo;了：非缓冲流作为参数传入缓冲流类的构造函数。下面就是一个例子，你可以在用它替代CopyCharacters代码中的构造函数以使用缓冲I/O：<br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">inputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BufferedReader<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> FileReader<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;xanadu.txt&#34;</span><span style="color:#f92672">));</span>
-outputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BufferedWriter<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> FileWriter<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;characteroutput.txt&#34;</span><span style="color:#f92672">));</span></code></pre></div></p>
+
+inputStream = new BufferedReader(new FileReader("xanadu.txt"));
+outputStream = new BufferedWriter(new FileWriter("characteroutput.txt"));
+</p>
 
 <p>可以用来包裹非缓冲流的缓冲流类有4类：BufferedInputStream和BufferedOutputStream生成缓冲字节流, BufferedReader 和BufferedWriter 生成缓冲字符流。</p>
 
@@ -218,6 +220,13 @@ outputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">ne
         </div>
     </div>
     
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-57420914-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>

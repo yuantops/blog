@@ -30,7 +30,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <meta name="generator" content="Hugo 0.41-DEV" />
+    <meta name="generator" content="Hugo 0.20.7" />
 </head>
 
 
@@ -88,7 +88,9 @@
 
 <ol>
 <li>实例化一个ListViewNewsApapter并添加到lvNews：<br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">lvNewsAdapter <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ListViewNewsAdapter<span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">,</span> lvNewsData<span style="color:#f92672">,</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">layout</span><span style="color:#f92672">.</span><span style="color:#a6e22e">news_listitem</span><span style="color:#f92672">);</span></code></pre></div>
+
+lvNewsAdapter = new ListViewNewsAdapter(this, lvNewsData, R.layout.news_listitem);
+
 ListViewNewsApapter这个类继承BaseAdapter，重写了getView()方法。值得注意的是，getView()方法中news实体被被作为Tag添加到了listView的ItemView中。<br /></li>
 </ol>
 
@@ -99,15 +101,21 @@ ListViewNewsApapter这个类继承BaseAdapter，重写了getView()方法。值�
 当点击单个item view时，从view中取出news这个Tag，然后使用UIHelper.showNewsRedirect()方法跳转到新闻阅读详情页。</p></li>
 
 <li><p>实例化一个lvNewsHandler：<br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">lvNewsHandler <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getLvHandler</span><span style="color:#f92672">(</span>lvNews<span style="color:#f92672">,</span> lvNewsAdapter<span style="color:#f92672">,</span> lvNews_foot_more<span style="color:#f92672">,</span> lvNews_foot_progress<span style="color:#f92672">,</span> AppContext<span style="color:#f92672">.</span><span style="color:#a6e22e">PAGE_SIZE</span><span style="color:#f92672">);</span></code></pre></div></p></li>
+
+lvNewsHandler = this.getLvHandler(lvNews, lvNewsAdapter, lvNews_foot_more, lvNews_foot_progress, AppContext.PAGE_SIZE);
+</p></li>
 </ol>
 
 <p>这个Handler定义了当接收到有数据更新的通知时，应该作何处理。主要是通知adapter数据发生了变化：<br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">adapter<span style="color:#f92672">.</span><span style="color:#a6e22e">notifyDataSetChanged</span><span style="color:#f92672">();</span></code></pre></div></p>
+
+adapter.notifyDataSetChanged();
+</p>
 
 <ol>
 <li>下载数据，加载数据：<br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">loadLvNewsData<span style="color:#f92672">(</span>curNewsCatalog<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> lvNewsHandler<span style="color:#f92672">,</span> UIHelper<span style="color:#f92672">.</span><span style="color:#a6e22e">LISTVIEW_ACTION_INIT</span><span style="color:#f92672">);</span></code></pre></div>
+
+loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT);
+
 新开进程，调用appContext.getNewList()从服务器获取数据。数据获取完成后，通过传入的lvNewsHandler发送Message，回调handleMessage(Message msg)方法。<br /></li>
 </ol>
 
@@ -204,6 +212,13 @@ ListViewNewsApapter这个类继承BaseAdapter，重写了getView()方法。值�
         </div>
     </div>
     
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-57420914-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>

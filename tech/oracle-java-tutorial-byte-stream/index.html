@@ -30,7 +30,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <meta name="generator" content="Hugo 0.41-DEV" />
+    <meta name="generator" content="Hugo 0.20.7" />
 </head>
 
 
@@ -96,34 +96,36 @@
 
 <p>下面我们通过一段代码CopyBytes来演示FileInputStream和FileOutputStream的用法。这段代码通过字节流逐字节地拷贝xanadu.txt。</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.io.FileInputStream<span style="color:#f92672">;</span>
-<span style="color:#f92672">import</span> java.io.FileOutputStream<span style="color:#f92672">;</span>
-<span style="color:#f92672">import</span> java.io.IOException<span style="color:#f92672">;</span>
 
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CopyBytes</span> <span style="color:#f92672">{</span>
-	   <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException <span style="color:#f92672">{</span>
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
-        FileInputStream in <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
-        FileOutputStream out <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+public class CopyBytes {
+	   public static void main(String[] args) throws IOException {
 
-        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
-            in <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileInputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;xanadu.txt&#34;</span><span style="color:#f92672">);</span>
-            out <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileOutputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;outagain.txt&#34;</span><span style="color:#f92672">);</span>
-            <span style="color:#66d9ef">int</span> c<span style="color:#f92672">;</span>
+        FileInputStream in = null;
+        FileOutputStream out = null;
 
-            <span style="color:#66d9ef">while</span> <span style="color:#f92672">((</span>c <span style="color:#f92672">=</span> in<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">())</span> <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-                out<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>c<span style="color:#f92672">);</span>
-            <span style="color:#f92672">}</span>
-        <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>in <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-               in<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
-            <span style="color:#f92672">}</span>
-            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>out <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-               out<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
-            <span style="color:#f92672">}</span>
-        <span style="color:#f92672">}</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span></code></pre></div>
+        try {
+            in = new FileInputStream("xanadu.txt");
+            out = new FileOutputStream("outagain.txt");
+            int c;
+
+            while ((c = in.read()) != -1) {
+                out.write(c);
+            }
+        } finally {
+            if (in != null) {
+               in.close();
+            }
+            if (out != null) {
+               out.close();
+            }
+        }
+    }
+}
+
 
 <p>CopyBytes在运行时形成一个循环:它不断从输入流中逐字节地读入数据，然后将字节输出到输出流。如下图所示。</p>
 
@@ -251,6 +253,13 @@
         </div>
     </div>
     
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-57420914-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>

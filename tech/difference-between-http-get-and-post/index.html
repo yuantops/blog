@@ -30,7 +30,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <meta name="generator" content="Hugo 0.41-DEV" />
+    <meta name="generator" content="Hugo 0.20.7" />
 </head>
 
 
@@ -99,7 +99,9 @@
 
 <p>##GET方式
 <strong>注意，GET请求的查询字符串(name/value对)是包含在URL中发送的</strong><br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">/test/demo_form.asp?name1=value1<span style="color:#960050;background-color:#1e0010">&amp;</span>name2=value2</code></pre></div></p>
+
+/test/demo_form.asp?name1=value1&name2=value2
+</p>
 
 <p><strong>关于GET还需注意：</strong></p>
 
@@ -114,9 +116,11 @@
 
 <p>##POST方式
 <strong>注意，POST请求的查询字符串(name/value对)是包含在HTTP消息体中发送的</strong><br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">POST /test/demo_form.asp HTTP/1.1
+
+POST /test/demo_form.asp HTTP/1.1
 Host: w3schools.com
-name1=value1<span style="color:#960050;background-color:#1e0010">&amp;</span>name2=value2</code></pre></div></p>
+name1=value1&name2=value2
+</p>
 
 <p><strong>关于POST还需注意：</strong></p>
 
@@ -277,6 +281,13 @@ name1=value1<span style="color:#960050;background-color:#1e0010">&amp;</span>nam
         </div>
     </div>
     
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-57420914-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>

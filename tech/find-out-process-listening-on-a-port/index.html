@@ -30,7 +30,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <meta name="generator" content="Hugo 0.41-DEV" />
+    <meta name="generator" content="Hugo 0.20.7" />
 </head>
 
 
@@ -97,7 +97,9 @@
 
 <h3 id="netstat">netstat</h3>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"># netstat -tuapn</code></pre></div>
+
+# netstat -tuapn
+
 
 <p>参数解释:</p>
 
@@ -112,7 +114,9 @@
 
 <h3 id="lsof">lsof</h3>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"># lsof -i :4000</code></pre></div>
+
+# lsof -i :4000
+
 
 <p>lsof列出机器上打开的所有文件。这条命令输出端口4000被占用的情况。它的输出形如<br />
         COMMAND    PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME<br />
@@ -122,7 +126,9 @@
 
 <h3 id="ps">ps</h3>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"># ps aux</code></pre></div>
+
+# ps aux
+
 
 <p>参数解释:
         -a 显示所有用户的进程<br />
@@ -135,16 +141,17 @@
 
 <p>下面是该目录下，各个文件的作用:</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">..............................................................
+
+..............................................................
 File		Content
 clear_refs	Clears page referenced bits shown in smaps output
 cmdline		Command line arguments
-cpu			Current and last cpu in which it was executed	<span style="color:#f92672">(</span><span style="color:#ae81ff">2</span>.4<span style="color:#f92672">)(</span>smp<span style="color:#f92672">)</span>
+cpu			Current and last cpu in which it was executed	(2.4)(smp)
 cwd			Link to the current working directory
 environ		Values of environment variables
 exe			Link to the executable of this process
 fd			Directory, which contains all file descriptors
-maps		Memory maps to executables and library files	<span style="color:#f92672">(</span><span style="color:#ae81ff">2</span>.4<span style="color:#f92672">)</span>
+maps		Memory maps to executables and library files	(2.4)
 mem			Memory held by this process
 root		Link to the root directory of this process
 stat		Process status
@@ -155,13 +162,16 @@ pagemap		Page table
 stack		Report full stack trace, enable via CONFIG_STACKTRACE
 smaps		a extension based on maps, showing the memory consumption of
 each 		mapping and flags associated with it
-...............................................................</code></pre></div>
+...............................................................
+
 
 <h2 id="具体应用">具体应用</h2>
 
 <h3 id="找到进程3813的owener">找到进程3813的owener</h3>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"># ps aux | grep <span style="color:#ae81ff">3813</span></code></pre></div>
+
+# ps aux | grep 3813
+
 
 <p>或者 cat /proc/3813/environ , 查看USER字段。</p>
 
@@ -280,6 +290,13 @@ each 		mapping and flags associated with it
         </div>
     </div>
     
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-57420914-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>

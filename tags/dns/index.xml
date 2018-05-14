@@ -10,9 +10,7 @@
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Tue, 23 Dec 2014 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://blog.yuantops.com/tags/dns/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="https://blog.yuantops.com/tags/dns/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>BIND安装笔记</title>
@@ -20,25 +18,152 @@
       <pubDate>Tue, 23 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/bind-installation-guide/</guid>
-      <description>安装环境  网络环境：两台KVM虚拟机，通过NAT方式组成子网(IP地址分别为192.168.100.139, 192.168.100.172)，彼此能ping通，均能访问互联网
- 系统：Redhat 6.6
- 要解析的域名：yuantops.com  安装BIND软件包  $ yum install bind bind-utils
- 为要解析的域名生成DNSSEC KEY 这一步不是配置基本DNS解析器时必须包括的步骤，因此可以省略。
-DNSSEC是为了解决DNS欺骗和缓存污染而设计的一种安全机制。由于DNS域名解析系统在设计之初没有考虑到安全问题，经常有针对DNS系统的攻击发生，而且由于DNS协议十分脆弱，攻击一旦发生就会造成大面积的影响甚至瘫痪。DNSSEC的原理是通过引入加密技术，依靠数字签名保证DNS应答报文的真实性和完整性。具体的介绍请见DNSSEC的原理、配置与部署简介一文。
-假设我要解析的域名为yuantops.com，准备将这个域名对应的DNSSEC KEY文件保存在/var/named/路径下。
-&amp;gt; $ cd /var/named
-&amp;gt; $ dnssec-keygen -a HMAC-SHA256 -b 256 -n USER -r /dev/urandom yuantops.com
-在/var/named/路径下生成了文件名形如Kyuantops.com.+163+15844.key和Kyuantops.com.+163+15844.private的一对key文件。
-启用rndc工具作为BIND的控制工具 这一步同样不是配置一个最基本的DNS解析服务器所必须包含的步骤，因此可以省略。
-rndc是BIND安装包提供的一种域名服务控制工具，它可以运行在其他计算机上，通过网络与DNS服务器进行连接，然后根据管理员的指令对named服务进行远程控制，此时，管理员不需要DNS服务器的根用户权限。更重要一点，rndc能实现数据的热更新，这对繁忙的实际场景而言是十分有必要的。具体的介绍可以请见这篇文章。
-使用rndc-confgen命令生成rndc的配置文件。
-&amp;gt; $ rndc-confgen -a -r /dev/urandom
-在/etc路径下生成了rndc.key文件。
-配置BIND对域名的解析 这一步是必须完成的、最重要的步骤。
- 新建yuantops.com域的zone文件，保存到/var/named/dynamic目录。
-域的zone文件有自己的语法规范，配置起来需要事先对DNS的术语有一定了解。可以参看文章一和 文章二。
-下面是域yuantops.com的zone文件yuantops.com.db的内容:
-&amp;gt;$TTL 86400 ; 24 hours could have been written as 24h or 1d</description>
+      <description>
+
+&lt;h3 id=&#34;安装环境&#34;&gt;安装环境&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;网络环境：两台KVM虚拟机，通过NAT方式组成子网(IP地址分别为192.168.100.139, 192.168.100.172)，彼此能ping通，均能访问互联网&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;系统：Redhat 6.6&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;要解析的域名：yuantops.com&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;安装bind软件包&#34;&gt;安装BIND软件包&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;$ yum install bind bind-utils&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;为要解析的域名生成dnssec-key&#34;&gt;为要解析的域名生成DNSSEC KEY&lt;/h3&gt;
+
+&lt;p&gt;这一步不是配置基本DNS解析器时必须包括的步骤，因此可以省略。&lt;/p&gt;
+
+&lt;p&gt;DNSSEC是为了解决DNS欺骗和缓存污染而设计的一种安全机制。由于DNS域名解析系统在设计之初没有考虑到安全问题，经常有针对DNS系统的攻击发生，而且由于DNS协议十分脆弱，攻击一旦发生就会造成大面积的影响甚至瘫痪。DNSSEC的原理是通过引入加密技术，依靠数字签名保证DNS应答报文的真实性和完整性。具体的介绍请见&lt;a href=&#34;http://netsec.ccert.edu.cn/duanhx/archives/1479&#34;&gt;DNSSEC的原理、配置与部署简介&lt;/a&gt;一文。&lt;/p&gt;
+
+&lt;p&gt;假设我要解析的域名为yuantops.com，准备将这个域名对应的DNSSEC KEY文件保存在/var/named/路径下。&lt;br /&gt;
+&amp;gt; $ cd /var/named&lt;br /&gt;
+&amp;gt; $ dnssec-keygen -a HMAC-SHA256 -b 256 -n USER -r /dev/urandom yuantops.com&lt;/p&gt;
+
+&lt;p&gt;在/var/named/路径下生成了文件名形如Kyuantops.com.+163+15844.key和Kyuantops.com.+163+15844.private的一对key文件。&lt;/p&gt;
+
+&lt;h3 id=&#34;启用rndc工具作为bind的控制工具&#34;&gt;启用rndc工具作为BIND的控制工具&lt;/h3&gt;
+
+&lt;p&gt;这一步同样不是配置一个最基本的DNS解析服务器所必须包含的步骤，因此可以省略。&lt;/p&gt;
+
+&lt;p&gt;rndc是BIND安装包提供的一种域名服务控制工具，它可以运行在其他计算机上，通过网络与DNS服务器进行连接，然后根据管理员的指令对named服务进行远程控制，此时，管理员不需要DNS服务器的根用户权限。更重要一点，rndc能实现数据的&lt;strong&gt;热更新&lt;/strong&gt;，这对繁忙的实际场景而言是十分有必要的。具体的介绍可以请见&lt;a href=&#34;http://book.51cto.com/art/200912/169294.htm&#34;&gt;这篇文章&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;使用rndc-confgen命令生成rndc的配置文件。&lt;br /&gt;
+&amp;gt; $ rndc-confgen -a -r /dev/urandom&lt;/p&gt;
+
+&lt;p&gt;在/etc路径下生成了rndc.key文件。&lt;/p&gt;
+
+&lt;h3 id=&#34;配置bind对域名的解析&#34;&gt;配置BIND对域名的解析&lt;/h3&gt;
+
+&lt;p&gt;这一步是必须完成的、最重要的步骤。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;新建yuantops.com域的zone文件，保存到/var/named/dynamic目录。&lt;br /&gt;
+域的zone文件有自己的语法规范，配置起来需要事先对DNS的术语有一定了解。可以参看&lt;a href=&#34;http://www.zytrax.com/books/dns/ch8/soa.html&#34;&gt;文章一&lt;/a&gt;和 &lt;a href=&#34;http://www.zytrax.com/books/dns/ch6/mydomain.html&#34;&gt;文章二&lt;/a&gt;。&lt;br /&gt;
+下面是域yuantops.com的zone文件yuantops.com.db的内容:&lt;br /&gt;
+&amp;gt;$TTL   86400 ; 24 hours could have been written as 24h or 1d&lt;br /&gt;
+; $TTL used for all RRs without explicit TTL value&lt;br /&gt;
+$ORIGIN yuantops.com.&lt;br /&gt;
+@  1D  IN  SOA ns1.yuantops.com. hostmaster.yuantops.com. (&lt;br /&gt;
+                                  2002022401 ; serial&lt;br /&gt;
+                                  3H ; refresh&lt;br /&gt;
+                                  15 ; retry&lt;br /&gt;
+                                  1w ; expire&lt;br /&gt;
+                                  3h ; minimum    )&lt;br /&gt;
+       IN  NS     ns1.yuantops.com. ; in the domain&lt;br /&gt;
+              IN  MX  10 mail.yuantops.com. ;&lt;br /&gt;
+              ; server host definitions&lt;br /&gt;
+              ns1    IN  A      192.168.100.172;name server definition&lt;br /&gt;
+              www    IN  A      192.168.100.172;web server definition&lt;br /&gt;
+              ftp    IN  CNAME  www.yuantops.com.  ;ftp server definition&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;将yuantops.com域的DNSSEC Key添加到/var/named/目录。&lt;br /&gt;
+在生成DNSSEC Key的第一步中，我们得到了一对key文件。如果因为不准备部署DNSSEC key而跳过了第一步，那么现在这一步也应该跳过。&lt;br /&gt;
+打开/var/named/Kyuantops.com.+163+15844.private文件，复制其中的Key字段到剪贴板。&lt;br /&gt;
+新建/var/named/yuantops.com.key文件，将以下内容填入文件:&lt;br /&gt;
+&amp;gt;key yuantops.com {&lt;br /&gt;
+            algorithm HMAC-SHA256;&lt;br /&gt;
+            secret &amp;ldquo;2viM+VhhgiFGMrOjLAqBtY9usGstiRuZdOElI5U6l/o=&amp;rdquo;;&lt;br /&gt;
+};&lt;/p&gt;
+
+&lt;p&gt;替代secret字段为剪贴板中的内容。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;配置BIND的配置文件/etc/named.conf，添加yuantops.com域的定义、DNSSEC Key定义。&lt;br /&gt;
+named.conf文件是BIND服务器的全局配置文件，非常重要。我们要在里面加入对yuantops.com域的定义、yuantops.com域的DNSSEC Key的定义。&lt;br /&gt;
+将以下内容填入/etc/named.conf文件:&lt;br /&gt;
+&amp;gt;options {&lt;br /&gt;
+                listen-on port 53 { any; };//注意，此处为any，不是127.0.0.1&lt;br /&gt;
+                listen-on-v6 port 53 { ::1; };&lt;br /&gt;
+                directory       &amp;ldquo;/var/named&amp;rdquo;;&lt;br /&gt;
+                dump-file       &amp;ldquo;/var/named/data/cache_dump.db&amp;rdquo;;&lt;br /&gt;
+                statistics-file &amp;ldquo;/var/named/data/named_stats.txt&amp;rdquo;;&lt;br /&gt;
+                memstatistics-file &amp;ldquo;/var/named/data/named_mem_stats.txt&amp;rdquo;;&lt;br /&gt;
+                allow-query     { any; }; //注意，此处是any，不是localhost&lt;br /&gt;
+                recursion yes;&lt;br /&gt;
+                dnssec-enable yes;&lt;br /&gt;
+                dnssec-validation yes;&lt;br /&gt;
+                dnssec-lookaside auto;&lt;br /&gt;
+                /* Path to ISC DLV key */&lt;br /&gt;
+                bindkeys-file &amp;ldquo;/etc/named.iscdlv.key&amp;rdquo;;&lt;br /&gt;
+                managed-keys-directory &amp;ldquo;/var/named/dynamic&amp;rdquo;;&lt;br /&gt;
+};&lt;br /&gt;
+logging {&lt;br /&gt;
+            channel default_debug {&lt;br /&gt;
+            file &amp;ldquo;data/named.run&amp;rdquo;;&lt;br /&gt;
+            severity dynamic;&lt;br /&gt;
+        };&lt;br /&gt;
+};&lt;br /&gt;
+    // use the default rndc key&lt;br /&gt;
+    include &amp;ldquo;/etc/rndc.key&amp;rdquo;;&lt;br /&gt;
+    controls {&lt;br /&gt;
+        inet 127.0.0.1 port 953&lt;br /&gt;
+        allow { 127.0.0.1; } keys { &amp;ldquo;rndc-key&amp;rdquo;; };&lt;br /&gt;
+    };&lt;br /&gt;
+    zone &amp;ldquo;.&amp;rdquo; IN {&lt;br /&gt;
+          type hint;&lt;br /&gt;
+          file &amp;ldquo;named.ca&amp;rdquo;;&lt;br /&gt;
+    }//;&lt;br /&gt;
+&amp;gt;       include &amp;ldquo;/etc/named.rfc1912.zones&amp;rdquo;;&lt;br /&gt;
+&amp;gt;       include &amp;ldquo;/etc/named.root.key&amp;rdquo;;&lt;br /&gt;
+    include &amp;ldquo;yuantops.com.key&amp;rdquo;;&lt;br /&gt;
+    zone &amp;ldquo;yuantops.com&amp;rdquo; IN {&lt;br /&gt;
+      type master;&lt;br /&gt;
+      file &amp;ldquo;dynamic/yuantops.com.db&amp;rdquo;;&lt;br /&gt;
+      allow-update { key yuantops.com ; } ;&lt;br /&gt;
+    };&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;修改配置文件的权限-使能被读取&#34;&gt;修改配置文件的权限，使能被读取&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;$ chmod 644 /etc/named.conf&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;启动bind服务器&#34;&gt;启动BIND服务器&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;$ service named start&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;如果以后BIND服务器设置有改动，需要重启named服务。&lt;/p&gt;
+
+&lt;h3 id=&#34;将机器的dns服务器ip地址设为bind程序所在机器的ip地址&#34;&gt;将机器的DNS服务器IP地址设为BIND程序所在机器的IP地址&lt;/h3&gt;
+
+&lt;p&gt;BIND服务器所在机器的IP地址为192.168.100.172。如果有一台192.168.100.139的机器想以192.168.100.172为DNS服务器，那么修改它的/etc/resolv.conf文件，将第一次出现的nameserver 地址改为192.168.100.172。&lt;/p&gt;
+
+&lt;h3 id=&#34;验证bind服务已经成功安装并启动&#34;&gt;验证BIND服务已经成功安装并启动&lt;/h3&gt;
+
+&lt;p&gt;在192.168.100.139机器上运行命令：&lt;br /&gt;
+&amp;gt;$ dig @192.168.100.172 www.yuantops.com&lt;/p&gt;
+
+&lt;p&gt;如果成功解析出IP地址，证明成功。否则，可以检查BIND服务器的/var/log/message日志文件，寻找原因。&lt;/p&gt;
+
+&lt;h3 id=&#34;使用nsupdate命令操作bind服务器的配置&#34;&gt;使用nsupdate命令操作BIND服务器的配置&lt;/h3&gt;
+</description>
     </item>
     
   </channel>

@@ -30,7 +30,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <meta name="generator" content="Hugo 0.41-DEV" />
+    <meta name="generator" content="Hugo 0.20.7" />
 </head>
 
 
@@ -88,21 +88,25 @@
 
 <p>这里使用了AlphaAnimation类。AlphaAnimation类能实现渐进渐出的效果，官方文档里说“This animation ends up changing the alpha property of a Transformation”。alpha property可以理解为透明度，&rdquo;0.0&rdquo;为全透明，“0.5”为半透明，“1.0”时不透明。</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">	<span style="color:#75715e">//渐变展示启动屏
-</span><span style="color:#75715e"></span>	AlphaAnimation aa <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> AlphaAnimation<span style="color:#f92672">(</span>0<span style="color:#f92672">.</span><span style="color:#a6e22e">3f</span><span style="color:#f92672">,</span>1<span style="color:#f92672">.</span><span style="color:#a6e22e">0f</span><span style="color:#f92672">);</span>
-	aa<span style="color:#f92672">.</span><span style="color:#a6e22e">setDuration</span><span style="color:#f92672">(</span>3000<span style="color:#f92672">);</span>
-	view<span style="color:#f92672">.</span><span style="color:#a6e22e">startAnimation</span><span style="color:#f92672">(</span>aa<span style="color:#f92672">);</span>
-	aa<span style="color:#f92672">.</span><span style="color:#a6e22e">setAnimationListener</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> AnimationListener<span style="color:#f92672">()</span>
-	<span style="color:#f92672">{</span>
-		<span style="color:#a6e22e">@Override</span>
-		<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onAnimationEnd</span><span style="color:#f92672">(</span>Animation arg0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-			redirectTo<span style="color:#f92672">();</span>
-		<span style="color:#f92672">}</span>
-		<span style="color:#a6e22e">@Override</span>
-		<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onAnimationRepeat</span><span style="color:#f92672">(</span>Animation animation<span style="color:#f92672">)</span> <span style="color:#f92672">{}</span>
-		<span style="color:#a6e22e">@Override</span>
-		<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onAnimationStart</span><span style="color:#f92672">(</span>Animation animation<span style="color:#f92672">)</span> <span style="color:#f92672">{}</span>
-	<span style="color:#f92672">});</span></code></pre></div>
+
+
+	//渐变展示启动屏
+	AlphaAnimation aa = new AlphaAnimation(0.3f,1.0f);
+	aa.setDuration(3000);
+	view.startAnimation(aa);
+	aa.setAnimationListener(new AnimationListener()
+	{
+		@Override
+		public void onAnimationEnd(Animation arg0) {
+			redirectTo();
+		}
+		@Override
+		public void onAnimationRepeat(Animation animation) {}
+		@Override
+		public void onAnimationStart(Animation animation) {}
+	});
+
+
 
 <p>另外，欢迎界面的图片可以更新。从代码分析，在将View设置为ContentView之前，程序会检查欢迎界面对应缓存文件夹里的图片文件，图片文件的文件名有一个时间期限，如果今天正好落在这个期限内，那么就将它设为背景图片。如此可以推测APP会在启动后自动下载新的图片文件(如果存在的话)到缓存文件夹，从而达到更新效果。</p>
 
@@ -201,6 +205,13 @@
         </div>
     </div>
     
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-57420914-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>

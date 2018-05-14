@@ -30,7 +30,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <meta name="generator" content="Hugo 0.41-DEV" />
+    <meta name="generator" content="Hugo 0.20.7" />
 </head>
 
 
@@ -95,9 +95,11 @@
 
 <p>在使用openssl ca命令时，如果不手动指定-config参数，它会自动调用/etc/pki/tls/openssl.cnf作为-config配置文件，这个openssl.cnf文件里定义了要调用的CA证书、私钥路径。如果我们在创建CA时将它的证书和私钥等文件保存在了别处，或者/etc/pki/tls/openssl.cnf里的定义的那些文件不存在，那么在openssl ca找不到要使用的这些文件时，就会报错。其中典型的错误有：</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Using configuration from /etc/pki/tls/openssl.cnf
+
+Using configuration from /etc/pki/tls/openssl.cnf
 unable to load CA private key
-<span style="color:#ae81ff">139911890630472</span>:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: ANY PRIVATE KEY  </code></pre></div>
+139911890630472:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: ANY PRIVATE KEY  
+
 
 <p>所以，我们如果想自定义CA的目录位置，那么要事先1）按照OpenSSL的默认配置建立相应的目录结构，2）定制openssl.cnf文件，修改CA目录的路径定义。</p>
 
@@ -106,11 +108,13 @@ unable to load CA private key
 <h4 id="生成ca目录结构">生成CA目录结构</h4>
 
 <p>假设我要将/root/newCA作为CA文件根目录，那么在Terminal中敲入命令：<br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@node ~<span style="color:#f92672">]</span><span style="color:#75715e"># pwd
-</span><span style="color:#75715e"></span>/root
-<span style="color:#f92672">[</span>root@node ~<span style="color:#f92672">]</span><span style="color:#75715e"># mkdir -p ./newCA/{private,newcerts}
-</span><span style="color:#75715e"></span><span style="color:#f92672">[</span>root@node ~<span style="color:#f92672">]</span><span style="color:#75715e"># touch ./newCA/index.txt
-</span><span style="color:#75715e"></span><span style="color:#f92672">[</span>root@node ~<span style="color:#f92672">]</span># echo <span style="color:#ae81ff">01</span> &gt; ./newCA/serial</code></pre></div></p>
+
+[root@node ~]# pwd
+/root
+[root@node ~]# mkdir -p ./newCA/{private,newcerts}
+[root@node ~]# touch ./newCA/index.txt
+[root@node ~]# echo 01 > ./newCA/serial
+</p>
 
 <h4 id="定制openssl-cnf文件">定制openssl.cnf文件</h4>
 
@@ -156,21 +160,23 @@ unable to load CA private key
 <li>生成证书申请、用CA的密钥自签名，用一条语句完成<br /></li>
 </ul>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@node newCA<span style="color:#f92672">]</span><span style="color:#75715e"># openssl req -new -x509 -days 3650 -key private/cakey.pem -out cacert.pem -config openssl.cnf
-</span><span style="color:#75715e"></span>You are about to be asked to enter information that will be incorporated
+
+[root@node newCA]# openssl req -new -x509 -days 3650 -key private/cakey.pem -out cacert.pem -config openssl.cnf
+You are about to be asked to enter information that will be incorporated
 into your certificate request.
 What you are about to enter is what is called a Distinguished Name or a DN.
 There are quite a few fields but you can leave some blank
 For some fields there will be a default value,
-	If you enter <span style="color:#e6db74">&#39;.&#39;</span>, the field will be left blank.
+	If you enter '.', the field will be left blank.
 	-----
-	Country Name <span style="color:#f92672">(</span><span style="color:#ae81ff">2</span> letter code<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>CN<span style="color:#f92672">]</span>:
-	State or Province Name <span style="color:#f92672">(</span>full name<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Beijing<span style="color:#f92672">]</span>:
-	Locality Name <span style="color:#f92672">(</span>eg, city<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>HaiDian<span style="color:#f92672">]</span>:
-	Organization Name <span style="color:#f92672">(</span>eg, company<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Yuantops Company Ltd<span style="color:#f92672">]</span>:
-	Organizational Unit Name <span style="color:#f92672">(</span>eg, section<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Head Office<span style="color:#f92672">]</span>:
-	Common Name <span style="color:#f92672">(</span>eg, your name or your server<span style="color:#960050;background-color:#1e0010">&#39;</span>s hostname<span style="color:#f92672">)</span> <span style="color:#f92672">[]</span>:test.yuantops.com
-	Email Address <span style="color:#f92672">[]</span>:</code></pre></div>
+	Country Name (2 letter code) [CN]:
+	State or Province Name (full name) [Beijing]:
+	Locality Name (eg, city) [HaiDian]:
+	Organization Name (eg, company) [Yuantops Company Ltd]:
+	Organizational Unit Name (eg, section) [Head Office]:
+	Common Name (eg, your name or your server's hostname) []:test.yuantops.com
+	Email Address []:
+
 
 <ul>
 <li>查看我们生成的root-ca.crt的内容<br />
@@ -297,6 +303,13 @@ For some fields there will be a default value,
         </div>
     </div>
     
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-57420914-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
