@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>本博客现已支持HTTPS // Yuantops&#39; Blog</title>
+    <title>Go从GitHub安装命令时指定commit/tag // Yuantops&#39; Blog</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="本博客现已支持HTTPS" />
-<meta property="og:description" content="使用了Cloudflare的SSL free plan。" />
+    <meta property="og:title" content="Go从GitHub安装命令时指定commit/tag" />
+<meta property="og:description" content="Go的版本管理是一大痛点，最近我就亲身经历了一遭。这篇博客介绍一种非官方、指定git commit安装go命令的方法。" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="https://blog.yuantops.com/tech/announcement-blog-https-supported/" />
+<meta property="og:url" content="https://blog.yuantops.com/tech/go-install-cmd-on-specific-git-tag/" />
 
 
     <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
@@ -26,7 +26,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-    <meta name="description" content="使用了Cloudflare的SSL free plan。">
+    <meta name="description" content="Go的版本管理是一大痛点，最近我就亲身经历了一遭。这篇博客介绍一种非官方、指定git commit安装go命令的方法。">
     <meta name="keywords" content="">
     <meta name="author" content="">
 
@@ -63,12 +63,12 @@
     <div class="article-inner">
         
         <header class="article-header">
-            <h1 class="article-title" itemprop="name">本博客现已支持HTTPS</h1>
+            <h1 class="article-title" itemprop="name">Go从GitHub安装命令时指定commit/tag</h1>
         </header>
         
         <div class="article-meta">
-            <a href="/tech/announcement-blog-https-supported/" class="article-date">
-                <time datetime='2018-05-12T12:59:10.000&#43;00:00' itemprop="datePublished">2018-05-12</time>
+            <a href="/tech/go-install-cmd-on-specific-git-tag/" class="article-date">
+                <time datetime='2018-05-14T09:49:03.000&#43;00:00' itemprop="datePublished">2018-05-14</time>
             </a>
             
             
@@ -84,9 +84,37 @@
             
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <p>赶个晚集，给博客加上了HTTPS支持。现在以<code>http://</code>访问博客，会自动跳转到<code>https://</code>。</p>
+            <p>Go的版本管理是一大痛点，最近我就亲身经历了一遭。在<a href="https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/">Blog自动部署实践</a>一文中，我把部署博客的工作流交给了Travis
+CI。第二天，我照例打开Google Analytics查看访问量，发现前一天的访问量跌到0：一定出了什么问题。</p>
 
-<p>感谢Cloudflare提供的福利，让个人博客也能免费享受SSL。</p>
+<p>我从GitHub上把 <code>gh-pages</code> 分支pull下来，grep我的Google Analysis跟踪码，居然没有。在本地用 <code>hugo</code>
+命令生成静态文件，在public目录里发现每篇文章的html页面都包含Google Analytics跟踪代码。到此基本确定问题：Travis
+CI build生成的静态网页货不对版，因为默认使用最新版本 <code>hugo</code> 命令，所以绝对是 <code>hugo</code> 版本更新导致的兼容问题。</p>
+
+<p>解法也很简单，在 <code>.travis.yml</code> 文件里安装指定版本的 <code>hugo</code> 命令，让它和我本地<code>hugo</code>命令的版本号保持一致。</p>
+
+<p><code>.travis.yml</code> 用go get安装Go命令。虽然官方不支持指定commit，但我在<a href="https://stackoverflow.com/questions/30188499/how-to-do-go-get-on-a-specific-tag-of-a-github-repository">Stackoverflow:How to do
+“go get” on a specific tag of a github
+repository</a>
+上找到了曲线救国方法，摘录如下：</p>
+
+<pre><code>1. Run the get command without the tag - it should clone the master branch.
+2. Move to the clone directory and checkout the tag or branch that you want.
+3. Run the go get command again, it should process the command on the checked out branch.
+</code></pre>
+
+<p>事实上，这个方法行之有效。更新后， <code>.travis.yml</code> 文件的install部分长这样:</p>
+
+<pre><code>install:
+  - go get -d github.com/spf13/hugo 
+  - cd $GOPATH/src/github.com/spf13/hugo
+  - git checkout tags/v0.20.7
+  - go get github.com/spf13/hugo
+  - cd $TRAVIS_BUILD_DIR
+  - hugo version
+</code></pre>
+
+<p>我指定安装v0.20.7版本的hugo，并手工打出版本号确认。重新部署后，Google Analytics统计恢复正常。</p>
 
         </div>
 
@@ -137,19 +165,24 @@
 
         
 	
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/golang">Golang
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
 	
     </div>
     <nav id="article-nav">
     
-    <a href="/tech/go-install-cmd-on-specific-git-tag/" id="article-nav-newer" class="article-nav-link-wrap">
-        <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            Go从GitHub安装命令时指定commit/tag
-        </div>
-    </a>
     
-    
-    <a href="/tech/hugo-travis-ci-auto-deploy-to-gh-pages/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages&nbsp;<span>&gt;</span></div>
+    <a href="/tech/announcement-blog-https-supported/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">本博客现已支持HTTPS&nbsp;<span>&gt;</span></div>
     </a>
     
 </nav>

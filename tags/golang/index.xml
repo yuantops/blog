@@ -9,8 +9,48 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Fri, 11 May 2018 10:33:25 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 14 May 2018 09:49:03 +0000</lastBuildDate>
     <atom:link href="https://blog.yuantops.com/tags/golang/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Go从GitHub安装命令时指定commit/tag</title>
+      <link>https://blog.yuantops.com/tech/go-install-cmd-on-specific-git-tag/</link>
+      <pubDate>Mon, 14 May 2018 09:49:03 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/go-install-cmd-on-specific-git-tag/</guid>
+      <description>&lt;p&gt;Go的版本管理是一大痛点，最近我就亲身经历了一遭。在&lt;a href=&#34;https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/&#34;&gt;Blog自动部署实践&lt;/a&gt;一文中，我把部署博客的工作流交给了Travis
+CI。第二天，我照例打开Google Analytics查看访问量，发现前一天的访问量跌到0：一定出了什么问题。&lt;/p&gt;
+
+&lt;p&gt;我从GitHub上把 &lt;code&gt;gh-pages&lt;/code&gt; 分支pull下来，grep我的Google Analysis跟踪码，居然没有。在本地用 &lt;code&gt;hugo&lt;/code&gt;
+命令生成静态文件，在public目录里发现每篇文章的html页面都包含Google Analytics跟踪代码。到此基本确定问题：Travis
+CI build生成的静态网页货不对版，因为默认使用最新版本 &lt;code&gt;hugo&lt;/code&gt; 命令，所以绝对是 &lt;code&gt;hugo&lt;/code&gt; 版本更新导致的兼容问题。&lt;/p&gt;
+
+&lt;p&gt;解法也很简单，在 &lt;code&gt;.travis.yml&lt;/code&gt; 文件里安装指定版本的 &lt;code&gt;hugo&lt;/code&gt; 命令，让它和我本地&lt;code&gt;hugo&lt;/code&gt;命令的版本号保持一致。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;.travis.yml&lt;/code&gt; 用go get安装Go命令。虽然官方不支持指定commit，但我在&lt;a href=&#34;https://stackoverflow.com/questions/30188499/how-to-do-go-get-on-a-specific-tag-of-a-github-repository&#34;&gt;Stackoverflow:How to do
+“go get” on a specific tag of a github
+repository&lt;/a&gt;
+上找到了曲线救国方法，摘录如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1. Run the get command without the tag - it should clone the master branch.
+2. Move to the clone directory and checkout the tag or branch that you want.
+3. Run the go get command again, it should process the command on the checked out branch.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;事实上，这个方法行之有效。更新后， &lt;code&gt;.travis.yml&lt;/code&gt; 文件的install部分长这样:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;install:
+  - go get -d github.com/spf13/hugo 
+  - cd $GOPATH/src/github.com/spf13/hugo
+  - git checkout tags/v0.20.7
+  - go get github.com/spf13/hugo
+  - cd $TRAVIS_BUILD_DIR
+  - hugo version
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我指定安装v0.20.7版本的hugo，并手工打出版本号确认。重新部署后，Google Analytics统计恢复正常。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>用Benchmark验证sync.Pool对GC latency的优化效果</title>
