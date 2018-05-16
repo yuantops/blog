@@ -4,6 +4,7 @@ date = "2018-05-11T10:33:25Z"
 Categories = ["Tech"]
 Tags = ["Golang"]
 Description = "sync.Pool确实能极大减少GC次数。"
+keywords = ["go GC优化","sync.Pool性能"]
 +++
 
 

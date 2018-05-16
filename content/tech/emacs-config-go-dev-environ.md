@@ -4,6 +4,7 @@ date = "2018-01-04T00:31:08Z"
 Categories = ["Tech"]
 Tags = ["Emacs", "Golang"]
 Description = "换过几次电脑，每次配Golang环境都要求助Google，比较浪费时间。刚刚在公司的Mac上把Golang+Emacs开发环境搭好，趁着记忆还热乎，把步骤记录下来。"
+keywords = ["Emacs","Go环境搭建"]
 +++
 
 # 安装Go

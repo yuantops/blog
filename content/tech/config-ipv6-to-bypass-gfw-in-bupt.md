@@ -3,6 +3,7 @@ Categories = ["Tech"]
 date = "2015-01-17T00:00:00Z"
 Description = "北邮作为教育网华北主节点之一，对IPv6的支持十分成熟，校内IPv6资源十分丰富。本文介绍IPv6的配置方法，它使我们能最大程度地利用校内外的IPv6资源。"
 title = "北邮校园网通过配置IPv6使用Google服务"
+keywords = ["北邮youtube","ipv6上youtube"]
 +++
 
 ## 前提

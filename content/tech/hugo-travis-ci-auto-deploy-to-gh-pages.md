@@ -4,6 +4,7 @@ date = "2018-05-12T8:45:52Z"
 Categories = ["Tech"]
 Tags = ["gh-pages"]
 Description = "这篇文章记录了如何使用免费Travis CI平台，将Hugo生成的静态博客站点自动部署到GitHub Pages。"
+keywords = ["travis部署博客","GitHub Pages自动部署"]
 +++
 
 这个博客托管在GitHub

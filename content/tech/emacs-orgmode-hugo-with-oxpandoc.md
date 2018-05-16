@@ -4,6 +4,7 @@ date = "2017-12-10T13:16:22Z"
 Categories = ["Tech"]
 Tags = ["Emacs"]
 Description = "我用orgmode + hugo写博客的个人实践，希望对orgmode中文用户/hugo blogger有所启发。"
+keywords = ["orgmode写博客","ox-pandoc导出博客"]
 +++
 
 

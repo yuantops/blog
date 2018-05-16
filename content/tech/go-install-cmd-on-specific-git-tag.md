@@ -4,6 +4,7 @@ date = "2018-05-14T09:49:03Z"
 Categories = ["Tech"]
 Tags = ["Golang"]
 Description = "Go的版本管理是一大痛点，最近我就亲身经历了一遭。这篇博客介绍一种非官方、指定git commit安装go命令的方法。"
+keywords = ["go命令指定commit"]
 +++
 
 Go的版本管理是一大痛点，最近我就亲身经历了一遭。在[Blog自动部署实践](https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/)一文中，我把部署博客的工作流交给了Travis
