@@ -20,8 +20,16 @@
                     <a class="article-category-link" href="{{ $Site.BaseURL }}/categories/{{ $e | urlize }}">{{ $e }}</a>
                     {{ end }}
                 </div>
+		{{ if .WordCount }}
+		<div class="article-category">
+	      	  {{.WordCount}}字, 约{{.ReadingTime}}分钟读完
+		</div>
+	    {{ end}}
+
             </div>
             {{ end }}
+
+	    
             {{ if .Site.Params.disqusShortname }}
             <div class="article-comment-link-wrap">
                 <a href="{{ .RelPermalink }}#disqus_thread" class="article-comment-link">Comments</a>
