@@ -3,7 +3,7 @@ Categories = ["Opinions"]
 Description = "娱乐公众号被封事件，警告了我们背离自由、拥抱垄断的代价。"
 Tags = [""]
 date = "2017-06-10T13:42:31+08:00"
-title = "free as in freedom"
+title = "Free as in freedom"
 
 +++
 
