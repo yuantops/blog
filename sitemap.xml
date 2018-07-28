@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yuantops.com/tech/rasp-pi-dht11/</loc>
+    <lastmod>2018-07-28T20:30:45+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.yuantops.com/opinions/talk-between-wangshuo-and-xiaobo-review/</loc>
     <lastmod>2018-05-20T09:48:12+00:00</lastmod>
   </url>
@@ -639,13 +644,13 @@
   
   <url>
     <loc>https://blog.yuantops.com/categories/tech/</loc>
-    <lastmod>2018-05-14T09:49:03+00:00</lastmod>
+    <lastmod>2018-07-28T20:30:45+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yuantops.com/tech/</loc>
-    <lastmod>2018-05-14T09:49:03+00:00</lastmod>
+    <lastmod>2018-07-28T20:30:45+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -657,13 +662,19 @@
   
   <url>
     <loc>https://blog.yuantops.com/</loc>
-    <lastmod>2018-05-20T09:48:12+00:00</lastmod>
+    <lastmod>2018-07-28T20:30:45+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yuantops.com/tags/%E6%96%B0%E5%B9%B4/</loc>
     <lastmod>2016-01-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.yuantops.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</loc>
+    <lastmod>2018-07-28T20:30:45+00:00</lastmod>
     <priority>0</priority>
   </url>
   

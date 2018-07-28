@@ -9,8 +9,86 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Sun, 20 May 2018 09:48:12 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 28 Jul 2018 20:30:45 +0000</lastBuildDate>
     <atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>树莓派连接DHT11温度湿度传感器</title>
+      <link>https://blog.yuantops.com/tech/rasp-pi-dht11/</link>
+      <pubDate>Sat, 28 Jul 2018 20:30:45 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/rasp-pi-dht11/</guid>
+      <description>
+
+&lt;p&gt;记录一下给树莓派安装温度湿度传感器的过程。&lt;/p&gt;
+
+&lt;p&gt;树莓派主板有一排GPIO扩展口，可以方便地驱动硬件。温度湿度传感器DHT11是一种常见传感器，很适合作为入门器件，探索树莓派的硬件能力。&lt;/p&gt;
+
+&lt;p&gt;我上次接触硬件知识还是在大二的单片机小学期，几乎已经忘光，正好趁机抢救性回忆一下。&lt;/p&gt;
+
+&lt;h1 id=&#34;目标&#34;&gt;目标&lt;/h1&gt;
+
+&lt;p&gt;在树莓派上读到温度和湿度数据。&lt;/p&gt;
+
+&lt;h1 id=&#34;元件清单&#34;&gt;元件清单&lt;/h1&gt;
+
+&lt;p&gt;除了传感器DHT11，还需要连接线、面包板等元件，在淘宝上很好买到。&lt;/p&gt;
+
+&lt;p&gt;我额外买了一块树莓派特制GPIO扩展板，用它把树莓派的40根针脚延长到面包板，类似USB延长线。很怀疑这是来自中国的&amp;rdquo;微创新&amp;rdquo;，值得赞美，因为确实解决了树莓派针脚空间狭小不便于插线的小痛点。&lt;/p&gt;
+
+&lt;p&gt;下面是元件清单：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;树莓派Model 3 B&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;DHT11传感器。我用的是三脚型号。&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;面包板&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;杜邦线/连接线&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;插线&#34;&gt;插线&lt;/h1&gt;
+
+&lt;p&gt;在实际插线之前，有必要先来认识树莓派针脚。树莓派3代一共40根针脚，这么辨认物理编号：横着放，让2排针脚在上面，上面那排是偶数，从左到右是2到40；下面那排是奇数，从左到右是1到39。&lt;/p&gt;
+
+&lt;p&gt;40根针脚里，有28根GPIO针脚。这28根针脚，又有两种命名规则：BCM编号，WiringPi编号。还要注意，树莓派2代和3代的对应关系不一样，参考网上资料时要看清针脚图的型号。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;BCM编号，就是我们常看见的 &lt;code&gt;GPIOxx&lt;/code&gt; 里面的 &lt;code&gt;xx&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;WiringPi编号，是 &lt;a href=&#34;http://wiringpi.com/&#34;&gt;WiringPi库&lt;/a&gt;
+使用的编号。除非是用WiringPi库驱动针脚，否则不需关注。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;对我这样的新手而言，最初物理编号和BCM编号两套规则切换起来有些烦人，需要一些细心。&lt;/p&gt;
+
+&lt;p&gt;下面的接线方案，用的是物理编号：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;左边 &lt;code&gt;+&lt;/code&gt; 接3.3V电源，选择 &lt;code&gt;1&lt;/code&gt; 口。&lt;/li&gt;
+&lt;li&gt;中间 &lt;code&gt;DATA&lt;/code&gt; ，选择 &lt;code&gt;7&lt;/code&gt; 口。&lt;/li&gt;
+&lt;li&gt;右边 &lt;code&gt;-&lt;/code&gt; 接地，选择 &lt;code&gt;14&lt;/code&gt; 口。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;安装命令&#34;&gt;安装命令&lt;/h1&gt;
+
+&lt;p&gt;DHT11是非常成熟通用的传感器，对它的驱动封装也特别多，不需再造轮子。货比三家，我发现Adafruit公司开源的代码质量最高，运行起来最稳定。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装Adadruit公司的开源库：&lt;a href=&#34;https://github.com/adafruit/Adafruit_Python_DHT&#34;&gt;Adafruit Python DHT&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在安装目录下, 进入example目录，运行 &lt;code&gt;AdafruitDHT.py&lt;/code&gt;
+文件:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;pi@raspberrypi:~/Adafruit_Python_DHT/examples $ python AdafruitDHT.py 
+0 30.0 C 70.0%
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我房间此时是30摄氏度，湿度70%。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;至此DHT11温度湿度传感器的安装完成。&lt;/p&gt;
+
+&lt;p&gt;更进一步，在手机上查看，或者在LCD显示屏上展示，请期待后续文章。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>诚实与圣徒——读《美人赠我蒙汗药》</title>
