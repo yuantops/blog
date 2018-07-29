@@ -1,5 +1,5 @@
 +++
-title = "Siri变身完美家庭助手：兼容Apple Homekit不支持的设备"
+title = "[译文]让Siri变身完美家庭助手：兼容Apple Homekit不支持的设备"
 date = "2018-07-29T17:48:19Z"
 Categories = ["Tech"]
 Tags = ["树莓派"]
