@@ -9,8 +9,241 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Sat, 28 Jul 2018 20:30:45 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 29 Jul 2018 17:48:19 +0000</lastBuildDate>
     <atom:link href="https://blog.yuantops.com/categories/tech/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Siri变身完美家庭助手：兼容Apple Homekit不支持的设备</title>
+      <link>https://blog.yuantops.com/tech/homebridge-plugin-tutorial/</link>
+      <pubDate>Sun, 29 Jul 2018 17:48:19 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/homebridge-plugin-tutorial/</guid>
+      <description>
+
+&lt;p&gt;译文一篇,
+原文地址：&lt;a href=&#34;http://blog.theodo.fr/2017/08/make-siri-perfect-home-companion-devices-not-supported-apple-homekit/&#34;&gt;http://blog.theodo.fr/2017/08/make-siri-perfect-home-companion-devices-not-supported-apple-homekit/&lt;/a&gt;
+。&lt;/p&gt;
+
+&lt;p&gt;Apple推出Homekit已有一段时间，作为智能家具解决布局的重要一环，Homekit在中文互联网上的资料可算寥寥。这篇文章介绍了Homekit平台抽象的关键概念，以及Homebridge这一款破解了Homekit协议、并支持插件化开发扩展的优秀程序。&lt;/p&gt;
+
+&lt;p&gt;文章还包含了一个详细教程，一步步教你写简单的Homebridge插件。&lt;/p&gt;
+
+&lt;p&gt;即使不是开发者，读完这篇文章，最起码可以让你打开iOS
+“家庭”应用时不至于一头雾水。&lt;/p&gt;
+
+&lt;p&gt;========================分割线，以下是正文===============================&lt;/p&gt;
+
+&lt;h1 id=&#34;为什么是homekit&#34;&gt;为什么是Homekit?&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://developer.apple.com/homekit/&#34;&gt;Homekit&lt;/a&gt;是Apple开发的家庭配件管理框架。有了Homekit，Apple设备用户可以使用同一套界面，管理不同厂商的接入设备。它使Siri变得更强，能听懂发给这些设备的指令。&lt;/p&gt;
+
+&lt;p&gt;如果你有一部iPhone或者Apple TV，Homekit可以在Home
+Assistant等互联协议的基础上做更多好玩的事。iPhone原生支持Homekit，你可以通过&amp;rdquo;家庭&amp;rdquo;app
+或者快速访问标签，方便地管理设备。Apple
+    TV则可以作为设备中枢，让你设置自动化任务，并且让你在非家庭网络下也能掌控家中情况。&lt;/p&gt;
+
+&lt;h1 id=&#34;工作原理&#34;&gt;工作原理&lt;/h1&gt;
+
+&lt;h2 id=&#34;homekit-accessory-protocol&#34;&gt;Homekit Accessory Protocol&lt;/h2&gt;
+
+&lt;p&gt;Homekit为家庭和各种连接设备定义了一组布局(layout)：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;家庭(Home)：家庭是一处住所，它有一个由各种配件组成的网络。&lt;/li&gt;
+&lt;li&gt;房间(Room)：每个家庭有一个或多个房间，每个房间有一个或多个配件。&lt;/li&gt;
+&lt;li&gt;平台(Platform)：平台指的是一组配件。&lt;/li&gt;
+&lt;li&gt;配件(Accessory)：配件指的是一台支持自动化的物理设备。&lt;/li&gt;
+&lt;li&gt;桥(Bridge)：桥是一种特殊配件，通过它可以和那些不能与Homekit直接通信的配件通信。举例来说，桥可能是一个灯光的中枢，灯光之间通信时并不使用Homekit
+Accessory Protocol协议。&lt;/li&gt;
+&lt;li&gt;服务(Service)：一个服务对应配件的一种功能。车库门除了提供开关门的服务，还可能额外提供开关车库灯的服务。&lt;/li&gt;
+&lt;li&gt;特征(Characteristic)：每个服务都有一些被称为特征的属性。对车库门而言，它有 &lt;code&gt;Current Door State&lt;/code&gt; 和
+&lt;code&gt;Target Door State&lt;/code&gt;
+两个boolean值。服务的所有特征共同定义了它的当前状态。特征有3种权限：读，写，通知。&lt;a href=&#34;https://github.com/KhaosT/HAP-NodeJS/blob/master/lib/gen/HomeKitTypes.js&#34;&gt;这里&lt;/a&gt;能找到各种服务列表，以及与之关联的特征。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;为了确定要操作的设备以及要触发的动作，iOS的&amp;rdquo;家庭&amp;rdquo;应用和Siri发出的每一个请求，都会使用上面的布局。&lt;/p&gt;
+
+&lt;p&gt;然而，当前市面上只有少量设备支持Homekit。对其他设备来说，需要在Homekit和设备间设置一个代理(proxy)。大多数厂商会自己定义一套与设备交互的方式(API或者协议)。代理接收Homekit请求，然后将它们翻译成设备能听懂的语言。&lt;/p&gt;
+
+&lt;h2 id=&#34;homebridge&#34;&gt;Homebridge&lt;/h2&gt;
+
+&lt;p&gt;本文使用的代理是&lt;a href=&#34;https://github.com/nfarina/homebridge&#34;&gt;Homebridge&lt;/a&gt;，一款用&lt;a href=&#34;https://github.com/KhaosT/HAP-NodeJS&#34;&gt;HAP-node.js&lt;/a&gt;写的NodeJS服务器。Homebridge实例化出一个
+&lt;code&gt;桥&lt;/code&gt;
+，然后你用iOS的&amp;rdquo;家庭&amp;rdquo;应用把它添加到Homekit。Homebridge支持社区开发的插件，从而在Homekit和五花八门的&amp;rdquo;智能家居&amp;rdquo;设备间建立连接。&lt;/p&gt;
+
+&lt;p&gt;社区开发者已经为很多家庭自动化设备开发了插件(例如&lt;a href=&#34;https://github.com/KraigM/homebridge-nest&#34;&gt;Nest&lt;/a&gt;,
+&lt;a href=&#34;https://github.com/devbobo/homebridge-lifx-lan&#34;&gt;Lifx&lt;/a&gt;, 甚至是&lt;a href=&#34;https://github.com/home-assistant/homebridge-homeassistant&#34;&gt;所有兼容Home
+Assitant的设备&lt;/a&gt;)。如果你没找到要找的插件，这篇教程正是为你而写。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://blog.theodo.fr/wp-content/uploads/2017/08/workflow.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;自己开发插件&#34;&gt;自己开发插件&lt;/h1&gt;
+
+&lt;h2 id=&#34;要求&#34;&gt;要求&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;你已经在LAN中一台设备上安装了Homebridge，而且处于运行状态。参考&lt;a href=&#34;https://github.com/nfarina/homebridge#installation&#34;&gt;这些教程&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;你已经在iOS的&amp;rdquo;家庭&amp;rdquo;应用中，添加了Homebridge配件。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;教程&#34;&gt;教程&lt;/h2&gt;
+
+&lt;p&gt;我们来动手写一个假的开关插件。&lt;/p&gt;
+
+&lt;p&gt;新建一个目录，包含2个文件：管理依赖的 &lt;code&gt;package.json&lt;/code&gt; 文件，以及放插件核心逻辑的 &lt;code&gt;index.js&lt;/code&gt; 文件。&lt;/p&gt;
+
+&lt;p&gt;我们对开关API的设定如下：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在LAN里，能通过HTTP协议层的RESTful API控制它&lt;/li&gt;
+&lt;li&gt;在LAN里，开关的IP地址是192.168.0.10&lt;/li&gt;
+&lt;li&gt;对 &lt;code&gt;/api/status&lt;/code&gt; 的GET请求返回一个boolean值，代表开关的当前状态。这个请求会读取开关的 &lt;code&gt;On&lt;/code&gt; 特征&lt;/li&gt;
+&lt;li&gt;对 &lt;code&gt;/api/order&lt;/code&gt; 的POST请求里携带一个代表开关目标的boolean值，将触发对应动作。这个请求会写入开关的 &lt;code&gt;On&lt;/code&gt;
+特征&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这个Homebridge插件将提供一个新配件，包含两个服务：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;AccessoryInformation&lt;/code&gt; 服务。不管什么类型的配件都必须提供的服务，用来广播设备相关的信息&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Switch&lt;/code&gt; 服务，对应我们实际的开关。这个服务需要的特征只包含一个boolean值 &lt;code&gt;On&lt;/code&gt;
+(参考&lt;a href=&#34;https://github.com/KhaosT/HAP-NodeJS/blob/master/lib/gen/HomeKitTypes.js#L3219&#34;&gt;服务和特征的对应关系表&lt;/a&gt;)。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;第一步，把插件注入homebridge。控制逻辑在javascript对象 &lt;code&gt;mySwitch&lt;/code&gt; 里：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const Service, Characteristic;
+
+module.exports = function (homebridge) {
+  Service = homebridge.hap.Service;
+  Characteristic = homebridge.hap.Characteristic;
+  homebridge.registerAccessory(&amp;quot;switch-plugin&amp;quot;, &amp;quot;MyAwesomeSwitch&amp;quot;, mySwitch);
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在HAP-node.js和Homebridge框架下，把核心逻辑放到 &lt;code&gt;mySwitch&lt;/code&gt; 对象的 &lt;code&gt;getService&lt;/code&gt;
+函数。在这个函数里实例化服务。我们还要在这个函数里定义，当Homekit请求到来时，要调用哪个服务哪个特征的getter和setter。&lt;/p&gt;
+
+&lt;p&gt;我们需要实现：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;AccessoryInformation&lt;/code&gt; 服务，包含：
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Manufacturer&lt;/code&gt; 特征&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Model&lt;/code&gt; 特征&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SerialNumber&lt;/code&gt; 特征&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Switch&lt;/code&gt; 服务，保护：
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;On&lt;/code&gt; 特征 —— 这个服务仅需包含这一个特征&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;AccesoryInformation&lt;/code&gt; 的特征是可读的，可以在插件初始化时设置。特征 &lt;code&gt;On&lt;/code&gt;
+不同，它是可写的，需要getter和setter。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;mySwitch.prototype = {
+  getServices: function () {
+    let informationService = new Service.AccessoryInformation();
+    informationService
+      .setCharacteristic(Characteristic.Manufacturer, &amp;quot;My switch manufacturer&amp;quot;)
+      .setCharacteristic(Characteristic.Model, &amp;quot;My switch model&amp;quot;)
+      .setCharacteristic(Characteristic.SerialNumber, &amp;quot;123-456-789&amp;quot;);
+
+    let switchService = new Service.Switch(&amp;quot;My switch&amp;quot;);
+    switchService
+      .getCharacteristic(Characteristic.On)
+  .on(&#39;get&#39;, this.getSwitchOnCharacteristic.bind(this))
+  .on(&#39;set&#39;, this.setSwitchOnCharacteristic.bind(this));
+
+    this.informationService = informationService;
+    this.switchService = switchService;
+    return [informationService, switchService];
+  }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;下面，我们来实现 &lt;code&gt;On&lt;/code&gt; 特征的getter和setter。把这部分逻辑放到 &lt;code&gt;mySwitch&lt;/code&gt; 对象的原型函数里。&lt;/p&gt;
+
+&lt;p&gt;基于开关提供的RESTful API，做出如下假设：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;对 &lt;a href=&#34;http://192.168.0.10/api/status&#34;&gt;http://192.168.0.10/api/status&lt;/a&gt; 的GET请求，将返回 &lt;code&gt;{ currentState: }&lt;/code&gt;
+，反映开关当前状态&lt;/li&gt;
+&lt;li&gt;对 &lt;a href=&#34;http://192.168.0.10/api/order&#34;&gt;http://192.168.0.10/api/order&lt;/a&gt; 的POST请求，发送 &lt;code&gt;{ targetState: }&lt;/code&gt;
+，代表想让开关达到的目标状态&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我们使用 &lt;code&gt;request&lt;/code&gt; 和 &lt;code&gt;url&lt;/code&gt; 模块处理HTTP请求。&lt;/p&gt;
+
+&lt;p&gt;上面的URL要配置在Homebridge的全局JSON配置文件里，然后变成配置对象。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const request = require(&#39;request&#39;);
+const url = require(&#39;url&#39;);
+
+function mySwitch(log, config) {
+  this.log = log;
+  this.getUrl = url.parse(config[&#39;getUrl&#39;]);
+  this.postUrl = url.parse(config[&#39;postUrl&#39;]);
+}
+
+mySwitch.prototype = {
+
+  getSwitchOnCharacteristic: function (next) {
+    const me = this;
+    request({
+  url: me.getUrl,
+  method: &#39;GET&#39;,
+    }, 
+    function (error, response, body) {
+      if (error) {
+  me.log(&#39;STATUS: &#39; + response.statusCode);
+  me.log(error.message);
+  return next(error);
+      }
+      return next(null, body.currentState);
+    });
+  },
+
+  setSwitchOnCharacteristic: function (on, next) {
+    const me = this;
+    request({
+      url: me.postUrl,
+      body: {&#39;targetState&#39;: on},
+      method: &#39;POST&#39;,
+      headers: {&#39;Content-type&#39;: &#39;application/json&#39;}
+    },
+    function (error, response) {
+      if (error) {
+  me.log(&#39;STATUS: &#39; + response.statusCode);
+  me.log(error.message);
+  return next(error);
+      }
+      return next();
+    });
+  }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在，通过全局安装方式，把插件添加到Homebridge：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;npm install -g switch-plugin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;用你最爱的文本编辑器，打开位于Homebridge目录的config.json文件。在accessory部分，把下面内容添加到数组:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;accessory&amp;quot;: &amp;quot;MyAwesomeSwitch&amp;quot;,
+  &amp;quot;getUrl&amp;quot;: &amp;quot;http://192.168.0.10/api/status&amp;quot;,
+  &amp;quot;postUrl&amp;quot;: &amp;quot;http://192.168.0.10/api/order&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重启Homebridge。打开iOS的&amp;rdquo;家庭&amp;rdquo;应用，现在你应该可以开、关这个假开关了。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>树莓派连接DHT11温度湿度传感器</title>

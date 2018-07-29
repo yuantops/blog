@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.yuantops.com/tech/homebridge-plugin-tutorial/</loc>
+    <lastmod>2018-07-29T17:48:19+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.yuantops.com/tech/rasp-pi-dht11/</loc>
     <lastmod>2018-07-28T20:30:45+00:00</lastmod>
   </url>
@@ -644,13 +649,13 @@
   
   <url>
     <loc>https://blog.yuantops.com/categories/tech/</loc>
-    <lastmod>2018-07-28T20:30:45+00:00</lastmod>
+    <lastmod>2018-07-29T17:48:19+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yuantops.com/tech/</loc>
-    <lastmod>2018-07-28T20:30:45+00:00</lastmod>
+    <lastmod>2018-07-29T17:48:19+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -662,7 +667,7 @@
   
   <url>
     <loc>https://blog.yuantops.com/</loc>
-    <lastmod>2018-07-28T20:30:45+00:00</lastmod>
+    <lastmod>2018-07-29T17:48:19+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -674,7 +679,7 @@
   
   <url>
     <loc>https://blog.yuantops.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</loc>
-    <lastmod>2018-07-28T20:30:45+00:00</lastmod>
+    <lastmod>2018-07-29T17:48:19+00:00</lastmod>
     <priority>0</priority>
   </url>
   

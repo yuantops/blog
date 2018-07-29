@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Siri变身完美家庭助手：兼容Apple Homekit不支持的设备 // Yuantops&#39; Blog</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="Siri变身完美家庭助手：兼容Apple Homekit不支持的设备" />
+<meta property="og:description" content="译文一篇，非常详细地介绍了Homekit和Homebridge相关概念。" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://blog.yuantops.com/tech/homebridge-plugin-tutorial/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
+    <link rel="shortcut icon" href="/favicon.png">
+
+    <link href="https://blog.yuantops.com/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://blog.yuantops.com/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://blog.yuantops.com/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="译文一篇，非常详细地介绍了Homekit和Homebridge相关概念。">
+    <meta name="keywords" content="Homebridge,Homebridge插件开发,">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.20.7" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://blog.yuantops.com/">Yuantops&#39; Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/archives/">Archives</a>
+                
+                <a class="main-nav-link" href="/about/">About</a>
+                
+                <a class="main-nav-link" href="/index.xml">RSS</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Siri变身完美家庭助手：兼容Apple Homekit不支持的设备</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/tech/homebridge-plugin-tutorial/" class="article-date">
+                <time datetime='2018-07-29T17:48:19.000&#43;00:00' itemprop="datePublished">2018-07-29</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
+                    
+                </div>
+		
+		<div class="article-category">
+	      	  2652字, 约6分钟读完
+		</div>
+	    
+
+            </div>
+            
+
+	    
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<p>译文一篇,
+原文地址：<a href="http://blog.theodo.fr/2017/08/make-siri-perfect-home-companion-devices-not-supported-apple-homekit/">http://blog.theodo.fr/2017/08/make-siri-perfect-home-companion-devices-not-supported-apple-homekit/</a>
+。</p>
+
+<p>Apple推出Homekit已有一段时间，作为智能家具解决布局的重要一环，Homekit在中文互联网上的资料可算寥寥。这篇文章介绍了Homekit平台抽象的关键概念，以及Homebridge这一款破解了Homekit协议、并支持插件化开发扩展的优秀程序。</p>
+
+<p>文章还包含了一个详细教程，一步步教你写简单的Homebridge插件。</p>
+
+<p>即使不是开发者，读完这篇文章，最起码可以让你打开iOS
+“家庭”应用时不至于一头雾水。</p>
+
+<p>========================分割线，以下是正文===============================</p>
+
+<h1 id="为什么是homekit">为什么是Homekit?</h1>
+
+<p><a href="https://developer.apple.com/homekit/">Homekit</a>是Apple开发的家庭配件管理框架。有了Homekit，Apple设备用户可以使用同一套界面，管理不同厂商的接入设备。它使Siri变得更强，能听懂发给这些设备的指令。</p>
+
+<p>如果你有一部iPhone或者Apple TV，Homekit可以在Home
+Assistant等互联协议的基础上做更多好玩的事。iPhone原生支持Homekit，你可以通过&rdquo;家庭&rdquo;app
+或者快速访问标签，方便地管理设备。Apple
+    TV则可以作为设备中枢，让你设置自动化任务，并且让你在非家庭网络下也能掌控家中情况。</p>
+
+<h1 id="工作原理">工作原理</h1>
+
+<h2 id="homekit-accessory-protocol">Homekit Accessory Protocol</h2>
+
+<p>Homekit为家庭和各种连接设备定义了一组布局(layout)：</p>
+
+<ul>
+<li>家庭(Home)：家庭是一处住所，它有一个由各种配件组成的网络。</li>
+<li>房间(Room)：每个家庭有一个或多个房间，每个房间有一个或多个配件。</li>
+<li>平台(Platform)：平台指的是一组配件。</li>
+<li>配件(Accessory)：配件指的是一台支持自动化的物理设备。</li>
+<li>桥(Bridge)：桥是一种特殊配件，通过它可以和那些不能与Homekit直接通信的配件通信。举例来说，桥可能是一个灯光的中枢，灯光之间通信时并不使用Homekit
+Accessory Protocol协议。</li>
+<li>服务(Service)：一个服务对应配件的一种功能。车库门除了提供开关门的服务，还可能额外提供开关车库灯的服务。</li>
+<li>特征(Characteristic)：每个服务都有一些被称为特征的属性。对车库门而言，它有 <code>Current Door State</code> 和
+<code>Target Door State</code>
+两个boolean值。服务的所有特征共同定义了它的当前状态。特征有3种权限：读，写，通知。<a href="https://github.com/KhaosT/HAP-NodeJS/blob/master/lib/gen/HomeKitTypes.js">这里</a>能找到各种服务列表，以及与之关联的特征。</li>
+</ul>
+
+<p>为了确定要操作的设备以及要触发的动作，iOS的&rdquo;家庭&rdquo;应用和Siri发出的每一个请求，都会使用上面的布局。</p>
+
+<p>然而，当前市面上只有少量设备支持Homekit。对其他设备来说，需要在Homekit和设备间设置一个代理(proxy)。大多数厂商会自己定义一套与设备交互的方式(API或者协议)。代理接收Homekit请求，然后将它们翻译成设备能听懂的语言。</p>
+
+<h2 id="homebridge">Homebridge</h2>
+
+<p>本文使用的代理是<a href="https://github.com/nfarina/homebridge">Homebridge</a>，一款用<a href="https://github.com/KhaosT/HAP-NodeJS">HAP-node.js</a>写的NodeJS服务器。Homebridge实例化出一个
+<code>桥</code>
+，然后你用iOS的&rdquo;家庭&rdquo;应用把它添加到Homekit。Homebridge支持社区开发的插件，从而在Homekit和五花八门的&rdquo;智能家居&rdquo;设备间建立连接。</p>
+
+<p>社区开发者已经为很多家庭自动化设备开发了插件(例如<a href="https://github.com/KraigM/homebridge-nest">Nest</a>,
+<a href="https://github.com/devbobo/homebridge-lifx-lan">Lifx</a>, 甚至是<a href="https://github.com/home-assistant/homebridge-homeassistant">所有兼容Home
+Assitant的设备</a>)。如果你没找到要找的插件，这篇教程正是为你而写。</p>
+
+<p><img src="http://blog.theodo.fr/wp-content/uploads/2017/08/workflow.png" alt="" /></p>
+
+<h1 id="自己开发插件">自己开发插件</h1>
+
+<h2 id="要求">要求</h2>
+
+<ul>
+<li>你已经在LAN中一台设备上安装了Homebridge，而且处于运行状态。参考<a href="https://github.com/nfarina/homebridge#installation">这些教程</a>。</li>
+<li>你已经在iOS的&rdquo;家庭&rdquo;应用中，添加了Homebridge配件。</li>
+</ul>
+
+<h2 id="教程">教程</h2>
+
+<p>我们来动手写一个假的开关插件。</p>
+
+<p>新建一个目录，包含2个文件：管理依赖的 <code>package.json</code> 文件，以及放插件核心逻辑的 <code>index.js</code> 文件。</p>
+
+<p>我们对开关API的设定如下：</p>
+
+<ul>
+<li>在LAN里，能通过HTTP协议层的RESTful API控制它</li>
+<li>在LAN里，开关的IP地址是192.168.0.10</li>
+<li>对 <code>/api/status</code> 的GET请求返回一个boolean值，代表开关的当前状态。这个请求会读取开关的 <code>On</code> 特征</li>
+<li>对 <code>/api/order</code> 的POST请求里携带一个代表开关目标的boolean值，将触发对应动作。这个请求会写入开关的 <code>On</code>
+特征</li>
+</ul>
+
+<p>这个Homebridge插件将提供一个新配件，包含两个服务：</p>
+
+<ul>
+<li><code>AccessoryInformation</code> 服务。不管什么类型的配件都必须提供的服务，用来广播设备相关的信息</li>
+<li><code>Switch</code> 服务，对应我们实际的开关。这个服务需要的特征只包含一个boolean值 <code>On</code>
+(参考<a href="https://github.com/KhaosT/HAP-NodeJS/blob/master/lib/gen/HomeKitTypes.js#L3219">服务和特征的对应关系表</a>)。</li>
+</ul>
+
+<p>第一步，把插件注入homebridge。控制逻辑在javascript对象 <code>mySwitch</code> 里：</p>
+
+<pre><code class="language-javascript">const Service, Characteristic;
+
+module.exports = function (homebridge) {
+  Service = homebridge.hap.Service;
+  Characteristic = homebridge.hap.Characteristic;
+  homebridge.registerAccessory(&quot;switch-plugin&quot;, &quot;MyAwesomeSwitch&quot;, mySwitch);
+};
+</code></pre>
+
+<p>在HAP-node.js和Homebridge框架下，把核心逻辑放到 <code>mySwitch</code> 对象的 <code>getService</code>
+函数。在这个函数里实例化服务。我们还要在这个函数里定义，当Homekit请求到来时，要调用哪个服务哪个特征的getter和setter。</p>
+
+<p>我们需要实现：</p>
+
+<ul>
+<li><code>AccessoryInformation</code> 服务，包含：
+
+<ul>
+<li><code>Manufacturer</code> 特征</li>
+<li><code>Model</code> 特征</li>
+<li><code>SerialNumber</code> 特征</li>
+</ul></li>
+<li><code>Switch</code> 服务，保护：
+
+<ul>
+<li><code>On</code> 特征 —— 这个服务仅需包含这一个特征</li>
+</ul></li>
+</ul>
+
+<p><code>AccesoryInformation</code> 的特征是可读的，可以在插件初始化时设置。特征 <code>On</code>
+不同，它是可写的，需要getter和setter。</p>
+
+<pre><code class="language-javascript">mySwitch.prototype = {
+  getServices: function () {
+    let informationService = new Service.AccessoryInformation();
+    informationService
+      .setCharacteristic(Characteristic.Manufacturer, &quot;My switch manufacturer&quot;)
+      .setCharacteristic(Characteristic.Model, &quot;My switch model&quot;)
+      .setCharacteristic(Characteristic.SerialNumber, &quot;123-456-789&quot;);
+
+    let switchService = new Service.Switch(&quot;My switch&quot;);
+    switchService
+      .getCharacteristic(Characteristic.On)
+  .on('get', this.getSwitchOnCharacteristic.bind(this))
+  .on('set', this.setSwitchOnCharacteristic.bind(this));
+
+    this.informationService = informationService;
+    this.switchService = switchService;
+    return [informationService, switchService];
+  }
+};
+</code></pre>
+
+<p>下面，我们来实现 <code>On</code> 特征的getter和setter。把这部分逻辑放到 <code>mySwitch</code> 对象的原型函数里。</p>
+
+<p>基于开关提供的RESTful API，做出如下假设：</p>
+
+<ul>
+<li>对 <a href="http://192.168.0.10/api/status">http://192.168.0.10/api/status</a> 的GET请求，将返回 <code>{ currentState: }</code>
+，反映开关当前状态</li>
+<li>对 <a href="http://192.168.0.10/api/order">http://192.168.0.10/api/order</a> 的POST请求，发送 <code>{ targetState: }</code>
+，代表想让开关达到的目标状态</li>
+</ul>
+
+<p>我们使用 <code>request</code> 和 <code>url</code> 模块处理HTTP请求。</p>
+
+<p>上面的URL要配置在Homebridge的全局JSON配置文件里，然后变成配置对象。</p>
+
+<pre><code class="language-javascript">const request = require('request');
+const url = require('url');
+
+function mySwitch(log, config) {
+  this.log = log;
+  this.getUrl = url.parse(config['getUrl']);
+  this.postUrl = url.parse(config['postUrl']);
+}
+
+mySwitch.prototype = {
+
+  getSwitchOnCharacteristic: function (next) {
+    const me = this;
+    request({
+  url: me.getUrl,
+  method: 'GET',
+    }, 
+    function (error, response, body) {
+      if (error) {
+  me.log('STATUS: ' + response.statusCode);
+  me.log(error.message);
+  return next(error);
+      }
+      return next(null, body.currentState);
+    });
+  },
+
+  setSwitchOnCharacteristic: function (on, next) {
+    const me = this;
+    request({
+      url: me.postUrl,
+      body: {'targetState': on},
+      method: 'POST',
+      headers: {'Content-type': 'application/json'}
+    },
+    function (error, response) {
+      if (error) {
+  me.log('STATUS: ' + response.statusCode);
+  me.log(error.message);
+  return next(error);
+      }
+      return next();
+    });
+  }
+};
+</code></pre>
+
+<p>现在，通过全局安装方式，把插件添加到Homebridge：</p>
+
+<pre><code class="language-shell">npm install -g switch-plugin
+</code></pre>
+
+<p>用你最爱的文本编辑器，打开位于Homebridge目录的config.json文件。在accessory部分，把下面内容添加到数组:</p>
+
+<pre><code>{
+  &quot;accessory&quot;: &quot;MyAwesomeSwitch&quot;,
+  &quot;getUrl&quot;: &quot;http://192.168.0.10/api/status&quot;,
+  &quot;postUrl&quot;: &quot;http://192.168.0.10/api/order&quot;
+}
+</code></pre>
+
+<p>重启Homebridge。打开iOS的&rdquo;家庭&rdquo;应用，现在你应该可以开、关这个假开关了。</p>
+
+        </div>
+
+        
+        
+        <div class="article-toc" style="display:none;">
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li><a href="#为什么是homekit">为什么是Homekit?</a></li>
+<li><a href="#工作原理">工作原理</a>
+<ul>
+<li><a href="#homekit-accessory-protocol">Homekit Accessory Protocol</a></li>
+<li><a href="#homebridge">Homebridge</a></li>
+</ul></li>
+<li><a href="#自己开发插件">自己开发插件</a>
+<ul>
+<li><a href="#要求">要求</a></li>
+<li><a href="#教程">教程</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <script>
+            (function() {
+                var $toc = $('#TableOfContents');
+                if ($toc.length > 0) {
+                    var $window = $(window);
+
+                    function onScroll(){
+                        var currentScroll = $window.scrollTop();
+                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                        var id = "";
+                        h.each(function (i, e) {
+                            e = $(e);
+                            if (e.offset().top - 10 <= currentScroll) {
+                                id = e.attr('id');
+                            }
+                        });
+                        var active = $toc.find('a.active');
+                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+                        active.each(function (i, e) {
+                            $(e).removeClass('active').siblings('ul').hide();
+                        });
+                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                            $(e).children('a').addClass('active').siblings('ul').show();
+                        });
+                    }
+
+                    $window.on('scroll', onScroll);
+                    $(document).ready(function() {
+                        $toc.find('a').parent('li').find('ul').hide();
+                        onScroll();
+                        document.getElementsByClassName('article-toc')[0].style.display = '';
+                    });
+                }
+            })();
+        </script>
+        
+
+
+        
+	
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/%E6%A0%91%E8%8E%93%E6%B4%BE">树莓派
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+	
+    </div>
+    <nav id="article-nav">
+    
+    
+    <a href="/tech/rasp-pi-dht11/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">树莓派连接DHT11温度湿度传感器&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2012-2018 @yuantops&nbsp; </br>
+            Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-57420914-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
+        <script>renderMathInElement(document.body);</script>
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>
