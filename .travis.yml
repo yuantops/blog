@@ -1,7 +1,7 @@
 language: go
 
 go:
-  - "1.8" 
+  - "1.12" 
 
 # Specify which branches to build using a safelist
 branches:
@@ -9,10 +9,12 @@ branches:
     - hugo
     
 install:
-  - go get -d github.com/spf13/hugo 
-  - cd $GOPATH/src/github.com/spf13/hugo
-  - git checkout tags/v0.20.7
-  - go get github.com/spf13/hugo
+  - mkdir $HOME/src
+  - cd $HOME/src
+  - git clone https://github.com/gohugoio/hugo.git
+  - cd hugo
+  - git checkout tags/release-0.50
+  - go install
   - cd $TRAVIS_BUILD_DIR
   - hugo version
 
