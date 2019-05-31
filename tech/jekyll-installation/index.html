@@ -30,7 +30,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <meta name="generator" content="Hugo 0.20.7" />
+    <meta name="generator" content="Hugo 0.51-DEV" />
 </head>
 
 
@@ -81,7 +81,7 @@
                 </div>
 		
 		<div class="article-category">
-	      	  424字, 约1分钟读完
+	      	  56字, 约1分钟读完
 		</div>
 	    
 
@@ -107,47 +107,35 @@
 
 <p>以Ubuntu为例，安装上述软件的方法：<br />
 <strong>Ruby</strong><br />
-
-$ sudo apt-get install ruby, ruby-dev
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo apt-get install ruby, ruby-dev</code></pre></div>
 要注意，*ruby-dev*包需要一并安装，否则在后续会报错。</p>
 
 <p>在Redhat/Fedora下，需要安装的软件包为ruby,ruby-devel。有可能还需要安装gcc包。<br />
-
-$ sudo yum install ruby, ruby-devel, gcc
-</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo yum install ruby, ruby-devel, gcc</code></pre></div></p>
 
 <p><strong>RubyGems</strong><br />
 RubyGems是Ruby程序包管理器，类似Redhat的RPM。更多的概念介绍，请参看<a href="http://henter.me/post/ruby-rvm-gem-rake-bundle-rails.html">整理Ruby相关的各种概念</a>。<br />
 新版本的Ruby已经包含RubyGems，无需额外安装了。</p>
 
 <p><strong>Nodejs</strong><br />
-
-$ sudo apt-get install nodejs
-</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo apt-get install nodejs</code></pre></div></p>
 
 <h3 id="设置gemfile">设置Gemfile</h3>
 
 <p>将GitHub上你的博客Repo克隆到本地。假设Repo的根目录为blog。终端路径切换到blog目录，新建名为<code>Gemfile</code>的文件，并填充内容:</p>
 
-
-source 'https://rubygems.org'
-gem 'github-pages'
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">source <span style="color:#e6db74">&#39;https://rubygems.org&#39;</span>
+gem <span style="color:#e6db74">&#39;github-pages&#39;</span></code></pre></div>
 
 <h3 id="使用rubygems安装jekyll">使用RubyGems安装Jekyll</h3>
 
 <p>终端路径切换到blog，运行命令：
-
-$ sudo gem install jekyll
-</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo gem install jekyll</code></pre></div></p>
 
 <h3 id="运行jekyll-查看博客效果">运行Jekyll，查看博客效果</h3>
 
 <p>终端路径切换到blog，运行命令：
-
-$ jekyll serve
-</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ jekyll serve</code></pre></div></p>
 
         </div>
 
@@ -255,18 +243,11 @@ $ jekyll serve
     <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2012-2018 @yuantops&nbsp; </br>
+            &copy; 2012-2019 @yuantops&nbsp; </br>
             Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
         </div>
     </div>
     
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-57420914-1', 'auto');
-ga('send', 'pageview');
-</script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
-
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>

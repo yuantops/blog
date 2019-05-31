@@ -10,7 +10,9 @@
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Wed, 20 Apr 2016 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://blog.yuantops.com/tags/android/" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://blog.yuantops.com/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>写一套简易的视频点播系统——API Server</title>
@@ -18,67 +20,9 @@
       <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/write-your-own-vod-system-api/</guid>
-      <description>
-
-&lt;div id=&#34;table-of-contents&#34;&gt;
-&lt;h2&gt;目录&lt;/h2&gt;
-&lt;div id=&#34;text-table-of-contents&#34;&gt;
-&lt;li&gt;&lt;a href=&#34;#sec-1-1&#34;&gt;1. 前言&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#sec-1-2&#34;&gt;2. 工程代码结构&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#sec-1-3&#34;&gt;3. 数据加载流程&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&#34;前言-a-id-sec-1-1-name-sec-1-1-a&#34;&gt;前言&lt;a id=&#34;sec-1-1&#34; name=&#34;sec-1-1&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;作为一个视频点播系统的后台，应该为客户端(见 &lt;a href=&#34;http://blog.yuantops.com/tech/write-your-own-vod-system-android&#34;&gt;《写一套简易的视频点播系统&amp;#x2013;Android视频播放器》)&lt;/a&gt; 提供合理良好的API接口。同样，这里我们完成了最简单最基本的功能: 基于Spring MVC结构，当有http请求到来时，从MySQL数据库获取数据，返回json格式的数据。&lt;/p&gt;
-
-&lt;h2 id=&#34;工程代码结构-a-id-sec-1-2-name-sec-1-2-a&#34;&gt;工程代码结构&lt;a id=&#34;sec-1-2&#34; name=&#34;sec-1-2&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;如下所示(省略了一些文件):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;.
-├── main/
-│   ├── java/
-│   │   └── com/
-│   │       └── yuantops/                 
-│   │           ├── exception/             //Exception包
-│   │           ├── tv/                    
-│   │           │   ├── bean/              //Video对象，对应数据库中数据模型
-│   │           │   ├── controller/        //Spring MVC中的C
-│   │           │   ├── dao/               //数据库增删改查
-│   │           │   ├── impl/              //service接口实现
-│   │           │   └── service/           //service接口
-│   │           └── utils/                 //工具类
-│   ├── resources/
-│   │   ├── application-root-context.xml   //Spring MVC启动加载的初始化上下文
-│   │   ├── com/
-│   │   │   └── yuantops/
-│   │   │       └── tv/
-│   │   │           ├── dao/               //对应dao java文件的xml文件，属于MyBatis配置
-│   │   │           └── settings/          //MyBatis的配置信息
-│   │   ├── config/                        //编码、jdbc等配置文件
-│   │   ├── front-servlet-context.xml      //有HttpRequest时加载的上下文的配置
-│   │   ├── log4j.xml                      //log4j的配置
-│   │   └── properties/                    //properties文件
-│   │       └── jdbc.properties
-│   └── webapp/                            
-│       ├── WEB-INF/
-│       │   ├── front_page/                //Spring MVC中的V
-│       │   └── web.xml                    //整个web app的配置文件
-│       └── index.jsp
-└── test/                                  //测试文件
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;数据加载流程-a-id-sec-1-3-name-sec-1-3-a&#34;&gt;数据加载流程&lt;a id=&#34;sec-1-3&#34; name=&#34;sec-1-3&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;和所有基于Servlet的Web Application一样，app的入口在web.xml，会加载application-root-context.xml和front-servlet-context.xml两个context。在这两个context中，会分别load一些config/目录下的配置文件。&lt;/p&gt;
-
-&lt;p&gt;项目除了Spring MVC框架，还用了log4j(日志记录)，MyBatis(数据库连接)两个开源插件。&lt;/p&gt;
-</description>
+      <description>目录 1. 前言 2. 工程代码结构 3. 数据加载流程      前言 作为一个视频点播系统的后台，应该为客户端(见 《写一套简易的视频点播系统&amp;#x2013;Android视频播放器》) 提供合理良好的API接口。同样，这里我们完成了最简单最基本的功能: 基于Spring MVC结构，当有http请求到来时，从MySQL数据库获取数据，返回json格式的数据。
+工程代码结构 如下所示(省略了一些文件):
+. ├── main/ │ ├── java/ │ │ └── com/ │ │ └── yuantops/ │ │ ├── exception/ //Exception包 │ │ ├── tv/ │ │ │ ├── bean/ //Video对象，对应数据库中数据模型 │ │ │ ├── controller/ //Spring MVC中的C │ │ │ ├── dao/ //数据库增删改查 │ │ │ ├── impl/ //service接口实现 │ │ │ └── service/ //service接口 │ │ └── utils/ //工具类 │ ├── resources/ │ │ ├── application-root-context.</description>
     </item>
     
     <item>
@@ -87,49 +31,13 @@
       <pubDate>Tue, 19 Apr 2016 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/write-your-own-vod-system-android/</guid>
-      <description>
-
-&lt;p&gt;作为一个视频点播系统的客户端，播放视频是最基本的功能。本着最精简最偷懒的原则，这个客户端实现的功能包括:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;列表显示服务器上的直播视频、点播视频&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;点击列表条目，播放视频&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;工程代码结构-a-id-sec-1-1-name-sec-1-1-a&#34;&gt;工程代码结构&lt;a id=&#34;sec-1-1&#34; name=&#34;sec-1-1&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;客户端用Android Studio开发，整个项目的结构按gradle风格组织，代码路径是TopsTVPlayer/app/src/main/java。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;.
-└── com
-    └── yuantops
-        └── tvplayer      
-            ├── adapter         加载list的Adapter
-            ├── player          播放器组件
-            ├── ui              Fragment和Activity显示界面
-            └── util            工具类
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在player/包下，为直播视频和点播视频分别建立了一个类，因为Android原生的MediaPlayer组件对RTSP协议的直播流支持不全面，所以用原生的MediaPlayer播放点播视频(http)，用Vitamio提供的MediaPlayer播放直播视频(rtsp)。&lt;/p&gt;
-
-&lt;h2 id=&#34;数据加载流程-a-id-sec-1-2-name-sec-1-2-a&#34;&gt;数据加载流程&lt;a id=&#34;sec-1-2&#34; name=&#34;sec-1-2&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;所有与网络的数据交流方法都封装在util/VolleySingleton.java文件中，使用了Volley这个优秀的开源http包。&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;app启动时，首先加载WebAPIServerActivity.java界面，填写web服务器(提供api接口的服务器，不是多媒体服务器)的Base URL。点击确认按钮，会跳转到MainActivity。&lt;/li&gt;
-&lt;li&gt;MainActivity包含两个Fragment。在Fragment被加载时，会调用VolleySingleton.java里的方法从web服务器上获取json格式的视频列表数据。数据下载完成后，会以list的形式显示出来。&lt;/li&gt;
-&lt;li&gt;点击listView中的item，会跳转到VideoPlayActivity，初始化对应的直播/点播MediaPlayer。MediaPlayer组件根据视频的URL，从视频服务器获取数据，开始播放。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;引用的库-a-id-sec-1-3-name-sec-1-3-a&#34;&gt;引用的库&lt;a id=&#34;sec-1-3&#34; name=&#34;sec-1-3&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://actionbarsherlock.com/&#34;&gt;ActionbarSherlock&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.vitamio.org/en/&#34;&gt;Vitamio SDK&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/mcxiaoke/android-volley&#34;&gt;Android Volley&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description> 作为一个视频点播系统的客户端，播放视频是最基本的功能。本着最精简最偷懒的原则，这个客户端实现的功能包括:
+ 列表显示服务器上的直播视频、点播视频
+ 点击列表条目，播放视频
+  工程代码结构 客户端用Android Studio开发，整个项目的结构按gradle风格组织，代码路径是TopsTVPlayer/app/src/main/java。
+. └── com └── yuantops └── tvplayer ├── adapter 加载list的Adapter ├── player 播放器组件 ├── ui Fragment和Activity显示界面 └── util 工具类  在player/包下，为直播视频和点播视频分别建立了一个类，因为Android原生的MediaPlayer组件对RTSP协议的直播流支持不全面，所以用原生的MediaPlayer播放点播视频(http)，用Vitamio提供的MediaPlayer播放直播视频(rtsp)。
+数据加载流程 所有与网络的数据交流方法都封装在util/VolleySingleton.java文件中，使用了Volley这个优秀的开源http包。
+ app启动时，首先加载WebAPIServerActivity.java界面，填写web服务器(提供api接口的服务器，不是多媒体服务器)的Base URL。点击确认按钮，会跳转到MainActivity。 MainActivity包含两个Fragment。在Fragment被加载时，会调用VolleySingleton.java里的方法从web服务器上获取json格式的视频列表数据。数据下载完成后，会以list的形式显示出来。 点击listView中的item，会跳转到VideoPlayActivity，初始化对应的直播/点播MediaPlayer。MediaPlayer组件根据视频的URL，从视频服务器获取数据，开始播放。  引用的库  ActionbarSherlock Vitamio SDK Android Volley  </description>
     </item>
     
     <item>
@@ -138,27 +46,15 @@
       <pubDate>Sat, 09 Apr 2016 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/write-your-own-vod-system/</guid>
-      <description>&lt;p&gt;最初实习时，断断续续写Android代码，实现过用Helix架设流媒体服务器、手机播放流媒体视频的功能。后来一份实习，接触到Spring＋MyBatis框架，见识了它们在处理http请求和数据库连接上的便捷。这几天有些时间，想到可以将它们两者糅合到一起，实现一个完整的视频点播系统，既包括服务器(流媒体服务器，数据库，http服务器)，又包括客户端(Android)。虽然简陋，但工作起来毫无问题。&lt;/p&gt;
-
-&lt;p&gt;整个工程运行起来的效果:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;打开手机App，填写http服务器提供的api root URL，出现两个列表: 点播视频列表和直播列表。点击列表条目，开始播放视频。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;通过手动添加视频文件、修改数据库记录，可以更新视频列表。&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;这样一个小系统，代码部分包括:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;http服务器: 暴露api给访问者，返回json数据。使用了Spring＋MyBatis框架，用Apache Tomcat做Web服务的容器。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Android客户端: 访问http服务器获取数据，并播放流媒体服务器推送的流媒体。&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;除了写代码，还有一部分配置操作，主要是流媒体服务器Helix。&lt;/p&gt;
-
-&lt;p&gt;写代码和配置服务器软件的工作量，加起来与计算机专业本科的课程设计工作量相当。这些工作将由三篇文章分别介绍。&lt;/p&gt;
-</description>
+      <description>最初实习时，断断续续写Android代码，实现过用Helix架设流媒体服务器、手机播放流媒体视频的功能。后来一份实习，接触到Spring＋MyBatis框架，见识了它们在处理http请求和数据库连接上的便捷。这几天有些时间，想到可以将它们两者糅合到一起，实现一个完整的视频点播系统，既包括服务器(流媒体服务器，数据库，http服务器)，又包括客户端(Android)。虽然简陋，但工作起来毫无问题。
+整个工程运行起来的效果:
+ 打开手机App，填写http服务器提供的api root URL，出现两个列表: 点播视频列表和直播列表。点击列表条目，开始播放视频。
+ 通过手动添加视频文件、修改数据库记录，可以更新视频列表。
+  这样一个小系统，代码部分包括:
+ http服务器: 暴露api给访问者，返回json数据。使用了Spring＋MyBatis框架，用Apache Tomcat做Web服务的容器。
+ Android客户端: 访问http服务器获取数据，并播放流媒体服务器推送的流媒体。
+  除了写代码，还有一部分配置操作，主要是流媒体服务器Helix。
+写代码和配置服务器软件的工作量，加起来与计算机专业本科的课程设计工作量相当。这些工作将由三篇文章分别介绍。</description>
     </item>
     
     <item>
@@ -167,50 +63,21 @@
       <pubDate>Fri, 11 Dec 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/timelapse-photography-diy-android/</guid>
-      <description>
-
-&lt;p&gt;延时摄影是一种很精妙细微的展现形式，时间被压缩后有流动的美。每隔固定时间按一次快门，再将照片按某个帧率连续起来，就生成一段流畅的视频。摄影发烧友一般用单反拍照，用快门线控制拍照的周期。鉴于单反不是人人都有（譬如我就没有。。），这里分享一个经济实用的点子，用安卓和电脑来DIY延时摄影。&lt;/p&gt;
-
-&lt;h2 id=&#34;思路&#34;&gt;思路&lt;/h2&gt;
-
-&lt;p&gt;Android 系统开放了一些接口，Debug模式下电脑可以通过Android SDK提供的adb 命令调用它们，模拟启动相机、聚焦、拍照动作，并将照片保存到电脑硬盘。将这一连串操作用脚本记录下来，并设置linux定时任务，周期执行。最后，通过ffmpeg 或者其他视频编辑软件将照片变成视频/gif。&lt;/p&gt;
-
-&lt;h2 id=&#34;器材&#34;&gt;器材&lt;/h2&gt;
-
-&lt;p&gt;一部安卓手机 + 一台电脑(假设为Linux) + 一根USB线&lt;/p&gt;
-
-&lt;h2 id=&#34;拍摄主题&#34;&gt;拍摄主题&lt;/h2&gt;
-
-&lt;p&gt;玫瑰花绽放&lt;/p&gt;
-
-&lt;h2 id=&#34;做法&#34;&gt;做法&lt;/h2&gt;
-
-&lt;p&gt;我手头有一部大概一年前买的红米，测试了下拍照效果，虽然比不上正在用的5c但也相当凑和。笔记本刚刚重装了个系统(Arch)，在官网上下好了新鲜热乎的Android SDK。&lt;/p&gt;
-
-&lt;p&gt;用USB线将手机连到笔记本，打开手机的Debug模式。另外，推荐将手机设置为Debug模式下屏幕常亮。用Android SDK的platform-tools目录下的adb命令检查是否顺利连接了手机。我在自己的机器上折腾红米的挂载还颇费了一点力气，具体操作可以google之，此处不赘述。&lt;/p&gt;
-
-&lt;p&gt;用脚本调用adb命令，实现启动相机、聚焦、拍照、保存照片到电脑、删除手机上的照片等一连串操作。将照片从手机上删除是考虑到手机SD的容量有限。Shell脚本实现起来最简单。这里不得不赞叹adb的强大，不仅可以用&amp;rdquo;adb shell&amp;rdquo;像普通linux系统一样操作Android设备，还可以向设备发送按键动作、模拟触屏动作等。如何发送Keyevent，如何捕捉(capture)、记录(record)、发送屏幕触摸动作，可以Google之，此处不赘述。&lt;/p&gt;
-
-&lt;p&gt;将脚本作为系统的定时任务执行。Linux下用crontab可以非常方便地实现。如何设置定时任务的时间间隔，需要做一点小数学题，用拍摄对象的总耗时与视频的帧率算出来，具体参考&lt;a href=&#34;http://content.photojojo.com/tutorials/ultimate-guide-to-time-lapse-photography/&#34;&gt;博客&lt;/a&gt;。&lt;/p&gt;
-
-&lt;p&gt;做完前期的技术准备后，该拍摄主角登场了。我选择的拍摄主题是“鲜花绽放”，所谓一支浓艳露凝香，在我心中玫瑰是坠吼不过的了。在花店用3人民币买了一朵含苞待放的玫瑰花骨朵儿。给它粘个背景，插在一个透明酸奶罐子中，架好灯光（淘宝买的USB LED灯）。固定好手机，缚得牢牢的，不要让它晃动。&lt;/p&gt;
-
-&lt;p&gt;静静地让程序跑，跑，跑。。。。（宿舍晚上会熄灯，这是比较麻烦的，暂时我还没想到解决办法。不过幸亏玫瑰花儿开得快，白天就很饱满了。）&lt;/p&gt;
-
-&lt;p&gt;时间大概过去了五个小时。。。&lt;/p&gt;
-
-&lt;p&gt;好了，花儿开好了。&lt;/p&gt;
-
-&lt;p&gt;打开电脑上存放照片的目录，用ffmpeg或者别的视频编辑软件，将它们合成视频。（我这里为了方便合成的是gif。）&lt;/p&gt;
-
-&lt;h2 id=&#34;github例子&#34;&gt;Github例子&lt;/h2&gt;
-
-&lt;p&gt;我的Shell脚本见&lt;a href=&#34;https://github.com/yuantops/TimelapseAndroid&#34;&gt;这个项目&lt;/a&gt;。&lt;/p&gt;
-
-&lt;p&gt;最后是gif效果图，考虑到博客容量我降低了图片尺寸和质量。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;out3.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-</description>
+      <description>延时摄影是一种很精妙细微的展现形式，时间被压缩后有流动的美。每隔固定时间按一次快门，再将照片按某个帧率连续起来，就生成一段流畅的视频。摄影发烧友一般用单反拍照，用快门线控制拍照的周期。鉴于单反不是人人都有（譬如我就没有。。），这里分享一个经济实用的点子，用安卓和电脑来DIY延时摄影。
+思路 Android 系统开放了一些接口，Debug模式下电脑可以通过Android SDK提供的adb 命令调用它们，模拟启动相机、聚焦、拍照动作，并将照片保存到电脑硬盘。将这一连串操作用脚本记录下来，并设置linux定时任务，周期执行。最后，通过ffmpeg 或者其他视频编辑软件将照片变成视频/gif。
+器材 一部安卓手机 + 一台电脑(假设为Linux) + 一根USB线
+拍摄主题 玫瑰花绽放
+做法 我手头有一部大概一年前买的红米，测试了下拍照效果，虽然比不上正在用的5c但也相当凑和。笔记本刚刚重装了个系统(Arch)，在官网上下好了新鲜热乎的Android SDK。
+用USB线将手机连到笔记本，打开手机的Debug模式。另外，推荐将手机设置为Debug模式下屏幕常亮。用Android SDK的platform-tools目录下的adb命令检查是否顺利连接了手机。我在自己的机器上折腾红米的挂载还颇费了一点力气，具体操作可以google之，此处不赘述。
+用脚本调用adb命令，实现启动相机、聚焦、拍照、保存照片到电脑、删除手机上的照片等一连串操作。将照片从手机上删除是考虑到手机SD的容量有限。Shell脚本实现起来最简单。这里不得不赞叹adb的强大，不仅可以用&amp;rdquo;adb shell&amp;rdquo;像普通linux系统一样操作Android设备，还可以向设备发送按键动作、模拟触屏动作等。如何发送Keyevent，如何捕捉(capture)、记录(record)、发送屏幕触摸动作，可以Google之，此处不赘述。
+将脚本作为系统的定时任务执行。Linux下用crontab可以非常方便地实现。如何设置定时任务的时间间隔，需要做一点小数学题，用拍摄对象的总耗时与视频的帧率算出来，具体参考博客。
+做完前期的技术准备后，该拍摄主角登场了。我选择的拍摄主题是“鲜花绽放”，所谓一支浓艳露凝香，在我心中玫瑰是坠吼不过的了。在花店用3人民币买了一朵含苞待放的玫瑰花骨朵儿。给它粘个背景，插在一个透明酸奶罐子中，架好灯光（淘宝买的USB LED灯）。固定好手机，缚得牢牢的，不要让它晃动。
+静静地让程序跑，跑，跑。。。。（宿舍晚上会熄灯，这是比较麻烦的，暂时我还没想到解决办法。不过幸亏玫瑰花儿开得快，白天就很饱满了。）
+时间大概过去了五个小时。。。
+好了，花儿开好了。
+打开电脑上存放照片的目录，用ffmpeg或者别的视频编辑软件，将它们合成视频。（我这里为了方便合成的是gif。）
+Github例子 我的Shell脚本见这个项目。
+最后是gif效果图，考虑到博客容量我降低了图片尺寸和质量。</description>
     </item>
     
     <item>
@@ -219,31 +86,18 @@
       <pubDate>Sun, 26 Jul 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/surfaceview-dual-cache/</guid>
-      <description>&lt;p&gt;##理解SurfaceView&lt;br /&gt;
-SurfaceView是View的子类，所以View有的特点它都有。但它有特殊之处：它引入了缓存机制，优化了内容刷新的过程，使UI Thread不至于崩溃。更新它的内容，我们要用到与之关联的SurfaceHolder。&lt;/p&gt;
-
-&lt;p&gt;比较特殊的在于SurfaceView的“双缓存”(Double-buffer)机制。更新SurfaceView的常见流程是&amp;rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&amp;rdquo;, 如果你遇到SurfaceView闪烁的情况，像鬼片里电视机的那种闪法，那十之八九是栽倒在双缓存的坑里了。Google告诉了我这个问题的答案，希望你能用上。&lt;/p&gt;
-
-&lt;p&gt;##双缓存(Double-buffer)与黑屏闪烁&lt;br /&gt;
-以下内容来自&lt;a href=&#34;http://markmail.org/message/mxserqvi37hnajp5&#34;&gt;邮件列表的讨论&lt;/a&gt;，我对它们进行一点梳理。&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;每个SurfaceView 对象有两个独立的graphic buffer，官方SDK将它们称作&amp;rdquo;front buffer&amp;rdquo;和&amp;rdquo;back buffer&amp;rdquo;。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;常规的&amp;rdquo;double-buffer&amp;rdquo;会这么做：每一帧的数据都被绘制到back buffer，然后back buffer的内容被持续翻转(flip)到front buffer；屏幕一直显示front buffer。但Android SurfaceView的&amp;rdquo;double-buffer&amp;rdquo;却是这么做的：在buffer A里绘制内容，然后让屏幕显示buffer A; 下一个循环，在buffer B里绘制内容，然后让屏幕显示buffer B; 如此往复。于是，屏幕上显示的内容依次来自buffer A, B, A, B,&amp;hellip;.这样看来，两个buffer其实没有主从的分别，与其称之为&amp;rdquo;front buffer&amp;rdquo;&amp;ldquo;back buffer&amp;rdquo;，毋宁称之为&amp;rdquo;buffer A&amp;rdquo;&amp;ldquo;buffer B&amp;rdquo;。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Android中&amp;rdquo;double-buffer&amp;rdquo;的实现机制，可以很好地解释闪屏现象。在第一个&amp;rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&amp;rdquo;循环中，更新的是buffer A的内容；到下一个&amp;rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&amp;rdquo;循环中，更新的是buffer B的内容。如果buffer A与buffer B中某个buffer内容为空，当屏幕轮流显示它们时，就会出现画面黑屏闪烁现象。&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;##解决方法
-出现黑屏是因为buffer A与buffer B中一者内容为空，而且为空的一方还被post到了屏幕。于是有两种解决思路：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;不让空buffer出现：每次向一个buffer写完内容并post之后，顺便用这个buffer的内容填充另一个buffer。这样能保证两个buffer的内容是同步的，缺点是做了无用功，耗费性能。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;不post空buffer到屏幕：当准备更新内容时，先判断内容是否为空，只有非空时才启动&amp;rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&amp;rdquo;这个流程。&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description>##理解SurfaceView
+SurfaceView是View的子类，所以View有的特点它都有。但它有特殊之处：它引入了缓存机制，优化了内容刷新的过程，使UI Thread不至于崩溃。更新它的内容，我们要用到与之关联的SurfaceHolder。
+比较特殊的在于SurfaceView的“双缓存”(Double-buffer)机制。更新SurfaceView的常见流程是&amp;rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&amp;rdquo;, 如果你遇到SurfaceView闪烁的情况，像鬼片里电视机的那种闪法，那十之八九是栽倒在双缓存的坑里了。Google告诉了我这个问题的答案，希望你能用上。
+##双缓存(Double-buffer)与黑屏闪烁
+以下内容来自邮件列表的讨论，我对它们进行一点梳理。
+ 每个SurfaceView 对象有两个独立的graphic buffer，官方SDK将它们称作&amp;rdquo;front buffer&amp;rdquo;和&amp;rdquo;back buffer&amp;rdquo;。
+ 常规的&amp;rdquo;double-buffer&amp;rdquo;会这么做：每一帧的数据都被绘制到back buffer，然后back buffer的内容被持续翻转(flip)到front buffer；屏幕一直显示front buffer。但Android SurfaceView的&amp;rdquo;double-buffer&amp;rdquo;却是这么做的：在buffer A里绘制内容，然后让屏幕显示buffer A; 下一个循环，在buffer B里绘制内容，然后让屏幕显示buffer B; 如此往复。于是，屏幕上显示的内容依次来自buffer A, B, A, B,&amp;hellip;.这样看来，两个buffer其实没有主从的分别，与其称之为&amp;rdquo;front buffer&amp;rdquo;&amp;ldquo;back buffer&amp;rdquo;，毋宁称之为&amp;rdquo;buffer A&amp;rdquo;&amp;ldquo;buffer B&amp;rdquo;。
+ Android中&amp;rdquo;double-buffer&amp;rdquo;的实现机制，可以很好地解释闪屏现象。在第一个&amp;rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&amp;rdquo;循环中，更新的是buffer A的内容；到下一个&amp;rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&amp;rdquo;循环中，更新的是buffer B的内容。如果buffer A与buffer B中某个buffer内容为空，当屏幕轮流显示它们时，就会出现画面黑屏闪烁现象。
+  ##解决方法 出现黑屏是因为buffer A与buffer B中一者内容为空，而且为空的一方还被post到了屏幕。于是有两种解决思路：
+ 不让空buffer出现：每次向一个buffer写完内容并post之后，顺便用这个buffer的内容填充另一个buffer。这样能保证两个buffer的内容是同步的，缺点是做了无用功，耗费性能。
+ 不post空buffer到屏幕：当准备更新内容时，先判断内容是否为空，只有非空时才启动&amp;rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&amp;rdquo;这个流程。
+  </description>
     </item>
     
     <item>
@@ -252,45 +106,16 @@ SurfaceView是View的子类，所以View有的特点它都有。但它有特殊�
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/android-activity-lifecycle-with-two-activites/</guid>
-      <description>&lt;p&gt;##Android Activity的生命周期
-下面这张图非常清晰地介绍了Activity的生命周期：&lt;br /&gt;
-&lt;img src=&#34;http://www.startandroid.ru/images/stories/lessons/L0023/L0023_010_en.jpg&#34; alt=&#34;Activity Lifecycle&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;##当通过intent跳转时的状态变化
-一个Activity的状态有三个：Stopped(存在但看不见)，Paused(部分可见，但无焦点)，Resumed(激活状态，拥有焦点，可以与之交互)。如果将不存在也算作一个状态，那样一共就有四个状态。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.startandroid.ru/en/lessons/complete-list/232-lesson-24-activity-lifecycle-example-about-changing-states-with-two-activities.html&#34;&gt;这篇文章&lt;/a&gt;非常详细地讨论了当通过intent在一个Activity中启动另一个Activity时，它们两个Activity的状态变化过程。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;当由MainActivity跳转到ActivityTwo时&lt;/strong&gt;，下面是方法的调用顺序：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;    MainActivity: onPause()     
-ActivityTwo: onCreate()     
-ActivityTwo: onStart()     
-ActivityTwo: onResume()     
-MainActivity: onStop()     
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;步骤为：MainActivity失去焦点，转到Paused状态-&amp;gt;ActivityTwo新建但不可见,处于Stopped状态-&amp;gt;ActivityTwo可见，处于Paused状态-&amp;gt;ActivityTwo获得焦点，处于Resumed状态-&amp;gt;MainActivity不可见，处于Stopped状态。&lt;/p&gt;
-
-&lt;p&gt;值得注意的是，当ActivityTwo位于前台时，MainActivity并没有被销毁，而是仍保存在内存中。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;按下后退键，由ActivityTwo返回MainActivity时&lt;/strong&gt;，方法的调用顺序为：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;    ActivityTwo: onPause()     
-MainActivity: onRestart()     
-MainActivity: onStart()     
-MainActivity: onResume()     
-ActivityTwo: onStop()     
-ActivityTwo: onDestroy()   
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;步骤与上一步类似。值得注意之处有二：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;其一，MainActivity.onRestart方法先于MainActivity.onStart方法调用。如果Activity不是从无到有新建出来的，那么在onStart方法前都会先调用onRestart方法。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;其二，ActivityTwo被销毁了。至于为什么此时ActivityTwo会被销毁，涉及到Task的原理。在&lt;a href=&#34;http://www.startandroid.ru/en/lessons/complete-list/234-lesson-25-task-what-is-it-and-how-it-is-formed.html&#34;&gt;这篇文章&lt;/a&gt;中有介绍。&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>##Android Activity的生命周期 下面这张图非常清晰地介绍了Activity的生命周期：
+##当通过intent跳转时的状态变化 一个Activity的状态有三个：Stopped(存在但看不见)，Paused(部分可见，但无焦点)，Resumed(激活状态，拥有焦点，可以与之交互)。如果将不存在也算作一个状态，那样一共就有四个状态。
+这篇文章非常详细地讨论了当通过intent在一个Activity中启动另一个Activity时，它们两个Activity的状态变化过程。
+当由MainActivity跳转到ActivityTwo时，下面是方法的调用顺序：
+ MainActivity: onPause() ActivityTwo: onCreate() ActivityTwo: onStart() ActivityTwo: onResume() MainActivity: onStop()  步骤为：MainActivity失去焦点，转到Paused状态-&amp;gt;ActivityTwo新建但不可见,处于Stopped状态-&amp;gt;ActivityTwo可见，处于Paused状态-&amp;gt;ActivityTwo获得焦点，处于Resumed状态-&amp;gt;MainActivity不可见，处于Stopped状态。
+值得注意的是，当ActivityTwo位于前台时，MainActivity并没有被销毁，而是仍保存在内存中。
+按下后退键，由ActivityTwo返回MainActivity时，方法的调用顺序为：
+ ActivityTwo: onPause() MainActivity: onRestart() MainActivity: onStart() MainActivity: onResume() ActivityTwo: onStop() ActivityTwo: onDestroy()  步骤与上一步类似。值得注意之处有二：
+ 其一，MainActivity.onRestart方法先于MainActivity.onStart方法调用。如果Activity不是从无到有新建出来的，那么在onStart方法前都会先调用onRestart方法。
+ 其二，ActivityTwo被销毁了。至于为什么此时ActivityTwo会被销毁，涉及到Task的原理。在这篇文章中有介绍。  </description>
     </item>
     
     <item>
@@ -299,34 +124,15 @@ ActivityTwo: onDestroy()
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/use-of-context-in-android/</guid>
-      <description>&lt;p&gt;##官方文档中对Context的介绍
-&amp;gt;Interface to global information about an application environment. This is an abstract class whose implementation is provided by the Android system. It allows access to application-specific resources and classes, as well as up-calls for application-level operations such as launching activities, broadcasting and receiving intents, etc.&lt;/p&gt;
-
-&lt;p&gt;翻译：&lt;br /&gt;
-Context是Android应用的全局信息的接口。它是一个虚类，它的实现由Android系统完成。它提供了对某个应用的资源和类的访问权限，也提供对应用层面操作(如启动Activity，发送broadcast，接受intent)的调用接口。&lt;/p&gt;
-
-&lt;p&gt;##总结
-&lt;a href=&#34;http://stackoverflow.com/questions/3572463/what-is-context-in-android&#34;&gt;StackoverFlow.com&lt;/a&gt;上有人根据自己的理解总结了Context的用法，说得很有道理，以下是我的翻译。&lt;/p&gt;
-
-&lt;p&gt;正如Context的名字所说，它是一个应用/对象(applicaton/object)当前状态的上下文。它让新建的对象知道当前正在发生着什么。典型的用法，你可以调用它来得到关于你程序其它部分(Activity，package/application等)的信息。&lt;/p&gt;
-
-&lt;p&gt;你可以通过以下方式得到context: getApplicationContext(), getContext(), getBaseContext()或者this(当位于一个Activity class中时)。&lt;/p&gt;
-
-&lt;p&gt;典型用法：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;新建对象&lt;/strong&gt;：新建views, adapters, listeners等：&lt;br /&gt;
-    TextView tv = new TextView(getContext());
-ListAdapter adapter = new SimpleCursorAdapter(getApplicationContext(), &amp;hellip;);&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;访问资源&lt;/strong&gt;：譬如LAYOUT_INFLATER_SERVICE, SharedPreferences一类的资源：&lt;br /&gt;
-    context.getSystemService(LAYOUT_INFLATER_SERVICE)&lt;br /&gt;
-    getApplicationContext().getSharedPreferences(&lt;em&gt;name&lt;/em&gt;, &lt;em&gt;mode&lt;/em&gt;);&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;隐式访问组件&lt;/strong&gt;：content providers, broadcast, intent 等：&lt;br /&gt;
-    getApplicationContext().getContentResolver().query(uri, &amp;hellip;);&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>##官方文档中对Context的介绍 &amp;gt;Interface to global information about an application environment. This is an abstract class whose implementation is provided by the Android system. It allows access to application-specific resources and classes, as well as up-calls for application-level operations such as launching activities, broadcasting and receiving intents, etc.
+翻译：
+Context是Android应用的全局信息的接口。它是一个虚类，它的实现由Android系统完成。它提供了对某个应用的资源和类的访问权限，也提供对应用层面操作(如启动Activity，发送broadcast，接受intent)的调用接口。
+##总结 StackoverFlow.com上有人根据自己的理解总结了Context的用法，说得很有道理，以下是我的翻译。
+正如Context的名字所说，它是一个应用/对象(applicaton/object)当前状态的上下文。它让新建的对象知道当前正在发生着什么。典型的用法，你可以调用它来得到关于你程序其它部分(Activity，package/application等)的信息。
+你可以通过以下方式得到context: getApplicationContext(), getContext(), getBaseContext()或者this(当位于一个Activity class中时)。
+典型用法：
+ 新建对象：新建views, adapters, listeners等：
+TextView tv = new TextView(getContext()); ListAdapter adapter = new SimpleCursorAdapter(getApplicationContext(), &amp;hellip;);</description>
     </item>
     
     <item>
@@ -335,374 +141,41 @@ ListAdapter adapter = new SimpleCursorAdapter(getApplicationContext(), &amp;hell
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/an-insight-of-android-intent/</guid>
-      <description>&lt;p&gt;##原文链接
-&lt;a href=&#34;http://blog.chinaunix.net/uid-741742-id-359319.html&#34;&gt;Android Intent原理分析&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;##转载原文正文
-Revision History&lt;/p&gt;
-
-&lt;p&gt;wylhistory&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Abstract&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Introduction&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Intent的架构&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Intent的发送过程&lt;br /&gt;
-4.1      Intent消息在发送进程的逻辑&lt;br /&gt;
-4.2      Intent发送在服务器端的执行&lt;br /&gt;
-4.2.1       进入消息队列之前&lt;br /&gt;
-4.2.2       进入消息队列后的处理&lt;br /&gt;
-4.2.3       消息的分发过程&lt;br /&gt;
-4.2.4       deliverToRegisteredReceiver的逻辑&lt;br /&gt;
-4.2.5       processCurBroadcastLocked的逻辑&lt;br /&gt;
-4.2.6       startProcessLocked的逻辑&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Intent的接收过程&lt;br /&gt;
-5.1      Receiver的注册&lt;br /&gt;
-5.2      scheduleReceiver&lt;br /&gt;
-5.3      scheduleRegisteredReceiver的逻辑&lt;br /&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;未分析&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Abstract&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;主要是分析一下android的IPC通讯之Intent；&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Introduction&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;任何一个操作系统，都有自己的IPC通讯机制，Android也不例外；&lt;br /&gt;
-IPC通讯在linux下面通常包括共享内存，管道，消息队列等，这其中共享内存的效率比较高，我想；&lt;br /&gt;
-这里将要说的Intent的通讯机制是基于Binder的，而Binder的机制本质上是共享内存；&lt;br /&gt;
-Intent中文翻译为：n.意图，意向，目的 a.专心的；急切的；没有一个特别适合，所以我还是决定用英文；&lt;br /&gt;
-它的作用，我想就是传达一些信息各特定的对象，或者广播一些信息各某些对象；这里涉及两方面的内容：&lt;br /&gt;
-A） 消息的发送；&lt;br /&gt;
-B） 消息的接收；&lt;/p&gt;
-
-&lt;p&gt;后面就会具体的展开；&lt;/p&gt;
-
-&lt;p&gt;讨论之前先看一个简单的例子：
-Intent intent = new Intent(AudioManager.ACTION_AUDIO_BECOMING_NOISY);&lt;br /&gt;
-mContext.sendBroadcast(intent);&lt;/p&gt;
-
-&lt;p&gt;这是摘自HeadsetObserver.java的代码；&lt;br /&gt;
-后面将会以此为例，分析发送和接收的过程；&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Intent的架构&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Intent的架构包括三方面：&lt;br /&gt;
-Client，也就是发送这个Intent的activity；&lt;br /&gt;
-Server，也就是activityManagerService.java,它主要是负责分发这些Intent给适当的对象；&lt;br /&gt;
-Target，也就是那些需要处理这个Intent的activity，我们称为Receiver；&lt;/p&gt;
-
-&lt;p&gt;需要大致的了解一下，Intent通常有哪些部分？我们常用的包括三方面：&lt;br /&gt;
-A）    action，就是这个intent是想达到什么目的，比如是想打电话，还是想告诉我们电池电量低？&lt;br /&gt;
-B）      数据，也就是这个intent要处理的是这些数据，如果你是receiver的话，你需要考虑，你是否需要处理这个intent，这里包括数据的URI，以及数据的类型；&lt;br /&gt;
-C）      Category，这个就是需要处理这个Intent的activity的种类，这个种类是比较难以理解的，我想Google的本意是想区分一下不同的Activity的种类，比如对于CATEGORY_LAUNCHER，这个就表示它是一个启动器，有些消息只需要由特定类型的activity来处理；&lt;/p&gt;
-
-&lt;p&gt;当然还有其它的一些属性，但是我们经常遇到的就是这三个，而这三个里面最常用的是Action；&lt;br /&gt;
-这些项的作用，主要是被activityManagerService用来挑选适当的Activity来处理这个Intent；&lt;br /&gt;
-好了，太多的概念，让人有点头晕，后面会再详细的讲；&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Intent的发送过程&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;4.1 Intent消息在发送进程的逻辑&lt;/p&gt;
-
-&lt;p&gt;回到我们先前的那个例子：&lt;/p&gt;
-
-&lt;p&gt;Intent intent = new Intent(AudioManager.ACTION_AUDIO_BECOMING_NOISY);&lt;br /&gt;
-mContext.sendBroadcast(intent);&lt;/p&gt;
-
-&lt;p&gt;第一句话是构造一个Intent，注意只传入了一个参数，这个参数就是一个Action，没有指定data以及Category；也就是说如果某个Receiver写成这样（在AndroidManifext.xml里面）：&lt;/p&gt;
-
-&lt;p&gt;&lt;receiver android:name=&#34;MediaButtonIntentReceiver&#34;&gt;
-          &lt;intent-filter&gt;
-               &lt;action android:name=&#34;android.media.AUDIO_BECOMING_NOISY&#34; /&gt;
-     &lt;/intent-filter&gt;&lt;br /&gt;
-&lt;/receiver&gt;&lt;/p&gt;
-
-&lt;p&gt;这个receiver的onReceive函数将会被调用，其中receiver表示处理这个Intent消息的类，而intent-filter表示这个receiver关心哪些Intent，这里写明了，我只关心，action == android.media.AUDIO_BECOMING_NOISY的Intent，如果是其它的Intent请别来烦我；&lt;/p&gt;
-
-&lt;p&gt;第二句话的目的就是把这个消息广播出去，谁关心谁处理去，从此和我没关系了；&lt;br /&gt;
-我可以很负责任的说，这个mContext的类型为ApplicationContext，在Android的代码里，这样命名的变量多半是这个类型，所以后面的逻辑就简单描述为：&lt;br /&gt;
-Android的代码很多都这样，一层层的调用，很多时候都是二传手，这是模块化设计需要付出的代价，不过，值得；&lt;/p&gt;
-
-&lt;p&gt;对于分析来说，需要理清楚这个调用到底去了什么地方？&lt;/p&gt;
-
-&lt;p&gt;代码在ActivityManagerNative.java里面：&lt;br /&gt;
-这是一个典型的Binder调用，从此以后代码的执行进入了另外一个进程；&lt;/p&gt;
-
-&lt;p&gt;4.2  Intent发送在服务器端的执行&lt;br /&gt;
-4.2.1 进入消息队列之前&lt;br /&gt;
-这个图的逻辑是由ActivityManagerService.java来执行的，基本上也没什么意思；&lt;br /&gt;
-重要的是最后调用的这个函数broadcastIntentLocked，基本上主要的工作都是由它来完成的；&lt;br /&gt;
-这个函数非常重要，需要详细分析：&lt;br /&gt;
-1，首先是进行一些权限检查，保证非串行的Intent其resultTo receiver必须是null;&lt;br /&gt;
-2，如果这个Intent是说某个包被删除了或者改变了，那么当前的历史栈里面的属于这个包的activity就必须被关掉；&lt;br /&gt;
-3，如果是时区改变的消息，那么将会先被放进队列里面通知当前正在运行的进程；&lt;br /&gt;
-4，权限检查，判断是否有权限发送受保护的Intent，对于SYSTEM_UID，PHONE_UID，SHELL_UID，或者callingUid == 0的情况不做检查，也就是说默认这些调用者有这个发送的权限；&lt;br /&gt;
-5，对于sticky类型的Intent做一些特殊处理（关于sticky类型等概念后面会讲），简单就是把这个Intent加入到mStickyBroadcasts链表中去；&lt;br /&gt;
-6，判断这个Intent是有一个明确的对象，如果是那么直接把它的对象加入到receivers列表中去，如果不是，那么会继续判断是不是这个Intent在发送的时候设置了FLAG_RECEIVER_REGISTERED_ONLY标志，如果是，那么这个Intent将只发送给已经注册的Receiver，不会发送给Broadcast receiver,否则就发送给所有的那些满足条件的receivers；这里就涉及Intent的匹配原则，主要是通过函数queryIntent(Intent intent, String resolvedType, boolean defaultOnly)来匹配的，原则就是我前面说的，根据Action，data type，category等来匹配，记住，每条规则之间的关系是或的关系，比如：&lt;br /&gt;
-&lt;receiver android:name=&#34;MediaButtonIntentReceiver&#34;&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&#34;android.intent.action.MEDIA_BUTTON&#34; /&gt;
-        &lt;action android:name=&#34;android.media.AUDIO_BECOMING_NOISY&#34; /&gt;
-    &lt;/intent-filter&gt;
- &lt;/receiver&gt;&lt;/p&gt;
-
-&lt;p&gt;就表示只要匹配到其中一条就算成功；另外，对于没有写明的匹配规则默认就算成功，比如对于此规则，没有写明数据类型，种类等，那么默认所有的数据类型都可以匹配上；&lt;/p&gt;
-
-&lt;p&gt;7，如果是registeredReceivers不为空并且这个Intent不是串行的，也就是上一步已经取出了对应的接收者，那么就需要把这个Intent封装成一个BroadcastRecord，然后加入到mParallelBroadcasts，这个称为并行广播，也就是说可以同时发送给多个接收者，再通过scheduleBroadcastsLocked触发真正的发送；&lt;br /&gt;
-8，过滤一种特殊情况，也就是对于ACTION_PACKAGE_ADDED消息，这个被安装的包本身不能作为这个消息的接收者；&lt;br /&gt;
-9，然后对registeredReceivers和receivers做一个合并，如果这两个都不为空的话，记住，合并前这个receivers标识了“具有固定对象的接收者或者是当前已经注册的接收者不包括广播接收者”，而registeredReceivers表示broadcast Filter，另外这步能合并的前提是这个Intent是串行的Intent，否则是不会合并的；&lt;br /&gt;
-10，  合并以后receivers表示所有的串行receivers通过mOrderedBroadcasts.add&amp;reg;加入到列表中去，再通过scheduleBroadcastsLocked触发真正的发送；&lt;/p&gt;
-
-&lt;p&gt;OK，这个函数基本上就结束了，这里有三个概念需要解释，串行,并行，sticky的BroadCast；&lt;br /&gt;
-串行：就表示这个Intent必须一个一个的发送给接收者；&lt;br /&gt;
-并行：表示这个Intent可以同时发送给多个接收者，通常广播的消息都是并行的；&lt;br /&gt;
-Sticky：这个类型的BroadCast比较难以理解，问了google也没有答案，我个人的理解是这样的，某些Intent需要被保留，当新的应用起来后，需要关注这个消息，但是呢，又不需要启动这个应用来接收此消息，比如耳机插入等消息，这里说实话，真的很巧妙，我们以前在maemo上碰到过这个问题，当时我们的策略是应用起来的时候自己查询耳机的状态，这里的处理明显就高明许多；&lt;/p&gt;
-
-&lt;p&gt;总结一下这个函数：它的主要作用是根据这个Intent的特点，构造BroadCastRecord加入到不同的列表，等待被处理；&lt;/p&gt;
-
-&lt;p&gt;OK，控制到了scheduleBroadcastsLocked这里，它的逻辑很简单：&lt;br /&gt;
-private final void scheduleBroadcastsLocked() {
- if (mBroadcastsScheduled) {
-return;
-mHandler.sendEmptyMessage(BROADCAST_INTENT_MSG);
-mBroadcastsScheduled = true;
-先判断mBroadcastsScheduled是否为真，如果为真就直接返回,这个变量主要是实现scheduleBroadcastsLocked和processNextBroadcast之间的顺序执行，后面会看到在processNextBroadcast函数里面会把它设置为false；&lt;br /&gt;
-下面就是通过BROADCAST_INTENT_MSG消息放入到消息队列里面，从这个角度来说Intent最后也是通过线程本身的消息队列来实现Intent的分发的；&lt;/p&gt;
-
-&lt;p&gt;4.2.2 进入消息队列后的处理&lt;br /&gt;
-上面有提到会通过mHandler.sendEmptyMessage(BROADCAST_INTENT_MSG)，把这个消息传递给mHandler，下面看看这个逻辑是如何实现的；&lt;br /&gt;
-到这里消息就是按照时间顺序进入了mQueue了；&lt;br /&gt;
-我们再看看一个activity的thread是如何进入主循环的：&lt;br /&gt;
-首先是通过prepareMainLooper建立基本的数据结构，包括mQueue以及mThread,mMainLooper;&lt;br /&gt;
-并把当前的这个Looper放入到线程独有的变量中；&lt;br /&gt;
-其次是通过Looper.loop进入到主循环，逻辑如下：&lt;br /&gt;
-首先是取出当前进入主循环的Looper，然后取出这个looper所拥有的mQueue，接下来就开始处理这个队列里面的消息了；&lt;br /&gt;
-根据处理方式分两种消息，一种是消息的处理由一个线程来完成，一种是消息的处理时由一个函数来完成；&lt;br /&gt;
-后者的话也分两种，一种是handler创建的时候提供了callback，这种情况非常少见；另外一种是通过handleMessage的方式来处理，通常我们在创建handler的时候都会提供这样一个函数，于是消息就可以被处理了；&lt;/p&gt;
-
-&lt;p&gt;注意，最左边的分支我们还没有讨论，后面会遇到；&lt;/p&gt;
-
-&lt;p&gt;我们先看看这个handleMessage对于BROADCAST_INTENT_MSG的处理：&lt;br /&gt;
-这是最重要的函数，如果说broadcastIntentLocked是负责把Intent转化为BroadCast的话放入不同的队列，那么这个函数主要就是负责分发了，当然也涉及一点接收的流程；&lt;/p&gt;
-
-&lt;p&gt;4.2.3 消息的分发过程&lt;/p&gt;
-
-&lt;p&gt;下面分析函数private final void processNextBroadcast(boolean fromMsg)；&lt;br /&gt;
-1，先判断fromMsg,如果是通过消息发送过来的就为真，否则为假，如果为真mBroadcastsScheduled = false，这样的话在函数scheduleBroadcastsLocked里面就可以再次发送BROADCAST_INTENT_MSG的消息从而触发processNextBroadcast函数被再次调用；&lt;br /&gt;
-2，先判断mParallelBroadcasts是否为空，不为空就开始调用这个列表里面的receivers来接收消息，这个过程后面在串行intent的时候也会碰到，我们留到后面讨论，这里只需要知道它通过一个while循环把Intent发送给关注这个Intent的所有的receivers；&lt;br /&gt;
-3，再判断mPendingBroadcast是否为空，如果不为空，就表示先前发送的串行的Intent还没有处理完毕，一般出现这种可能是因为我们要发送到的receiver还没有启动，所以需要先启动这个activity，然后等待起来的这个activity处理，这时候，这个mPendingBroadcast就为true；如果发送这种情况需要判断这个Activity是否死了，如果死了，那么就把mPendingBroadcast设为false，否则就直接返回，继续等待；&lt;br /&gt;
-4，接下来就顺序的从mOrderedBroadcasts里面取出BroadCastRecord消息，然后对这个消息的receiver一个一个的调用其接收流程，注意这里要把这个BroadCast的所有的receivers串行发送，都发送完了，才会进入到下一个BroadCastRecord消息；对于这个消息的处理，先判断其接收者是不是BroadFilter，如果是，就调用deliverToRegisteredReceiver来接收，它的处理流程和前面的处理并行BroadCast一样，所以留到后面讲；&lt;br /&gt;
-5，如果不是BroadCast Filter，就需要找出这个reiver所在的进程，这时候通常就是一个IntentFilter所在的进程，如果这个进程活着，那么就调用processCurBroadcastLocked(r, app)来处理，否则&lt;br /&gt;
-6，需要先启动这个进程，这就是startProcessLocked做的事情，然后设置mPendingBroadcast = r，这样等应用起来它会处理这个消息，后面会有进一步的说明；&lt;/p&gt;
-
-&lt;p&gt;到这里这个函数就结束了，比较复杂，里面还有一些安全的检查等等，上面遗留了三个问题：&lt;br /&gt;
-A）deliverToRegisteredReceiver的处理流程；&lt;br /&gt;
-B）processCurBroadcastLocked的处理流程；&lt;br /&gt;
-C）startProcessLocked以后的进程如何处理这个唤醒它的Intent；&lt;/p&gt;
-
-&lt;p&gt;4.2.4 deliverToRegisteredReceiver的逻辑&lt;br /&gt;
-这里也分为这个receiver是否启动，如果已经启动就通过binder调用到了接收 activity的进程里面了，右边的分支performReceive也会调用到activityThread这边，留到接收过程再看；&lt;/p&gt;
-
-&lt;p&gt;4.2.5 processCurBroadcastLocked的逻辑&lt;br /&gt;
-可以看到它和deliverToRegisteredReceive的最终差别，只在于一个调用的是ScheduleRegisterdReceiver,一个是scheduleReceiver，这两个函数最后都会进入到目标activity的线程；&lt;/p&gt;
-
-&lt;p&gt;4.2.6 startProcessLocked的逻辑&lt;br /&gt;
-从这里可以看出最后通过Process.start启动了ActivityThread.java的进程，我们看看这个线程启动后的执行逻辑：&lt;br /&gt;
-首先是在进入主循环之前调用attachApplication通过binder调用进入到activityManagerService.java的进程；&lt;br /&gt;
-这个服务器进程在把我们先前设置的mPendingBroadcast设置为null，表示这个pending的broadcat已经得到处理了，然后调用processCurBroadcastLocked来处理这个broadcast消息，最后通过app.thread.scheduleReceiver进入到目标线程的接收流程；&lt;br /&gt;
-OK,到这里的话所有的发送分发流程已经结束了，剩下的就是两个接收函数还没有讨论一个就是ScheduleRegisterdReceiver,一个是scheduleReceiver；&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Intent的接收过程&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;5.1  Receiver的注册&lt;/p&gt;
-
-&lt;p&gt;Receiver的注册一般分为动态注册和静态注册，动态注册就是通过API registerReceiver来注册，静态的一般就是写在AndroidManifest.xml,比如我们在前面已经看到的：&lt;/p&gt;
-
-&lt;p&gt;&lt;receiver android:name=&#34;MediaButtonIntentReceiver&#34;&gt;
-&lt;intent-filter&gt;
-&lt;action android:name=&#34;android.intent.action.MEDIA_BUTTON&#34; /&gt;
-&lt;action android:name=&#34;android.media.AUDIO_BECOMING_NOISY&#34; /&gt;
-&lt;/intent-filter&gt;
-&lt;/receiver&gt;&lt;/p&gt;
-
-&lt;p&gt;至于它的原理以后在分析packageManger的时候再分析；&lt;br /&gt;
-下面重点来看看这个动态注册的逻辑：&lt;/p&gt;
-
-&lt;p&gt;这两条路径都可能被走到，如果不在ApplicationContent环境里面就需要通过context.registerReceiver来注册了，经过几层传递会通过registerReceiverInternal进入主题；&lt;/p&gt;
-
-&lt;p&gt;这个图看起来复杂，其实很简单，就是构造receiver放入到列表中去，只是中间又经历了Binder，这些receiver也就是我们先前在发送的过程中看到的那些receiver，当然它们能进入到broadcast的列表还要看发送的intent是否满足它们给自的filter；&lt;/p&gt;
-
-&lt;p&gt;好，现在可以看看我们在发送阶段遗留的两个函数：&lt;/p&gt;
-
-&lt;p&gt;scheduleReceiver&lt;br /&gt;
-scheduleRegisteredReceiver；&lt;/p&gt;
-
-&lt;p&gt;5.2  scheduleReceiver&lt;/p&gt;
-
-&lt;p&gt;它的入口通常是Binder的分发函数，如下：&lt;/p&gt;
-
-&lt;p&gt;右下方的这个函数scheduleReceiver才会真正调用到ActivityThread.java，这个就是目标activity的母体；&lt;/p&gt;
-
-&lt;p&gt;前面两个就是封装参数，最后放入到消息队列中，等待主循环的处理，这段逻辑我们前面已经看到了，就不再细说，总之会调用到handlemessage函数；&lt;/p&gt;
-
-&lt;p&gt;在收到这个消息的时候通过handleReceiver来处理；&lt;/p&gt;
-
-&lt;p&gt;这又是一个非常重要的函数，需要详细分析：&lt;/p&gt;
-
-&lt;p&gt;1，取得这个Intent指向的component，包括包名，类名；&lt;/p&gt;
-
-&lt;p&gt;2，取得包信息，这个结构提供了getClassLoader接口；&lt;/p&gt;
-
-&lt;p&gt;3，通过java.lang.ClassLoader cl = packageInfo.getClassLoader取得classLoader；&lt;/p&gt;
-
-&lt;p&gt;4，动态创建一个receiver，receiver = (BroadcastReceiver)cl.loadClass(component).newInstance()；&lt;/p&gt;
-
-&lt;p&gt;5，调用receiver.onReceive(context.getReceiverRestrictedContext(), data.intent)，进入到真正的处理流程中去了；&lt;/p&gt;
-
-&lt;p&gt;6，调用finishReceiver来触发ActivityManagerService这个消息到其它receivers的发送或者下一个broadcast的发送；&lt;/p&gt;
-
-&lt;p&gt;这其中最重要的就是这个onReceive函数，我们通常都会实现这么一个函数，然后在里面处理我们收到的消息；&lt;/p&gt;
-
-&lt;p&gt;5.3             scheduleRegisteredReceiver的逻辑&lt;/p&gt;
-
-&lt;p&gt;入口还是Binder得分发函数，如下：&lt;/p&gt;
-
-&lt;p&gt;这种处理在Android的代码里面随处可见，都是在native文件里面通过onTransact分发调用service文件里面的同名函数来完成真正的功能；&lt;/p&gt;
-
-&lt;p&gt;逻辑如下：&lt;/p&gt;
-
-&lt;p&gt;也就是说，这里把参数打包放入到args里面去，然后通过post放入到消息队列里面等待处理，后面的逻辑和一个消息的发送很相似，如下：&lt;/p&gt;
-
-&lt;p&gt;这里需要关注两个点，&lt;/p&gt;
-
-&lt;p&gt;一个就是m.callback=r,这个赋值会导致后面在分发消息的时候走不同的路径；&lt;/p&gt;
-
-&lt;p&gt;Msg.target=this,表示将来分发的时候谁来处理这个消息，如果设置为null将会导致主循环退出；&lt;/p&gt;
-
-&lt;p&gt;分发的逻辑前面我们有介绍就是dispatchMessage的时候，我们再看看这段代码：&lt;/p&gt;
-
-&lt;p&gt;public void dispatchMessage(Message msg) {&lt;/p&gt;
-
-&lt;p&gt;if (msg.callback != null) {&lt;/p&gt;
-
-&lt;p&gt;handleCallback(msg);&lt;/p&gt;
-
-&lt;p&gt;} else {&lt;/p&gt;
-
-&lt;p&gt;if (mCallback != null) {&lt;/p&gt;
-
-&lt;p&gt;if (mCallback.handleMessage(msg)) {&lt;/p&gt;
-
-&lt;p&gt;return;&lt;/p&gt;
-
-&lt;p&gt;handleMessage(msg);&lt;/p&gt;
-
-&lt;p&gt;这里就是需要先判断msg.callback是否为null，前面我们已经看到赋值了，所以这里不为null；&lt;/p&gt;
-
-&lt;p&gt;于是调用handleCallback,如下：&lt;/p&gt;
-
-&lt;p&gt;private final void handleCallback(Message message) {&lt;/p&gt;
-
-&lt;p&gt;message.callback.run();&lt;/p&gt;
-
-&lt;p&gt;这个callback我们也看到了其实就是我们封装的Args的args，原型为：&lt;/p&gt;
-
-&lt;p&gt;class Args implements Runnable，&lt;/p&gt;
-
-&lt;p&gt;也就是说它是一个类似线程的对象，它的run函数代码有点多，所以画了个图：&lt;/p&gt;
-
-&lt;p&gt;基本上这个逻辑就和我们之前看到的逻辑一致了，会调用receiver提供的onReceive函数来处理，这个onReceive函数是需要我们自己提供的，里面一般的逻辑都是根据不同的消息做不同的处理；&lt;/p&gt;
-
-&lt;p&gt;最后就是通过finishReceiver来触发ActivityManagerService对Intent的其它receivers的发送；&lt;/p&gt;
-
-&lt;p&gt;需要总结一下，&lt;/p&gt;
-
-&lt;p&gt;Intent从使用的角度来说，就是构造Intent，提供适当的参数，比如Action，比如数据类型，数据的uri等，然后发送出去；接收方需要注册一个receiver，然后提供onReceive函数就可以了；这个注册可以简单的写在AndroidManifest.xml里面也可以通过registerReceiver来完成；&lt;/p&gt;
-
-&lt;p&gt;发送的时候有三个API可以用：&lt;/p&gt;
-
-&lt;p&gt;sendBroadcast&lt;/p&gt;
-
-&lt;p&gt;sendStickyBroadcast&lt;/p&gt;
-
-&lt;p&gt;sendOrderedBroadcast&lt;/p&gt;
-
-&lt;p&gt;第一个用于发送并行广播；&lt;/p&gt;
-
-&lt;p&gt;第二个用于发送粘性广播；&lt;/p&gt;
-
-&lt;p&gt;第三个用于发送串行广播；&lt;/p&gt;
-
-&lt;p&gt;从原理的角度来说，本质上都是通过共享内存把信息传递给ActivityManagerService，它查询已经注册的那些receiver的过滤器，看是否和这个Intent匹配，如果匹配成功就加入到这个Intent的receiver列表中去，当然要根据这个Intent的参数决定加入到并行，串行，还是sticky的列表中，再通过Message传递，到主循环的下一轮来分发；这时候控制已经到了另外一个进程，然后分发好以后再调用目标线程的处理函数，所以基本上就是涉及三个进程，源——&amp;gt;server——&amp;gt;receiver；当然，源和目的可以是同一个进程；&lt;/p&gt;
-
-&lt;p&gt;另外这里需要处理一种情况，就是这个消息发送的时候，目标线程还没有创建，比如我们系统里面的校准程序，需要在第一次开机的时候执行，那么就需要捕捉一个广播消息，比如：&lt;/p&gt;
-
-&lt;p&gt;&lt;receiver android:name=&#34;StartupIntentReceiver&#34; &gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;intent-filter&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;action android:name=&#34;android.intent.action.BOOT_COMPLETED&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;category android:name=&#34;android.intent.category.HOME&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/intent-filter&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/receiver&gt;&lt;/p&gt;
-
-&lt;p&gt;这个消息的意思就是说启动已经完毕了；&lt;/p&gt;
-
-&lt;p&gt;处理这个消息的类是StartupIntentReceiver,首先包含这个receiver的主activity将会被执行，然后再执行这个接收类的onReceive来接收消息并处理，所谓主activity是这样的：&lt;br /&gt;
-    &amp;lt;activity android:name=&amp;ldquo;.CalibrationTest&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;android:label=&amp;ldquo;Calibration Test&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;android:theme=&amp;ldquo;@android:style/Theme.Black.NoTitleBar.Fullscreen&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;android:configChanges=&amp;ldquo;keyboard|keyboardHidden|navigation|orientation&amp;rdquo;&amp;gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;intent-filter&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;action android:name=&#34;android.intent.action.MAIN&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;category android:name=&#34;android.intent.category.LAUNCHER&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/intent-filter&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/activity&gt;&lt;/p&gt;
-
-&lt;p&gt;就是activity filter里面包含ACTION android.intent.action.MAIN,种类包含android.intent.category.LAUNCHER的activity；&lt;/p&gt;
-
-&lt;p&gt;这个启动过程是由ActivityManagerService.java来完成的，我们不必关心；&lt;/p&gt;
-
-&lt;p&gt;OK，基本上就这些了，关于Activity本身的原理，需要专门的文档来描述；&lt;br /&gt;
-7. 未分析&lt;/p&gt;
-
-&lt;p&gt;1，包管理器的信息来源；&lt;/p&gt;
-
-&lt;p&gt;2，AndroidManifest.xml的解析；&lt;/p&gt;
-
-&lt;p&gt;3，权限的检查；&lt;/p&gt;
-
-&lt;p&gt;4,其它；&lt;/p&gt;
-
-&lt;p&gt;作者：wylhistory&lt;/p&gt;
-
-&lt;p&gt;联系方式：wylhistory@gmail.com&lt;/p&gt;
-
-&lt;p&gt;##个人思考
-当调用startIntent方法时，从这篇文章可以看出，其实是在消息队列中添加了一个消息。之后，这个消息会被分发、处理。如果是用Intent启动某个Activity，启动的过程会在调用方法的那个进程结束后才会开始。这是需要注意的，因为不是startActivity方法被调用后马上就会启动一个新的Activity。&lt;/p&gt;
-</description>
+      <description>##原文链接 Android Intent原理分析
+##转载原文正文 Revision History
+wylhistory
+ Abstract
+ Introduction
+ Intent的架构
+ Intent的发送过程
+4.1 Intent消息在发送进程的逻辑
+4.2 Intent发送在服务器端的执行
+4.2.1 进入消息队列之前
+4.2.2 进入消息队列后的处理
+4.2.3 消息的分发过程
+4.2.4 deliverToRegisteredReceiver的逻辑
+4.2.5 processCurBroadcastLocked的逻辑
+4.2.6 startProcessLocked的逻辑
+ Intent的接收过程
+5.1 Receiver的注册
+5.2 scheduleReceiver
+5.3 scheduleRegisteredReceiver的逻辑
+ 未分析
+ Abstract
+  主要是分析一下android的IPC通讯之Intent；
+ Introduction  任何一个操作系统，都有自己的IPC通讯机制，Android也不例外；
+IPC通讯在linux下面通常包括共享内存，管道，消息队列等，这其中共享内存的效率比较高，我想；
+这里将要说的Intent的通讯机制是基于Binder的，而Binder的机制本质上是共享内存；
+Intent中文翻译为：n.意图，意向，目的 a.专心的；急切的；没有一个特别适合，所以我还是决定用英文；
+它的作用，我想就是传达一些信息各特定的对象，或者广播一些信息各某些对象；这里涉及两方面的内容：
+A） 消息的发送；
+B） 消息的接收；
+后面就会具体的展开；
+讨论之前先看一个简单的例子： Intent intent = new Intent(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
+mContext.sendBroadcast(intent);
+这是摘自HeadsetObserver.java的代码；
+后面将会以此为例，分析发送和接收的过程；
+ Intent的架构  Intent的架构包括三方面：</description>
     </item>
     
     <item>
@@ -711,41 +184,18 @@ scheduleRegisteredReceiver；&lt;/p&gt;
       <pubDate>Sat, 27 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/osc-android-app-notes-4/</guid>
-      <description>&lt;p&gt;OSC App显示的信息分为资讯(news)，博客(blog)，问答(Question)，动弹(tweet)几屏，每屏对应一个ListView。以资讯(news)为例，粗略看一下它的ListView是如何初始化、获取数据、加载数据的。&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;实例化一个ListViewNewsApapter并添加到lvNews：&lt;br /&gt;
-
-lvNewsAdapter = new ListViewNewsAdapter(this, lvNewsData, R.layout.news_listitem);
-
-ListViewNewsApapter这个类继承BaseAdapter，重写了getView()方法。值得注意的是，getView()方法中news实体被被作为Tag添加到了listView的ItemView中。&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;为lvNews设置lvNewsAdapter。lvNews和lvNewsAdapter都是Main这个类持有的变量，而不是某个函数的局部变量。&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;为lvNews设置OnClickListener，这个Listener以匿名内部类方式初始化：
-当点击单个item view时，从view中取出news这个Tag，然后使用UIHelper.showNewsRedirect()方法跳转到新闻阅读详情页。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;实例化一个lvNewsHandler：&lt;br /&gt;
-
+      <description>OSC App显示的信息分为资讯(news)，博客(blog)，问答(Question)，动弹(tweet)几屏，每屏对应一个ListView。以资讯(news)为例，粗略看一下它的ListView是如何初始化、获取数据、加载数据的。
+ 实例化一个ListViewNewsApapter并添加到lvNews：
+lvNewsAdapter = new ListViewNewsAdapter(this, lvNewsData, R.layout.news_listitem); ListViewNewsApapter这个类继承BaseAdapter，重写了getView()方法。值得注意的是，getView()方法中news实体被被作为Tag添加到了listView的ItemView中。
+  为lvNews设置lvNewsAdapter。lvNews和lvNewsAdapter都是Main这个类持有的变量，而不是某个函数的局部变量。
+ 为lvNews设置OnClickListener，这个Listener以匿名内部类方式初始化： 当点击单个item view时，从view中取出news这个Tag，然后使用UIHelper.showNewsRedirect()方法跳转到新闻阅读详情页。
+ 实例化一个lvNewsHandler：
 lvNewsHandler = this.getLvHandler(lvNews, lvNewsAdapter, lvNews_foot_more, lvNews_foot_progress, AppContext.PAGE_SIZE);
-&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;这个Handler定义了当接收到有数据更新的通知时，应该作何处理。主要是通知adapter数据发生了变化：&lt;br /&gt;
-
+  这个Handler定义了当接收到有数据更新的通知时，应该作何处理。主要是通知adapter数据发生了变化：
 adapter.notifyDataSetChanged();
-&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;下载数据，加载数据：&lt;br /&gt;
-
-loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT);
-
-新开进程，调用appContext.getNewList()从服务器获取数据。数据获取完成后，通过传入的lvNewsHandler发送Message，回调handleMessage(Message msg)方法。&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+ 下载数据，加载数据：
+loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT); 新开进程，调用appContext.getNewList()从服务器获取数据。数据获取完成后，通过传入的lvNewsHandler发送Message，回调handleMessage(Message msg)方法。
+  </description>
     </item>
     
     <item>
@@ -754,12 +204,9 @@ loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT);
       <pubDate>Thu, 25 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/osc-android-app-notes-3/</guid>
-      <description>&lt;p&gt;net.oschina.app包中包含四个类的定义文件，它们分别是AppConfig, AppException, AppManager, AppStart。其中AppStart类继承Activity，是跳转界面。AppException类是Exception的子类，是自定义的异常类。&lt;/p&gt;
-
-&lt;p&gt;AppException类中有8个final static类型的类变量，定义异常类型: network, socket, http, xml, io, run, jason几种。这个类中有对应的静态方法，以Exception为形参，返回对应的新建对象。值得注意的是，代码中预留了debug的选项，如果在新建AppException对象时传入“debug”参数，那么对应的Exception信息会被写到文件中保存。&lt;/p&gt;
-
-&lt;p&gt;这个类中定义了异常的处理方式：收集错误信息，然后显示异常信息&amp;amp;发送错误报告。显示异常信息和发送错误报告的过程在新建的Thread里完成。&lt;/p&gt;
-</description>
+      <description>net.oschina.app包中包含四个类的定义文件，它们分别是AppConfig, AppException, AppManager, AppStart。其中AppStart类继承Activity，是跳转界面。AppException类是Exception的子类，是自定义的异常类。
+AppException类中有8个final static类型的类变量，定义异常类型: network, socket, http, xml, io, run, jason几种。这个类中有对应的静态方法，以Exception为形参，返回对应的新建对象。值得注意的是，代码中预留了debug的选项，如果在新建AppException对象时传入“debug”参数，那么对应的Exception信息会被写到文件中保存。
+这个类中定义了异常的处理方式：收集错误信息，然后显示异常信息&amp;amp;发送错误报告。显示异常信息和发送错误报告的过程在新建的Thread里完成。</description>
     </item>
     
     <item>
@@ -768,34 +215,10 @@ loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT);
       <pubDate>Tue, 23 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/osc-android-app-notes-2/</guid>
-      <description>&lt;p&gt;OSC客户端启动时会先显示欢迎界面，再跳转到主页，其中跳转过程有渐变效果。&lt;/p&gt;
-
-&lt;p&gt;这里使用了AlphaAnimation类。AlphaAnimation类能实现渐进渐出的效果，官方文档里说“This animation ends up changing the alpha property of a Transformation”。alpha property可以理解为透明度，&amp;rdquo;0.0&amp;rdquo;为全透明，“0.5”为半透明，“1.0”时不透明。&lt;/p&gt;
-
-
-
-	//渐变展示启动屏
-	AlphaAnimation aa = new AlphaAnimation(0.3f,1.0f);
-	aa.setDuration(3000);
-	view.startAnimation(aa);
-	aa.setAnimationListener(new AnimationListener()
-	{
-		@Override
-		public void onAnimationEnd(Animation arg0) {
-			redirectTo();
-		}
-		@Override
-		public void onAnimationRepeat(Animation animation) {}
-		@Override
-		public void onAnimationStart(Animation animation) {}
-	});
-
-
-
-&lt;p&gt;另外，欢迎界面的图片可以更新。从代码分析，在将View设置为ContentView之前，程序会检查欢迎界面对应缓存文件夹里的图片文件，图片文件的文件名有一个时间期限，如果今天正好落在这个期限内，那么就将它设为背景图片。如此可以推测APP会在启动后自动下载新的图片文件(如果存在的话)到缓存文件夹，从而达到更新效果。&lt;/p&gt;
-
-&lt;p&gt;果然，在跳转到Main Activity后，在onCreate()方法里调用了checkBackGround()方法。这个方法会新开一个Thread去服务器检查是否有新的图片需要下载，如果有，那么会下载下来。&lt;/p&gt;
-</description>
+      <description>OSC客户端启动时会先显示欢迎界面，再跳转到主页，其中跳转过程有渐变效果。
+这里使用了AlphaAnimation类。AlphaAnimation类能实现渐进渐出的效果，官方文档里说“This animation ends up changing the alpha property of a Transformation”。alpha property可以理解为透明度，&amp;rdquo;0.0&amp;rdquo;为全透明，“0.5”为半透明，“1.0”时不透明。
+//渐变展示启动屏 	AlphaAnimation aa = new AlphaAnimation(0.3f,1.0f); aa.setDuration(3000); view.startAnimation(aa); aa.setAnimationListener(new AnimationListener() { @Override public void onAnimationEnd(Animation arg0) { redirectTo(); } @Override public void onAnimationRepeat(Animation animation) {} @Override public void onAnimationStart(Animation animation) {} }); 另外，欢迎界面的图片可以更新。从代码分析，在将View设置为ContentView之前，程序会检查欢迎界面对应缓存文件夹里的图片文件，图片文件的文件名有一个时间期限，如果今天正好落在这个期限内，那么就将它设为背景图片。如此可以推测APP会在启动后自动下载新的图片文件(如果存在的话)到缓存文件夹，从而达到更新效果。
+果然，在跳转到Main Activity后，在onCreate()方法里调用了checkBackGround()方法。这个方法会新开一个Thread去服务器检查是否有新的图片需要下载，如果有，那么会下载下来。</description>
     </item>
     
     <item>
@@ -804,34 +227,15 @@ loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT);
       <pubDate>Mon, 22 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/osc-android-app-notes-1/</guid>
-      <description>&lt;p&gt;##前言
-开源中国(OSCHINA)是国内一个开源社区,社区自己开发了Android和iOS平台的客户端，而且将各自的代码开源了。值得夸奖的是，他们的Android APP不是基于HTML，而是Android原生API。我最近在学习它Android App的&lt;a href=&#34;http://git.oschina.net/oschina/android-app&#34;&gt;源代码&lt;/a&gt;，毕竟像它这样性能优秀、注释齐全的开源项目是比较稀少的。&lt;/p&gt;
-
-&lt;p&gt;希望能通过阅读源代码，学到一些Android开发的实战技巧，并加深对已有知识的理解。&lt;/p&gt;
-
-&lt;p&gt;##学习笔记一 利用getApplication()共享全局数据&lt;br /&gt;
-程序启动Activity是net.oschina.app.AppStart。这个Activity类持有一个自定义的AppContext成员。查看net.oschina.app.AppContext类的定义，作者说它是“全局应用程序类，用于保存和调用全局应用配置及访问网络数据”。&lt;/p&gt;
-
-&lt;p&gt;AppContext类是Application类的子类。Google了getApplication()函数，找到了一篇介绍得比较明白的文章：&lt;br /&gt;
-- &lt;a href=&#34;http://www.cnblogs.com/liu666bin/archive/2013/01/05/2846081.html&#34;&gt;android利用getApplication()共享全局数据&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;在平时开发中，如果需要一些能被所有Activity和View访问到的全局数据，就可以自定义一个继承Application类的子类，扩展它所持有的成员。&lt;strong&gt;值得注意&lt;/strong&gt;，还需在android Manifest.xml文件中将application的android:name属性指定为自定义的类。&lt;/p&gt;
-
-&lt;p&gt;另外,关于getApplication()和getApplicationContext()的区别,&lt;a href=&#34;http://stackoverflow.com/questions/5018545/getapplication-vs-getapplicationcontext&#34;&gt;stackoverflow&lt;/a&gt;上有人这么解释:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;虽然当前Anroid Activity和Service的实现方式使得getApplication()和getApplicationContext()返回相同的object，但不能保证它们将来会一直这样。  
-
-如果你想在Manifest.xml文件中注册Application class，那么**永远不要**调用getApplicationContext()并将其cast为你的application类，因为它返回的很可能不是你的application实例。  
-
-getApplication()仅仅在Activity和Service类中可以被调用，而getApplicationContext()则是在Context类中被声明的。这意味着，譬如说你写了一个Broadcast Receiver，Broadcast Receiver本身不是一个Context类，尽管它能通过onReceive()方式获得一个Context类的引用，这时你就只能调用getApplicationContext()了——这也就意味着，不能确保在BroadcastReceiver中访问到application。  
-
-另外，Android的官方文档中提到，你**不应该**需要去继承Application类:  
-
-There is normally no need to subclass Application. In most situation, static singletons can provide the same functionality in a more modular way. If your singleton needs a global context (for example to register broadcast receivers), the function to retrieve it can be given a  Context which internally uses Context.getApplicationContext() when first constructing the singleton.  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;虽然官方推荐用静态singleton的方式去设置全局数据，但是在回复中有人提到，在实际中还是继承Application的方式来得更方便。所以，到底用那种方式更好，就见仁见智吧。&lt;/p&gt;
-</description>
+      <description>##前言 开源中国(OSCHINA)是国内一个开源社区,社区自己开发了Android和iOS平台的客户端，而且将各自的代码开源了。值得夸奖的是，他们的Android APP不是基于HTML，而是Android原生API。我最近在学习它Android App的源代码，毕竟像它这样性能优秀、注释齐全的开源项目是比较稀少的。
+希望能通过阅读源代码，学到一些Android开发的实战技巧，并加深对已有知识的理解。
+##学习笔记一 利用getApplication()共享全局数据
+程序启动Activity是net.oschina.app.AppStart。这个Activity类持有一个自定义的AppContext成员。查看net.oschina.app.AppContext类的定义，作者说它是“全局应用程序类，用于保存和调用全局应用配置及访问网络数据”。
+AppContext类是Application类的子类。Google了getApplication()函数，找到了一篇介绍得比较明白的文章：
+- android利用getApplication()共享全局数据
+在平时开发中，如果需要一些能被所有Activity和View访问到的全局数据，就可以自定义一个继承Application类的子类，扩展它所持有的成员。值得注意，还需在android Manifest.xml文件中将application的android:name属性指定为自定义的类。
+另外,关于getApplication()和getApplicationContext()的区别,stackoverflow上有人这么解释:
+虽然当前Anroid Activity和Service的实现方式使得getApplication()和getApplicationContext()返回相同的object，但不能保证它们将来会一直这样。 如果你想在Manifest.xml文件中注册Application class，那么**永远不要**调用getApplicationContext()并将其cast为你的application类，因为它返回的很可能不是你的application实例。 getApplication()仅仅在Activity和Service类中可以被调用，而getApplicationContext()则是在Context类中被声明的。这意味着，譬如说你写了一个Broadcast Receiver，Broadcast Receiver本身不是一个Context类，尽管它能通过onReceive()方式获得一个Context类的引用，这时你就只能调用getApplicationContext()了——这也就意味着，不能确保在BroadcastReceiver中访问到application。 另外，Android的官方文档中提到，你**不应该**需要去继承Application类: There is normally no need to subclass Application. In most situation, static singletons can provide the same functionality in a more modular way. If your singleton needs a global context (for example to register broadcast receivers), the function to retrieve it can be given a Context which internally uses Context.</description>
     </item>
     
   </channel>

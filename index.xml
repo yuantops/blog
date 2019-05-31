@@ -2201,15 +2201,15 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
 
 &lt;p&gt;这里是 &lt;a href=&#34;https://github.com/yuantops&#34;&gt;@yuantops&lt;/a&gt; 的个人网志。&lt;/p&gt;
 
-&lt;p&gt;她的内容很杂很乱，除了技术内容，还包括一些随笔。&lt;/p&gt;
+&lt;p&gt;我在这里记录值得沉淀的技术经验，还有个人的思考与感悟。&lt;/p&gt;
 
 &lt;p&gt;欢迎用&lt;a href=&#34;https://blog.yuantops.com/index.xml&#34;&gt;RSS订阅&lt;/a&gt; (什么&lt;a href=&#34;https://zh.wikipedia.org/wiki/RSS&#34;&gt;是RSS订阅?&lt;/a&gt;)。&lt;/p&gt;
 
 &lt;h2 id=&#34;关于我&#34;&gt;关于我&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;2016年北邮毕业，在杭州上班。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;代码工程师：Java，Golang。&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;2016年北邮毕业，现在深圳工作。&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;代码工程师。编程语言为Java，Golang。&lt;br /&gt;&lt;/li&gt;
 &lt;li&gt;Emacs 轻度用户，Google 轻度粉丝。&lt;br /&gt;&lt;/li&gt;
 &lt;li&gt;Hate GFW intensely.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -3135,9 +3135,7 @@ Codec是一种压缩标准。而文件的压缩/还原是通过编/解码实现�
 
 &lt;h3 id=&#34;netstat&#34;&gt;netstat&lt;/h3&gt;
 
-
-# netstat -tuapn
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# netstat -tuapn&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;参数解释:&lt;/p&gt;
 
@@ -3152,9 +3150,7 @@ Codec是一种压缩标准。而文件的压缩/还原是通过编/解码实现�
 
 &lt;h3 id=&#34;lsof&#34;&gt;lsof&lt;/h3&gt;
 
-
-# lsof -i :4000
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# lsof -i :4000&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;lsof列出机器上打开的所有文件。这条命令输出端口4000被占用的情况。它的输出形如&lt;br /&gt;
         COMMAND    PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME&lt;br /&gt;
@@ -3164,9 +3160,7 @@ Codec是一种压缩标准。而文件的压缩/还原是通过编/解码实现�
 
 &lt;h3 id=&#34;ps&#34;&gt;ps&lt;/h3&gt;
 
-
-# ps aux
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# ps aux&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;参数解释:
         -a 显示所有用户的进程&lt;br /&gt;
@@ -3179,17 +3173,16 @@ Codec是一种压缩标准。而文件的压缩/还原是通过编/解码实现�
 
 &lt;p&gt;下面是该目录下，各个文件的作用:&lt;/p&gt;
 
-
-..............................................................
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;..............................................................
 File		Content
 clear_refs	Clears page referenced bits shown in smaps output
 cmdline		Command line arguments
-cpu			Current and last cpu in which it was executed	(2.4)(smp)
+cpu			Current and last cpu in which it was executed	&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;.4&lt;span style=&#34;color:#f92672&#34;&gt;)(&lt;/span&gt;smp&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
 cwd			Link to the current working directory
 environ		Values of environment variables
 exe			Link to the executable of this process
 fd			Directory, which contains all file descriptors
-maps		Memory maps to executables and library files	(2.4)
+maps		Memory maps to executables and library files	&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;.4&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
 mem			Memory held by this process
 root		Link to the root directory of this process
 stat		Process status
@@ -3200,16 +3193,13 @@ pagemap		Page table
 stack		Report full stack trace, enable via CONFIG_STACKTRACE
 smaps		a extension based on maps, showing the memory consumption of
 each 		mapping and flags associated with it
-...............................................................
-
+...............................................................&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2 id=&#34;具体应用&#34;&gt;具体应用&lt;/h2&gt;
 
 &lt;h3 id=&#34;找到进程3813的owener&#34;&gt;找到进程3813的owener&lt;/h3&gt;
 
-
-# ps aux | grep 3813
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;# ps aux | grep &lt;span style=&#34;color:#ae81ff&#34;&gt;3813&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;或者 cat /proc/3813/environ , 查看USER字段。&lt;/p&gt;
 
@@ -3443,20 +3433,16 @@ If everything goes well, the server accepts the connection. Upon acceptance, the
 java KnockKnockServer 4444&lt;/p&gt;
 
 &lt;p&gt;使用&lt;code&gt;netstat -na&lt;/code&gt; 命令查看机器上打开的端口，(省略无关条目)：&lt;br /&gt;
-
-Proto Recv-Q Send-Q Local Address   Foreign Address         State      
-tcp6       0      0        :::4444       :::*               LISTEN
-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Proto Recv-Q Send-Q Local Address   Foreign Address         State      
+tcp6       &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        :::4444       :::*               LISTEN&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;再运行客户端代码，它与本机上的服务器程序建立socket连接。&lt;br /&gt;
 java KnockKnockClient 127.0.0.1 4444&lt;br /&gt;
 再使用&lt;code&gt;netstat -na&lt;/code&gt; 命令查看机器上打开的端口，(省略无关条目)：&lt;br /&gt;
-
-Proto Recv-Q Send-Q Local Address   Foreign Address         State      
-tcp6       0      0 :::4444                 :::*                    LISTEN     
-tcp6       0      0 127.0.0.1:50031         127.0.0.1:4444          ESTABLISHED  
-tcp6       0      0 127.0.0.1:4444          127.0.0.1:50031         ESTABLISHED  
-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Proto Recv-Q Send-Q Local Address   Foreign Address         State      
+tcp6       &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; :::4444                 :::*                    LISTEN     
+tcp6       &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;127&lt;/span&gt;.0.0.1:50031         &lt;span style=&#34;color:#ae81ff&#34;&gt;127&lt;/span&gt;.0.0.1:4444          ESTABLISHED  
+tcp6       &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;127&lt;/span&gt;.0.0.1:4444          &lt;span style=&#34;color:#ae81ff&#34;&gt;127&lt;/span&gt;.0.0.1:50031         ESTABLISHED  &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;有两条socket的记录。其中一条是服务器的，另一条是客户端的。它们的local address和foreign address刚好是相反的，这对应了socket的local和remote概念。从这两条记录看，建立的socket连接，服务器端占用的端口还是监听端口(4444)，而且此时服务器还在端口(4444)监听连接请求。&lt;/p&gt;
 </description>
@@ -4205,9 +4191,7 @@ scheduleRegisteredReceiver；&lt;/p&gt;
 
 &lt;p&gt;##GET方式
 &lt;strong&gt;注意，GET请求的查询字符串(name/value对)是包含在URL中发送的&lt;/strong&gt;&lt;br /&gt;
-
-/test/demo_form.asp?name1=value1&amp;name2=value2
-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;/test/demo_form.asp?name1=value1&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;amp;&lt;/span&gt;name2=value2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;关于GET还需注意：&lt;/strong&gt;&lt;/p&gt;
 
@@ -4222,11 +4206,9 @@ scheduleRegisteredReceiver；&lt;/p&gt;
 
 &lt;p&gt;##POST方式
 &lt;strong&gt;注意，POST请求的查询字符串(name/value对)是包含在HTTP消息体中发送的&lt;/strong&gt;&lt;br /&gt;
-
-POST /test/demo_form.asp HTTP/1.1
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;POST /test/demo_form.asp HTTP/1.1
 Host: w3schools.com
-name1=value1&amp;name2=value2
-&lt;/p&gt;
+name1=value1&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;amp;&lt;/span&gt;name2=value2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;关于POST还需注意：&lt;/strong&gt;&lt;/p&gt;
 
@@ -4316,10 +4298,8 @@ name1=value1&amp;name2=value2
 &lt;p&gt;为了减少这类消耗，Java平台实现了*缓冲I/O*流。输入缓冲流从一块别名为&amp;rdquo;缓存&amp;rdquo;(&lt;em&gt;buffer&lt;/em&gt;)的内存区域中读入数据;只有当缓存区变空的时候，原生的输入API才会被调用。类似地，缓冲的输出流向一块缓存中写数据，只有当缓存区满了的时候，原生的API的输出API才会被调用。&lt;/p&gt;
 
 &lt;p&gt;程序能把一个非缓冲流转化为缓冲流。我们已经使用过几次这样的&amp;rdquo;包装类&amp;rdquo;了：非缓冲流作为参数传入缓冲流类的构造函数。下面就是一个例子，你可以在用它替代CopyCharacters代码中的构造函数以使用缓冲I/O：&lt;br /&gt;
-
-inputStream = new BufferedReader(new FileReader(&#34;xanadu.txt&#34;));
-outputStream = new BufferedWriter(new FileWriter(&#34;characteroutput.txt&#34;));
-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;inputStream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; FileReader&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xanadu.txt&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;));&lt;/span&gt;
+outputStream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedWriter&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; FileWriter&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;characteroutput.txt&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;));&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;可以用来包裹非缓冲流的缓冲流类有4类：BufferedInputStream和BufferedOutputStream生成缓冲字节流, BufferedReader 和BufferedWriter 生成缓冲字符流。&lt;/p&gt;
 
@@ -4370,38 +4350,36 @@ outputStream = new BufferedWriter(new FileWriter(&#34;characteroutput.txt&#34;))
 
 &lt;p&gt;&lt;strong&gt;Step 1&lt;/strong&gt;
 在_layouts目录下的post.html文件中，在你想Tags出现的地方加入下面的代码：&lt;br /&gt;
-    
-	&lt;p class=&#34;entry-tags&#34;&gt; {% for tag in page.tags %}&lt;a href=&#34;{{ site.url }}/tags.html#{{ tag | cgi_    e    scape }}&#34; title=&#34;Pages tagged {{ tag }}&#34; rel=&#34;tag&#34; class=&#34;post-tag&#34;&gt;{{ tag }}&lt;/a&gt;{% unless forloop.last %}  {%     endunless %}{% endfor %}&lt;/p&gt;
-	
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;	&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;p&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;entry-tags&amp;#34;&lt;/span&gt;&amp;gt; {% for tag in page.tags %}&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;href&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ site.url }}/tags.html#{{ tag | cgi_    e    scape }}&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;title&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Pages tagged {{ tag }}&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rel&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tag&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;post-tag&amp;#34;&lt;/span&gt;&amp;gt;{{ tag }}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;&amp;gt;{% unless forloop.last %}  {%     endunless %}{% endfor %}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;p&lt;/span&gt;&amp;gt;
+	&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;strong&gt;Step 2&lt;/strong&gt;
 在博客的根目录下新建tags.html文件，内容如下:&lt;br /&gt;
- ---
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt; ---
 layout: page
 title: Tags
-description: &#34;An archive of posts sorted by tag.&#34;
---- 
- {%raw%} {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
-&lt;!-- site_tags: {{ site_tags }} --&gt;
-{% assign tag_words = site_tags | split:&#39;,&#39; | sort %}
-&lt;!-- tag_words: {{ tag_words }} --&gt; {%endraw%}
-&lt;div id=&#34;tags&#34;&gt;
-  &lt;ul class=&#34;tag-box inline&#34;&gt;
+description: &amp;#34;An archive of posts sorted by tag.&amp;#34;
+--- &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt; {%raw%} {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+&lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!-- site_tags: {{ site_tags }} --&amp;gt;&lt;/span&gt;
+{% assign tag_words = site_tags | split:&amp;#39;,&amp;#39; | sort %}
+&lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!-- tag_words: {{ tag_words }} --&amp;gt;&lt;/span&gt; {%endraw%}
+&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tags&amp;#34;&lt;/span&gt;&amp;gt;
+  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;ul&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tag-box inline&amp;#34;&lt;/span&gt;&amp;gt;
 {%raw%} {% for item in (0..site.tags.size) %}{% unless forloop.last %}
     {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
-    &lt;li&gt;&lt;a href=&#34;#{{ this_word | cgi_escape }}&#34; class=&#34;tag-in-page&#34;&gt;{{ this_word }} &lt;span&gt;{{ site.tags[this_word].size }}&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;li&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;href&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;#{{ this_word | cgi_escape }}&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tag-in-page&amp;#34;&lt;/span&gt;&amp;gt;{{ this_word }} &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt;{{ site.tags[this_word].size }}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;li&lt;/span&gt;&amp;gt;
   {% endunless %}{% endfor %} {%endraw%}
-  &lt;/ul&gt;
+  &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;ul&lt;/span&gt;&amp;gt;
 {%raw%} {% for item in (0..site.tags.size) %}{% unless forloop.last %}
     {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
-  &lt;h2 id=&#34;{{ this_word | cgi_escape }}&#34;&gt;{{ this_word }}&lt;/h2&gt; {%endraw%}
-  &lt;ul class=&#34;posts&#34;&gt;
+  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;h2&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ this_word | cgi_escape }}&amp;#34;&lt;/span&gt;&amp;gt;{{ this_word }}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;h2&lt;/span&gt;&amp;gt; {%endraw%}
+  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;ul&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;posts&amp;#34;&lt;/span&gt;&amp;gt;
 {%raw%} {% for post in site.tags[this_word] %}{% if post.title != null %}
-    &lt;li itemscope&gt;&lt;span class=&#34;entry-date&#34;&gt;&lt;time datetime=&#34;{{ post.date | date_to_xmlschema }}&#34; itemprop=&#34;datePublished&#34;&gt;{{ post.date | date: &#34;%B %d, %Y&#34; }}&lt;/time&gt;&lt;/span&gt; » &lt;a href=&#34;{{ post.url }}&#34;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;li&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;itemscope&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;entry-date&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;time&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;datetime&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ post.date | date_to_xmlschema }}&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;itemprop&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;datePublished&amp;#34;&lt;/span&gt;&amp;gt;{{ post.date | date: &amp;#34;%B %d, %Y&amp;#34; }}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;time&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;span&lt;/span&gt;&amp;gt; &amp;amp;raquo; &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;href&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{{ post.url }}&amp;#34;&lt;/span&gt;&amp;gt;{{ post.title }}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;a&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;li&lt;/span&gt;&amp;gt;
     {% endif %}{% endfor %} {%endraw%}
-  &lt;/ul&gt;
+  &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;ul&lt;/span&gt;&amp;gt;
 {% endunless %}{% endfor %}
-&lt;/div&gt;
-&lt;/p&gt;
+&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Step 3&lt;/strong&gt;
 将tags.html的链接放到合适的地方：Header，Siderbar，Footer或者其他地方。&lt;br /&gt;
@@ -4443,47 +4421,35 @@ description: &#34;An archive of posts sorted by tag.&#34;
 
 &lt;p&gt;以Ubuntu为例，安装上述软件的方法：&lt;br /&gt;
 &lt;strong&gt;Ruby&lt;/strong&gt;&lt;br /&gt;
-
-$ sudo apt-get install ruby, ruby-dev
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo apt-get install ruby, ruby-dev&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 要注意，*ruby-dev*包需要一并安装，否则在后续会报错。&lt;/p&gt;
 
 &lt;p&gt;在Redhat/Fedora下，需要安装的软件包为ruby,ruby-devel。有可能还需要安装gcc包。&lt;br /&gt;
-
-$ sudo yum install ruby, ruby-devel, gcc
-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo yum install ruby, ruby-devel, gcc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;RubyGems&lt;/strong&gt;&lt;br /&gt;
 RubyGems是Ruby程序包管理器，类似Redhat的RPM。更多的概念介绍，请参看&lt;a href=&#34;http://henter.me/post/ruby-rvm-gem-rake-bundle-rails.html&#34;&gt;整理Ruby相关的各种概念&lt;/a&gt;。&lt;br /&gt;
 新版本的Ruby已经包含RubyGems，无需额外安装了。&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Nodejs&lt;/strong&gt;&lt;br /&gt;
-
-$ sudo apt-get install nodejs
-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo apt-get install nodejs&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;设置gemfile&#34;&gt;设置Gemfile&lt;/h3&gt;
 
 &lt;p&gt;将GitHub上你的博客Repo克隆到本地。假设Repo的根目录为blog。终端路径切换到blog目录，新建名为&lt;code&gt;Gemfile&lt;/code&gt;的文件，并填充内容:&lt;/p&gt;
 
-
-source &#39;https://rubygems.org&#39;
-gem &#39;github-pages&#39;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;source &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;https://rubygems.org&amp;#39;&lt;/span&gt;
+gem &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;github-pages&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3 id=&#34;使用rubygems安装jekyll&#34;&gt;使用RubyGems安装Jekyll&lt;/h3&gt;
 
 &lt;p&gt;终端路径切换到blog，运行命令：
-
-$ sudo gem install jekyll
-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo gem install jekyll&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;运行jekyll-查看博客效果&#34;&gt;运行Jekyll，查看博客效果&lt;/h3&gt;
 
 &lt;p&gt;终端路径切换到blog，运行命令：
-
-$ jekyll serve
-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ jekyll serve&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -4505,36 +4471,34 @@ $ jekyll serve
 
 &lt;p&gt;下面我们通过一段代码CopyBytes来演示FileInputStream和FileOutputStream的用法。这段代码通过字节流逐字节地拷贝xanadu.txt。&lt;/p&gt;
 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; java.io.FileInputStream&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; java.io.FileOutputStream&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; java.io.IOException&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CopyBytes&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+	   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; args&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throws&lt;/span&gt; IOException &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
 
-public class CopyBytes {
-	   public static void main(String[] args) throws IOException {
+        FileInputStream in &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        FileOutputStream out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
 
-        FileInputStream in = null;
-        FileOutputStream out = null;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+            in &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; FileInputStream&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xanadu.txt&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+            out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; FileOutputStream&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;outagain.txt&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; c&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
 
-        try {
-            in = new FileInputStream(&#34;xanadu.txt&#34;);
-            out = new FileOutputStream(&#34;outagain.txt&#34;);
-            int c;
-
-            while ((c = in.read()) != -1) {
-                out.write(c);
-            }
-        } finally {
-            if (in != null) {
-               in.close();
-            }
-            if (out != null) {
-               out.close();
-            }
-        }
-    }
-}
-
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;((&lt;/span&gt;c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; in&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;())&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+                out&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;write&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;c&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+            &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;finally&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;in &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+               in&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;close&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+            &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;out &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+               out&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;close&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+            &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;CopyBytes在运行时形成一个循环:它不断从输入流中逐字节地读入数据，然后将字节输出到输出流。如下图所示。&lt;/p&gt;
 
@@ -4578,35 +4542,33 @@ public class CopyBytes {
 
 &lt;p&gt;所有的字符流类都派生自Reader和Writer。与字节流一样，有专为文件I/O而设的字符流类：FileReader和FileWriter。下面的CopyCharacters代码演示了它们的使用方法。&lt;/p&gt;
 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; java.io.FileReader&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; java.io.FileWriter&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; java.io.IOException&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CopyCharacters&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; args&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throws&lt;/span&gt; IOException &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
 
-public class CopyCharacters {
-    public static void main(String[] args) throws IOException {
+    FileReader inputStream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+    FileWriter outputStream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
 
-    FileReader inputStream = null;
-    FileWriter outputStream = null;
-
-    try {
-        inputStream = new FileReader(&#34;xanadu.txt&#34;);
-        outputStream = new FileWriter(&#34;characteroutput.txt&#34;);
-        int c;
-        while ((c = inputStream.read()) != -1) {
-            outputStream.write(c);
-        }
-    } finally {
-        if (inputStream != null) {
-           inputStream.close();
-        }
-        if (outputStream != null) {
-           outputStream.close();
-        }
-   }
-  }
-}
-
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        inputStream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; FileReader&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xanadu.txt&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+        outputStream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; FileWriter&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;characteroutput.txt&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; c&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;((&lt;/span&gt;c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inputStream&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;())&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+            outputStream&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;write&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;c&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;finally&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;inputStream &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+           inputStream&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;close&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;outputStream &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+           outputStream&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;close&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+   &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;CopyCharacters和CopyBytes很相似。它们之间最大的不同在于CopyCharacters使用FileReader和FileWriter来完成输入和输出，CopyBytes使用FileInputStream和FileOutputStream。值得注意的是，CopyCharacters和CopyBytes都使用了一个int变量来暂存读入/写出的值。在CopyCharacters中这个int变量在它的后16bit中暂存一个字符值(character value),然而在CopyBytes中这个int变量在它的后8bit中暂存一个字节值(byte value)。&lt;/p&gt;
 
@@ -4624,37 +4586,35 @@ public class CopyCharacters {
 
 &lt;p&gt;下文的CopyLines程序会调用BufferedReader.readLine和PrintWriter.println来完成每次输入/输出一行的操作。&lt;/p&gt;
 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; java.io.FileReader&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; java.io.FileWriter&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; java.io.BufferedReader&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; java.io.PrintWriter&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; java.io.IOException&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.io.IOException;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CopyLines&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; args&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throws&lt;/span&gt; IOException &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
 
-public class CopyLines {
-    public static void main(String[] args) throws IOException {
+        BufferedReader inputStream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+        PrintWriter outputStream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
 
-        BufferedReader inputStream = null;
-        PrintWriter outputStream = null;
-
-        try {
-			inputStream = new BufferedReader(new FileReader(&#34;xanadu.txt&#34;));
-			outputStream = new PrintWriter(new FileWriter(&#34;characteroutput.txt&#34;));
-			String l;
-			while ((l = inputStream.readLine()) != null) {
-				outputStream.println(l);
-			}
-		} finally {
-			if (inputStream != null) {
-			inputStream.close();
-		}
-		if (outputStream != null) {
-			outputStream.close();
-		}
-		}
-	}
-}
-
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+			inputStream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; FileReader&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xanadu.txt&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;));&lt;/span&gt;
+			outputStream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; PrintWriter&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; FileWriter&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;characteroutput.txt&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;));&lt;/span&gt;
+			String l&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+			&lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;((&lt;/span&gt;l &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inputStream&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;readLine&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;())&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+				outputStream&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;l&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+			&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+		&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;finally&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+			&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;inputStream &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+			inputStream&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;close&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+		&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;outputStream &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+			outputStream&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;close&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+		&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+		&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+	&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;调用readLine会返回文本中的一行。CopyLines使用println输出每一行，println函数会在每一行末尾添上当前操作系统的行终止符，再打印出来。这样的话，最后打印出来的行所使用的行终止符不一定与输入文件中的行终止符相同。&lt;/p&gt;
 
@@ -4674,9 +4634,7 @@ public class CopyLines {
 
 &lt;ol&gt;
 &lt;li&gt;实例化一个ListViewNewsApapter并添加到lvNews：&lt;br /&gt;
-
-lvNewsAdapter = new ListViewNewsAdapter(this, lvNewsData, R.layout.news_listitem);
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;lvNewsAdapter &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ListViewNewsAdapter&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; lvNewsData&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; R&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;layout&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;news_listitem&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 ListViewNewsApapter这个类继承BaseAdapter，重写了getView()方法。值得注意的是，getView()方法中news实体被被作为Tag添加到了listView的ItemView中。&lt;br /&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -4687,21 +4645,15 @@ ListViewNewsApapter这个类继承BaseAdapter，重写了getView()方法。值�
 当点击单个item view时，从view中取出news这个Tag，然后使用UIHelper.showNewsRedirect()方法跳转到新闻阅读详情页。&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;实例化一个lvNewsHandler：&lt;br /&gt;
-
-lvNewsHandler = this.getLvHandler(lvNews, lvNewsAdapter, lvNews_foot_more, lvNews_foot_progress, AppContext.PAGE_SIZE);
-&lt;/p&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;lvNewsHandler &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;getLvHandler&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;lvNews&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; lvNewsAdapter&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; lvNews_foot_more&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; lvNews_foot_progress&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; AppContext&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;PAGE_SIZE&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;这个Handler定义了当接收到有数据更新的通知时，应该作何处理。主要是通知adapter数据发生了变化：&lt;br /&gt;
-
-adapter.notifyDataSetChanged();
-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;adapter&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;notifyDataSetChanged&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;下载数据，加载数据：&lt;br /&gt;
-
-loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT);
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;loadLvNewsData&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;curNewsCatalog&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; 0&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; lvNewsHandler&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; UIHelper&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;LISTVIEW_ACTION_INIT&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 新开进程，调用appContext.getNewList()从服务器获取数据。数据获取完成后，通过传入的lvNewsHandler发送Message，回调handleMessage(Message msg)方法。&lt;br /&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </description>
@@ -4738,11 +4690,9 @@ loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT);
 
 &lt;p&gt;在使用openssl ca命令时，如果不手动指定-config参数，它会自动调用/etc/pki/tls/openssl.cnf作为-config配置文件，这个openssl.cnf文件里定义了要调用的CA证书、私钥路径。如果我们在创建CA时将它的证书和私钥等文件保存在了别处，或者/etc/pki/tls/openssl.cnf里的定义的那些文件不存在，那么在openssl ca找不到要使用的这些文件时，就会报错。其中典型的错误有：&lt;/p&gt;
 
-
-Using configuration from /etc/pki/tls/openssl.cnf
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Using configuration from /etc/pki/tls/openssl.cnf
 unable to load CA private key
-139911890630472:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: ANY PRIVATE KEY  
-
+&lt;span style=&#34;color:#ae81ff&#34;&gt;139911890630472&lt;/span&gt;:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: ANY PRIVATE KEY  &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;所以，我们如果想自定义CA的目录位置，那么要事先1）按照OpenSSL的默认配置建立相应的目录结构，2）定制openssl.cnf文件，修改CA目录的路径定义。&lt;/p&gt;
 
@@ -4751,13 +4701,11 @@ unable to load CA private key
 &lt;h4 id=&#34;生成ca目录结构&#34;&gt;生成CA目录结构&lt;/h4&gt;
 
 &lt;p&gt;假设我要将/root/newCA作为CA文件根目录，那么在Terminal中敲入命令：&lt;br /&gt;
-
-[root@node ~]# pwd
-/root
-[root@node ~]# mkdir -p ./newCA/{private,newcerts}
-[root@node ~]# touch ./newCA/index.txt
-[root@node ~]# echo 01 &gt; ./newCA/serial
-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@node ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# pwd
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;/root
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@node ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# mkdir -p ./newCA/{private,newcerts}
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@node ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# touch ./newCA/index.txt
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@node ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;# echo &lt;span style=&#34;color:#ae81ff&#34;&gt;01&lt;/span&gt; &amp;gt; ./newCA/serial&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;定制openssl-cnf文件&#34;&gt;定制openssl.cnf文件&lt;/h4&gt;
 
@@ -4803,23 +4751,21 @@ unable to load CA private key
 &lt;li&gt;生成证书申请、用CA的密钥自签名，用一条语句完成&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-
-[root@node newCA]# openssl req -new -x509 -days 3650 -key private/cakey.pem -out cacert.pem -config openssl.cnf
-You are about to be asked to enter information that will be incorporated
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@node newCA&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# openssl req -new -x509 -days 3650 -key private/cakey.pem -out cacert.pem -config openssl.cnf
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;You are about to be asked to enter information that will be incorporated
 into your certificate request.
 What you are about to enter is what is called a Distinguished Name or a DN.
 There are quite a few fields but you can leave some blank
 For some fields there will be a default value,
-	If you enter &#39;.&#39;, the field will be left blank.
+	If you enter &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;, the field will be left blank.
 	-----
-	Country Name (2 letter code) [CN]:
-	State or Province Name (full name) [Beijing]:
-	Locality Name (eg, city) [HaiDian]:
-	Organization Name (eg, company) [Yuantops Company Ltd]:
-	Organizational Unit Name (eg, section) [Head Office]:
-	Common Name (eg, your name or your server&#39;s hostname) []:test.yuantops.com
-	Email Address []:
-
+	Country Name &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; letter code&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;CN&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;:
+	State or Province Name &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;full name&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Beijing&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;:
+	Locality Name &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;eg, city&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;HaiDian&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;:
+	Organization Name &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;eg, company&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Yuantops Company Ltd&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;:
+	Organizational Unit Name &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;eg, section&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Head Office&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;:
+	Common Name &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;eg, your name or your server&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;s hostname&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt;:test.yuantops.com
+	Email Address &lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt;:&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;ul&gt;
 &lt;li&gt;查看我们生成的root-ca.crt的内容&lt;br /&gt;
@@ -5002,25 +4948,21 @@ logging {&lt;br /&gt;
 
 &lt;p&gt;这里使用了AlphaAnimation类。AlphaAnimation类能实现渐进渐出的效果，官方文档里说“This animation ends up changing the alpha property of a Transformation”。alpha property可以理解为透明度，&amp;rdquo;0.0&amp;rdquo;为全透明，“0.5”为半透明，“1.0”时不透明。&lt;/p&gt;
 
-
-
-	//渐变展示启动屏
-	AlphaAnimation aa = new AlphaAnimation(0.3f,1.0f);
-	aa.setDuration(3000);
-	view.startAnimation(aa);
-	aa.setAnimationListener(new AnimationListener()
-	{
-		@Override
-		public void onAnimationEnd(Animation arg0) {
-			redirectTo();
-		}
-		@Override
-		public void onAnimationRepeat(Animation animation) {}
-		@Override
-		public void onAnimationStart(Animation animation) {}
-	});
-
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;//渐变展示启动屏
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;	AlphaAnimation aa &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; AlphaAnimation&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;0&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;3f&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;0f&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+	aa&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;setDuration&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;3000&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+	view&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;startAnimation&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;aa&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+	aa&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;setAnimationListener&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; AnimationListener&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt;
+	&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;@Override&lt;/span&gt;
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;onAnimationEnd&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;Animation arg0&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+			redirectTo&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+		&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;@Override&lt;/span&gt;
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;onAnimationRepeat&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;Animation animation&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{}&lt;/span&gt;
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;@Override&lt;/span&gt;
+		&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;onAnimationStart&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;Animation animation&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{}&lt;/span&gt;
+	&lt;span style=&#34;color:#f92672&#34;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;另外，欢迎界面的图片可以更新。从代码分析，在将View设置为ContentView之前，程序会检查欢迎界面对应缓存文件夹里的图片文件，图片文件的文件名有一个时间期限，如果今天正好落在这个期限内，那么就将它设为背景图片。如此可以推测APP会在启动后自动下载新的图片文件(如果存在的话)到缓存文件夹，从而达到更新效果。&lt;/p&gt;
 
@@ -5114,9 +5056,7 @@ Java软件开发包，它不仅&lt;strong&gt;包括&lt;/strong&gt; JRE,还包括
 &lt;h3 id=&#34;java的版本号&#34;&gt;Java的版本号&lt;/h3&gt;
 
 &lt;p&gt;我们在下载安装Java JRE或者JDK后，使用&amp;rdquo;java -version&amp;rdquo;命令查看当前的Java版本，会发现类似下面的信息：&lt;br /&gt;
-
-java version &#34;1.7.0_71&#34;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;java version &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.7.0_71&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 Java 1.7是我机器上的java版本号，它也被称为Java 7：它们是一个东西，两个名称。再累赘一点地说，它也是JavaSE 7。&lt;/p&gt;
 
 &lt;h3 id=&#34;扩展阅读&#34;&gt;扩展阅读&lt;/h3&gt;

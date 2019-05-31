@@ -10,7 +10,9 @@
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Thu, 04 Jan 2018 00:31:08 +0000</lastBuildDate>
-    <atom:link href="https://blog.yuantops.com/tags/emacs/" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://blog.yuantops.com/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Emacs Golang开发环境配置指南</title>
@@ -18,136 +20,19 @@
       <pubDate>Thu, 04 Jan 2018 00:31:08 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/emacs-config-go-dev-environ/</guid>
-      <description>
-
-&lt;h1 id=&#34;安装go&#34;&gt;安装Go&lt;/h1&gt;
-
-&lt;p&gt;虽然像是废话，但为了配置过程的完整性，还是记下来吧。&lt;/p&gt;
-
-&lt;p&gt;官网install链接: &lt;a href=&#34;https://golang.org/doc/install&#34;&gt;https://golang.org/doc/install&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;装好后记得配置 &lt;code&gt;$GOPATH&lt;/code&gt; 。为了能在任何地方使用Go编译出来的命令，还可以把 &lt;code&gt;$GOPATH/bin&lt;/code&gt; 附到环境变量$PATH。&lt;/p&gt;
-
-&lt;p&gt;我在Mac上使用iTerm2+oh-my-zsh，所以把它们写到 &lt;code&gt;.zshrc&lt;/code&gt; :&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# go path
-export GOPATH=~/go
-# add go commands to system path
-export PATH=$GOPATH/bin:$PATH
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;让go-get命令绕过great-wall的束缚&#34;&gt;让go get命令绕过Great Wall的束缚&lt;/h1&gt;
-
-&lt;p&gt;有了Go的开发环境，我们就可以用它编译、安装一些十分有用的小命令了。但在此之前，还有一些客观存在的技术障碍需要扫除。&lt;/p&gt;
-
-&lt;p&gt;一般 &lt;code&gt;go get&lt;/code&gt;
-命令会自动帮我们下载源码、编译、安装命令，如果托管源码的网站被block了(如gopkg.in)，整个过程就会卡住，卡到人抓狂(记得在内心f**k
-GFW哦~)。&lt;/p&gt;
-
-&lt;p&gt;这时，如果电脑上刚好运行着shadowsocks，事情就变得简单了。go get
-支持http_proxy和https_proxy，我们需要动一点手脚，把sock5协议转换成http协议。&lt;/p&gt;
-
-&lt;p&gt;(以下步骤的前提是电脑上运行着shadowsocks。)&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;安装 polipo&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;brew install polipo   
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;配置 polipo 在家目录下新建 &lt;code&gt;.polipo&lt;/code&gt; 文件，内容如下:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#必填
-socksParentProxy = &amp;quot;localhost:1080&amp;quot;
-socksProxyType = socks5
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;运行 polipo&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;polipo &amp;amp;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;默认会监听8123端口的http请求。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;在go get命令前加上http_proxy参数&lt;/p&gt;
-
-&lt;p&gt;以不幸被墙的cobra命令为例,它的代码网址是https协议,用:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;https_proxy=127.0.0.1:8123 go get -v github.com/spf13/cobra/cobra
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果是http_proxy, 用：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;http_proxy=127.0.0.1:8123 go get -v github.com/blah/blah
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&#34;安装goimports-gocode等有用工具&#34;&gt;安装goimports，gocode等有用工具&lt;/h1&gt;
-
-&lt;h2 id=&#34;goimports&#34;&gt;goimports&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;goimports命令能自动格式化代码，自动添加、移除imports，而且与Emacs集成良好。可以替代官方gofmt命令。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;安装命令:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;go get -u golang.org/x/tools/cmd/goimports
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;gocode&#34;&gt;gocode&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;gocode命令能为代码自动补全提供后台支持，是Emacs下Go代码补全必不可少的backend。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;安装命令:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;go get -u github.com/nsf/gocode  
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;godef&#34;&gt;godef&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;godef命令能在Go源码变量、函数定义间跳转，是查看变量、函数、文件定义的好助手。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;安装命令：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;go get github.com/rogpeppe/godef
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;安装emacs&#34;&gt;安装Emacs&lt;/h1&gt;
-
-&lt;p&gt;呃。。。这一步就略过吧&lt;/p&gt;
-
-&lt;h1 id=&#34;emacs配置go-mode&#34;&gt;Emacs配置Go mode&lt;/h1&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;安装go-mode&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;添加自动格式化的hook(需要安装goimports命令)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-commonlisp&#34;&gt;;; Call Gofmt before saving
- (setq gofmt-command &amp;quot;goimports&amp;quot;)
- (add-hook &#39;before-save-hook &#39;gofmt-before-save)
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;配置自动补齐(需要安装gocode命令)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-commonlisp&#34;&gt;;;autocomplete
-(set (make-local-variable &#39;company-backends) &#39;(company-go))
-(company-mode)
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;配置自动跳转按键(需要安装godef命令)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-commonlisp&#34;&gt;;; Godef jump key binding
- (local-set-key (kbd &amp;quot;M-,&amp;quot;) &#39;godef-jump)
- (local-set-key (kbd &amp;quot;M-.&amp;quot;) &#39;pop-tag-mark)
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description>安装Go 虽然像是废话，但为了配置过程的完整性，还是记下来吧。
+官网install链接: https://golang.org/doc/install
+装好后记得配置 $GOPATH 。为了能在任何地方使用Go编译出来的命令，还可以把 $GOPATH/bin 附到环境变量$PATH。
+我在Mac上使用iTerm2+oh-my-zsh，所以把它们写到 .zshrc :
+# go path export GOPATH=~/go # add go commands to system path export PATH=$GOPATH/bin:$PATH  让go get命令绕过Great Wall的束缚 有了Go的开发环境，我们就可以用它编译、安装一些十分有用的小命令了。但在此之前，还有一些客观存在的技术障碍需要扫除。
+一般 go get 命令会自动帮我们下载源码、编译、安装命令，如果托管源码的网站被block了(如gopkg.in)，整个过程就会卡住，卡到人抓狂(记得在内心f**k GFW哦~)。
+这时，如果电脑上刚好运行着shadowsocks，事情就变得简单了。go get 支持http_proxy和https_proxy，我们需要动一点手脚，把sock5协议转换成http协议。
+(以下步骤的前提是电脑上运行着shadowsocks。)
+ 安装 polipo
+brew install polipo  配置 polipo 在家目录下新建 .polipo 文件，内容如下:
+#必填 socksParentProxy = &amp;quot;localhost:1080&amp;quot; socksProxyType = socks5  运行 polipo
+polipo &amp;amp;  默认会监听8123端口的http请求。
+ 在go get命令前加上http_proxy参数</description>
     </item>
     
     <item>
@@ -156,153 +41,11 @@ socksProxyType = socks5
       <pubDate>Sun, 10 Dec 2017 13:16:22 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/</guid>
-      <description>
-
-&lt;p&gt;使用Emacs有一年多了吧，终于开始体会到它的强大。这段盘旋上升的磨合期，值得写几篇文章记录一下。这篇博客就是我用orgmode + hugo写博客的个人实践，希望对orgmode中文用户/hugo blogger有所启发。&lt;/p&gt;
-
-&lt;h1 id=&#34;之前的workflow&#34;&gt;之前的workflow&lt;/h1&gt;
-
-&lt;p&gt;自从转到hugo后，我发博客的workflow是这样的：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;在org文件里添加内容&lt;/li&gt;
-&lt;li&gt;按下 &lt;code&gt;C-c C-e&lt;/code&gt; （export命令），再按 &lt;code&gt;C-s&lt;/code&gt; (只导出当前subtree)，再按 &lt;code&gt;m o&lt;/code&gt;
-(导出格式markdown)，生成markdown 内容&lt;/li&gt;
-&lt;li&gt;把markdown内容保存到 &lt;code&gt;hugo/content/&lt;/code&gt; 目录，手动加上文件头(front matter)&lt;/li&gt;
-&lt;li&gt;本地部署hugo server，检查效果。无误则运行部署脚本 &lt;code&gt;deploy.sh&lt;/code&gt; push到github仓库的 &lt;code&gt;hugo&lt;/code&gt; 分支&lt;/li&gt;
-&lt;li&gt;github上我给 &lt;code&gt;hugo&lt;/code&gt; 分支加了webhook，会触发构建，部署生成的html内容到 &lt;code&gt;gh-pages&lt;/code&gt; 分支&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;这段流程一直还凑合，直到我的博客里出现表格：org导出的markdown表格会变成一坨翔，我要在第4步浪费很多时间人肉调整格式。&lt;/p&gt;
-
-&lt;p&gt;怒google一把，发现是&lt;a href=&#34;http://orgmode.org/manual/Markdown-export.html&#34;&gt;org markdown官方导出引擎不支持table&lt;/a&gt;导致的:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Since md is built on top of the HTML back-end, any Org constructs not supported by Markdown, such as tables, the underlying html back-end (see HTML export) converts them.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;搜索时我发现有网友提到 &lt;code&gt;ox-pandoc&lt;/code&gt;
-，点进去github主页看了看，pandoc和orgmode的天作之合啊。pandoc对表格的支持无懈可击，还有啥好说，马上就决定是它了！&lt;/p&gt;
-
-&lt;h1 id=&#34;emacs安装ox-pandoc&#34;&gt;Emacs安装ox-pandoc&lt;/h1&gt;
-
-&lt;h2 id=&#34;安装pandoc&#34;&gt;安装pandoc&lt;/h2&gt;
-
-&lt;p&gt;因为ox-pandoc是对pandoc的调用封装，所以首先得装上pandoc。pandoc可能是haskell语言最著名的作品了，支持非常多种文件格式的互转，极其强大。官网有安装文档，不再赘述。
-确认已装好:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;pandoc -v
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;安装ox-pandoc&#34;&gt;安装ox-pandoc&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;官方github: &lt;a href=&#34;https://github.com/kawabata/ox-pandoc&#34;&gt;ox-pandoc主页&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;init.el&lt;/code&gt; 加上elpa源:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-commonlisp&#34;&gt;(setq package-archives
-   &#39;((&amp;quot;melpa&amp;quot; . &amp;quot;http://melpa.milkbox.net/packages/&amp;quot;)))
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;添加hook:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-commonlisp&#34;&gt;(with-eval-after-load &#39;ox
-(require &#39;ox-pandoc))
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;删掉旧的markdown导出：&lt;/p&gt;
-
-&lt;p&gt;找到类似配置，删掉&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-commonlisp&#34;&gt;&#39;(require &#39;ox-md nil t)
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;重启emacs&lt;/p&gt;
-
-&lt;p&gt;打开org文件，按下 &lt;code&gt;C-c C-e&lt;/code&gt; ，弹出的orgmode export dispather窗口中应该出现了 &lt;code&gt;p&lt;/code&gt;
-开头的很多选项，而且原来 &lt;code&gt;m&lt;/code&gt; 开头的markdown选项不见了。&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;配置ox-pandoc-参数&#34;&gt;配置ox-pandoc 参数&lt;/h2&gt;
-
-&lt;p&gt;ox-pandoc的导出选项可以配置在文档头部，就像org原生的导出选项配置一样。将官方wiki上关于文档的描述翻译如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Value nil overrides preceding option setting.
-nil会覆盖之前为某个选项设置的值。
-
-Value t means only specify option, but not its value.
-t会打开某个选项的开关，而不会设置它的值。
-
-Options are delimited by space.
-多个选项间用空格分隔。
-
-#+PANDOC_OPTIONS: can be specified multiple times. 
-#+PANDOC_OPTIONS: 能多次使用。
-
-If you want to specify the option value which include space character, quote entire option-value pair.
-如果某个选项的值包含空格，那么要将“选项-值”都放到引号里。
-
-Specifying Multiple values to single options by using colon-sparated lists.
-给一个选项指定多个值，要使用逗号分隔的列表。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;例如，ox-pandoc给导出文档添加目录:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#+PANDOC_OPTIONS: toc-depth:3
-#+PANDOC_OPTIONS: toc:t
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;再例如，使用ox-pandoc &lt;code&gt;C-c C-e p l&lt;/code&gt; 导出latex文档，如果中文不能正常显示，需要加上这两行：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#+PANDOC_OPTIONS: pdf-engine:xelatex
-#+PANDOC_OPTIONS: &amp;quot;variable:CJKmainfont:Noto Sans CJK SC&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;em&gt;xelatex&lt;/em&gt; 是latex的一种处理引擎，对中文支持不错。如何安装xelatex，这里不赘述。&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Noto Sans CJK SC&lt;/em&gt; 是我系统(Ubuntu)上安装的中文字体。用下面的命令查看安装了哪些中文字体:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;fc-list :lang=zh
-# 命令output: 字体名是两个冒号之间的、第一个逗号前的内容
-# /usr/share/fonts/opentype/noto/NotoSansCJK-Light.ttc: Noto Sans CJK SC,Noto Sans CJK SC Light:style=Light,Regular
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;配置hugo-front-matter的snippet&#34;&gt;配置hugo front-matter的snippet&lt;/h2&gt;
-
-&lt;p&gt;如果你像我一样正在用Emacs的 &lt;code&gt;yasnippet&lt;/code&gt;
-包，可以参考我的做法，迅速添加带标题和日期的hugo文件头。这里参考了：&lt;a href=&#34;http://whyarethingsthewaytheyare.com/setting-up-the-blog/#workflow&#34;&gt;setting-up-the-blog&lt;/a&gt;
-。&lt;/p&gt;
-
-&lt;p&gt;添加yasnippet模板文件，然后在org的subtree开头按下 &lt;code&gt;hmatter [TAB]&lt;/code&gt; 即可。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# key: hmatter
-# name: hugo-blog-matter
-# --
-#+BEGIN_SRC xxx
-+++
-title = &amp;quot;`(cdr (assoc &amp;quot;ITEM&amp;quot; (org-entry-properties)))`&amp;quot;
-date = &amp;quot;`(format-time-string &amp;quot;%Y-%m-%dT%H:%M:%S&amp;quot;)`Z&amp;quot;
-Categories = [&amp;quot;Tech&amp;quot;]
-Tags = [&amp;quot;&amp;quot;]
-Description = &amp;quot;&amp;quot;
-+++
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;现在的workflow&#34;&gt;现在的workflow&lt;/h1&gt;
-
-&lt;p&gt;基本和之前的一样，但是现在导出按键顺序变成了&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;code&gt;hmatter [TAB]&lt;/code&gt; 插入front-matter，&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;C-c C-e&lt;/code&gt; export命令，&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;C-s&lt;/code&gt; 只导出当前subtree，&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;p g&lt;/code&gt; 用pandoc导出github风格的markdown.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;现在导出的格式堪称完美，达到了我的预期。&lt;/p&gt;
-
-&lt;p&gt;其实，最理想的workflow应该是写一个function把上述几步串起来，而且已经有人这么做了。等我哪天开始学elisp了，再来自己造轮子吧！&lt;/p&gt;
-</description>
+      <description>使用Emacs有一年多了吧，终于开始体会到它的强大。这段盘旋上升的磨合期，值得写几篇文章记录一下。这篇博客就是我用orgmode + hugo写博客的个人实践，希望对orgmode中文用户/hugo blogger有所启发。
+之前的workflow 自从转到hugo后，我发博客的workflow是这样的：
+ 在org文件里添加内容 按下 C-c C-e （export命令），再按 C-s (只导出当前subtree)，再按 m o (导出格式markdown)，生成markdown 内容 把markdown内容保存到 hugo/content/ 目录，手动加上文件头(front matter) 本地部署hugo server，检查效果。无误则运行部署脚本 deploy.sh push到github仓库的 hugo 分支 github上我给 hugo 分支加了webhook，会触发构建，部署生成的html内容到 gh-pages 分支  这段流程一直还凑合，直到我的博客里出现表格：org导出的markdown表格会变成一坨翔，我要在第4步浪费很多时间人肉调整格式。
+怒google一把，发现是org markdown官方导出引擎不支持table导致的:
+Since md is built on top of the HTML back-end, any Org constructs not supported by Markdown, such as tables, the underlying html back-end (see HTML export) converts them.  搜索时我发现有网友提到 ox-pandoc ，点进去github主页看了看，pandoc和orgmode的天作之合啊。pandoc对表格的支持无懈可击，还有啥好说，马上就决定是它了！</description>
     </item>
     
     <item>
@@ -311,19 +54,12 @@ Description = &amp;quot;&amp;quot;
       <pubDate>Sun, 10 Dec 2017 00:50:07 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/emacs-macos-chn-font-conf/</guid>
-      <description>&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;从网上攒来的emacs字体配置地址&lt;br /&gt;
-&lt;a href=&#34;https://github.com/yuantops/emacs.d/blob/universal/lisp/init-fonts.el&#34;&gt;https://github.com/yuantops/emacs.d/blob/universal/lisp/init-fonts.el&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;列出系统提供的所有字体&lt;br /&gt;
-参考链接 &lt;a href=&#34;http://cnborn.net/blog/2014/10/emacs-chinese-font-on-osx/&#34;&gt;http://cnborn.net/blog/2014/10/emacs-chinese-font-on-osx/&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-commonlisp&#34;&gt;(print (font-family-list))
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;找到中文字体，添加到chn font list 开头&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description> 从网上攒来的emacs字体配置地址
+https://github.com/yuantops/emacs.d/blob/universal/lisp/init-fonts.el
+ 列出系统提供的所有字体
+参考链接 http://cnborn.net/blog/2014/10/emacs-chinese-font-on-osx/
+(print (font-family-list))  找到中文字体，添加到chn font list 开头
+  </description>
     </item>
     
     <item>
@@ -332,23 +68,13 @@ Description = &amp;quot;&amp;quot;
       <pubDate>Wed, 19 Jul 2017 21:35:16 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/emacs-create-etags/</guid>
-      <description>&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;生成TAGS文件&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ find . -iname &amp;quot;*.[chCHS]&amp;quot; | etags -  
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Emacs 导入TAGS文件&lt;br /&gt;
-在emacs中，&lt;code&gt;M-x visit-tags-table&lt;/code&gt;，选择刚刚生成的TAG文件。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;命令：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;跳转到光标所在词对应的标签：&lt;code&gt;M-.&lt;/code&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;回退到上个位置：&lt;code&gt;M-*&lt;/code&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description> 生成TAGS文件
+$ find . -iname &amp;quot;*.[chCHS]&amp;quot; | etags -  Emacs 导入TAGS文件
+在emacs中，M-x visit-tags-table，选择刚刚生成的TAG文件。
+ 命令：
+ 跳转到光标所在词对应的标签：M-.
+ 回退到上个位置：M-*
+   </description>
     </item>
     
   </channel>

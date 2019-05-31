@@ -10,7 +10,9 @@
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Tue, 30 Dec 2014 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://blog.yuantops.com/tags/github/" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://blog.yuantops.com/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Jekyll安装指南</title>
@@ -18,63 +20,24 @@
       <pubDate>Tue, 30 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/jekyll-installation/</guid>
-      <description>
-
-&lt;h3 id=&#34;环境准备&#34;&gt;环境准备&lt;/h3&gt;
-
-&lt;p&gt;准备安装Jekyll前，确保系统满足以下条件：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Ruby&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;RubyGems&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Linux, Unix, 或者 Mac OS X&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Nodejs, 或者其它JavaScript运行环境&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;以Ubuntu为例，安装上述软件的方法：&lt;br /&gt;
-&lt;strong&gt;Ruby&lt;/strong&gt;&lt;br /&gt;
-
-$ sudo apt-get install ruby, ruby-dev
-
-要注意，*ruby-dev*包需要一并安装，否则在后续会报错。&lt;/p&gt;
-
-&lt;p&gt;在Redhat/Fedora下，需要安装的软件包为ruby,ruby-devel。有可能还需要安装gcc包。&lt;br /&gt;
-
+      <description>环境准备 准备安装Jekyll前，确保系统满足以下条件：
+ Ruby
+ RubyGems
+ Linux, Unix, 或者 Mac OS X
+ Nodejs, 或者其它JavaScript运行环境
+  以Ubuntu为例，安装上述软件的方法：
+Ruby
+$ sudo apt-get install ruby, ruby-dev 要注意，*ruby-dev*包需要一并安装，否则在后续会报错。
+在Redhat/Fedora下，需要安装的软件包为ruby,ruby-devel。有可能还需要安装gcc包。
 $ sudo yum install ruby, ruby-devel, gcc
-&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;RubyGems&lt;/strong&gt;&lt;br /&gt;
-RubyGems是Ruby程序包管理器，类似Redhat的RPM。更多的概念介绍，请参看&lt;a href=&#34;http://henter.me/post/ruby-rvm-gem-rake-bundle-rails.html&#34;&gt;整理Ruby相关的各种概念&lt;/a&gt;。&lt;br /&gt;
-新版本的Ruby已经包含RubyGems，无需额外安装了。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Nodejs&lt;/strong&gt;&lt;br /&gt;
-
+RubyGems
+RubyGems是Ruby程序包管理器，类似Redhat的RPM。更多的概念介绍，请参看整理Ruby相关的各种概念。
+新版本的Ruby已经包含RubyGems，无需额外安装了。
+Nodejs
 $ sudo apt-get install nodejs
-&lt;/p&gt;
-
-&lt;h3 id=&#34;设置gemfile&#34;&gt;设置Gemfile&lt;/h3&gt;
-
-&lt;p&gt;将GitHub上你的博客Repo克隆到本地。假设Repo的根目录为blog。终端路径切换到blog目录，新建名为&lt;code&gt;Gemfile&lt;/code&gt;的文件，并填充内容:&lt;/p&gt;
-
-
-source &#39;https://rubygems.org&#39;
-gem &#39;github-pages&#39;
-
-
-&lt;h3 id=&#34;使用rubygems安装jekyll&#34;&gt;使用RubyGems安装Jekyll&lt;/h3&gt;
-
-&lt;p&gt;终端路径切换到blog，运行命令：
-
-$ sudo gem install jekyll
-&lt;/p&gt;
-
-&lt;h3 id=&#34;运行jekyll-查看博客效果&#34;&gt;运行Jekyll，查看博客效果&lt;/h3&gt;
-
-&lt;p&gt;终端路径切换到blog，运行命令：
-
-$ jekyll serve
-&lt;/p&gt;
-</description>
+设置Gemfile 将GitHub上你的博客Repo克隆到本地。假设Repo的根目录为blog。终端路径切换到blog目录，新建名为Gemfile的文件，并填充内容:
+source &amp;#39;https://rubygems.org&amp;#39; gem &amp;#39;github-pages&amp;#39; 使用RubyGems安装Jekyll 终端路径切换到blog，运行命令： $ sudo gem install jekyll
+运行Jekyll，查看博客效果 终端路径切换到blog，运行命令： $ jekyll serve</description>
     </item>
     
   </channel>

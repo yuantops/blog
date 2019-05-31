@@ -30,7 +30,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <meta name="generator" content="Hugo 0.20.7" />
+    <meta name="generator" content="Hugo 0.51-DEV" />
 </head>
 
 
@@ -81,7 +81,7 @@
                 </div>
 		
 		<div class="article-category">
-	      	  1657字, 约4分钟读完
+	      	  166字, 约1分钟读完
 		</div>
 	    
 
@@ -106,35 +106,33 @@
 
 <p>所有的字符流类都派生自Reader和Writer。与字节流一样，有专为文件I/O而设的字符流类：FileReader和FileWriter。下面的CopyCharacters代码演示了它们的使用方法。</p>
 
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.io.FileReader<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.FileWriter<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.IOException<span style="color:#f92672">;</span>
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CopyCharacters</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException <span style="color:#f92672">{</span>
 
-public class CopyCharacters {
-    public static void main(String[] args) throws IOException {
+    FileReader inputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    FileWriter outputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
 
-    FileReader inputStream = null;
-    FileWriter outputStream = null;
-
-    try {
-        inputStream = new FileReader("xanadu.txt");
-        outputStream = new FileWriter("characteroutput.txt");
-        int c;
-        while ((c = inputStream.read()) != -1) {
-            outputStream.write(c);
-        }
-    } finally {
-        if (inputStream != null) {
-           inputStream.close();
-        }
-        if (outputStream != null) {
-           outputStream.close();
-        }
-   }
-  }
-}
-
+    <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+        inputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileReader<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;xanadu.txt&#34;</span><span style="color:#f92672">);</span>
+        outputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileWriter<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;characteroutput.txt&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">int</span> c<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">while</span> <span style="color:#f92672">((</span>c <span style="color:#f92672">=</span> inputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">())</span> <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            outputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>c<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>inputStream <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+           inputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>outputStream <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+           outputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+   <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
 
 <p>CopyCharacters和CopyBytes很相似。它们之间最大的不同在于CopyCharacters使用FileReader和FileWriter来完成输入和输出，CopyBytes使用FileInputStream和FileOutputStream。值得注意的是，CopyCharacters和CopyBytes都使用了一个int变量来暂存读入/写出的值。在CopyCharacters中这个int变量在它的后16bit中暂存一个字符值(character value),然而在CopyBytes中这个int变量在它的后8bit中暂存一个字节值(byte value)。</p>
 
@@ -152,37 +150,35 @@ public class CopyCharacters {
 
 <p>下文的CopyLines程序会调用BufferedReader.readLine和PrintWriter.println来完成每次输入/输出一行的操作。</p>
 
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.io.FileReader<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.FileWriter<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.BufferedReader<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.PrintWriter<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.IOException<span style="color:#f92672">;</span>
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.io.IOException;
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CopyLines</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException <span style="color:#f92672">{</span>
 
-public class CopyLines {
-    public static void main(String[] args) throws IOException {
+        BufferedReader inputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+        PrintWriter outputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
 
-        BufferedReader inputStream = null;
-        PrintWriter outputStream = null;
-
-        try {
-			inputStream = new BufferedReader(new FileReader("xanadu.txt"));
-			outputStream = new PrintWriter(new FileWriter("characteroutput.txt"));
-			String l;
-			while ((l = inputStream.readLine()) != null) {
-				outputStream.println(l);
-			}
-		} finally {
-			if (inputStream != null) {
-			inputStream.close();
-		}
-		if (outputStream != null) {
-			outputStream.close();
-		}
-		}
-	}
-}
-
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+			inputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BufferedReader<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> FileReader<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;xanadu.txt&#34;</span><span style="color:#f92672">));</span>
+			outputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PrintWriter<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> FileWriter<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;characteroutput.txt&#34;</span><span style="color:#f92672">));</span>
+			String l<span style="color:#f92672">;</span>
+			<span style="color:#66d9ef">while</span> <span style="color:#f92672">((</span>l <span style="color:#f92672">=</span> inputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">readLine</span><span style="color:#f92672">())</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+				outputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>l<span style="color:#f92672">);</span>
+			<span style="color:#f92672">}</span>
+		<span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+			<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>inputStream <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+			inputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+		<span style="color:#f92672">}</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>outputStream <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+			outputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+		<span style="color:#f92672">}</span>
+		<span style="color:#f92672">}</span>
+	<span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
 
 <p>调用readLine会返回文本中的一行。CopyLines使用println输出每一行，println函数会在每一行末尾添上当前操作系统的行终止符，再打印出来。这样的话，最后打印出来的行所使用的行终止符不一定与输入文件中的行终止符相同。</p>
 
@@ -291,18 +287,11 @@ public class CopyLines {
     <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2012-2018 @yuantops&nbsp; </br>
+            &copy; 2012-2019 @yuantops&nbsp; </br>
             Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
         </div>
     </div>
     
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-57420914-1', 'auto');
-ga('send', 'pageview');
-</script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
-
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>

@@ -10,7 +10,9 @@
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Thu, 22 Jan 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://blog.yuantops.com/tags/linux/" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://blog.yuantops.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Linux确定监听某个端口的进程</title>
@@ -18,101 +20,21 @@
       <pubDate>Thu, 22 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</guid>
-      <description>
-
-&lt;p&gt;比较常见的命令有:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;netstat&lt;/strong&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;lsof&lt;/strong&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ps&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;/proc/$pid&lt;/strong&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;netstat&#34;&gt;netstat&lt;/h3&gt;
-
-
-# netstat -tuapn
-
-
-&lt;p&gt;参数解释:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;    -t tcp协议   
-    -u udp协议   
-    -a 显示listening和non-listening端口   
-    -p 显示process ID  
-    -n 显示数字IP，而不是字符形式的hostname   
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可以用grep命令对上条命令的输出进行过滤，显示某条端口的信息。&lt;/p&gt;
-
-&lt;h3 id=&#34;lsof&#34;&gt;lsof&lt;/h3&gt;
-
-
-# lsof -i :4000
-
-
-&lt;p&gt;lsof列出机器上打开的所有文件。这条命令输出端口4000被占用的情况。它的输出形如&lt;br /&gt;
-        COMMAND    PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME&lt;br /&gt;
-        ruby-mri 10482 yyuan   11u  IPv4 252906      0t0  TCP localhost:terabase (LISTEN)&lt;/p&gt;
-
-&lt;p&gt;可以看到进程号10482的进程占用了TCP端口4000。&lt;/p&gt;
-
-&lt;h3 id=&#34;ps&#34;&gt;ps&lt;/h3&gt;
-
-
-# ps aux
-
-
-&lt;p&gt;参数解释:
-        -a 显示所有用户的进程&lt;br /&gt;
-        -u 显示进程的user/owner&lt;br /&gt;
-        -x 也显示不与终端关联的进程&lt;/p&gt;
-
-&lt;p&gt;同样地，也可以用grep命令对上条命令的输出进行过滤，显示某条端口的信息。&lt;/p&gt;
-
-&lt;h3 id=&#34;proc-pid&#34;&gt;/proc/$pid&lt;/h3&gt;
-
-&lt;p&gt;下面是该目录下，各个文件的作用:&lt;/p&gt;
-
-
-..............................................................
-File		Content
-clear_refs	Clears page referenced bits shown in smaps output
-cmdline		Command line arguments
-cpu			Current and last cpu in which it was executed	(2.4)(smp)
-cwd			Link to the current working directory
-environ		Values of environment variables
-exe			Link to the executable of this process
-fd			Directory, which contains all file descriptors
-maps		Memory maps to executables and library files	(2.4)
-mem			Memory held by this process
-root		Link to the root directory of this process
-stat		Process status
-statm		Process memory status information
-status		Process status in human readable form
-wchan		If CONFIG_KALLSYMS is set, a pre-decoded wchan
-pagemap		Page table
-stack		Report full stack trace, enable via CONFIG_STACKTRACE
-smaps		a extension based on maps, showing the memory consumption of
-each 		mapping and flags associated with it
-...............................................................
-
-
-&lt;h2 id=&#34;具体应用&#34;&gt;具体应用&lt;/h2&gt;
-
-&lt;h3 id=&#34;找到进程3813的owener&#34;&gt;找到进程3813的owener&lt;/h3&gt;
-
-
-# ps aux | grep 3813
-
-
-&lt;p&gt;或者 cat /proc/3813/environ , 查看USER字段。&lt;/p&gt;
-
-&lt;h3 id=&#34;看到一个根本不认识的端口号&#34;&gt;看到一个根本不认识的端口号&lt;/h3&gt;
-
-&lt;p&gt;/etc/services文件用来将协议/端口号映射到服务的名字。可以用grep命令来匹配某个不认识的端口。&lt;/p&gt;
-</description>
+      <description>比较常见的命令有:
+ netstat
+ lsof
+ ps /proc/$pid
+  netstat # netstat -tuapn 参数解释:
+ -t tcp协议 -u udp协议 -a 显示listening和non-listening端口 -p 显示process ID -n 显示数字IP，而不是字符形式的hostname  可以用grep命令对上条命令的输出进行过滤，显示某条端口的信息。
+lsof # lsof -i :4000 lsof列出机器上打开的所有文件。这条命令输出端口4000被占用的情况。它的输出形如
+COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
+ruby-mri 10482 yyuan 11u IPv4 252906 0t0 TCP localhost:terabase (LISTEN)
+可以看到进程号10482的进程占用了TCP端口4000。
+ps # ps aux 参数解释: -a 显示所有用户的进程
+-u 显示进程的user/owner
+-x 也显示不与终端关联的进程
+同样地，也可以用grep命令对上条命令的输出进行过滤，显示某条端口的信息。
+/proc/$pid 下面是该目录下，各个文件的作用:</description>
     </item>
     
   </channel>

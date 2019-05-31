@@ -10,7 +10,9 @@
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Sat, 12 May 2018 08:45:52 +0000</lastBuildDate>
-    <atom:link href="https://blog.yuantops.com/tags/gh-pages/" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://blog.yuantops.com/tags/gh-pages/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages</title>
@@ -18,103 +20,16 @@
       <pubDate>Sat, 12 May 2018 08:45:52 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</guid>
-      <description>
-
-&lt;p&gt;这个博客托管在GitHub
-Pages上已经有一段时间。最初使用的静态站点生成工具是Jekyll，后来&lt;a href=&#34;http://blog.yuantops.com/tech/transfer-from-jekyll-to-hugo/&#34;&gt;换成Hugo&lt;/a&gt;，因为是免费，一直都还比较满意。只有一个小痛点，博客从写完到部署的步骤多：写文章
--&amp;gt; build -&amp;gt;
-deploy…&lt;/p&gt;
-
-&lt;p&gt;我之前&lt;a href=&#34;http://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/&#34;&gt;写过一篇用Emacs写博客的workflow&lt;/a&gt;，把&amp;rdquo;写文章&amp;rdquo;的流程优化了一把。之后又小打小闹，用GitHub的webhook做了一个commit
-message关键字触发的小服务，把&amp;rdquo;build&amp;rdquo;和&amp;rdquo;deploy&amp;rdquo;做成自动化。这个服务跑在免费的Google
-Cloud上，使用体验还不错，可惜主机没续费，服务直接停掉，源码也丢失了。&lt;/p&gt;
-
-&lt;p&gt;随手Google一把GitHub Page的持续集成，才后知后觉地发现自己想要的东东已经有了成熟解决方案，而且还可以 &lt;strong&gt;免费&lt;/strong&gt;
-用：&lt;a href=&#34;https://travis-ci.org/&#34;&gt;Travis CI&lt;/a&gt;。于是我颇愉快地接受它，并简单地在这里记录下来。&lt;/p&gt;
-
-&lt;h1 id=&#34;什么是travis-ci&#34;&gt;什么是Travis CI&lt;/h1&gt;
-
-&lt;p&gt;一个持续化集成平台，类似Jenkins。功能强大，和GitHub的集成尤其好，我们用它部署个人博客算大材小用。它有两个版本:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://travis-ci.org/&#34;&gt;https://travis-ci.org/&lt;/a&gt; 免费版本，可以集成GitHub的public项目&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://travis-ci.com/&#34;&gt;https://travis-ci.com/&lt;/a&gt; 商业版本，可以集成GitHub的private项目&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;我们使用第一个，免费版本。&lt;/p&gt;
-
-&lt;h1 id=&#34;本博客现状回顾&#34;&gt;本博客现状回顾&lt;/h1&gt;
-
-&lt;p&gt;在进一步描述具体步骤之前，有必要先简要回顾本博客的现状：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;用&lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;生成静态站点文件&lt;/li&gt;
-&lt;li&gt;两个git分支, &lt;code&gt;hugo&lt;/code&gt;: 存放博客源码, &lt;code&gt;gh-pages&lt;/code&gt;: 存放Hugo生成的静态站点文件&lt;/li&gt;
-&lt;li&gt;自定义域名: `blog.yuantops.com`, 而不是默认的yuantops.github.io&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;配置travis-ci&#34;&gt;配置Travis CI&lt;/h1&gt;
-
-&lt;h2 id=&#34;为travis-ci生成github-token&#34;&gt;为Travis CI生成GitHub Token&lt;/h2&gt;
-
-&lt;p&gt;打开GitHub。路径: &amp;ldquo;Settings&amp;rdquo;-&amp;gt;&amp;ldquo;Developer settings&amp;rdquo;-&amp;gt;&amp;ldquo;Personal access
-tokens&amp;rdquo;-&amp;gt;&amp;ldquo;Generate new token&amp;rdquo;。&lt;/p&gt;
-
-&lt;p&gt;因为是public项目，而且Travis CI是用来push代码，所以只需勾选 &lt;code&gt;public_repo&lt;/code&gt;, &lt;code&gt;repo:status&lt;/code&gt;,
-&lt;code&gt;repo_deployment&lt;/code&gt; 三项。&lt;/p&gt;
-
-&lt;p&gt;Token一会儿就会隐藏，不能找回，所以拷贝好，进入下一步。&lt;/p&gt;
-
-&lt;h2 id=&#34;配置travis-ci构建选项&#34;&gt;配置Travis CI构建选项&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;用GitHub方式登录Travis CI(&lt;a href=&#34;https://travis-ci.org/&#34;&gt;https://travis-ci.org/&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;&amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;General&amp;rdquo; 勾选&amp;rdquo;Build only if .travis.yml is present&amp;rdquo;和&amp;rdquo;Build
-pushed branches&amp;rdquo;两项。&lt;/li&gt;
-&lt;li&gt;&amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;Environment Variables&amp;rdquo;
-添加&amp;rdquo;GITHUB&lt;sub&gt;TOKEN&lt;/sub&gt;&amp;ldquo;，值是上一步得到的Token&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;在git根目录下添加-travis-yml-文件&#34;&gt;在git根目录下添加 &lt;code&gt;.travis.yml&lt;/code&gt; 文件&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;language: go
-
-go:
-  - &amp;quot;1.8&amp;quot;  # 指定Golang 1.8
-
-# Specify which branches to build using a safelist
-# 分支白名单限制: 只有hugo分支的提交才会触发构建
-branches:
-  only:
-    - hugo 
-
-install:
-# 安装最新的hugo
-  - go get github.com/spf13/hugo 
-
-script:
-# 运行hugo命令
-  - hugo
-
-deploy:
-  provider: pages # 重要，指定这是一份github pages的部署配置
-  skip-cleanup: true # 重要，不能省略
-  local-dir: public # 静态站点文件所在目录
-  target-branch: gh-pages # 要将静态站点文件发布到哪个分支
-  github-token: $GITHUB_TOKEN # 重要，$GITHUB_TOKEN是变量，需要在GitHub上申请、再到配置到Travis
-  fqdn: blog.yuantops.com # 如果是自定义域名，此处要填
-  keep-history: true # 是否保持target-branch分支的提交记录
-  on:
-    branch: hugo # 博客源码的分支
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;把 &lt;code&gt;.travis.yml&lt;/code&gt; 放到hugo分支，push到GitHub。&lt;/p&gt;
-
-&lt;h1 id=&#34;自动部署&#34;&gt;自动部署&lt;/h1&gt;
-
-&lt;p&gt;上述操作完成后，自动部署就生效了。我们写完一篇博客，只需在hugo分支提交commit、再push到GitHub，Travis
-CI会自动触发后续的构建、部署动作。&lt;/p&gt;
-</description>
+      <description>这个博客托管在GitHub Pages上已经有一段时间。最初使用的静态站点生成工具是Jekyll，后来换成Hugo，因为是免费，一直都还比较满意。只有一个小痛点，博客从写完到部署的步骤多：写文章 -&amp;gt; build -&amp;gt; deploy…
+我之前写过一篇用Emacs写博客的workflow，把&amp;rdquo;写文章&amp;rdquo;的流程优化了一把。之后又小打小闹，用GitHub的webhook做了一个commit message关键字触发的小服务，把&amp;rdquo;build&amp;rdquo;和&amp;rdquo;deploy&amp;rdquo;做成自动化。这个服务跑在免费的Google Cloud上，使用体验还不错，可惜主机没续费，服务直接停掉，源码也丢失了。
+随手Google一把GitHub Page的持续集成，才后知后觉地发现自己想要的东东已经有了成熟解决方案，而且还可以 免费 用：Travis CI。于是我颇愉快地接受它，并简单地在这里记录下来。
+什么是Travis CI 一个持续化集成平台，类似Jenkins。功能强大，和GitHub的集成尤其好，我们用它部署个人博客算大材小用。它有两个版本:
+ https://travis-ci.org/ 免费版本，可以集成GitHub的public项目 https://travis-ci.com/ 商业版本，可以集成GitHub的private项目  我们使用第一个，免费版本。
+本博客现状回顾 在进一步描述具体步骤之前，有必要先简要回顾本博客的现状：
+ 用Hugo生成静态站点文件 两个git分支, hugo: 存放博客源码, gh-pages: 存放Hugo生成的静态站点文件 自定义域名: `blog.yuantops.com`, 而不是默认的yuantops.github.io  配置Travis CI 为Travis CI生成GitHub Token 打开GitHub。路径: &amp;ldquo;Settings&amp;rdquo;-&amp;gt;&amp;ldquo;Developer settings&amp;rdquo;-&amp;gt;&amp;ldquo;Personal access tokens&amp;rdquo;-&amp;gt;&amp;ldquo;Generate new token&amp;rdquo;。
+因为是public项目，而且Travis CI是用来push代码，所以只需勾选 public_repo, repo:status, repo_deployment 三项。
+Token一会儿就会隐藏，不能找回，所以拷贝好，进入下一步。
+配置Travis CI构建选项  用GitHub方式登录Travis CI(https://travis-ci.org/) &amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;General&amp;rdquo; 勾选&amp;rdquo;Build only if .travis.yml is present&amp;rdquo;和&amp;rdquo;Build pushed branches&amp;rdquo;两项。 &amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;Environment Variables&amp;rdquo; 添加&amp;rdquo;GITHUBTOKEN&amp;ldquo;，值是上一步得到的Token  在git根目录下添加 .</description>
     </item>
     
     <item>
@@ -123,79 +38,16 @@ CI会自动触发后续的构建、部署动作。&lt;/p&gt;
       <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/add-tags-in-gh-pages/</guid>
-      <description>
-
-&lt;h3 id=&#34;参考内容&#34;&gt;参考内容&lt;/h3&gt;
-
-&lt;p&gt;本文参考了以下内容：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://blog.lanyonm.org/articles/2013/11/21/alphabetize-jekyll-page-tags-pure-liquid.html&#34;&gt;Alphabetizing Jekyll Page Tags In Pure Liquid (Without Plugins)&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://boylee.me/development/2014/11/20/Tips-For-Sorting-Tags-In-GitHub-Page-With-Jekyll/&#34;&gt;Tips For Sorting Tags In GitHub Page With Jekyll&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.minddust.com/post/tags-and-categories-on-github-pages/&#34;&gt;HOW TO USE TAGS AND CATEGORIES ON GITHUB PAGES WITHOUT PLUGINS&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;思路&#34;&gt;思路&lt;/h3&gt;
-
-&lt;p&gt;Jekyll引擎按照post/page文件-layout模板-HTML文件的逻辑处理、生成数据，因此添加Tags功能时也应遵循对应的顺序。&lt;br /&gt;
-1. 在_posts目录下新建post文件时，在yaml头中加入tags变量。如果有多个tag，那么用中括号括起来、逗号分开。&lt;br /&gt;
-2. 在_layouts目录下，post文件引用的模板文件中，加入解析单个post文件的tags的逻辑，并显示。&lt;br /&gt;
-3. 在博客文件夹的根目录下新建一个tags.html文件，列出博客所有文章的tags，通过Html定位符确定每个tag的位置。将这个页面的链接摆放在首页或者其它合适的地方。&lt;/p&gt;
-
-&lt;h3 id=&#34;步骤&#34;&gt;步骤&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;Step 1&lt;/strong&gt;
-在_layouts目录下的post.html文件中，在你想Tags出现的地方加入下面的代码：&lt;br /&gt;
-    
-	&lt;p class=&#34;entry-tags&#34;&gt; {% for tag in page.tags %}&lt;a href=&#34;{{ site.url }}/tags.html#{{ tag | cgi_    e    scape }}&#34; title=&#34;Pages tagged {{ tag }}&#34; rel=&#34;tag&#34; class=&#34;post-tag&#34;&gt;{{ tag }}&lt;/a&gt;{% unless forloop.last %}  {%     endunless %}{% endfor %}&lt;/p&gt;
-	
-&lt;strong&gt;Step 2&lt;/strong&gt;
-在博客的根目录下新建tags.html文件，内容如下:&lt;br /&gt;
- ---
-layout: page
-title: Tags
-description: &#34;An archive of posts sorted by tag.&#34;
---- 
- {%raw%} {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
-&lt;!-- site_tags: {{ site_tags }} --&gt;
-{% assign tag_words = site_tags | split:&#39;,&#39; | sort %}
-&lt;!-- tag_words: {{ tag_words }} --&gt; {%endraw%}
-&lt;div id=&#34;tags&#34;&gt;
-  &lt;ul class=&#34;tag-box inline&#34;&gt;
-{%raw%} {% for item in (0..site.tags.size) %}{% unless forloop.last %}
-    {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
-    &lt;li&gt;&lt;a href=&#34;#{{ this_word | cgi_escape }}&#34; class=&#34;tag-in-page&#34;&gt;{{ this_word }} &lt;span&gt;{{ site.tags[this_word].size }}&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
-  {% endunless %}{% endfor %} {%endraw%}
-  &lt;/ul&gt;
-{%raw%} {% for item in (0..site.tags.size) %}{% unless forloop.last %}
-    {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
-  &lt;h2 id=&#34;{{ this_word | cgi_escape }}&#34;&gt;{{ this_word }}&lt;/h2&gt; {%endraw%}
-  &lt;ul class=&#34;posts&#34;&gt;
-{%raw%} {% for post in site.tags[this_word] %}{% if post.title != null %}
-    &lt;li itemscope&gt;&lt;span class=&#34;entry-date&#34;&gt;&lt;time datetime=&#34;{{ post.date | date_to_xmlschema }}&#34; itemprop=&#34;datePublished&#34;&gt;{{ post.date | date: &#34;%B %d, %Y&#34; }}&lt;/time&gt;&lt;/span&gt; » &lt;a href=&#34;{{ post.url }}&#34;&gt;{{ post.title }}&lt;/a&gt;&lt;/li&gt;
-    {% endif %}{% endfor %} {%endraw%}
-  &lt;/ul&gt;
-{% endunless %}{% endfor %}
-&lt;/div&gt;
-&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Step 3&lt;/strong&gt;
-将tags.html的链接放到合适的地方：Header，Siderbar，Footer或者其他地方。&lt;br /&gt;
-&lt;strong&gt;Step 4&lt;/strong&gt;
-以后在写博客时，在post的yaml头部加入tags变量。&lt;/p&gt;
-
-&lt;h3 id=&#34;显示效果美化&#34;&gt;显示效果美化&lt;/h3&gt;
-
-&lt;p&gt;如果觉得Tags在post页面和tags.html的显示效果不够酷炫，可以自己在对应的css文件中加入/修改规则。&lt;/p&gt;
-
-&lt;h3 id=&#34;例子&#34;&gt;例子&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;基于lanyon模板的博客：&lt;a href=&#34;https://github.com/LanyonM/lanyonm.github.io&#34;&gt;lanyonm.github.io GitHub Project&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;想定制Tags显示的排序规则，以及定制CSS效果：&lt;a href=&#34;http://boylee.me/development/2014/11/20/Tips-For-Sorting-Tags-In-GitHub-Page-With-Jekyll/&#34;&gt;Boyi Li webpage&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;本博客： &lt;a href=&#34;https://github.com/yuantops/blog&#34;&gt;Yuantops&amp;rsquo; Blog GitHub Project&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>参考内容 本文参考了以下内容：
+ Alphabetizing Jekyll Page Tags In Pure Liquid (Without Plugins)
+ Tips For Sorting Tags In GitHub Page With Jekyll
+ HOW TO USE TAGS AND CATEGORIES ON GITHUB PAGES WITHOUT PLUGINS
+  思路 Jekyll引擎按照post/page文件-layout模板-HTML文件的逻辑处理、生成数据，因此添加Tags功能时也应遵循对应的顺序。
+1. 在_posts目录下新建post文件时，在yaml头中加入tags变量。如果有多个tag，那么用中括号括起来、逗号分开。
+2. 在_layouts目录下，post文件引用的模板文件中，加入解析单个post文件的tags的逻辑，并显示。
+3. 在博客文件夹的根目录下新建一个tags.html文件，列出博客所有文章的tags，通过Html定位符确定每个tag的位置。将这个页面的链接摆放在首页或者其它合适的地方。
+步骤 Step 1 在_layouts目录下的post.html文件中，在你想Tags出现的地方加入下面的代码：
+&amp;lt;p class=&amp;#34;entry-tags&amp;#34;&amp;gt; {% for tag in page.tags %}&amp;lt;a href=&amp;#34;{{ site.url }}/tags.html#{{ tag | cgi_ e scape }}&amp;#34; title=&amp;#34;Pages tagged {{ tag }}&amp;#34; rel=&amp;#34;tag&amp;#34; class=&amp;#34;post-tag&amp;#34;&amp;gt;{{ tag }}&amp;lt;/a&amp;gt;{% unless forloop.</description>
     </item>
     
     <item>
@@ -204,63 +56,24 @@ description: &#34;An archive of posts sorted by tag.&#34;
       <pubDate>Tue, 30 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/jekyll-installation/</guid>
-      <description>
-
-&lt;h3 id=&#34;环境准备&#34;&gt;环境准备&lt;/h3&gt;
-
-&lt;p&gt;准备安装Jekyll前，确保系统满足以下条件：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Ruby&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;RubyGems&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Linux, Unix, 或者 Mac OS X&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Nodejs, 或者其它JavaScript运行环境&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;以Ubuntu为例，安装上述软件的方法：&lt;br /&gt;
-&lt;strong&gt;Ruby&lt;/strong&gt;&lt;br /&gt;
-
-$ sudo apt-get install ruby, ruby-dev
-
-要注意，*ruby-dev*包需要一并安装，否则在后续会报错。&lt;/p&gt;
-
-&lt;p&gt;在Redhat/Fedora下，需要安装的软件包为ruby,ruby-devel。有可能还需要安装gcc包。&lt;br /&gt;
-
+      <description>环境准备 准备安装Jekyll前，确保系统满足以下条件：
+ Ruby
+ RubyGems
+ Linux, Unix, 或者 Mac OS X
+ Nodejs, 或者其它JavaScript运行环境
+  以Ubuntu为例，安装上述软件的方法：
+Ruby
+$ sudo apt-get install ruby, ruby-dev 要注意，*ruby-dev*包需要一并安装，否则在后续会报错。
+在Redhat/Fedora下，需要安装的软件包为ruby,ruby-devel。有可能还需要安装gcc包。
 $ sudo yum install ruby, ruby-devel, gcc
-&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;RubyGems&lt;/strong&gt;&lt;br /&gt;
-RubyGems是Ruby程序包管理器，类似Redhat的RPM。更多的概念介绍，请参看&lt;a href=&#34;http://henter.me/post/ruby-rvm-gem-rake-bundle-rails.html&#34;&gt;整理Ruby相关的各种概念&lt;/a&gt;。&lt;br /&gt;
-新版本的Ruby已经包含RubyGems，无需额外安装了。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Nodejs&lt;/strong&gt;&lt;br /&gt;
-
+RubyGems
+RubyGems是Ruby程序包管理器，类似Redhat的RPM。更多的概念介绍，请参看整理Ruby相关的各种概念。
+新版本的Ruby已经包含RubyGems，无需额外安装了。
+Nodejs
 $ sudo apt-get install nodejs
-&lt;/p&gt;
-
-&lt;h3 id=&#34;设置gemfile&#34;&gt;设置Gemfile&lt;/h3&gt;
-
-&lt;p&gt;将GitHub上你的博客Repo克隆到本地。假设Repo的根目录为blog。终端路径切换到blog目录，新建名为&lt;code&gt;Gemfile&lt;/code&gt;的文件，并填充内容:&lt;/p&gt;
-
-
-source &#39;https://rubygems.org&#39;
-gem &#39;github-pages&#39;
-
-
-&lt;h3 id=&#34;使用rubygems安装jekyll&#34;&gt;使用RubyGems安装Jekyll&lt;/h3&gt;
-
-&lt;p&gt;终端路径切换到blog，运行命令：
-
-$ sudo gem install jekyll
-&lt;/p&gt;
-
-&lt;h3 id=&#34;运行jekyll-查看博客效果&#34;&gt;运行Jekyll，查看博客效果&lt;/h3&gt;
-
-&lt;p&gt;终端路径切换到blog，运行命令：
-
-$ jekyll serve
-&lt;/p&gt;
-</description>
+设置Gemfile 将GitHub上你的博客Repo克隆到本地。假设Repo的根目录为blog。终端路径切换到blog目录，新建名为Gemfile的文件，并填充内容:
+source &amp;#39;https://rubygems.org&amp;#39; gem &amp;#39;github-pages&amp;#39; 使用RubyGems安装Jekyll 终端路径切换到blog，运行命令： $ sudo gem install jekyll
+运行Jekyll，查看博客效果 终端路径切换到blog，运行命令： $ jekyll serve</description>
     </item>
     
     <item>
@@ -269,12 +82,9 @@ $ jekyll serve
       <pubDate>Sat, 20 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/make-custom-character-favicon/</guid>
-      <description>&lt;p&gt;每个自己搭建博客的人，应该都想自己的博客更具个性。favicon是浏览器浏览网页时标签左边的那个小图标，是可以自己设计的。&lt;/p&gt;
-
-&lt;p&gt;这里，推荐一个网站：&lt;a href=&#34;http://faviconist.com/&#34;&gt;faviconist.com&lt;/a&gt;。你可以输入一个字母，得到这个字母的图标，而且字体、文字前景色、背景色都可以调整。调整到满意后，下载到本地，保存到对应的网页文件夹，就可以了。&lt;/p&gt;
-
-&lt;p&gt;效果可以参见我的网页。&lt;/p&gt;
-</description>
+      <description>每个自己搭建博客的人，应该都想自己的博客更具个性。favicon是浏览器浏览网页时标签左边的那个小图标，是可以自己设计的。
+这里，推荐一个网站：faviconist.com。你可以输入一个字母，得到这个字母的图标，而且字体、文字前景色、背景色都可以调整。调整到满意后，下载到本地，保存到对应的网页文件夹，就可以了。
+效果可以参见我的网页。</description>
     </item>
     
   </channel>

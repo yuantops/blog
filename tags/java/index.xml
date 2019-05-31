@@ -10,7 +10,9 @@
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Tue, 28 Nov 2017 19:16:30 +0800</lastBuildDate>
-    <atom:link href="https://blog.yuantops.com/tags/java/" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://blog.yuantops.com/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>《Maven实战》摘抄</title>
@@ -18,295 +20,7 @@
       <pubDate>Tue, 28 Nov 2017 19:16:30 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/maven-in-action-notes/</guid>
-      <description>
-
-&lt;h2 id=&#34;关键词-a-id-sec-1-1-name-sec-1-1-a&#34;&gt;关键词&lt;a id=&#34;sec-1-1&#34; name=&#34;sec-1-1&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;“约定优于配置” Convention Over Configuration&lt;/li&gt;
-&lt;li&gt;生命周期管理&lt;/li&gt;
-&lt;li&gt;依赖管理：GAV坐标+scope&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;术语翻译-a-id-sec-1-2-name-sec-1-2-a&#34;&gt;术语翻译&lt;a id=&#34;sec-1-2&#34; name=&#34;sec-1-2&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;table border=&#34;2&#34; cellpadding=&#34;6&#34; &gt;
-
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th &gt;英文&lt;/th&gt;
-&lt;th &gt;中文&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td &gt;artifact&lt;/td&gt;
-&lt;td &gt;构件&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td &gt;build&lt;/td&gt;
-&lt;td &gt;构建&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td &gt;project&lt;/td&gt;
-&lt;td &gt;项目&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td &gt;group&lt;/td&gt;
-&lt;td &gt;组&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td &gt;module&lt;/td&gt;
-&lt;td &gt;模块&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td &gt;archetype&lt;/td&gt;
-&lt;td &gt;骨架&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td &gt;dependency mediation&lt;/td&gt;
-&lt;td &gt;依赖调解&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td &gt;repository&lt;/td&gt;
-&lt;td &gt;仓库&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td &gt;phase&lt;/td&gt;
-&lt;td &gt;阶段&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td &gt;aggregation&lt;/td&gt;
-&lt;td &gt;聚合&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td &gt;reactor&lt;/td&gt;
-&lt;td &gt;反应堆&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td &gt;property&lt;/td&gt;
-&lt;td &gt;属性&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&#34;关于主代码和测试代码位置-a-id-sec-1-3-name-sec-1-3-a&#34;&gt;关于主代码和测试代码位置&lt;a id=&#34;sec-1-3&#34; name=&#34;sec-1-3&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;在绝大多数情况下，应该把项目主代码放到src/main/java 目录下(遵循Maven的约定)，而无需额外的配置，Maven会自动搜寻该目录找到项目主代码。其次，该Java类的包名是com.juvenxu.mvnbook.helloword，这与之前在POM中定义的groupId和artifactId相吻合。一般来说，项目中Java类的包都应该基于项目的groupId和artifactId，这样更清晰，更加符合逻辑，也方便搜索构建或者Java类。
-
-为了使项目结构保持清晰，主代码与测试代码应该分别位于独立的目录中。Maven项目中默认的主代码目录是src/main/java, 对应的，Maven项目中默认的测试代码目录是src/test/java。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;关于pom配置中的scope-a-id-sec-1-4-name-sec-1-4-a&#34;&gt;关于POM配置中的scope&lt;a id=&#34;sec-1-4&#34; name=&#34;sec-1-4&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;Maven 在编译项目主代码的时候需要使用一套classpath。其次，Maven在编译和执行测试时会使用另外一套classpath。上例中的JUnit就是一个很好的例子，该文件也以依赖的方式引入测试使用的classpath中，不同的是这里的依赖范围是test。最后，实际运行Maven项目的时候，又会使用一套classpath。
-依赖范围就是用来控制依赖与这三种classpath(编译classpath, 测试classpath, 运行classpath)的关系。
-
-scope为依赖范围，若依赖范围为test则表示该依赖只对测试有效(该依赖只会被加入到测试代码的classpath中)。换句话说，测试代码中的import JUnit代码是没有问题的，但是如果在主代码中用import JUnit代码，就会造成编译错误。如果不声明依赖范围，那么默认值就是compile，表示该依赖对主代码和测试代码都有效。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;table border=&#34;2&#34; cellspacing=&#34;0&#34; cellpadding=&#34;6&#34; rules=&#34;groups&#34; frame=&#34;hsides&#34;&gt;
-
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th scope=&#34;col&#34; &gt;scope&lt;/th&gt;
-&lt;th scope=&#34;col&#34; &gt;编译classpath有效&lt;/th&gt;
-&lt;th scope=&#34;col&#34; &gt;测试classpath有效&lt;/th&gt;
-&lt;th scope=&#34;col&#34; &gt;运行时classpath有效&lt;/th&gt;
-&lt;th scope=&#34;col&#34; &gt;例子&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td  &gt;compile&lt;/td&gt;
-&lt;td  &gt;Y&lt;/td&gt;
-&lt;td  &gt;Y&lt;/td&gt;
-&lt;td  &gt;Y&lt;/td&gt;
-&lt;td  &gt;spring-core&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td  &gt;test&lt;/td&gt;
-&lt;td  &gt;-&lt;/td&gt;
-&lt;td  &gt;Y&lt;/td&gt;
-&lt;td  &gt;-&lt;/td&gt;
-&lt;td  &gt;JUnit&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td  &gt;provided&lt;/td&gt;
-&lt;td  &gt;Y&lt;/td&gt;
-&lt;td  &gt;Y&lt;/td&gt;
-&lt;td  &gt;-&lt;/td&gt;
-&lt;td  &gt;servlet-api&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td  &gt;runtime&lt;/td&gt;
-&lt;td  &gt;-&lt;/td&gt;
-&lt;td  &gt;Y&lt;/td&gt;
-&lt;td  &gt;Y&lt;/td&gt;
-&lt;td  &gt;JDBC驱动实现&lt;/td&gt;
-&lt;/tr&gt;
-
-
-&lt;tr&gt;
-&lt;td  &gt;system&lt;/td&gt;
-&lt;td  &gt;Y&lt;/td&gt;
-&lt;td  &gt;Y&lt;/td&gt;
-&lt;td  &gt;-&lt;/td&gt;
-&lt;td  &gt;&amp;#xa0;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&#34;关于打包生成可直接运行的jar-a-id-sec-1-5-name-sec-1-5-a&#34;&gt;关于打包生成可直接运行的jar&lt;a id=&#34;sec-1-5&#34; name=&#34;sec-1-5&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;默认打包生成的jar是不能够直接运行的，因为带有main方法的类信息不会添加到manifest中(打开jar文件中的META-INF/MANIFEST.MF文件，将无法看到Main-Class一行)。为了生成可执行的jar文件，需要借助maven-shade-plugin.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;关于maven的坐标-a-id-sec-1-6-name-sec-1-6-a&#34;&gt;关于Maven的坐标&lt;a id=&#34;sec-1-6&#34; name=&#34;sec-1-6&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;Maven 坐标为各种构件引入了秩序，任何一个构件都必须明确定义自己的坐标，而一组Maven坐标是通过一些元素定义的，它们是groupId, artifactId，version, packaging, classifier。
-上述5个元素中，groupId, artifactId, version是必须定义的，packaging是可选的(默认为Jar)，而classifier是不能直接定义的。
-
-groupId: 定义当前Maven项目隶属的实际项目。首先，Maven项目和实际项目不一定是一对一的关系。比如SpringFramework这一实际项目，其对应的Maven项目会有很多，如spring-core, spring-context等。这是由于Maven中模块的概念，因此，一个实际项目往往会被划分成很多模块。其次，groupId不应该对应项目隶属的组织或公司。原因很简单，一个组织下会有很多实际项目，如果groupId只定义到组织级别，而后面我们将看到，artifactId只能定义Maven项目(模块)，那么实际项目这个层将难以定义。最后，groupId的表示方式与Java包名的表示方式类似，通常与域名反向一一对应。
-
-artifactId:该元素定义实际项目中的一个Maven项目(模块)，推荐的做法是使用实际项目名称作为artifactId的前缀。比如上例中的artifactId是nexus-indexer，使用了实际项目名nexus作为前缀，这样做的好处是方便寻找实际构件。
-
-classifier:该元素用来帮助定义构建输出的一些附属附件。附属构件与主构件对应，。。。.javadoc和sources就是这两个附属构件的classifier。这样，附属构件也就拥有了自己唯一的坐标。。。。注意，不能直接定义项目的classifier，因为附属构件不是项目默认生成的，而是由附加的插件帮助生成的。
-
-一般来说，一个项目的子模块都应该使用同样的groupId,如果它们一起开发和发布，还应该使用同样的version。此外，它们的artifactId还应该使用一致的前缀，以方便和其他项目区分。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;关于maven构件的文件名-a-id-sec-1-7-name-sec-1-7-a&#34;&gt;关于Maven构件的文件名&lt;a id=&#34;sec-1-7&#34; name=&#34;sec-1-7&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;项目构件的文件名是与坐标相对应的，一般的规则为artifactId-version[-classifier].packaging, [-classifier]表示可选。
-这里还要强调的一点是，packaging并非一定与构件扩展名对应，比如packaging为maven-plugin的构件构件扩展名为jar。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;关于maven仓库-a-id-sec-1-8-name-sec-1-8-a&#34;&gt;关于Maven仓库&lt;a id=&#34;sec-1-8&#34; name=&#34;sec-1-8&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;得益于坐标机制，任何Maven项目使用任何一个构件的方式都是完全相同的。在此基础上，Maven可以在某个位置统一存储所有Maven项目共享的构件，这个统一的位置就是仓库。实际的Maven项目将不再各自存储其依赖文件，它们只需要声明这些依赖的坐标，在需要的时候（例如，编译项目的时候需要将依赖加入到classpath中），Maven会自动根据坐标找到仓库中的构件，并使用它们。
-
-仓库布局：仓库路径与坐标的大致对应关系为groupId/artifactid/version/artifactId-verison.packaging
-
-对于Maven来说，仓库只分两类：本地仓库和远程仓库。当Maven根据坐标寻找构件的时候，它首选会查看本地仓库，如果本地仓库存在此构件，则直接使用；如果本地仓库不存在此构件，或者需要查看是否有更新的构件版本，Maven仓库就会去远程仓库查找，发现需要的构件之后，下载到本地仓库再使用。如果本地仓库和远程仓库都没有需要的构件，Maven就会报错。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;关于快照版本-a-id-sec-1-9-name-sec-1-9-a&#34;&gt;关于快照版本&lt;a id=&#34;sec-1-9&#34; name=&#34;sec-1-9&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;在Maven的世界中，任何一个项目或者构件都必须有自己的版本。版本的的值可能是1.0.0,1.3-alpha-4,2.0,2.1-SNAPSHOT或者2.1-20091212.221212-12。其中，2.0,2.1-SNAPSHOT或者2.1-20091212.221212-12是不稳定的快照版本。
-
-快照版本只应该在组织内部的项目或模块间依赖使用，因为这时，组织对于这些快照版本的依赖具有完全的理解以及控制权。项目不应该依赖于任何组织外部的快照版本依赖，由于快照版本的不稳定性，这样的依赖会造成现在的危险。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;关于生命周期与插件绑定-a-id-sec-1-10-name-sec-1-10-a&#34;&gt;关于生命周期与插件绑定&lt;a id=&#34;sec-1-10&#34; name=&#34;sec-1-10&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;Maven 拥有三套相互独立的生命周期，它们分别是clean, default和site。clean生命周期的目的是清理项目，default生命周期的目的是构建项目，而site生命周期的目的是建立项目站点。
-每个生命周期包含一些阶段(phase),这些阶段是有顺序，并且后面的阶段依赖于前面的阶段，用户和Maven最直接的交互方式就是调用这些生命周期阶段。
-
-Maven的生命周期与插件相互绑定，用以完成实际的构建任务。具体而言，是生命周期的阶段与插件的目标相互绑定，以完成某个具体的构建任务。
-
-Maven在核心为一些主要的生命周期阶段绑定了很多插件的目标，当用户通过命令行调用生命周期阶段的时候，对应的插件目标就会执行相应的任务。
-
-如果多个目标被绑定到同一个阶段的时候，这些插件声明的先后顺序决定了目标的执行顺序。
-
-插件解析机制
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;关于聚合-多模块-a-id-sec-1-11-name-sec-1-11-a&#34;&gt;关于聚合(多模块)&lt;a id=&#34;sec-1-11&#34; name=&#34;sec-1-11&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;为了方便用户构建项目，通常将聚合模块放在项目目录的最顶层，其他模块则作为聚合模块的子目录存在，这样当用户得到源码的时候，第一眼发现的就是聚合模块的POM，不用从多个模块中去寻找聚合模块来构建整个项目。
-
-Maven会首先解析聚合模块的POM、分析要构建的模块、并计算出一个反应堆构建顺序(Reactor Build Order)，然后根据这个顺序依次构建各个模块。反应堆是所有模块组成的一个构建结构。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;关于继承与聚合的关系-a-id-sec-1-12-name-sec-1-12-a&#34;&gt;关于继承与聚合的关系&lt;a id=&#34;sec-1-12&#34; name=&#34;sec-1-12&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;多模块项目中的聚合与继承其实是两个概念，其目的是完全不同的。前者主要是为了方便快速构建项目，后者主要是为了消除重复配置。
-
-对于聚合模块来说，它知道有哪些被聚合的模块，但那些被聚合的模块不知道这个聚合模块的存在。
-
-对于继承关系的父POM来说，它不知道有哪些子模块继承于它，但那些子模块都必须知道自己的父POM是什么。
-
-在现有的实际项目中，读者往往发现一个POM既是聚合POM，又是父POM，这么做主要是为了方便。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;关于反应堆的构建顺序-a-id-sec-1-13-name-sec-1-13-a&#34;&gt;关于反应堆的构建顺序&lt;a id=&#34;sec-1-13&#34; name=&#34;sec-1-13&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;在一个多模块的Maven项目中，反应堆(Reactor)是指所有模块组成的一个构建结构。对于单模块的项目，反应堆就是该模块本身，但对于多模块项目来说，反应堆就包含了各模块之间继承与依赖的关系，从而能够自动计算出合理的模块构建顺序。
-
-模块间的依赖关系会将反应堆构成一个有向非循环图(DAG)，各个模块是该图的节点，依赖关系构成了有向边。这个图不允许出现循环，因此，当出现模块A依赖于B，而B又依赖于A的情况出现时，Maven就会报错。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;关于选择性构建单个多个模块-a-id-sec-1-14-name-sec-1-14-a&#34;&gt;关于选择性构建单个多个模块&lt;a id=&#34;sec-1-14&#34; name=&#34;sec-1-14&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;-am, --also-make 同时构建所列模块的依赖模块
-
--amd, --also-make-dependencies 同时构建依赖于所列模块的模块
-
--pl, --projects &amp;lt;args&amp;gt; 构建指定的模块，模块间用逗号隔开
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;关于maven灵活构建-属性-a-id-sec-1-15-name-sec-1-15-a&#34;&gt;关于Maven灵活构建-&amp;gt;属性&lt;a id=&#34;sec-1-15&#34; name=&#34;sec-1-15&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;Maven支持的6类属性分别为：
-1. 内置属性：主要有两个内置属性--${basedir}表示项目根目录，即包含pom.xml文件的目录；${version}表示项目版本
-2. POM属性：用户可以使用该类属性引用POM文件中对应元素的值。例如，${project.artifactId}就对应了&amp;lt;project&amp;gt;&amp;lt;artifactId&amp;gt;元素的值。
-3. 自定义属性：用户可以在POM的&amp;lt;properties&amp;gt;元素下自定义的Maven属性。
-4. Settings属性：与POM属性同理，用户使用以setting. 开头的属性引用settings.xml 文件中XML元素的值，如常用的${settings.localRepository}指向用户本地仓库的地址。
-5. Java系统属性：所有Java系统属性都可以使用Maven属性引用。例如${user.home}指向了用户目录。用户可以使用mvn help:system 查看所有的Java系统属性。
-6. 环境变量属性：所有环境变量都可以使用以env. 开头的Maven属性引用。例如${env.JAVA_HOME}指代了JAVA_HOME环境变量的值。用户可以使用mvn help:system 查看所有的环境变量
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;关于maven灵活构建-资源过滤-a-id-sec-1-16-name-sec-1-16-a&#34;&gt;关于Maven灵活构建-&amp;gt;资源过滤&lt;a id=&#34;sec-1-16&#34; name=&#34;sec-1-16&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;Maven属性默认只有在POM中才会被解析。也就是说，${db.username}放到POM中会变成test，但是如果放到src/main/resources/目录下的文件中，构建的时候它仍然还是${db.username}。
-
-资源文件的处理其实是maven-resource-plugin做的事情。它默认的行为只是将项目主资源文件复制到主代码编译输出目录中，将测试资源文件复制到测试代码编译输出目录中。不过只要通过一些简单的POM配置，该插件就能够解析资源文件中的Maven属性，即开启资源过滤。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;关于maven灵活构建-profile-a-id-sec-1-17-name-sec-1-17-a&#34;&gt;关于Maven灵活构建-&amp;gt;Profile&lt;a id=&#34;sec-1-17&#34; name=&#34;sec-1-17&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;为了能让构建在各个环境下方便地移植，Maven引入了profile的概念。profile能够在构建的时候修改POM的一个子集，或者添加额外的配置元素。用户可以通过使用很多方式激活profile，以实现构建在不同环境下的移植。
-
-Maven 支持很多种激活Profile的方式。
-1. 命令行激活
-2. settings文件激活
-3. 系统属性激活
-4. 操作系统环境激活
-5. 文件存在与否激活
-6. 默认激活
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>关键词  “约定优于配置” Convention Over Configuration 生命周期管理 依赖管理：GAV坐标+scope  术语翻译   英文 中文     artifact 构件   build 构建   project 项目   group 组   module 模块   archetype 骨架   dependency mediation 依赖调解   repository 仓库   phase 阶段   aggregation 聚合   reactor 反应堆   property 属性    关于主代码和测试代码位置 在绝大多数情况下，应该把项目主代码放到src/main/java 目录下(遵循Maven的约定)，而无需额外的配置，Maven会自动搜寻该目录找到项目主代码。其次，该Java类的包名是com.</description>
     </item>
     
     <item>
@@ -315,84 +29,14 @@ Maven 支持很多种激活Profile的方式。
       <pubDate>Tue, 17 Oct 2017 10:30:53 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/mybatis-mbg-cmd/</guid>
-      <description>
-
-&lt;h2 id=&#34;需下载文件-a-id-sec-1-1-name-sec-1-1-a&#34;&gt;需下载文件&lt;a id=&#34;sec-1-1&#34; name=&#34;sec-1-1&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Mybatis Generator jar包&lt;/p&gt;
-
-&lt;p&gt;下载地址 &lt;a href=&#34;https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core&#34;&gt;https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;JDBC 驱动jar 包&lt;/p&gt;
-
-&lt;p&gt;对MySQL数据库而言，下载MySQL connector。下载地址 &lt;a href=&#34;https://mvnrepository.com/artifact/mysql/mysql-connector-java&#34;&gt;https://mvnrepository.com/artifact/mysql/mysql-connector-java&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;配置config-xml-a-id-sec-1-2-name-sec-1-2-a&#34;&gt;配置config.xml&lt;a id=&#34;sec-1-2&#34; name=&#34;sec-1-2&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;config.xml 文件指定自动生成代码时的一些配置项：数据库的url, 用户名密码，生成类名、导出地址等。&lt;/p&gt;
-
-&lt;p&gt;数据库url, 用户名，密码是最重要的配置。&lt;/p&gt;
-
-&lt;p&gt;下面是示例：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
-&amp;lt;!DOCTYPE generatorConfiguration
-  PUBLIC &amp;quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&amp;quot;
-  &amp;quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&amp;quot;&amp;gt;
-&amp;lt;generatorConfiguration&amp;gt;
-    &amp;lt;!--数据库驱动, 注意jar包版本号与实际下载的版本号一致--&amp;gt;
-    &amp;lt;classPathEntry    location=&amp;quot;mysql-connector-java-3.1.13.jar&amp;quot;/&amp;gt;
-    &amp;lt;context id=&amp;quot;DB2Tables&amp;quot;    targetRuntime=&amp;quot;MyBatis3&amp;quot;&amp;gt;
-        &amp;lt;commentGenerator&amp;gt;
-            &amp;lt;property name=&amp;quot;suppressDate&amp;quot; value=&amp;quot;true&amp;quot;/&amp;gt;
-            &amp;lt;property name=&amp;quot;suppressAllComments&amp;quot; value=&amp;quot;true&amp;quot;/&amp;gt;
-        &amp;lt;/commentGenerator&amp;gt;
-        &amp;lt;!--数据库链接地址账号密码, 更新此处--&amp;gt;
-        &amp;lt;jdbcConnection driverClass=&amp;quot;com.mysql.jdbc.Driver&amp;quot; connectionURL=&amp;quot;jdbc:mysql://xx.xxx.xxx.xx:36360/?characterEncoding=UTF-8&amp;quot; userId=&amp;quot;xxx&amp;quot; password=&amp;quot;xxx&amp;quot;&amp;gt;
-        &amp;lt;/jdbcConnection&amp;gt;
-        &amp;lt;javaTypeResolver&amp;gt;
-            &amp;lt;property name=&amp;quot;forceBigDecimals&amp;quot; value=&amp;quot;false&amp;quot;/&amp;gt;
-        &amp;lt;/javaTypeResolver&amp;gt;
-        &amp;lt;!--生成Model类存放位置--&amp;gt;
-        &amp;lt;javaModelGenerator targetPackage=&amp;quot;domain&amp;quot; targetProject=&amp;quot;src&amp;quot;&amp;gt;
-            &amp;lt;property name=&amp;quot;enableSubPackages&amp;quot; value=&amp;quot;true&amp;quot;/&amp;gt;
-            &amp;lt;property name=&amp;quot;trimStrings&amp;quot; value=&amp;quot;true&amp;quot;/&amp;gt;
-        &amp;lt;/javaModelGenerator&amp;gt;
-        &amp;lt;!--生成映射文件存放位置--&amp;gt;
-        &amp;lt;sqlMapGenerator targetPackage=&amp;quot;dao&amp;quot; targetProject=&amp;quot;src&amp;quot;&amp;gt;
-            &amp;lt;property name=&amp;quot;enableSubPackages&amp;quot; value=&amp;quot;true&amp;quot;/&amp;gt;
-        &amp;lt;/sqlMapGenerator&amp;gt;
-        &amp;lt;!--生成Dao类存放位置--&amp;gt;
-        &amp;lt;javaClientGenerator type=&amp;quot;XMLMAPPER&amp;quot; targetPackage=&amp;quot;mapper&amp;quot; targetProject=&amp;quot;src&amp;quot;&amp;gt;
-            &amp;lt;property name=&amp;quot;enableSubPackages&amp;quot; value=&amp;quot;true&amp;quot;/&amp;gt;
-        &amp;lt;/javaClientGenerator&amp;gt;
-        &amp;lt;!--生成对应表及类名--&amp;gt;
-        &amp;lt;table tableName=&amp;quot;%&amp;quot;  enableCountByExample=&amp;quot;true&amp;quot; enableUpdateByExample=&amp;quot;true&amp;quot; enableDeleteByExample=&amp;quot;true&amp;quot; enableSelectByExample=&amp;quot;true&amp;quot; selectByExampleQueryId=&amp;quot;true&amp;quot;&amp;gt;
-        &amp;lt;/table&amp;gt;
-    &amp;lt;/context&amp;gt;
-&amp;lt;/generatorConfiguration&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;运行命令-a-id-sec-1-3-name-sec-1-3-a&#34;&gt;运行命令&lt;a id=&#34;sec-1-3&#34; name=&#34;sec-1-3&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;将上面的文件放到一个目录，结构如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;tree 
-.
-├── config.xml
-├── mybatis-generator-core-1.3.0.jar
-└── mysql-connector-java-3.1.13.jar
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;运行命令，&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;java -jar mybatis-generator-core-1.3.0.jar -configfile config.xml -overwrite
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;自动生成的&lt;code&gt;src&lt;/code&gt;目录包含生成的代码。&lt;/p&gt;
-</description>
+      <description>需下载文件  Mybatis Generator jar包
+下载地址 https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core
+ JDBC 驱动jar 包
+对MySQL数据库而言，下载MySQL connector。下载地址 https://mvnrepository.com/artifact/mysql/mysql-connector-java
+  配置config.xml config.xml 文件指定自动生成代码时的一些配置项：数据库的url, 用户名密码，生成类名、导出地址等。
+数据库url, 用户名，密码是最重要的配置。
+下面是示例：
+&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt; &amp;lt;!DOCTYPE generatorConfiguration PUBLIC &amp;quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&amp;quot; &amp;quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&amp;quot;&amp;gt; &amp;lt;generatorConfiguration&amp;gt; &amp;lt;!--数据库驱动, 注意jar包版本号与实际下载的版本号一致--&amp;gt; &amp;lt;classPathEntry location=&amp;quot;mysql-connector-java-3.1.13.jar&amp;quot;/&amp;gt; &amp;lt;context id=&amp;quot;DB2Tables&amp;quot; targetRuntime=&amp;quot;MyBatis3&amp;quot;&amp;gt; &amp;lt;commentGenerator&amp;gt; &amp;lt;property name=&amp;quot;suppressDate&amp;quot; value=&amp;quot;true&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;suppressAllComments&amp;quot; value=&amp;quot;true&amp;quot;/&amp;gt; &amp;lt;/commentGenerator&amp;gt; &amp;lt;!--数据库链接地址账号密码, 更新此处--&amp;gt; &amp;lt;jdbcConnection driverClass=&amp;quot;com.mysql.jdbc.Driver&amp;quot; connectionURL=&amp;quot;jdbc:mysql://xx.xxx.xxx.xx:36360/?characterEncoding=UTF-8&amp;quot; userId=&amp;quot;xxx&amp;quot; password=&amp;quot;xxx&amp;quot;&amp;gt; &amp;lt;/jdbcConnection&amp;gt; &amp;lt;javaTypeResolver&amp;gt; &amp;lt;property name=&amp;quot;forceBigDecimals&amp;quot; value=&amp;quot;false&amp;quot;/&amp;gt; &amp;lt;/javaTypeResolver&amp;gt; &amp;lt;!--生成Model类存放位置--&amp;gt; &amp;lt;javaModelGenerator targetPackage=&amp;quot;domain&amp;quot; targetProject=&amp;quot;src&amp;quot;&amp;gt; &amp;lt;property name=&amp;quot;enableSubPackages&amp;quot; value=&amp;quot;true&amp;quot;/&amp;gt; &amp;lt;property name=&amp;quot;trimStrings&amp;quot; value=&amp;quot;true&amp;quot;/&amp;gt; &amp;lt;/javaModelGenerator&amp;gt; &amp;lt;!</description>
     </item>
     
     <item>
@@ -401,132 +45,16 @@ Maven 支持很多种激活Profile的方式。
       <pubDate>Thu, 12 Oct 2017 14:30:53 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/fsm_and_java_implementation/</guid>
-      <description>
-
-&lt;h2 id=&#34;有限状态机fsm及它的构成要素-a-id-sec-1-1-name-sec-1-1-a&#34;&gt;有限状态机FSM及它的构成要素&lt;a id=&#34;sec-1-1&#34; name=&#34;sec-1-1&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition.&lt;/p&gt;
-
-&lt;p&gt;有限状态机由状态集合, 初始状态, 状态转移条件定义。&lt;/p&gt;
-
-&lt;h2 id=&#34;java实现-a-id-sec-1-2-name-sec-1-2-a&#34;&gt;Java实现&lt;a id=&#34;sec-1-2&#34; name=&#34;sec-1-2&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;根据FSM定义，可以抽象出Java的3种数据类型：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;状态(State)&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;事件(Event)&lt;/p&gt;
-
-&lt;p&gt;事件触发状态转移，是状态机的输入。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;上下文(Context)&lt;/p&gt;
-
-&lt;p&gt;上下文，可以包含各种Condition。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;例子：当前状态A，此时输入事件E，如果满足条件C，会导致状态A转换到状态B。这种情况下，A,B是State，E是Event，C是Context下的Condition。&lt;/p&gt;
-
-&lt;h2 id=&#34;具体代码-a-id-sec-1-3-name-sec-1-3-a&#34;&gt;具体代码&lt;a id=&#34;sec-1-3&#34; name=&#34;sec-1-3&#34;&gt;&lt;/a&gt;&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;状态机运行&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public State run() {
-    for (State s = initState; s != null; s = s.next(context)) {
-    // do something here
-    }
-    return state;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;State, Event用Enum, 且State一定包含next() method&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public enum State {
-
-    INIT(0, &amp;quot;未初始化&amp;quot;) {
-        @Override
-        public State next(Context context) {
-            switch (context.getEvent()) {
-                case Event1:
-                    return context.condition1() ? STATE_1 : STATE_2;
-                default:
-                    return null;
-            }
-        }
-    },
-    STATE_1(1, &amp;quot;状态1&amp;quot;) {
-        @Override
-        public State next(Context context) {
-            context.setState(STATE_1);
-            switch (context.getEvent()) {
-                case Event1:
-                    return context.condition2() ? STATE_3 : null;
-                default:
-                    return null;
-            }
-        }
-    };
-
-    private Byte code;
-    private String desc;
-
-    State(int code, String desc) {
-        this.code = (byte) code;
-        this.desc = desc;
-    }
-
-    public abstract State next(Context context);
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Context是一系列Condition组合得到的interface&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;public interface Context {
-    void setState(State state);
-
-    /**
-     * 得到Event input
-     * @return
-     */
-    EventEnum getEvent();
-
-    /**
-     * 是否满足条件1
-     * @return
-     */
-    Boolean condition1();
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;组合得到FSM的定义&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;class FSM implements Context {
-
-     private EventEnum event;
-
-     private State    state;
-
-     public FSM(State initState) {
-         this.state = initState;
-     }
-
-     public State run() {
-         for (State s = initState; s != null; s = s.next(this)) {
-         }
-         return state;
-     }
-
-     @Override
-     public EventEnum getEvent() {
-         return event;
-     }
-
-     //implements conditions 
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description>有限状态机FSM及它的构成要素 The FSM can change from one state to another in response to some external inputs; the change from one state to another is called a transition. An FSM is defined by a list of its states, its initial state, and the conditions for each transition.
+有限状态机由状态集合, 初始状态, 状态转移条件定义。
+Java实现 根据FSM定义，可以抽象出Java的3种数据类型：
+ 状态(State) 事件(Event)
+事件触发状态转移，是状态机的输入。
+ 上下文(Context)
+上下文，可以包含各种Condition。
+  例子：当前状态A，此时输入事件E，如果满足条件C，会导致状态A转换到状态B。这种情况下，A,B是State，E是Event，C是Context下的Condition。
+具体代码  状态机运行
+public State run() { for (State s = initState; s !</description>
     </item>
     
     <item>
@@ -535,70 +63,27 @@ Maven 支持很多种激活Profile的方式。
       <pubDate>Sat, 22 Jul 2017 18:26:25 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/jmx-overview/</guid>
-      <description>
-
-&lt;p&gt;JMX，全称&lt;code&gt;Java Management Extensions&lt;/code&gt;，借用贾宝玉的一句话描述它：「这个妹妹，我曾见过的。」&lt;/p&gt;
-
-&lt;p&gt;见过却不熟悉，它在我心中是Java规范中比较冷门的一个角落。&lt;/p&gt;
-
-&lt;p&gt;几次看到Java的招聘JD要求对JMX的理解，所以，在Oracle官网翻到教程，跟着学习学习。&lt;/p&gt;
-
-&lt;h2 id=&#34;oracle教程地址&#34;&gt;Oracle教程地址&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://docs.oracle.com/javase/tutorial/jmx/TOC.html&#34;&gt;Java Management Extensions(JMX): Table of Contents&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;这份文档讲的内容很基础，介绍了JMX的整体架构、用处、基础组件，以及给出了带代码的简单演示。&lt;/p&gt;
-
-&lt;h2 id=&#34;jmx用来做什么&#34;&gt;JMX用来做什么？&lt;/h2&gt;
-
-&lt;p&gt;JMX是Java 标准规范的一部分，可以用来 &lt;strong&gt;监控&lt;/strong&gt; 和 &lt;strong&gt;管理&lt;/strong&gt; JVM中运行时的资源。除了监控运行时占用的CPU、内核、线程资源，JMX还可以让你直接invoke 方法、修改对象属性（有点暴力了吧。。）。&lt;br /&gt;
-- JDK中自带的&lt;code&gt;jconsole&lt;/code&gt;工具，利用的就是JMX。&lt;/p&gt;
-
-&lt;p&gt;JMX可以将管理接口暴露成HTTP调用，这样，通过ip和端口号可以远程监控、管理服务器上的JVM。&lt;br /&gt;
- - 远程调试需要打开服务器上打开某个端口，利用的也是JMX。&lt;br /&gt;
- - Tomcat有个HTTP 的管理页面，用的也是JMX。&lt;/p&gt;
-
-&lt;h2 id=&#34;jmx怎么用&#34;&gt;JMX怎么用&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;监控JVM&lt;br /&gt;
-JVM自带支持JMX，开箱即用(&lt;code&gt;out-of-box&lt;/code&gt;)。意味着，不需要额外操作就可以用&lt;code&gt;jconsole&lt;/code&gt;之类的命令监控JVM。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;监控Applicaiton&lt;br /&gt;
-Application的实现得满足JMX标准。JMX标准是什么，见下文。&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;jmx标准&#34;&gt;JMX标准&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;MBeans&lt;br /&gt;
-JMX将它管理的对象称为&lt;code&gt;MBean&lt;/code&gt;。换言之，要使用JMX，就得把要管理的资源封装成MBeans。&lt;/p&gt;
-
-&lt;p&gt;JMX定义了几类&lt;code&gt;MBeans&lt;/code&gt;，就标准MBeans(&lt;code&gt;Standard MBeans&lt;/code&gt;)而言，它是这么定义的：后缀为&lt;code&gt;MBean&lt;/code&gt;的interface(例如&lt;code&gt;HelloMBean&lt;/code&gt;), 以及除去&lt;code&gt;MBean&lt;/code&gt;后缀的实现MBean的实现类(这里就是&lt;code&gt;Hello&lt;/code&gt;)。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;JMX Agent&lt;br /&gt;
-JMX Agent又称为JMX Server，用来管理MBeans。&lt;/p&gt;
-
-&lt;p&gt;关键的代码类似：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;MBeanServer mbs = ManagementFactory.getPlatformMBeanServer(); 
-ObjectName name = new ObjectName(&amp;quot;com.example:type=Hello&amp;quot;); 
-Hello mbean = new Hello(); 
-mbs.registerMBean(mbean, name);
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;JMX Connector&lt;br /&gt;
-用&lt;code&gt;JVM connector&lt;/code&gt;，MBean可以暴露给远程客户端，然后远程客户端就可以管理它了。&lt;/p&gt;
-
-&lt;p&gt;常用的Connector包括：HTTP，RMI。与之对应的管理client: web浏览器，JMX Client。&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;jmx的通知机制&#34;&gt;JMX的通知机制&lt;/h2&gt;
-
-&lt;p&gt;JMX允许MBeans发送通知。&lt;/p&gt;
-
-&lt;p&gt;如果MBeans实现了发送Notification的逻辑，就可以用&lt;code&gt;jconsole&lt;/code&gt;一类的工具收到通知。&lt;/p&gt;
-</description>
+      <description>JMX，全称Java Management Extensions，借用贾宝玉的一句话描述它：「这个妹妹，我曾见过的。」
+见过却不熟悉，它在我心中是Java规范中比较冷门的一个角落。
+几次看到Java的招聘JD要求对JMX的理解，所以，在Oracle官网翻到教程，跟着学习学习。
+Oracle教程地址 Java Management Extensions(JMX): Table of Contents
+这份文档讲的内容很基础，介绍了JMX的整体架构、用处、基础组件，以及给出了带代码的简单演示。
+JMX用来做什么？ JMX是Java 标准规范的一部分，可以用来 监控 和 管理 JVM中运行时的资源。除了监控运行时占用的CPU、内核、线程资源，JMX还可以让你直接invoke 方法、修改对象属性（有点暴力了吧。。）。
+- JDK中自带的jconsole工具，利用的就是JMX。
+JMX可以将管理接口暴露成HTTP调用，这样，通过ip和端口号可以远程监控、管理服务器上的JVM。
+- 远程调试需要打开服务器上打开某个端口，利用的也是JMX。
+- Tomcat有个HTTP 的管理页面，用的也是JMX。
+JMX怎么用  监控JVM
+JVM自带支持JMX，开箱即用(out-of-box)。意味着，不需要额外操作就可以用jconsole之类的命令监控JVM。
+ 监控Applicaiton
+Application的实现得满足JMX标准。JMX标准是什么，见下文。
+  JMX标准  MBeans
+JMX将它管理的对象称为MBean。换言之，要使用JMX，就得把要管理的资源封装成MBeans。
+JMX定义了几类MBeans，就标准MBeans(Standard MBeans)而言，它是这么定义的：后缀为MBean的interface(例如HelloMBean), 以及除去MBean后缀的实现MBean的实现类(这里就是Hello)。
+ JMX Agent
+JMX Agent又称为JMX Server，用来管理MBeans。
+关键的代码类似：
+MBeanServer mbs = ManagementFactory.getPlatformMBeanServer(); ObjectName name = new ObjectName(&amp;quot;com.example:type=Hello&amp;quot;); Hello mbean = new Hello(); mbs.registerMBean(mbean, name);  JMX Connector</description>
     </item>
     
     <item>
@@ -607,96 +92,8 @@ mbs.registerMBean(mbean, name);
       <pubDate>Wed, 21 Jun 2017 23:32:37 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/jvm-gc-note-1/</guid>
-      <description>
-
-&lt;h2 id=&#34;学习材料&#34;&gt;学习材料&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;讲义地址： &lt;a href=&#34;http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/gc01/index.html&#34;&gt;http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/gc01/index.html&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Youtube 视频地址：  &lt;a href=&#34;https://www.youtube.com/watch?v=DoJr5QQYsl8&#34;&gt;Video The JVM and Java Garbage Collection&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;java-jvm概述&#34;&gt;Java &amp;amp; JVM概述&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Garbage Collection is automatic.&lt;/li&gt;
-&lt;li&gt;Java source code is compiled into byte code.&lt;/li&gt;
-&lt;li&gt;Byte code is stored in .class files&lt;/li&gt;
-&lt;li&gt;.class files are loaded into a Java Virtual Machine(JVM) and executed.&lt;/li&gt;
-&lt;li&gt;A seperated JVM is created for each Java application. (备注：！每个Java程序都对应着一个单独的JVM)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;gc-的职责&#34;&gt;GC 的职责&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;为新对象分配memory&lt;/li&gt;
-&lt;li&gt;确保被引用的对象留在memory Ensuring that any referenced objects(live objects) remain in memory&lt;/li&gt;
-&lt;li&gt;回收死掉的对象占用的memory Recovering memory used by objects that no longer reachable(dead objects)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;gc的stages&#34;&gt;GC的stages&lt;/h2&gt;
-
-&lt;p&gt;step 1. marking(标记将被删除的对象)&lt;br /&gt;
-step 2. Normal Deletion/sweeping(删除标记的对象)&lt;br /&gt;
-step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
-
-&lt;h2 id=&#34;generational-collection&#34;&gt;Generational Collection&lt;/h2&gt;
-
-&lt;p&gt;出发点：Java中绝大多数对象的生存周期很短。
-因此按generation 来运行GC, 可以将memory 分为三部分：&lt;/p&gt;
-
-&lt;h3 id=&#34;young-generation-for-young-objs&#34;&gt;Young Generation(for young objs)&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Eden&lt;/li&gt;
-&lt;li&gt;A &amp;ldquo;from&amp;rdquo; survivor space (S0)&lt;/li&gt;
-&lt;li&gt;A &amp;ldquo;to&amp;rdquo; survivor space (S1)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;tenured-old-generation&#34;&gt;Tenured (old) Generation&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;for old objs&lt;/li&gt;
-&lt;li&gt;超过了Minor GC age theshold的obj, 被挪到这里&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;premanent-generation&#34;&gt;Premanent Generation&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;for meta data, classes, and so on&lt;/li&gt;
-&lt;li&gt;Contains metadata required by the JVM&lt;/li&gt;
-&lt;li&gt;Class objs and methods&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;minor-gc&#34;&gt;Minor GC&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;发生在Young Generation，频繁发生&lt;/li&gt;
-&lt;li&gt;fast，efficient。因为young gen space 通常很小，而且包含很多短命的obj&lt;/li&gt;
-&lt;li&gt;熬过几次minor gc的obj，将被 &lt;strong&gt;promote&lt;/strong&gt; 到old generation space&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&#34;major-gc&#34;&gt;Major GC&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;发生在old Generation的GC&lt;/li&gt;
-&lt;li&gt;old generation space 比yong gen 大，被占用的space 缓慢增长&lt;/li&gt;
-&lt;li&gt;infrequently, 而且花费的时间远多于 minor gc&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;aging-obj-in-yong-gen&#34;&gt;Aging Obj in Yong Gen&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;新Obj 被分配到eden space&lt;/li&gt;
-&lt;li&gt;当eden space 满，触发minor GC: &amp;ldquo; &lt;strong&gt;Stop the world&lt;/strong&gt; &amp;ldquo; event (all the application threads stop)&lt;/li&gt;
-&lt;li&gt;eden space满，则运行GC，把eden space 中活下来的obj + survivor space 中活下来的obj 移到另一个survivor space(反复来回倒), 并把这些obj 的age + 1&lt;/li&gt;
-&lt;li&gt;如果obj的age 超过threshold(一般为15)， 将它挪到Old Gen&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;感受&#34;&gt;感受&lt;/h2&gt;
-
-&lt;p&gt;除了官方的文档、视频，Oracle JDK还提供了demos 和samples, 自己可以实际操作，加深感受。&lt;/p&gt;
-</description>
+      <description>学习材料  讲义地址： http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/gc01/index.html
+ Youtube 视频地址： Video The JVM and Java Garbage Collection  Java &amp;amp; JVM概述  Garbage Collection is automatic. Java source code is compiled into byte code. Byte code is stored in .class files .class files are loaded into a Java Virtual Machine(JVM) and executed. A seperated JVM is created for each Java application. (备注：！每个Java程序都对应着一个单独的JVM)  GC 的职责  为新对象分配memory 确保被引用的对象留在memory Ensuring that any referenced objects(live objects) remain in memory 回收死掉的对象占用的memory Recovering memory used by objects that no longer reachable(dead objects)  GC的stages step 1.</description>
     </item>
     
     <item>
@@ -705,31 +102,16 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
       <pubDate>Thu, 17 Sep 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/java-heap-vs-stack-memory/</guid>
-      <description>
-
-&lt;p&gt;Java中提供&amp;rdquo;栈&amp;rdquo;这种数据结构的实现，java.util.Stack。但此处我们所讨论的不是数据结构，而是JVM内存中的堆与栈，Java Runtime中存放数据的地方。&lt;/p&gt;
-
-&lt;h3 id=&#34;jvm中的堆&#34;&gt;JVM中的堆&lt;/h3&gt;
-
-&lt;p&gt;Java Runtime使用Heap为Object分配内存。所有的对象，无论是何时何地创建的，都保存在Heap中。垃圾回收(Garbage Collection)在Heap上运行，释放不被引用的Object。Heap中生存的Object能在程序的任何地方被引用。&lt;/p&gt;
-
-&lt;h3 id=&#34;jvm中的栈&#34;&gt;JVM中的栈&lt;/h3&gt;
-
-&lt;p&gt;Stack memory是为执行的thread分配的，包含一些生存时间短的值和指向Heap中对象的引用。Stack Memory总是LIFO的。当调用一个Method时，Stack Memory会为它分配一块区域，用来存储本地的primitive value和对Object的引用。一旦这个method结束，这块区域将变得不可用，下一次Method调用时又可以使用它。&lt;/p&gt;
-
-&lt;p&gt;相比Heap，Stack要小得多。&lt;/p&gt;
-
-&lt;h3 id=&#34;区别&#34;&gt;区别&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;存储内容：栈存放局部变量以及引用，堆存放&lt;strong&gt;所有&lt;/strong&gt;对象。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;被谁占有：堆被整个程序共享，栈中的对象被所有线程可见；栈属于单个线程，存储的变量只在其所属的线程中可见。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;空间管理：Stack内存满足LIFO，但Heap就复杂多了。Heap被分为Young Generation, Old Generation, Permanent Generation，在它基础上会运行垃圾回收机制。&lt;/li&gt;
-&lt;li&gt;生存时间：Stack Memory伴随调用它的Method存在、消失，而Heap Memory从程序的开始一直存活到终止。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;体积大小：Stack Memory体积远大于Heap Memory。由于Stack用LIFO调度，它的访问速度也快得多。可以用-Xms或者-Xmx定义Heap的初始大小，用-Xss定义Stack的初始大小。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;异常错误：当Stack满了，Java Runtime会抛出java.lang.StackOverFlowError。当Heap满了，会抛出java.lang.OutOfMemoryError: Java Heap Space Error。&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description> Java中提供&amp;rdquo;栈&amp;rdquo;这种数据结构的实现，java.util.Stack。但此处我们所讨论的不是数据结构，而是JVM内存中的堆与栈，Java Runtime中存放数据的地方。
+JVM中的堆 Java Runtime使用Heap为Object分配内存。所有的对象，无论是何时何地创建的，都保存在Heap中。垃圾回收(Garbage Collection)在Heap上运行，释放不被引用的Object。Heap中生存的Object能在程序的任何地方被引用。
+JVM中的栈 Stack memory是为执行的thread分配的，包含一些生存时间短的值和指向Heap中对象的引用。Stack Memory总是LIFO的。当调用一个Method时，Stack Memory会为它分配一块区域，用来存储本地的primitive value和对Object的引用。一旦这个method结束，这块区域将变得不可用，下一次Method调用时又可以使用它。
+相比Heap，Stack要小得多。
+区别  存储内容：栈存放局部变量以及引用，堆存放所有对象。
+ 被谁占有：堆被整个程序共享，栈中的对象被所有线程可见；栈属于单个线程，存储的变量只在其所属的线程中可见。
+ 空间管理：Stack内存满足LIFO，但Heap就复杂多了。Heap被分为Young Generation, Old Generation, Permanent Generation，在它基础上会运行垃圾回收机制。 生存时间：Stack Memory伴随调用它的Method存在、消失，而Heap Memory从程序的开始一直存活到终止。
+ 体积大小：Stack Memory体积远大于Heap Memory。由于Stack用LIFO调度，它的访问速度也快得多。可以用-Xms或者-Xmx定义Heap的初始大小，用-Xss定义Stack的初始大小。
+ 异常错误：当Stack满了，Java Runtime会抛出java.lang.StackOverFlowError。当Heap满了，会抛出java.lang.OutOfMemoryError: Java Heap Space Error。
+  </description>
     </item>
     
     <item>
@@ -738,37 +120,23 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
       <pubDate>Wed, 21 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/install-tomcat-plugin-in-eclipse/</guid>
-      <description>&lt;p&gt;##安装Tomcat
-&lt;strong&gt;下载链接&lt;/strong&gt;:&lt;a href=&#34;http://tomcat.apache.org/download-70.cgi&#34;&gt;Tomcat7&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;下载tar.gz包到本地，譬如到/home/yuan/Downloads目录&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;通过&lt;code&gt;tar -zxf **.**.tar.gz&lt;/code&gt;命令解压tar.gz包，将解压出来的文件夹转移到你希望保存的目的地(譬如说/home/yuan/tomcat7)&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;用vi打开~/.bashrc文件，在末尾添加如下内容:&lt;br /&gt;
-   alias tomcat=&amp;lsquo;bash ~/tomcat7/bin/startup.sh&amp;rsquo;&lt;br /&gt;
-   export CATALINA_HOME=/home/tomcat7&lt;br /&gt;
-   export JRE_HOME=/usr/lib/jvm/java-7-openjdk-i386/jre&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;其中，JRE_HOME是本机的JRE环境所在目录，需要根据系统的安装情况而定。&lt;br /&gt;
-保存退出&lt;/p&gt;
-
-&lt;p&gt;现在，重新打开终端，运行&lt;code&gt;tomcat&lt;/code&gt;可以启动Tomcat服务&lt;/p&gt;
-
-&lt;p&gt;##在Eclipse中添加Tomcat插件
-&lt;strong&gt;下载链接&lt;/strong&gt;: &lt;a href=&#34;http://www.eclipsetotale.com/tomcatPlugin/tomcatPluginV33.zip&#34;&gt;TomcatPluginV33.zip&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;下载压缩包，将解压后的目录复制到Eclipse安装目录下的plugins/目录。启动Eclipse，可以在状态栏中看到三个有小猫的图标。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;菜单栏，&amp;rdquo;Window&amp;rdquo;-&amp;ldquo;Preferences&amp;rdquo;-&amp;ldquo;Tomcat&amp;rdquo;,将Tomcat version和Tomcat home改为对应值。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;单击小猫图标，即可启动Tomcat。在浏览器中输入&lt;code&gt;http://127.0.0.1:8080&lt;/code&gt;能看到欢迎页。&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;##在Eclipse中新建一个Tomcat项目
-- &amp;ldquo;File&amp;rdquo;-&amp;ldquo;New&amp;rdquo;-&amp;ldquo;Project&amp;hellip;&amp;rdquo;-&amp;ldquo;Java&amp;rdquo;-&amp;ldquo;Tomcat Project&amp;rdquo;,新建一个Tomcat工程。&lt;br /&gt;
-- 添加源码在&amp;rdquo;WEB-INF/src&amp;rdquo;目录下。&lt;br /&gt;
-- 不要忘记在&amp;rdquo;WEB-INF&amp;rdquo;目录下添加web.xml文件。&lt;/p&gt;
-</description>
+      <description>##安装Tomcat 下载链接:Tomcat7
+ 下载tar.gz包到本地，譬如到/home/yuan/Downloads目录
+ 通过tar -zxf **.**.tar.gz命令解压tar.gz包，将解压出来的文件夹转移到你希望保存的目的地(譬如说/home/yuan/tomcat7)
+ 用vi打开~/.bashrc文件，在末尾添加如下内容:
+alias tomcat=&amp;lsquo;bash ~/tomcat7/bin/startup.sh&amp;rsquo;
+export CATALINA_HOME=/home/tomcat7
+export JRE_HOME=/usr/lib/jvm/java-7-openjdk-i386/jre
+  其中，JRE_HOME是本机的JRE环境所在目录，需要根据系统的安装情况而定。
+保存退出
+现在，重新打开终端，运行tomcat可以启动Tomcat服务
+##在Eclipse中添加Tomcat插件 下载链接: TomcatPluginV33.zip
+ 下载压缩包，将解压后的目录复制到Eclipse安装目录下的plugins/目录。启动Eclipse，可以在状态栏中看到三个有小猫的图标。
+ 菜单栏，&amp;rdquo;Window&amp;rdquo;-&amp;ldquo;Preferences&amp;rdquo;-&amp;ldquo;Tomcat&amp;rdquo;,将Tomcat version和Tomcat home改为对应值。
+ 单击小猫图标，即可启动Tomcat。在浏览器中输入http://127.0.0.1:8080能看到欢迎页。
+  ##在Eclipse中新建一个Tomcat项目 - &amp;ldquo;File&amp;rdquo;-&amp;ldquo;New&amp;rdquo;-&amp;ldquo;Project&amp;hellip;&amp;rdquo;-&amp;ldquo;Java&amp;rdquo;-&amp;ldquo;Tomcat Project&amp;rdquo;,新建一个Tomcat工程。
+- 添加源码在&amp;rdquo;WEB-INF/src&amp;rdquo;目录下。
+- 不要忘记在&amp;rdquo;WEB-INF&amp;rdquo;目录下添加web.xml文件。</description>
     </item>
     
     <item>
@@ -777,73 +145,10 @@ step 3. Deletion with Compacting (整理内存，把碎片归拢)&lt;/p&gt;
       <pubDate>Tue, 13 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/some-clarification-about-java-socket-port/</guid>
-      <description>
-
-&lt;p&gt;在我之前翻译的&lt;a href=&#34;http://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/&#34;&gt;Socket是什么&lt;/a&gt;一文中，对java中socket建立的流程有描述。在服务器接受客户端socket连接的部分，它这么说道：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;如果一切顺利，服务器会接受连接。一旦接受了连接，服务器会得到一个绑定了&lt;strong&gt;本地相同端口&lt;/strong&gt;的新socket，这个socket的另一端被置为客户端的地址和端口。服务器需要一个新的socket,所以它能一边继续在原来的socket监听连接请求，一边处理已建立连接的客户端的需求。&lt;/p&gt;
-
-&lt;p&gt;(原文)&lt;br /&gt;
-If everything goes well, the server accepts the connection. Upon acceptance, the server gets a new socket bound to the &lt;strong&gt;same local port&lt;/strong&gt; and also has its remote endpoint set to the address and port of the client. It needs a new socket so that it can continue to listen to the original socket for connection requests while tending to the needs of the connected client.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;配图:&lt;br /&gt;
-&lt;img src=&#34;http://docs.oracle.com/javase/tutorial/figures/networking/6connect.gif&#34; alt=&#34;socket connection established&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;本地相同端口(same local port)&lt;/strong&gt;指的到底是哪个端口？依示例图所示，它指的就是服务器端的&lt;strong&gt;监听端口&lt;/strong&gt;，而不是其它的端口。&lt;/p&gt;
-
-&lt;p&gt;官方文档的说法按说是权威的——事实上的确它是对的。但是，在*Head First Java*中描述ServerSocket.accept()方法有这么一段话：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;When a client finally tries to connect, the method returns a plain old Socket(on a different port) that knows how to communicate with the client(i.e, knows the client&amp;rsquo;s IP address and the port number).&lt;/p&gt;
-
-&lt;p&gt;The socket is on a different port than the ServerSocket, so that the server socket can go back to waiting for other clients.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;这个说法就不太正确了。幸好*Head First Java*出版社已经发现了这个小失误，并在官方网站的勘误表上贴出了&lt;a href=&#34;http://www.oreilly.com/catalog/errataunconfirmed.csp?isbn=9780596009205&#34;&gt;说明&lt;/a&gt;：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;This isn&amp;rsquo;t the case. The thing that has to be unique for each socket is the source port, source ip, destination port &amp;amp; destination ip.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;根据勘误表上的解释，每一个socket连接都需要保证是唯一的，而socket的标志符由源IP、源端口、目的IP、目的端口四部分构成。只要四者有一个不同，那么就能建立两个不同的socket。所以，对于不同的Socket连接，服务器端的IP和端口号可以相同。&lt;/p&gt;
-
-&lt;p&gt;但*Head First Java*十分畅销，导致错误的说法流传甚广，造成了学习者很多误解。&lt;/p&gt;
-
-&lt;h3 id=&#34;来源参考&#34;&gt;来源参考&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/4307549/serversocket-accept-method/4308243#4308243&#34;&gt;StackOverflow.com&lt;/a&gt;有网友这么解释道：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;The client chooses its port at random (you don&amp;rsquo;t need to do anything special in Java) and connects to the server on whichever port you specified.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&#34;实践验证&#34;&gt;实践验证&lt;/h3&gt;
-
-&lt;p&gt;根据这个网友提供的思路，我们可以实际检验一下。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/networking/sockets/clientServer.html&#34;&gt;Writing the server side of a socket&lt;/a&gt;中提供了客户端和服务器端的两个小例子。按照文章里面说的，我将几段代码下载到我的Fedora机器上，先运行服务器代码，它监听4444端口。&lt;br /&gt;
-java KnockKnockServer 4444&lt;/p&gt;
-
-&lt;p&gt;使用&lt;code&gt;netstat -na&lt;/code&gt; 命令查看机器上打开的端口，(省略无关条目)：&lt;br /&gt;
-
-Proto Recv-Q Send-Q Local Address   Foreign Address         State      
-tcp6       0      0        :::4444       :::*               LISTEN
-&lt;/p&gt;
-
-&lt;p&gt;再运行客户端代码，它与本机上的服务器程序建立socket连接。&lt;br /&gt;
-java KnockKnockClient 127.0.0.1 4444&lt;br /&gt;
-再使用&lt;code&gt;netstat -na&lt;/code&gt; 命令查看机器上打开的端口，(省略无关条目)：&lt;br /&gt;
-
-Proto Recv-Q Send-Q Local Address   Foreign Address         State      
-tcp6       0      0 :::4444                 :::*                    LISTEN     
-tcp6       0      0 127.0.0.1:50031         127.0.0.1:4444          ESTABLISHED  
-tcp6       0      0 127.0.0.1:4444          127.0.0.1:50031         ESTABLISHED  
-&lt;/p&gt;
-
-&lt;p&gt;有两条socket的记录。其中一条是服务器的，另一条是客户端的。它们的local address和foreign address刚好是相反的，这对应了socket的local和remote概念。从这两条记录看，建立的socket连接，服务器端占用的端口还是监听端口(4444)，而且此时服务器还在端口(4444)监听连接请求。&lt;/p&gt;
-</description>
+      <description>在我之前翻译的Socket是什么一文中，对java中socket建立的流程有描述。在服务器接受客户端socket连接的部分，它这么说道：
+ 如果一切顺利，服务器会接受连接。一旦接受了连接，服务器会得到一个绑定了本地相同端口的新socket，这个socket的另一端被置为客户端的地址和端口。服务器需要一个新的socket,所以它能一边继续在原来的socket监听连接请求，一边处理已建立连接的客户端的需求。
+(原文)
+If everything goes well, the server accepts the connection. Upon acceptance, the server gets a new socket bound to the same local port and also has its remote endpoint set to the address and port of the client. It needs a new socket so that it can continue to listen to the original socket for connection requests while tending to the needs of the connected client.</description>
     </item>
     
     <item>
@@ -852,25 +157,13 @@ tcp6       0      0 127.0.0.1:4444          127.0.0.1:50031         ESTABLISHED
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/java-all-about-sockets-oracle-java-tutorial/</guid>
-      <description>&lt;p&gt;##课程：关于Sockets的一切
-URL和URLConnection为获取因特网上的资源提供了一种相对高层次(high-level)的机制。但有时候，你的程序需要一种相对低层次(lower-level)的网络通信，譬如说，你可能需要编写一个客户端-服务器(client-server)程序。&lt;/p&gt;
-
-&lt;p&gt;在客户端-服务器程序中，服务器端提供一些服务：譬如处理数据库查询，或者发送当前的期货价格。客户端利用服务器提供的这些服务器，用来向用户显示数据库查询的结果，或者给投资者提供期货的购买建议。客户端和服务器端的通信因此必须是&lt;strong&gt;可信&lt;/strong&gt;的。换言之，数据不能丢失，而且它到达客户端的顺序必须与服务器的发送顺序一致。&lt;/p&gt;
-
-&lt;p&gt;TCP协议提供了一个可信的、点到点的通信信道，因特网上的客户端-服务器端程序可以使用它来通信。为了基于TCP通信，客户端程序和服务器程序要和对方建立连接。每个程序各自将一个socket绑定到连接的一头。当通信时，客户端和服务器各自从与连接绑定的socket里面读/写数据。&lt;/p&gt;
-
-&lt;p&gt;##Socket是什么?
-因特网上运行着的两个程序建立了一个双向的通信连接，Socket就是这个连接的一端。Socket类用来表示一个客户端程序和一个服务器程序间的连接。java.net包中提供了Socket和ServerSocket这两个类，它们分别是这一连接的客户端实现和服务器端实现。&lt;/p&gt;
-
-&lt;p&gt;##通过Socket读和写
-&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/networking/sockets/readingWriting.html&#34;&gt;Reading from and Writing to a Socket&lt;/a&gt;包含一个小例子，它演示了客户端程序如何从Socket读数据和向socket写数据。&lt;/p&gt;
-
-&lt;p&gt;##编写一对socket Client/Server
-&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/networking/sockets/readingWriting.html&#34;&gt;Reading from and Writing to a Socket&lt;/a&gt;演示了客户端程序如何通过socket与一个存在的服务器端交互。&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/networking/sockets/clientServer.html&#34;&gt;Writing a Client/Server Pair&lt;/a&gt;则演示如何实现连接的另一端——服务器端的功能。&lt;/p&gt;
-
-&lt;p&gt;##原文链接
-&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/networking/sockets/index.html&#34;&gt;Lesson: All About Sockets&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>##课程：关于Sockets的一切 URL和URLConnection为获取因特网上的资源提供了一种相对高层次(high-level)的机制。但有时候，你的程序需要一种相对低层次(lower-level)的网络通信，譬如说，你可能需要编写一个客户端-服务器(client-server)程序。
+在客户端-服务器程序中，服务器端提供一些服务：譬如处理数据库查询，或者发送当前的期货价格。客户端利用服务器提供的这些服务器，用来向用户显示数据库查询的结果，或者给投资者提供期货的购买建议。客户端和服务器端的通信因此必须是可信的。换言之，数据不能丢失，而且它到达客户端的顺序必须与服务器的发送顺序一致。
+TCP协议提供了一个可信的、点到点的通信信道，因特网上的客户端-服务器端程序可以使用它来通信。为了基于TCP通信，客户端程序和服务器程序要和对方建立连接。每个程序各自将一个socket绑定到连接的一头。当通信时，客户端和服务器各自从与连接绑定的socket里面读/写数据。
+##Socket是什么? 因特网上运行着的两个程序建立了一个双向的通信连接，Socket就是这个连接的一端。Socket类用来表示一个客户端程序和一个服务器程序间的连接。java.net包中提供了Socket和ServerSocket这两个类，它们分别是这一连接的客户端实现和服务器端实现。
+##通过Socket读和写 Reading from and Writing to a Socket包含一个小例子，它演示了客户端程序如何从Socket读数据和向socket写数据。
+##编写一对socket Client/Server Reading from and Writing to a Socket演示了客户端程序如何通过socket与一个存在的服务器端交互。Writing a Client/Server Pair则演示如何实现连接的另一端——服务器端的功能。
+##原文链接 Lesson: All About Sockets</description>
     </item>
     
     <item>
@@ -879,33 +172,18 @@ URL和URLConnection为获取因特网上的资源提供了一种相对高层次(
       <pubDate>Sun, 11 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/socket-definition-oracle-java-tutorial/</guid>
-      <description>&lt;p&gt;一般而言，一个服务器运行在一台电脑上，这个服务器有一个绑定了端口号的socket。这个服务器一边等待，一边守着socket监听从客户端发过来的连接请求。&lt;/p&gt;
-
-&lt;p&gt;在客户端：客户端知道服务器所在的主机的主机名(hostname)和服务器正在监听的端口号。为了发出连接请求，客户端尝试着连接服务器所在的主机名和端口。客户端同时也需要向服务器端证明自己的身份，因此它也绑定了一个本地的端口号以便在本次连接中使用。这一般是由系统指定的。&lt;br /&gt;
-&lt;img src=&#34;http://docs.oracle.com/javase/tutorial/figures/networking/5connect.gif&#34; alt=&#34;Server listening on port&#34; /&gt;&lt;br /&gt;
-如果一切顺利，服务器会接受连接。一旦接受了连接，服务器会得到一个绑定了本地相同端口的新socket，这个socket的另一端被置为客户端的地址和端口。服务器需要一个新的socket,所以它能一边继续在原来的socket监听连接请求，一边处理已建立连接的客户端的需求。&lt;br /&gt;
-&lt;img src=&#34;http://docs.oracle.com/javase/tutorial/figures/networking/6connect.gif&#34; alt=&#34;connection_established&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在客户端，如果连接请求被接受，会成功新建一个socket。客户端能利用这个socket来与服务器端通信。&lt;/p&gt;
-
-&lt;p&gt;现在，客户端和服务器能通过向它们的sockets读/写数据来通信了。&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;定义&lt;br /&gt;
-Socket是网络上运行着的两个程序所形成的双向通信连接的一端(endpoint)。每个socket都绑定了一个端口号，所以TCP层能确定数据接收方的程序。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;em&gt;连接的一端&lt;/em&gt;(&lt;em&gt;endpoint&lt;/em&gt;)是一个IP地址和一个端口号的组合。每个TCP连接能被两个*连接的一端*唯一标志。这样，主机和服务器之间就能存在多个连接。&lt;/p&gt;
-
-&lt;p&gt;Java平台上的java.net包提供了Socket这个类，它实现了Java程序和网络上另一个程序的双向连接的一边。Socket类位于依赖于平台的实现方式的顶端，向Java程序隐藏了所有系统的细节。通过使用java.net.Socket类而不是系统的原生代码，Java程序能一种独立于平台的实现方式与网络通信。&lt;/p&gt;
-
-&lt;p&gt;另外，java.net包也包括了ServerSocket类，它实现的socket能被服务器用来监听、接受来自客户端的连接请求。&lt;/p&gt;
-
-&lt;p&gt;如果你想连接Web，那么URL类和与之相关的类(URLConnection, URLEncoder)可能比Socket类更适合。事实上，URL类是连接Web相对更高层次的方式，它也用到sockets作为底层的部分实现。&lt;/p&gt;
-
-&lt;p&gt;##原文链接
-&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/networking/sockets/definition.html&#34;&gt;What Is a Socket?&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>一般而言，一个服务器运行在一台电脑上，这个服务器有一个绑定了端口号的socket。这个服务器一边等待，一边守着socket监听从客户端发过来的连接请求。
+在客户端：客户端知道服务器所在的主机的主机名(hostname)和服务器正在监听的端口号。为了发出连接请求，客户端尝试着连接服务器所在的主机名和端口。客户端同时也需要向服务器端证明自己的身份，因此它也绑定了一个本地的端口号以便在本次连接中使用。这一般是由系统指定的。
+如果一切顺利，服务器会接受连接。一旦接受了连接，服务器会得到一个绑定了本地相同端口的新socket，这个socket的另一端被置为客户端的地址和端口。服务器需要一个新的socket,所以它能一边继续在原来的socket监听连接请求，一边处理已建立连接的客户端的需求。
+在客户端，如果连接请求被接受，会成功新建一个socket。客户端能利用这个socket来与服务器端通信。
+现在，客户端和服务器能通过向它们的sockets读/写数据来通信了。
+ 定义
+Socket是网络上运行着的两个程序所形成的双向通信连接的一端(endpoint)。每个socket都绑定了一个端口号，所以TCP层能确定数据接收方的程序。
+ 连接的一端(endpoint)是一个IP地址和一个端口号的组合。每个TCP连接能被两个*连接的一端*唯一标志。这样，主机和服务器之间就能存在多个连接。
+Java平台上的java.net包提供了Socket这个类，它实现了Java程序和网络上另一个程序的双向连接的一边。Socket类位于依赖于平台的实现方式的顶端，向Java程序隐藏了所有系统的细节。通过使用java.net.Socket类而不是系统的原生代码，Java程序能一种独立于平台的实现方式与网络通信。
+另外，java.net包也包括了ServerSocket类，它实现的socket能被服务器用来监听、接受来自客户端的连接请求。
+如果你想连接Web，那么URL类和与之相关的类(URLConnection, URLEncoder)可能比Socket类更适合。事实上，URL类是连接Web相对更高层次的方式，它也用到sockets作为底层的部分实现。
+##原文链接 What Is a Socket?</description>
     </item>
     
     <item>
@@ -914,38 +192,16 @@ Socket是网络上运行着的两个程序所形成的双向通信连接的一�
       <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/oracle-java-tutorial-buffered-stream/</guid>
-      <description>
-
-&lt;h2 id=&#34;buffered-streams-缓冲流&#34;&gt;Buffered Streams 缓冲流&lt;/h2&gt;
-
-&lt;p&gt;此前我们所见识的例子使用的大多*非缓冲I/O*。非缓冲，意味着每一次读/写的请求都由底层的OS直接处理。这降低了程序效率，因为每一次请求往往会触发磁盘操作、网络活动、或者其它代价昂贵的操作。&lt;/p&gt;
-
-&lt;p&gt;为了减少这类消耗，Java平台实现了*缓冲I/O*流。输入缓冲流从一块别名为&amp;rdquo;缓存&amp;rdquo;(&lt;em&gt;buffer&lt;/em&gt;)的内存区域中读入数据;只有当缓存区变空的时候，原生的输入API才会被调用。类似地，缓冲的输出流向一块缓存中写数据，只有当缓存区满了的时候，原生的API的输出API才会被调用。&lt;/p&gt;
-
-&lt;p&gt;程序能把一个非缓冲流转化为缓冲流。我们已经使用过几次这样的&amp;rdquo;包装类&amp;rdquo;了：非缓冲流作为参数传入缓冲流类的构造函数。下面就是一个例子，你可以在用它替代CopyCharacters代码中的构造函数以使用缓冲I/O：&lt;br /&gt;
-
-inputStream = new BufferedReader(new FileReader(&#34;xanadu.txt&#34;));
-outputStream = new BufferedWriter(new FileWriter(&#34;characteroutput.txt&#34;));
-&lt;/p&gt;
-
-&lt;p&gt;可以用来包裹非缓冲流的缓冲流类有4类：BufferedInputStream和BufferedOutputStream生成缓冲字节流, BufferedReader 和BufferedWriter 生成缓冲字符流。&lt;/p&gt;
-
-&lt;h3 id=&#34;洗刷-flush-缓冲流&#34;&gt;洗刷(flush)缓冲流&lt;/h3&gt;
-
-&lt;p&gt;在某些重要的时刻，我们等不及缓存填满就要将它的内容输出。这样的操作一般被称作*洗刷(flush)*缓存。&lt;/p&gt;
-
-&lt;p&gt;一些缓冲输出流支持&amp;rdquo;自动洗刷(autoflush)&amp;ldquo;，只要你在它的构造函数中指定某个参数即可。当开启了自动洗刷后，某些关键事件会触发洗刷。例如，一个自动洗刷的PrintWriter对象，每当*println*或者*format*被调用时都会自动洗刷缓存。&lt;/p&gt;
-
-&lt;p&gt;可以使用*flush*函数来手动洗刷缓存。可以对任何一个输出流使用*flush*函数，但只有在这个流被缓冲时才有效果。&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;注：flush也可以翻译成“刷新”，但我觉得这样可能造成含混，所以还是将它翻作“洗刷”来得直白。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&#34;原文链接&#34;&gt;原文链接&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/essential/io/buffers.html&#34;&gt;Buffered Streams&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>Buffered Streams 缓冲流 此前我们所见识的例子使用的大多*非缓冲I/O*。非缓冲，意味着每一次读/写的请求都由底层的OS直接处理。这降低了程序效率，因为每一次请求往往会触发磁盘操作、网络活动、或者其它代价昂贵的操作。
+为了减少这类消耗，Java平台实现了*缓冲I/O*流。输入缓冲流从一块别名为&amp;rdquo;缓存&amp;rdquo;(buffer)的内存区域中读入数据;只有当缓存区变空的时候，原生的输入API才会被调用。类似地，缓冲的输出流向一块缓存中写数据，只有当缓存区满了的时候，原生的API的输出API才会被调用。
+程序能把一个非缓冲流转化为缓冲流。我们已经使用过几次这样的&amp;rdquo;包装类&amp;rdquo;了：非缓冲流作为参数传入缓冲流类的构造函数。下面就是一个例子，你可以在用它替代CopyCharacters代码中的构造函数以使用缓冲I/O：
+inputStream = new BufferedReader(new FileReader(&amp;#34;xanadu.txt&amp;#34;)); outputStream = new BufferedWriter(new FileWriter(&amp;#34;characteroutput.txt&amp;#34;));
+可以用来包裹非缓冲流的缓冲流类有4类：BufferedInputStream和BufferedOutputStream生成缓冲字节流, BufferedReader 和BufferedWriter 生成缓冲字符流。
+洗刷(flush)缓冲流 在某些重要的时刻，我们等不及缓存填满就要将它的内容输出。这样的操作一般被称作*洗刷(flush)*缓存。
+一些缓冲输出流支持&amp;rdquo;自动洗刷(autoflush)&amp;ldquo;，只要你在它的构造函数中指定某个参数即可。当开启了自动洗刷后，某些关键事件会触发洗刷。例如，一个自动洗刷的PrintWriter对象，每当*println*或者*format*被调用时都会自动洗刷缓存。
+可以使用*flush*函数来手动洗刷缓存。可以对任何一个输出流使用*flush*函数，但只有在这个流被缓冲时才有效果。
+ 注：flush也可以翻译成“刷新”，但我觉得这样可能造成含混，所以还是将它翻作“洗刷”来得直白。
+ 原文链接 Buffered Streams</description>
     </item>
     
     <item>
@@ -954,69 +210,10 @@ outputStream = new BufferedWriter(new FileWriter(&#34;characteroutput.txt&#34;))
       <pubDate>Mon, 29 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/</guid>
-      <description>
-
-&lt;h2 id=&#34;byte-streams-字节流&#34;&gt;Byte Streams 字节流&lt;/h2&gt;
-
-&lt;p&gt;程序使用*字节流*来处理8bit字节的输入和输出。所有的字节流类都派生(descend)自InputStream和OutputStream。&lt;/p&gt;
-
-&lt;p&gt;字节流类有很多。为了演示字节流的工作原理，我们将关注文件的I/O字节流,FileInputStream和FileOutputStream。其它字节流类的使用方法往往与之类似，仅在构造的方法上存在差别。&lt;/p&gt;
-
-&lt;h3 id=&#34;使用字节流&#34;&gt;使用字节流&lt;/h3&gt;
-
-&lt;p&gt;下面我们通过一段代码CopyBytes来演示FileInputStream和FileOutputStream的用法。这段代码通过字节流逐字节地拷贝xanadu.txt。&lt;/p&gt;
-
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-public class CopyBytes {
-	   public static void main(String[] args) throws IOException {
-
-        FileInputStream in = null;
-        FileOutputStream out = null;
-
-        try {
-            in = new FileInputStream(&#34;xanadu.txt&#34;);
-            out = new FileOutputStream(&#34;outagain.txt&#34;);
-            int c;
-
-            while ((c = in.read()) != -1) {
-                out.write(c);
-            }
-        } finally {
-            if (in != null) {
-               in.close();
-            }
-            if (out != null) {
-               out.close();
-            }
-        }
-    }
-}
-
-
-&lt;p&gt;CopyBytes在运行时形成一个循环:它不断从输入流中逐字节地读入数据，然后将字节输出到输出流。如下图所示。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://docs.oracle.com/javase/tutorial/figures/essential/byteStream.gif&#34; alt=&#34;图片链接&#34; title=&#34;Byte Stream&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;永远记得关闭流&#34;&gt;永远记得关闭流&lt;/h3&gt;
-
-&lt;p&gt;关闭不再使用的流十分重要——以至于你可以看到在CopyBytes中，我们甚至使用finally区块来确保输入流和输出流即使在出现错误的情况下都能被关闭。关闭操作可以避免严重的资源泄露。&lt;/p&gt;
-
-&lt;p&gt;可能出现的错误是CopyBytes无法打开一个或者多个文件。当这样的错误发生时，与这些文件相关的流变量不会改变它们最初的null值。这就是为什么在CopyBytes中，当我们最后调用close函数时要先确认每个流变量所持有的引用对象非空的原因。&lt;/p&gt;
-
-&lt;h3 id=&#34;何时避免使用字节流&#34;&gt;何时避免使用字节流&lt;/h3&gt;
-
-&lt;p&gt;CopyBytes看上去是一个很普通的程序，但它实际上是一种你应该避免使用的、低层次的I/O操作方式。因为xanadu.txt中包含了字符数据，所以最适当的方式是使用字符流(character stream)。我们将在下一部分讨论字符流。对于更复杂的数据类型，也有专门的流类来处理它们。字节流只应该用于最原始的I/O操作。&lt;/p&gt;
-
-&lt;p&gt;那为何还要讨论字节流呢？因为所有其它的流类的&lt;strong&gt;基础&lt;/strong&gt;都是字节流。&lt;/p&gt;
-
-&lt;h3 id=&#34;原文链接&#34;&gt;原文链接&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/essential/io/bytestreams.html&#34;&gt;Byte Streams&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>Byte Streams 字节流 程序使用*字节流*来处理8bit字节的输入和输出。所有的字节流类都派生(descend)自InputStream和OutputStream。
+字节流类有很多。为了演示字节流的工作原理，我们将关注文件的I/O字节流,FileInputStream和FileOutputStream。其它字节流类的使用方法往往与之类似，仅在构造的方法上存在差别。
+使用字节流 下面我们通过一段代码CopyBytes来演示FileInputStream和FileOutputStream的用法。这段代码通过字节流逐字节地拷贝xanadu.txt。
+import java.io.FileInputStream; import java.io.FileOutputStream; import java.io.IOException; public class CopyBytes { public static void main(String[] args) throws IOException { FileInputStream in = null; FileOutputStream out = null; try { in = new FileInputStream(&amp;#34;xanadu.txt&amp;#34;); out = new FileOutputStream(&amp;#34;outagain.txt&amp;#34;); int c; while ((c = in.read()) != -1) { out.write(c); } } finally { if (in != null) { in.close(); } if (out != null) { out.</description>
     </item>
     
     <item>
@@ -1025,104 +222,11 @@ public class CopyBytes {
       <pubDate>Mon, 29 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/oracle-java-tutorial-character-stream/</guid>
-      <description>
-
-&lt;h2 id=&#34;character-streams-字符流&#34;&gt;Character Streams 字符流&lt;/h2&gt;
-
-&lt;p&gt;Java平台使用Unicode字符集存储字符值(character value)。字符流I/O自动将内部的Unicode格式翻译成本地的字符集，反之亦然。在西方的使用环境(locale)下，本地字符集往往是8bit的ASCII码的超集(superset)。&lt;/p&gt;
-
-&lt;p&gt;对大多数程序来说，使用字符流的I/O不会比使用字节流的I/O更复杂。与输入和输出相关的流类会自动完成与本地字符集的翻译过程。一个使用字符流而不是字节流的程序，它会自动使用本地字符集，而且它可以完成国际化的过程——不需要程序员付出过多的额外工作。&lt;/p&gt;
-
-&lt;p&gt;如果国际化的需求优先级不高，你尽管以最简单的方式使用字符流类，而不需太关注字符集的问题。如果之后有了国际化的需求，你的程序也可以轻松地予以修改。参见&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/i18n/index.html&#34;&gt;国际化的章节&lt;/a&gt;了解更多。&lt;/p&gt;
-
-&lt;h3 id=&#34;使用字符流&#34;&gt;使用字符流&lt;/h3&gt;
-
-&lt;p&gt;所有的字符流类都派生自Reader和Writer。与字节流一样，有专为文件I/O而设的字符流类：FileReader和FileWriter。下面的CopyCharacters代码演示了它们的使用方法。&lt;/p&gt;
-
-
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
-public class CopyCharacters {
-    public static void main(String[] args) throws IOException {
-
-    FileReader inputStream = null;
-    FileWriter outputStream = null;
-
-    try {
-        inputStream = new FileReader(&#34;xanadu.txt&#34;);
-        outputStream = new FileWriter(&#34;characteroutput.txt&#34;);
-        int c;
-        while ((c = inputStream.read()) != -1) {
-            outputStream.write(c);
-        }
-    } finally {
-        if (inputStream != null) {
-           inputStream.close();
-        }
-        if (outputStream != null) {
-           outputStream.close();
-        }
-   }
-  }
-}
-
-
-&lt;p&gt;CopyCharacters和CopyBytes很相似。它们之间最大的不同在于CopyCharacters使用FileReader和FileWriter来完成输入和输出，CopyBytes使用FileInputStream和FileOutputStream。值得注意的是，CopyCharacters和CopyBytes都使用了一个int变量来暂存读入/写出的值。在CopyCharacters中这个int变量在它的后16bit中暂存一个字符值(character value),然而在CopyBytes中这个int变量在它的后8bit中暂存一个字节值(byte value)。&lt;/p&gt;
-
-&lt;h3 id=&#34;使用字节流的字符流&#34;&gt;使用字节流的字符流&lt;/h3&gt;
-
-&lt;p&gt;字符流往往是字节流的&amp;rdquo;包装&amp;rdquo;(wrapper)。字符流利用字节流完成物理I/O操作，同时字符流完成字符和字节之间的翻译。举例来说，FileReader使用FileInputStream，FileWriter使用FileOutputStream。&lt;/p&gt;
-
-&lt;p&gt;起到字节-字符之间“桥梁”(bridge)作用的通用类有两个：InputStreamReader和OutputStreamWriter。在没有已经封装好的字符流包能满足你的操作需求时，你可以用它们创建字符流。&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/networking/sockets/readingWriting.html&#34;&gt;socket lesson&lt;/a&gt;和&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/networking/index.html&#34;&gt;network trial&lt;/a&gt;中会介绍如何从socket相关类提供的字节流中创建字符流。&lt;/p&gt;
-
-&lt;h3 id=&#34;行导向的i-o&#34;&gt;行导向的I/O&lt;/h3&gt;
-
-&lt;p&gt;字符I/O操作的往往不是单个字符，而是更大的单元。最常见的单元是行：以行终止符结尾的一个字符串。行终止符可以是回车(carrige-return)/新行(line-feed)的字符组合(&amp;rdquo;\r\n&amp;rdquo;)，可以是单个的回车符号(&amp;rdquo;\r&amp;rdquo;)，也可以是单个的新行符号(&amp;rdquo;\n&amp;rdquo;)。兼容所有可能存在的行终止符，这样会使程序能读取在任何流行的操作系统上创建的文本。&lt;/p&gt;
-
-&lt;p&gt;让我们对CopyCharacters稍作修改，使其变为基于行的I/O。我们会使用之前没使用的两个类：BufferedReader和PrintWriter。我们将在&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/essential/io/buffers.html&#34;&gt;Buffered I/O&lt;/a&gt;和&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/essential/io/formatting.html&#34;&gt;FormaFormattingtting&lt;/a&gt;这两个章节中详细讨论这两个类。&lt;/p&gt;
-
-&lt;p&gt;下文的CopyLines程序会调用BufferedReader.readLine和PrintWriter.println来完成每次输入/输出一行的操作。&lt;/p&gt;
-
-
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.io.IOException;
-
-public class CopyLines {
-    public static void main(String[] args) throws IOException {
-
-        BufferedReader inputStream = null;
-        PrintWriter outputStream = null;
-
-        try {
-			inputStream = new BufferedReader(new FileReader(&#34;xanadu.txt&#34;));
-			outputStream = new PrintWriter(new FileWriter(&#34;characteroutput.txt&#34;));
-			String l;
-			while ((l = inputStream.readLine()) != null) {
-				outputStream.println(l);
-			}
-		} finally {
-			if (inputStream != null) {
-			inputStream.close();
-		}
-		if (outputStream != null) {
-			outputStream.close();
-		}
-		}
-	}
-}
-
-
-&lt;p&gt;调用readLine会返回文本中的一行。CopyLines使用println输出每一行，println函数会在每一行末尾添上当前操作系统的行终止符，再打印出来。这样的话，最后打印出来的行所使用的行终止符不一定与输入文件中的行终止符相同。&lt;/p&gt;
-
-&lt;h3 id=&#34;原文链接&#34;&gt;原文链接&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.oracle.com/javase/tutorial/essential/io/charstreams.html&#34;&gt;Character Streams&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>Character Streams 字符流 Java平台使用Unicode字符集存储字符值(character value)。字符流I/O自动将内部的Unicode格式翻译成本地的字符集，反之亦然。在西方的使用环境(locale)下，本地字符集往往是8bit的ASCII码的超集(superset)。
+对大多数程序来说，使用字符流的I/O不会比使用字节流的I/O更复杂。与输入和输出相关的流类会自动完成与本地字符集的翻译过程。一个使用字符流而不是字节流的程序，它会自动使用本地字符集，而且它可以完成国际化的过程——不需要程序员付出过多的额外工作。
+如果国际化的需求优先级不高，你尽管以最简单的方式使用字符流类，而不需太关注字符集的问题。如果之后有了国际化的需求，你的程序也可以轻松地予以修改。参见国际化的章节了解更多。
+使用字符流 所有的字符流类都派生自Reader和Writer。与字节流一样，有专为文件I/O而设的字符流类：FileReader和FileWriter。下面的CopyCharacters代码演示了它们的使用方法。
+import java.io.FileReader; import java.io.FileWriter; import java.io.IOException; public class CopyCharacters { public static void main(String[] args) throws IOException { FileReader inputStream = null; FileWriter outputStream = null; try { inputStream = new FileReader(&amp;#34;xanadu.txt&amp;#34;); outputStream = new FileWriter(&amp;#34;characteroutput.txt&amp;#34;); int c; while ((c = inputStream.read()) != -1) { outputStream.write(c); } } finally { if (inputStream != null) { inputStream.close(); } if (outputStream != null) { outputStream.</description>
     </item>
     
     <item>
@@ -1131,45 +235,22 @@ public class CopyLines {
       <pubDate>Sun, 14 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/java-terminology-explanation/</guid>
-      <description>
-
-&lt;p&gt;作为JAVA初学者，往往弄不清楚一系列术语的概念。这篇文章搬运&lt;a href=&#34;http://stackoverflow.com/questions/1906445/what-is-the-difference-between-jdk-and-jre&#34;&gt;文章一&lt;/a&gt;与&lt;a href=&#34;http://stackoverflow.com/questions/10858193/java-jdk-sdk-se&#34;&gt;文章二&lt;/a&gt;，解释JRE与JDK, JavaSE、JavaME与JavaEE，Java版本等术语 。&lt;/p&gt;
-
-&lt;h3 id=&#34;jre-vs-jdk&#34;&gt;JRE vs JDK&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;JRE&lt;/strong&gt;: Java Runtime Environment&lt;br /&gt;
-基本说来它是Java Virtual Machine，你的Java程序在它上面运行。它也为浏览器提供Applet运行插件。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;JDK&lt;/strong&gt;: Java Development Kit&lt;br /&gt;
-Java软件开发包，它不仅&lt;strong&gt;包括&lt;/strong&gt; JRE,还包括编译器等其它工具(JavaDoc, Java Debugger等)。它用来创建、编译程序。&lt;/p&gt;
-
-&lt;p&gt;一般说来，如果你仅仅想让Java程序在自己的电脑和浏览器上跑起来，那么只需安装JRE。如果你想用Java编程，那么需要安装JDK。&lt;/p&gt;
-
-&lt;h3 id=&#34;javase-javame和javaee&#34;&gt;JavaSE，JavaME和JavaEE&lt;/h3&gt;
-
-&lt;p&gt;因为围绕Java形成的生态圈十分庞大，所以Sun公司提供了Java的不同发行版。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;JavaSE&lt;/strong&gt;: Java Standard Edition&lt;br /&gt;
-适合于客户端软件、常规程序等。我们平时所使用的、所下载的Java版本一般都是它。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;JavaME&lt;/strong&gt;: Java Mobile Edition&lt;br /&gt;
-通常是老式手机游戏所产生的平台，它对Java进行了精简，使其更适合低性能的处理器。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;JavaEE&lt;/strong&gt;: Java Enterprise Edition&lt;br /&gt;
-通常用来研发服务器端的产品，因此往往它包含很多服务器需要用到的包。&lt;/p&gt;
-
-&lt;h3 id=&#34;java的版本号&#34;&gt;Java的版本号&lt;/h3&gt;
-
-&lt;p&gt;我们在下载安装Java JRE或者JDK后，使用&amp;rdquo;java -version&amp;rdquo;命令查看当前的Java版本，会发现类似下面的信息：&lt;br /&gt;
-
-java version &#34;1.7.0_71&#34;
-
-Java 1.7是我机器上的java版本号，它也被称为Java 7：它们是一个东西，两个名称。再累赘一点地说，它也是JavaSE 7。&lt;/p&gt;
-
-&lt;h3 id=&#34;扩展阅读&#34;&gt;扩展阅读&lt;/h3&gt;
-
-&lt;p&gt;更详细、更权威的资料，可以阅读Oracle的&lt;a href=&#34;http://www.oracle.com/technetwork/java/javase/tech/index.html&#34;&gt;Java SE Technologies文档&lt;/a&gt;。&lt;/p&gt;
-</description>
+      <description>作为JAVA初学者，往往弄不清楚一系列术语的概念。这篇文章搬运文章一与文章二，解释JRE与JDK, JavaSE、JavaME与JavaEE，Java版本等术语 。
+JRE vs JDK JRE: Java Runtime Environment
+基本说来它是Java Virtual Machine，你的Java程序在它上面运行。它也为浏览器提供Applet运行插件。
+JDK: Java Development Kit
+Java软件开发包，它不仅包括 JRE,还包括编译器等其它工具(JavaDoc, Java Debugger等)。它用来创建、编译程序。
+一般说来，如果你仅仅想让Java程序在自己的电脑和浏览器上跑起来，那么只需安装JRE。如果你想用Java编程，那么需要安装JDK。
+JavaSE，JavaME和JavaEE 因为围绕Java形成的生态圈十分庞大，所以Sun公司提供了Java的不同发行版。
+JavaSE: Java Standard Edition
+适合于客户端软件、常规程序等。我们平时所使用的、所下载的Java版本一般都是它。
+JavaME: Java Mobile Edition
+通常是老式手机游戏所产生的平台，它对Java进行了精简，使其更适合低性能的处理器。
+JavaEE: Java Enterprise Edition
+通常用来研发服务器端的产品，因此往往它包含很多服务器需要用到的包。
+Java的版本号 我们在下载安装Java JRE或者JDK后，使用&amp;rdquo;java -version&amp;rdquo;命令查看当前的Java版本，会发现类似下面的信息：
+java version &amp;#34;1.7.0_71&amp;#34; Java 1.7是我机器上的java版本号，它也被称为Java 7：它们是一个东西，两个名称。再累赘一点地说，它也是JavaSE 7。
+扩展阅读 更详细、更权威的资料，可以阅读Oracle的Java SE Technologies文档。</description>
     </item>
     
   </channel>

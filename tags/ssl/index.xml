@@ -10,7 +10,9 @@
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
     <lastBuildDate>Wed, 24 Dec 2014 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://blog.yuantops.com/tags/ssl/" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://blog.yuantops.com/tags/ssl/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>使用OpenSSL工具制作证书的方法</title>
@@ -18,115 +20,14 @@
       <pubDate>Wed, 24 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/ssl-creation-guide/</guid>
-      <description>
-
-&lt;div class=&#34;message&#34;&gt;
-&lt;/div&gt;
-
-&lt;p&gt;之前&lt;a href=&#34;http://blog.yuantops.com/tech/SSL-certificate-details-and-creation-guide/&#34;&gt;一篇文章&lt;/a&gt;介绍了SSL证书的一些细节，这篇文章介绍OpenSSL工具的基本使用方法。老实说，OpenSSL工具实在是太难用了，我参考了&lt;a href=&#34;http://pages.cs.wisc.edu/~zmiller/ca-howto/&#34;&gt;How To Setup a CA&lt;/a&gt;和&lt;a href=&#34;http://rhythm-zju.blog.163.com/blog/static/310042008015115718637/&#34;&gt;基于 OpenSSL 的 CA 建立及证书签发&lt;/a&gt;这两篇文章，捣鼓了很久才理清流程。虽然原理很清楚，但是操作起来却不那么容易，这告诉我们要多实践才对，不然发现不了问题。&lt;/p&gt;
-
-&lt;h3 id=&#34;一些坑&#34;&gt;一些坑&lt;/h3&gt;
-
-&lt;p&gt;在使用openssl ca命令时，如果不手动指定-config参数，它会自动调用/etc/pki/tls/openssl.cnf作为-config配置文件，这个openssl.cnf文件里定义了要调用的CA证书、私钥路径。如果我们在创建CA时将它的证书和私钥等文件保存在了别处，或者/etc/pki/tls/openssl.cnf里的定义的那些文件不存在，那么在openssl ca找不到要使用的这些文件时，就会报错。其中典型的错误有：&lt;/p&gt;
-
-
-Using configuration from /etc/pki/tls/openssl.cnf
-unable to load CA private key
-139911890630472:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: ANY PRIVATE KEY  
-
-
-&lt;p&gt;所以，我们如果想自定义CA的目录位置，那么要事先1）按照OpenSSL的默认配置建立相应的目录结构，2）定制openssl.cnf文件，修改CA目录的路径定义。&lt;/p&gt;
-
-&lt;h3 id=&#34;建立ca-生成root证书&#34;&gt;建立CA，生成Root证书&lt;/h3&gt;
-
-&lt;h4 id=&#34;生成ca目录结构&#34;&gt;生成CA目录结构&lt;/h4&gt;
-
-&lt;p&gt;假设我要将/root/newCA作为CA文件根目录，那么在Terminal中敲入命令：&lt;br /&gt;
-
-[root@node ~]# pwd
-/root
-[root@node ~]# mkdir -p ./newCA/{private,newcerts}
-[root@node ~]# touch ./newCA/index.txt
-[root@node ~]# echo 01 &gt; ./newCA/serial
-&lt;/p&gt;
-
-&lt;h4 id=&#34;定制openssl-cnf文件&#34;&gt;定制openssl.cnf文件&lt;/h4&gt;
-
-&lt;p&gt;将/etc/pki/tls/openssl.cnf文件复制到newCA目录下，将CA_default下面的dir的值更新为自定义的openssl.cnf文件的路径(在本文中为/root/newCA)。&lt;/p&gt;
-
-&lt;p&gt;除此之外，出于方便后续设置的目的，还可以修改openssl.cnf文件中[req_distinguished_name]区域内后缀为default的变量，将它们预设合适的值。下面是我修改后的样子：&lt;br /&gt;
-&amp;gt;       [ req_distinguished_name ]
-        countryName                     = Country Name (2 letter code)
-        countryName_default             = CN
-        countryName_min                 = 2
-        countryName_max                 = 2&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;pre&gt;&lt;code&gt;  stateOrProvinceName             = State or Province Name (full name)
-    stateOrProvinceName_default     = Beijing
-
-  localityName                    = Locality Name (eg, city)
-    localityName_default            = HaiDian
-
-  0.organizationName              = Organization Name (eg, company)
-    0.organizationName_default      = Yuantops&#39; Company Ltd
-
-  # we can do this but it is not needed normally :-)
-    #1.organizationName             = Second Organization Name (eg, company)
-    #1.organizationName_default     = World Wide Web Pty Ltd
-
-  organizationalUnitName          = Organizational Unit Name (eg, section)
-    organizationalUnitName_default  = Head Office
-
-  commonName                      = Common Name (eg, your name or your server\&#39;s hostname)
-    commonName_max                  = 64
-
-  emailAddress                    = Email Address
-    emailAddress_max                = 64   
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&#34;生成ca的root-key和self-signed的证书&#34;&gt;生成CA的root key和self-signed的证书&lt;/h4&gt;
-
-&lt;ul&gt;
-&lt;li&gt;生成密钥对&lt;br /&gt;
- # openssl genrsa -out private/cakey.pem 2048&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;生成证书申请、用CA的密钥自签名，用一条语句完成&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-[root@node newCA]# openssl req -new -x509 -days 3650 -key private/cakey.pem -out cacert.pem -config openssl.cnf
-You are about to be asked to enter information that will be incorporated
-into your certificate request.
-What you are about to enter is what is called a Distinguished Name or a DN.
-There are quite a few fields but you can leave some blank
-For some fields there will be a default value,
-	If you enter &#39;.&#39;, the field will be left blank.
-	-----
-	Country Name (2 letter code) [CN]:
-	State or Province Name (full name) [Beijing]:
-	Locality Name (eg, city) [HaiDian]:
-	Organization Name (eg, company) [Yuantops Company Ltd]:
-	Organizational Unit Name (eg, section) [Head Office]:
-	Common Name (eg, your name or your server&#39;s hostname) []:test.yuantops.com
-	Email Address []:
-
-
-&lt;ul&gt;
-&lt;li&gt;查看我们生成的root-ca.crt的内容&lt;br /&gt;
- # openssl x509 -noout -text -in root-ca.crt&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&#34;使用ca-root证书签署证书&#34;&gt;使用CA Root证书签署证书&lt;/h4&gt;
-
-&lt;p&gt;在上一步完成之后，就可以用CA的root 证书来签署证书了。&lt;/p&gt;
-
-&lt;p&gt;可以使用一条OpenSSL命令完成生成密钥对，生成证书签名请求的操作：&lt;br /&gt;
-     # openssl req -newkey rsa:1024 -keyout zmiller.key -config openssl.cnf -out zmiller.req&lt;/p&gt;
-
-&lt;p&gt;然后用CA的Root证书签发证书&lt;br /&gt;
-     # openssl ca -config openssl.cnf -out zmiller.crt -infiles zmiller.req&lt;/p&gt;
-</description>
+      <description>之前一篇文章介绍了SSL证书的一些细节，这篇文章介绍OpenSSL工具的基本使用方法。老实说，OpenSSL工具实在是太难用了，我参考了How To Setup a CA和基于 OpenSSL 的 CA 建立及证书签发这两篇文章，捣鼓了很久才理清流程。虽然原理很清楚，但是操作起来却不那么容易，这告诉我们要多实践才对，不然发现不了问题。
+一些坑 在使用openssl ca命令时，如果不手动指定-config参数，它会自动调用/etc/pki/tls/openssl.cnf作为-config配置文件，这个openssl.cnf文件里定义了要调用的CA证书、私钥路径。如果我们在创建CA时将它的证书和私钥等文件保存在了别处，或者/etc/pki/tls/openssl.cnf里的定义的那些文件不存在，那么在openssl ca找不到要使用的这些文件时，就会报错。其中典型的错误有：
+Using configuration from /etc/pki/tls/openssl.cnf unable to load CA private key 139911890630472:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: ANY PRIVATE KEY  所以，我们如果想自定义CA的目录位置，那么要事先1）按照OpenSSL的默认配置建立相应的目录结构，2）定制openssl.cnf文件，修改CA目录的路径定义。
+建立CA，生成Root证书 生成CA目录结构 假设我要将/root/newCA作为CA文件根目录，那么在Terminal中敲入命令：
+[root@node ~]# pwd /root [root@node ~]# mkdir -p ./newCA/{private,newcerts} [root@node ~]# touch ./newCA/index.txt [root@node ~]# echo 01 &amp;gt; ./newCA/serial
+定制openssl.cnf文件 将/etc/pki/tls/openssl.cnf文件复制到newCA目录下，将CA_default下面的dir的值更新为自定义的openssl.cnf文件的路径(在本文中为/root/newCA)。
+除此之外，出于方便后续设置的目的，还可以修改openssl.cnf文件中[req_distinguished_name]区域内后缀为default的变量，将它们预设合适的值。下面是我修改后的样子：
+&amp;gt; [ req_distinguished_name ] countryName = Country Name (2 letter code) countryName_default = CN countryName_min = 2 countryName_max = 2</description>
     </item>
     
     <item>
@@ -135,74 +36,25 @@ For some fields there will be a default value,
       <pubDate>Sat, 06 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/ssl-terminologies-and-concepts/</guid>
-      <description>
-
-&lt;p&gt;非对称加密的又一大应用是SSL。对于SSL的介绍，阮一峰有一篇深入浅出的博客，推荐阅读：&lt;a href=&#34;http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html&#34;&gt;数字签名是什么？&lt;/a&gt;。这篇文章也非常不错：&lt;a href=&#34;http://httpd.apache.org/docs/current/ssl/ssl_intro.html&#34;&gt;SSL/TLS Strong Ebcryption: An introduction&lt;/a&gt;。&lt;/p&gt;
-
-&lt;p&gt;SSL协议对互联网的安全十分重要。要理解SSL协议，必须先理解几个基本概念：&lt;strong&gt;信息摘要(message digest)&lt;/strong&gt;，&lt;strong&gt;数字签名(digital signature)&lt;/strong&gt;，&lt;strong&gt;数字证书(digital certificate)&lt;/strong&gt;。阮一峰的博客里写得十分清楚了，看完后做一点自己的笔记。&lt;/p&gt;
-
-&lt;h3 id=&#34;ssl术语&#34;&gt;SSL术语&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;公钥(public key): 非对称加密密钥对中可以分发给其它人的一方。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;私钥(private key): 非对称加密密钥对中自己保存的一方。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;信息摘要(message digest): 对一段很长的数据消息，计算它的Hash函数值，得到的一串*较短*且*定长*的短数值。Hash函数可以是MD5或者SHA 1。Hash函数过程是单向不可逆的，不可能通过message digest 反推出原数据信息。同时，message digest也是独一无二的。可以理解为某一段数据内容独一无二的特征值。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;数字签名(digital signature): 使用用户私钥对信息摘要(message digest)进行加密，生成的信息。数字签名只能用用户的公钥解开。反过来，如果用户Alice的公钥成功解密了数字签名，那么一定能确定这个签名的签发者是用户Alice(因为只可能是Alice的私钥签发了它)。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;数字证书(digital certificate): 由某个被信任的机构(如Certificate Authority，CA)签发、认证用户身份的数字文件。(数字证书的内容复杂，将在另外一篇博客中专门介绍)。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;ssl基本原理&#34;&gt;SSL基本原理&lt;/h3&gt;
-
-&lt;p&gt;这里介绍的是SSL的设计思想和大致原理，不是实现细节。转述自从阮一峰的博客。&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;假设用户Alice有属于自己的公钥/私钥对。她准备和好朋友Bob，Susan等通信。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Alice把自己的公钥送给朋友们：Bob，Susan每人一把。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Bob如果要给Alice写一封保密的信，那么他写完后用Alice的公钥加密，就可以达到保密的效果。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Alice收到信后，用自己私钥解密，就看到了信件内容。这里要强调的是，只要Alice的私钥不泄露，这封信就是安全的，即使落在别人手里，也无法解密。&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;试思考：如果Alice事先没有把自己公钥送给自己的朋友们，她自己手中也没有朋友们的公钥，那他们之间通信如何保证不被篡改？&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;假设Alice要给Bob写信。她写好信(message)后，先使用Hash函数生成信息摘要(message digest)。然后，她使用私钥，对这个摘要加密，生成数字签名(digital signature)。最后，她把自己的信件内容、数字签名，还有自己的公钥一起发送给Bob。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Bob收到了信件。他取出Alice的公钥、数字签名，用公钥解密数字签名，得到信息摘要;他再读出信件内容，用Hash函数自己计算内容的信息摘要。如果取出来的摘要和算出来的摘要吻合，那么这封信就未被修改过。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;可是，万一黑客John截获了Alice发给Bob的信件，然后自己编造了一些内容，生成摘要、用自己密钥加密生成数字签名，再连同自己的公钥一起发给Bob，他就可以冒充Alice了。Bob如何确定取出的公钥就是Alice的，而不是别人(例如，黑客John)的？&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Bob无法确定公钥是不是属于Alice，于是想到一个办法：他建议Alice去找权威机构(例如，certificate authority，简称CA)给她的公钥做认证，做个证书(certificate)。Alice领取了一份申请表格，填入自己的姓名、住址、联系方式、和自己的公钥，跑到CA去提交。CA接受申请，确认是Alice本人无误，就用自己的私钥处理Alice的表格内容，生成数字签名并附在申请表格后面，这就成了“数字证书”(digital ceritificate)。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;以后Alice给Bob写信，就会发送信件内容+数字签名+数字证书三部分。Bob收到来信，先检查数字证书的真伪。如果为真，那么从数字证书中取出Alice的公钥。这时可以确认得到的是Alice的真实公钥。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;数字证书的现实应用-https中的ssl协议&#34;&gt;数字证书的现实应用：https中的SSL协议&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;首先，客户端向服务器发出加密请求。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;服务器用自己的私钥加密网页，连同本身的数字证书，一起发送给客户端。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;客户端打开自己的“证书管理器”，看证书是否由“受信任的根证书颁发机构”颁发。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;如果证书合法，而且确实颁发给你所浏览的网址的，那么客户端就可以取出真实的公钥。否则客户端会提出警告。&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&#34;思考-ssl协议的实现流程-与ssl-certificate的实现细节&#34;&gt;思考：SSL协议的实现流程，与SSL certificate的实现细节&lt;/h3&gt;
-
-&lt;p&gt;这篇文章为了解释SSL协议的原理，引入并介绍了“摘要”“数字签名”“数字证书”等概念。这篇文章主要介绍原理，而且用了比喻，可能在细节上有出入，这是需要注意的。在实际的互联网环境中，SSL协议的实现更为复杂精细。&lt;/p&gt;
-
-&lt;p&gt;但就谈到的点而言，可能还存在这样的疑问：&lt;br /&gt;
-&amp;gt; 客户端(浏览器)如何确认一份数字证书的真伪？&lt;/p&gt;
-
-&lt;p&gt;这个问题值得思考。为了确认公钥是真实的，我们引入了“数字证书”为它担保——问题只不过换了一种问法，但信任锚点还是没能确认。在下一篇文章中，会讨论数字证书的细节，并介绍如何确认一份“数字证书”的真伪。&lt;/p&gt;
-</description>
+      <description>非对称加密的又一大应用是SSL。对于SSL的介绍，阮一峰有一篇深入浅出的博客，推荐阅读：数字签名是什么？。这篇文章也非常不错：SSL/TLS Strong Ebcryption: An introduction。
+SSL协议对互联网的安全十分重要。要理解SSL协议，必须先理解几个基本概念：信息摘要(message digest)，数字签名(digital signature)，数字证书(digital certificate)。阮一峰的博客里写得十分清楚了，看完后做一点自己的笔记。
+SSL术语  公钥(public key): 非对称加密密钥对中可以分发给其它人的一方。
+ 私钥(private key): 非对称加密密钥对中自己保存的一方。
+ 信息摘要(message digest): 对一段很长的数据消息，计算它的Hash函数值，得到的一串*较短*且*定长*的短数值。Hash函数可以是MD5或者SHA 1。Hash函数过程是单向不可逆的，不可能通过message digest 反推出原数据信息。同时，message digest也是独一无二的。可以理解为某一段数据内容独一无二的特征值。
+ 数字签名(digital signature): 使用用户私钥对信息摘要(message digest)进行加密，生成的信息。数字签名只能用用户的公钥解开。反过来，如果用户Alice的公钥成功解密了数字签名，那么一定能确定这个签名的签发者是用户Alice(因为只可能是Alice的私钥签发了它)。
+ 数字证书(digital certificate): 由某个被信任的机构(如Certificate Authority，CA)签发、认证用户身份的数字文件。(数字证书的内容复杂，将在另外一篇博客中专门介绍)。
+  SSL基本原理 这里介绍的是SSL的设计思想和大致原理，不是实现细节。转述自从阮一峰的博客。
+ 假设用户Alice有属于自己的公钥/私钥对。她准备和好朋友Bob，Susan等通信。
+  Alice把自己的公钥送给朋友们：Bob，Susan每人一把。
+ Bob如果要给Alice写一封保密的信，那么他写完后用Alice的公钥加密，就可以达到保密的效果。
+ Alice收到信后，用自己私钥解密，就看到了信件内容。这里要强调的是，只要Alice的私钥不泄露，这封信就是安全的，即使落在别人手里，也无法解密。
+   试思考：如果Alice事先没有把自己公钥送给自己的朋友们，她自己手中也没有朋友们的公钥，那他们之间通信如何保证不被篡改？
+  假设Alice要给Bob写信。她写好信(message)后，先使用Hash函数生成信息摘要(message digest)。然后，她使用私钥，对这个摘要加密，生成数字签名(digital signature)。最后，她把自己的信件内容、数字签名，还有自己的公钥一起发送给Bob。
+ Bob收到了信件。他取出Alice的公钥、数字签名，用公钥解密数字签名，得到信息摘要;他再读出信件内容，用Hash函数自己计算内容的信息摘要。如果取出来的摘要和算出来的摘要吻合，那么这封信就未被修改过。
+ 可是，万一黑客John截获了Alice发给Bob的信件，然后自己编造了一些内容，生成摘要、用自己密钥加密生成数字签名，再连同自己的公钥一起发给Bob，他就可以冒充Alice了。Bob如何确定取出的公钥就是Alice的，而不是别人(例如，黑客John)的？
+ Bob无法确定公钥是不是属于Alice，于是想到一个办法：他建议Alice去找权威机构(例如，certificate authority，简称CA)给她的公钥做认证，做个证书(certificate)。Alice领取了一份申请表格，填入自己的姓名、住址、联系方式、和自己的公钥，跑到CA去提交。CA接受申请，确认是Alice本人无误，就用自己的私钥处理Alice的表格内容，生成数字签名并附在申请表格后面，这就成了“数字证书”(digital ceritificate)。
+ 以后Alice给Bob写信，就会发送信件内容+数字签名+数字证书三部分。Bob收到来信，先检查数字证书的真伪。如果为真，那么从数字证书中取出Alice的公钥。这时可以确认得到的是Alice的真实公钥。
+  数字证书的现实应用：https中的SSL协议  首先，客户端向服务器发出加密请求。</description>
     </item>
     
     <item>
@@ -211,173 +63,17 @@ For some fields there will be a default value,
       <pubDate>Sat, 06 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/ssl-certificate-details-and-creation-guide/</guid>
-      <description>
-
-&lt;p&gt;在上篇文章中，讨论了数字证书(digital certificate)的重要意义。在实际中，Internt工程任务组(IETF)PKI X.509专门负责制定数字证书的格式，并提出了一套标准。根据这套标准(X.509)，互联网上的各级单位各自予以实现，从而形成一套完备的公钥基础设施(Public Key Infrastructure, PKI)。这是本篇文章将要讨论的内容。&lt;/p&gt;
-
-&lt;h3 id=&#34;ssl证书的x-509标准&#34;&gt;SSL证书的X.509标准&lt;/h3&gt;
-
-&lt;p&gt;X.509 规定一份digital certificate应该由这几部分构成：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Certificate Data&lt;br /&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Version (marked as X.509 v3, even if v4 or v5)&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Serial number&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Signature algorithm ID&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Issuer name(DN, Distinguished Name)&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Validity (start and end time)&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Subject name(DN)&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Subject Public key&lt;/li&gt;
-&lt;li&gt;Extensions (added in X.509 v3): Extra identification information, usage constraints, policies, and general kitchen-sink area&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Certificate Signature Algorithm&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Certificate Signature&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;注:
-- 一般Subject Name, 或者Issuer name + Serial number唯一确定一份证书;&lt;br /&gt;
-- Certificate Data中的Signature algorithm ID必须和Certificate Signature Algorithm中的内容一致，标志CA用来生成Certificate Signature所用的加密算法。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;在Certificate Data的Subject name与Issuer name这两项中，其Distinguished Name包含更多字段(这些字段往往用字母简写)，以更好地作唯一标识：&lt;br /&gt;
-- CN: Common Name, 证书持有者的名称&lt;br /&gt;
-- O: Organization or Company, 持有者所在的公司/组织&lt;br /&gt;
-- OU: Organization Unit, 持有者在公司/组织的部门&lt;br /&gt;
-- L: City/Locality, 持有者所在的城市&lt;br /&gt;
-- ST: State/Province, 持有者所在的州/省&lt;br /&gt;
-- C: Country, 持有者所在的国家(ISO码)&lt;/p&gt;
-
-&lt;h3 id=&#34;ssl-x-509证书的后缀名&#34;&gt;SSL X.509证书的后缀名&lt;/h3&gt;
-
-&lt;p&gt;一份X.509 Certificate往往会以DER(Distinguished Encoding Rules)方式翻译成二进制格式的文件。如果有些传输过程不能处理二进制数据，那么二进制格式的文件会以Base64 编码转翻为ASCII文件。用Base64 编码后的数据被置于“&amp;mdash;&amp;ndash;BEGIN CERTIFICATE&amp;mdash;&amp;ndash;”和“&amp;mdash;&amp;ndash;END CERTIFICATE&amp;mdash;&amp;ndash;”之间，这就是PEM(Privacy-enhanced Electronic Mail)格式。&lt;/p&gt;
-
-&lt;p&gt;不同格式的证书常见的后缀名有:&lt;br /&gt;
-- cer, .crt, .der : 二进制DER格式&lt;br /&gt;
-- pem: Base64 编码后的DER格式&lt;/p&gt;
-
-&lt;h3 id=&#34;x-509的-证书链-与-信任锚点&#34;&gt;X.509的“证书链”与“信任锚点”&lt;/h3&gt;
-
-&lt;p&gt;数字证书存在的意义，在于认证持有者的身份。譬如说，在Alice申请证书的时候，证书颁发机构(CA, Certificate Authority)会先确认Alice本人的信息与她申请书上所写的一致。&lt;/p&gt;
-
-&lt;p&gt;由于证书上有第三方认证中心的真实性确认签名、由第三方认证中心的信用为这张证书的真实性背书，所以，只要确定了证书为真，就能确认证书持有者的身份为真。但这样问题还是没得到解决，而是变成了另一个问题：如何确定一张证书的真伪？&lt;/p&gt;
-
-&lt;p&gt;为了回答这个问题，需要先了解实际部署在互联网上的证书颁发机构(CA, Certificate Authority)的架构。互联网中，一个证书颁发机构(CA, Certificate Authority)有自己的证书。一个证书颁发机构(CA, Certificate Authority)不仅可以给证书申请者颁发证书，也可以给其它证书颁发机构(CA, Certificate Authority)颁发证书。那么谁来给最顶层的证书颁发机构(top-level Certificate Authority)授权呢？答案是：它自己给自己签名，自己给自己授权(它拥有的证书，Issuer和Subject是一样的)。&lt;/p&gt;
-
-&lt;p&gt;这样就形成了一个“证书链”(Certificate chain),也称“证书路径”(Certificate path)：最开始为用户持有的证书，最末尾为自己给自己签名的证书。证书链中:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;每个证书(最末尾的证书除外)的颁发者(Issuer)是下一个证书的持有者(Subject);&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;每个证书的(最末尾的证书除外)的Certificate Signature都能用下一个证书中包含的Public Key解密;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;最末尾的证书是“信任锚点”(a trust anchor)——往往它会以某种值得信赖的方式，提前传递到你手中。&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;所以，确认一张证书真实性的过程，就是一个不断追溯，直到“信任锚点”的过程。&lt;/p&gt;
-
-&lt;p&gt;在主流的浏览器(IE, Chrome, Firefox等)中，预置了主流证书颁发机构(VeriSign等)的根证书。当浏览器收到网站的SSL证书后，会有一系列验证过程，如果该证书的“证书链”中任意一环存储在本地，那么就能确认该证书为真实。浏览器对证书链的认证过程，将在另一篇文章中介绍。&lt;/p&gt;
-
-&lt;h3 id=&#34;生成根证书与签发证书&#34;&gt;生成根证书与签发证书&lt;/h3&gt;
-
-&lt;p&gt;上面讲了那么多，都是理论。现在转入实战，介绍如何生成一张证书, 以及这张证书的持有者如何为申请者签发证书。&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Linux下最常使用的SSL根证书相关的命令是openssl的一套工具。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;一般情况下，用户制作证书要经过几个步骤：&lt;br /&gt;
-1. 首先用openssl genrsa生成一个私钥&lt;br /&gt;
-2. 然后用openssl req生产一个证书签发请求&lt;br /&gt;
-3. 最后把证书签发请求交给CA，CA签发后就得到该CA认证的证书。&lt;/p&gt;
-
-&lt;p&gt;如果生成证书签发请求时加上-X509参数，那么就直接生成一个self-signed的证书，即自己充当CA认证自己。&lt;/p&gt;
-
-&lt;p&gt;一张self-signed的证书，不能证明持有者的身份。大部分软件在遇到这种证书时都会发出警告。使用自签发证书的主要意义也不是证明身份，而是使用户与系统间能SSL通信，保证信息传输时的安全。&lt;/p&gt;
-
-&lt;p&gt;使用openssl工具制作证书时，会接触到新名词:&lt;br /&gt;
-- CSR(Certificate Signing Request): 提交给CA的认证申请文件，包含了申请者的公钥和名字等信息，通常以.csr为后缀，是中间文件。&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;制作自签名证书(根证书)步骤(参考&lt;a href=&#34;http://rhythm-zju.blog.163.com/blog/static/310042008015115718637/&#34;&gt;内容&lt;/a&gt;)：&lt;/em&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;生成一个RSA私钥private.key&lt;br /&gt;
-&amp;gt; $ openssl genrsa -des3  -out private.key 1024&lt;/p&gt;
-
-&lt;p&gt;参数解释：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;genrsa: 用于生成RSA密钥对的OpenSSL命令&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;des3: 使用 3-DES 对称加密算法加密密钥对，该参数需要用户在密钥生成过程中输入一个口令用于加密。今后使用该密钥对时，需要输入相应的口令。如果不加该选项，则不对密钥进行加密。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;out: 将生成的密钥保存到文件&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;2014:  RSA模数位数，在一定程度上表征密钥强度。&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;生成一个CA证书认证申请&lt;br /&gt;
-&amp;gt;$ openssl req -new -days 365 -key private.key -out req.csr&lt;/p&gt;
-
-&lt;p&gt;参数解释：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;req: 用于生成证书认证申请的openSSL命令&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;-new： 生成一个新的证书认证请求。加上这个参数后，会提示用户输入申请者的信息&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;-days 365: 证书的有效期：从生成之日起365天&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;-out req.csr: 证书申请保存的目的文件。为中间文件，可以在证书生成以后删除。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;该命令会提示用户输入密钥的口令(如果上一步中没有加des3参数则不会)，以及一系列证书申请者的相关信息。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;对CA证书申请进行签名&lt;br /&gt;
-&amp;gt; $ openssl ca -selfsign -in req.csr -out ca.pem&lt;/p&gt;
-
-&lt;p&gt;参数解释：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;ca: 用于CA相关操作的命令&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;-selfsign: 自签名(用与证书中包含公钥所对应的密钥签名)&lt;/li&gt;
-&lt;li&gt;-in req.csr: 证书认证申请文件&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;-out ca.pem: 证书保存到目的文件&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;注：以上两个步骤可以合二为一。利用ca的-x509参数可以生成自签名的证书，将申请和签发两步一起完成：&lt;br /&gt;
-&amp;gt; $ openssl req -new -x509 -days 365 -key private.key -out ca.pem&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;利用生成的根证书签发证书&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;这一部分请参看&lt;a href=&#34;http://blog.yuantops.com/tech/SSL-creation-guide&#34;&gt;文章&lt;/a&gt;，因为下面的步骤可能有些问题。&lt;/p&gt;
-
-&lt;p&gt;利用生成的根证书签发证书的过程，1，2步与上一部分相同，只是在第3部分，签名的时候有差异:&lt;br /&gt;
-&amp;gt; $ openssl ca -in req.csr -cert ca.pem -out userca.pem -keyfile private.key&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;  参数解释：  
-  - ca: 用于CA相关操作的命令  
-  - -in req.csr: 证书认证申请文件  
-  - -cert ca.pem: 用于签发的CA证书  
-  - -out userca.pem:  处理完成后输出的证书文件
-  - -keyfile private.key: CA的私钥文件  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;一些思考与体会&#34;&gt;一些思考与体会&lt;/h3&gt;
-
-&lt;p&gt;因为openssl工具十分强大，每个人的使用方法都不同，所以在参考别人的使用方法时会有很多疑惑。下面是一些思考与体会：(参考&lt;a href=&#34;http://www.cnblogs.com/littlehann/p/3738141.html&#34;&gt;这篇博客&lt;/a&gt;)&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;在生成过程中有很多文件扩展名(.crt、.csr、.pem、.key等等)，从本质上讲，扩展名并不具有任何强制约束作用，重要的是这个文件是由哪个命令生成的，它的内容是什么格式的。 使用这些特定的文件扩展名只是为了遵循某些约定俗称的规范，让人能一目了然。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;openssl的指令之间具有一些功能上的重叠，所以我们会发现完成同样一个目的(例如SSL证书生成)，往往可以使用看似不同的指令组达到目的。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;释疑:openssl genrsa -des3 -out private.key 1024 命令生成的private.key真正包含了什么？&lt;br /&gt;
-&amp;gt; 注意到, 在生成证书认证申请时($ openssl req -new -days 365 -key private.key -out req.csr)，参数只用了申请者的private.key，而理论上应该提供申请者的public.key。而且根据RSA加密的数学原理，不可能由private key推出public key。所以这往往会带来疑惑: public key从哪儿来？&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;参考&lt;a href=&#34;http://stackoverflow.com/questions/5244129/use-rsa-private-key-to-generate-public-key&#34;&gt;这个回答&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;实际上，第一步( $ openssl genrsa -des3  -out private.key 1024 )命令生成的是public-private 的公钥/私钥对,这一对公钥/私钥都保存在private.key文件中。所以，准确说来这一行命令的作用是：生成用户的&lt;strong&gt;公钥/私钥对&lt;/strong&gt;，而不是生成用户的私钥。(虽然一般我们都按后者的方式说)。因此，答案就是：public key本身就包含在private.key中。&lt;/p&gt;
-
-&lt;p&gt;另外，可以使用openssl命令，从private.key中提取出public.key&lt;br /&gt;
-&amp;gt; $ openssl rsa -in private.key -pubout -out public.key&lt;/p&gt;
-</description>
+      <description>在上篇文章中，讨论了数字证书(digital certificate)的重要意义。在实际中，Internt工程任务组(IETF)PKI X.509专门负责制定数字证书的格式，并提出了一套标准。根据这套标准(X.509)，互联网上的各级单位各自予以实现，从而形成一套完备的公钥基础设施(Public Key Infrastructure, PKI)。这是本篇文章将要讨论的内容。
+SSL证书的X.509标准 X.509 规定一份digital certificate应该由这几部分构成：
+ Certificate Data
+ Version (marked as X.509 v3, even if v4 or v5)
+ Serial number
+ Signature algorithm ID
+ Issuer name(DN, Distinguished Name)
+ Validity (start and end time)
+ Subject name(DN)
+ Subject Public key Extensions (added in X.509 v3): Extra identification information, usage constraints, policies, and general kitchen-sink area
+  Certificate Signature Algorithm</description>
     </item>
     
     <item>
@@ -386,72 +82,33 @@ For some fields there will be a default value,
       <pubDate>Fri, 05 Dec 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/ssh-login-procedure/</guid>
-      <description>
-
-&lt;p&gt;关于SSH登录的原理，阮一峰的这篇博客写得很清楚，值得一看。&lt;br /&gt;
-&amp;gt;&lt;a href=&#34;http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html&#34;&gt;SSH原理与运用(一)&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;读完这篇博客后，下面是笔记和摘抄。&lt;/p&gt;
-
-&lt;h3 id=&#34;ssh密码登录的流程&#34;&gt;SSH密码登录的流程&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;远程主机收到用户的登录请求，把自己的公钥发给用户。&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;用户使用这个公钥，将登录密码加密后，发送回来&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;远程主机用自己的私钥，解密登录密码，如果密码正确，就同意用户登录。&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&#34;如何防范-中间人-攻击&#34;&gt;如何防范&amp;rdquo;中间人&amp;rdquo;攻击&lt;/h3&gt;
-
-&lt;p&gt;如果有人拦截了远程主机发给用户的公钥，然后将自己的公钥发送给用户，可能会造成远程主机密码泄漏(著名的“中间人攻击”)。用户要识别公钥的真伪，没有更好的办法，只有比较收到的公钥的fingerprint（公钥的MD5值）是不是与服务器公布在网站上的fingerprint相同。&lt;/p&gt;
-
-&lt;p&gt;在用户初次SSH登录一台远程主机时，终端往往会显示远程主机的fingerprint和一条Warning，询问是否确定远程主机的身份并继续。当用户选择确认后，远程主机的公钥会记录到本地系统的known_hosts文件中。下次再登录时，系统如果发现远程主机的公钥记录在案，就不再发出Warning。&lt;/p&gt;
-
-&lt;h3 id=&#34;ssh公钥登录的流程&#34;&gt;SSH公钥登录的流程&lt;/h3&gt;
-
-&lt;p&gt;以密码方式SSH登录远程主机，每次都需要输入密码，这样既麻烦，又存在密码泄露的潜在危险。公钥登录可以解决这两个问题。(有的高安全规格的服务器甚至不允许用户以SSH密码登录，只允许以SSH公钥方式登录。)&lt;/p&gt;
-
-&lt;p&gt;公钥登录的流程：&lt;br /&gt;
-1. 用户将自己的公钥存储在远程主机上。&lt;br /&gt;
-2. 登录时，远程主机会向用户发送一段随机字符串，用户用自己的私钥加密后，再发回来。&lt;br /&gt;
-3. 远程主机用实现存储的公钥解密，如果成功，就证明用户是可信的，直接允许登录shell，不再要求密码。&lt;/p&gt;
-
-&lt;h3 id=&#34;linux下生成公钥-私钥对的命令&#34;&gt;Linux下生成公钥/私钥对的命令&lt;/h3&gt;
-
-&lt;p&gt;在用SSH公钥登录时，第一步需要用户提供自己的公钥。Linux，特别是服务器环境下，经常会有用到公钥/私钥对的场景，生成它们的命令也十分基础。&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;生成公钥/私钥对&lt;br /&gt;
-&amp;gt;$ ssh-key&lt;/p&gt;
-
-&lt;p&gt;运行命令，并确认它的默认设置，会在$HOME/.ssh/目录下生成两个文件： id_rsa.pub和id_rsa。rsa意味着它们是以RSA加密算法生成的。以pub为后缀的是公钥，可以分发出去(会在下一步添加到远程服务器)；后者是自己的私钥，要妥善保存。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;存储用户公钥到远程服务器&lt;br /&gt;
-用户公钥需要添加到远程主机上对应用户的$HOME/.ssh/authorized_keys文件中，以字符串形式附到末尾。有两种方式可以做到：&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;ssh系列命令
-&amp;gt; $ ssh-copy-id user@host&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;等价的手工操作&lt;br /&gt;
-&amp;gt; $ ssh user@host #登录远程主机&lt;br /&gt;
-&amp;gt; $ mkdir -p $HOME/.ssh #如果用户主目录下.ssh目录不存在则创建&lt;br /&gt;
-&amp;gt; $ gedit .ssh/authorized_keys #用文本编辑器打开.ssh/authorized_keys文件，将上一步生成的id_rsa.pub文件里的内容附在末尾。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;个人思考-信任的锚点如何建立&#34;&gt;个人思考：信任的锚点如何建立&lt;/h3&gt;
-
-&lt;p&gt;SSH无论密码登录还是公钥登录，为了保证传输的安全，不得不考虑各种潜在的安全漏洞。由于SSH引入了公钥/私钥机制，可以认为已经建立的连接是安全的。最高危的时刻是建立连接的时候：谁来确认对方的身份、建立对它的信任？&lt;/p&gt;
-
-&lt;p&gt;机器是不能帮我们做到的。所以在首次登录远程主机时，终端会显示远程主机公钥的fingerprint，并询问是否要继续连接它。这时，就需要我们自行承担风险：我信任，或者不信任。一旦选择&amp;rdquo;信任&amp;rdquo;，就意味着建立了&amp;rdquo;信任的锚点&amp;rdquo;。后面的连接都会根据这个锚点而建立信任关系。&lt;/p&gt;
-
-&lt;p&gt;SSH公钥登录的方式也是同理。对一台远程主机而言，当用户的公钥被附到authorized_key文件末尾时，就意味着建立了&amp;rdquo;信任的锚点&amp;rdquo;。执行这个操作的人，就是建立&amp;rdquo;信任的锚点&amp;rdquo;的人，显然也是承担风险的人。&lt;/p&gt;
-
-&lt;p&gt;我觉得从这个角度来思考SSH登录的原理，也是很独特的。&lt;/p&gt;
-</description>
+      <description>关于SSH登录的原理，阮一峰的这篇博客写得很清楚，值得一看。
+&amp;gt;SSH原理与运用(一)
+读完这篇博客后，下面是笔记和摘抄。
+SSH密码登录的流程   远程主机收到用户的登录请求，把自己的公钥发给用户。
+ 用户使用这个公钥，将登录密码加密后，发送回来
+ 远程主机用自己的私钥，解密登录密码，如果密码正确，就同意用户登录。
+   如何防范&amp;rdquo;中间人&amp;rdquo;攻击 如果有人拦截了远程主机发给用户的公钥，然后将自己的公钥发送给用户，可能会造成远程主机密码泄漏(著名的“中间人攻击”)。用户要识别公钥的真伪，没有更好的办法，只有比较收到的公钥的fingerprint（公钥的MD5值）是不是与服务器公布在网站上的fingerprint相同。
+在用户初次SSH登录一台远程主机时，终端往往会显示远程主机的fingerprint和一条Warning，询问是否确定远程主机的身份并继续。当用户选择确认后，远程主机的公钥会记录到本地系统的known_hosts文件中。下次再登录时，系统如果发现远程主机的公钥记录在案，就不再发出Warning。
+SSH公钥登录的流程 以密码方式SSH登录远程主机，每次都需要输入密码，这样既麻烦，又存在密码泄露的潜在危险。公钥登录可以解决这两个问题。(有的高安全规格的服务器甚至不允许用户以SSH密码登录，只允许以SSH公钥方式登录。)
+公钥登录的流程：
+1. 用户将自己的公钥存储在远程主机上。
+2. 登录时，远程主机会向用户发送一段随机字符串，用户用自己的私钥加密后，再发回来。
+3. 远程主机用实现存储的公钥解密，如果成功，就证明用户是可信的，直接允许登录shell，不再要求密码。
+Linux下生成公钥/私钥对的命令 在用SSH公钥登录时，第一步需要用户提供自己的公钥。Linux，特别是服务器环境下，经常会有用到公钥/私钥对的场景，生成它们的命令也十分基础。
+ 生成公钥/私钥对
+&amp;gt;$ ssh-key
+运行命令，并确认它的默认设置，会在$HOME/.ssh/目录下生成两个文件： id_rsa.pub和id_rsa。rsa意味着它们是以RSA加密算法生成的。以pub为后缀的是公钥，可以分发出去(会在下一步添加到远程服务器)；后者是自己的私钥，要妥善保存。
+ 存储用户公钥到远程服务器
+用户公钥需要添加到远程主机上对应用户的$HOME/.ssh/authorized_keys文件中，以字符串形式附到末尾。有两种方式可以做到：
+   ssh系列命令 &amp;gt; $ ssh-copy-id user@host
+ 等价的手工操作
+&amp;gt; $ ssh user@host #登录远程主机
+&amp;gt; $ mkdir -p $HOME/.ssh #如果用户主目录下.ssh目录不存在则创建
+&amp;gt; $ gedit .ssh/authorized_keys #用文本编辑器打开.ssh/authorized_keys文件，将上一步生成的id_rsa.pub文件里的内容附在末尾。
+  个人思考：信任的锚点如何建立 SSH无论密码登录还是公钥登录，为了保证传输的安全，不得不考虑各种潜在的安全漏洞。由于SSH引入了公钥/私钥机制，可以认为已经建立的连接是安全的。最高危的时刻是建立连接的时候：谁来确认对方的身份、建立对它的信任？
+机器是不能帮我们做到的。所以在首次登录远程主机时，终端会显示远程主机公钥的fingerprint，并询问是否要继续连接它。这时，就需要我们自行承担风险：我信任，或者不信任。一旦选择&amp;rdquo;信任&amp;rdquo;，就意味着建立了&amp;rdquo;信任的锚点&amp;rdquo;。后面的连接都会根据这个锚点而建立信任关系。
+SSH公钥登录的方式也是同理。对一台远程主机而言，当用户的公钥被附到authorized_key文件末尾时，就意味着建立了&amp;rdquo;信任的锚点&amp;rdquo;。执行这个操作的人，就是建立&amp;rdquo;信任的锚点&amp;rdquo;的人，显然也是承担风险的人。</description>
     </item>
     
     <item>
@@ -460,20 +117,13 @@ For some fields there will be a default value,
       <pubDate>Sun, 30 Nov 2014 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/ssl-series-introduction/</guid>
-      <description>&lt;p&gt;最近实习时接触到了SSL协议，CA证书，ssh登录之类的东西，总是一知半解的感觉非常不好，于是我决定好好钻研一下。在网上查找了很多资料后，终于理清了很多以前很模糊的知识点。用几篇博客来记录一下，算是一个总结。&lt;/p&gt;
-
-&lt;p&gt;SSL(Secured Sockets Layer)与SSH(Secure Shell)，是用来解决网络传输中安全问题的协议。如何保证传输安全，使消息不被窃听、不被篡改，这需要用到加密技术。所以，要理解SSL中CA certificate的意义、ssh登录的工作原理，首先得理解它们所基于的加密原理: &lt;strong&gt;非对称加密&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;非对称加密技术是在信息论的理论基础上，以数学为工具的现代加密技术。它是现在最先进、最不易破解的加密技术。由于非对称加密技术在这一系列概念中的基础性地位，会有单独一篇文章介绍它的历史渊源和数学原理。&lt;/p&gt;
-
-&lt;p&gt;非对称加密技术与对称加密技术最明显的区别之处在于，它的密码都是以“&lt;strong&gt;公钥/密钥&lt;/strong&gt;”形式成对存在的。如果要使用非对称加密技术，就出现了很自然的疑问：如何生成这些公钥/密钥对呢？我又该如何使用、部署它们？在Linux系统中，有一些非常强大、非常好用的命令工具帮助我们操作它们。这些命令会在后续谈论应用的技术实现的文章中介绍。(默认Linux环境)&lt;/p&gt;
-
-&lt;p&gt;非对称加密技术最著名的，也是本系列文章将会介绍的，是两大应用：SSH登录和SSL协议。SSH登录的原理相对简单，阮一峰的博客上有几篇文章介绍得非常详细好懂，因此只会有一篇文章讨论它。&lt;/p&gt;
-
-&lt;p&gt;而SSL协议，内容会多一些。首先，参考阮一峰的博客，会有一篇文章关于SSL加密的基本原理(包括Digest, Signature, Certificate等概念)。其次，因为Certificate在现实中使用得非常广泛，会有一到两篇文章介绍Certificate证书与X.509标准，也会介绍CA以及Certificate的&amp;rdquo;信任链&amp;rdquo;，PKI等概念。然后，会有一篇文章介绍如何为自己的域名生成Certificate。最后，从另外一个角度出发，会有一篇文章讨论当浏览器通过https链接访问网页时的交互流程(基本上翻译一篇国外的博客)。&lt;/p&gt;
-
-&lt;p&gt;非对称加密技术也可以在DNS系统中使用，即DNSSEC技术。关于这一技术，如果有时间的话，也会有一到两篇博客予以介绍。&lt;/p&gt;
-</description>
+      <description>最近实习时接触到了SSL协议，CA证书，ssh登录之类的东西，总是一知半解的感觉非常不好，于是我决定好好钻研一下。在网上查找了很多资料后，终于理清了很多以前很模糊的知识点。用几篇博客来记录一下，算是一个总结。
+SSL(Secured Sockets Layer)与SSH(Secure Shell)，是用来解决网络传输中安全问题的协议。如何保证传输安全，使消息不被窃听、不被篡改，这需要用到加密技术。所以，要理解SSL中CA certificate的意义、ssh登录的工作原理，首先得理解它们所基于的加密原理: 非对称加密。
+非对称加密技术是在信息论的理论基础上，以数学为工具的现代加密技术。它是现在最先进、最不易破解的加密技术。由于非对称加密技术在这一系列概念中的基础性地位，会有单独一篇文章介绍它的历史渊源和数学原理。
+非对称加密技术与对称加密技术最明显的区别之处在于，它的密码都是以“公钥/密钥”形式成对存在的。如果要使用非对称加密技术，就出现了很自然的疑问：如何生成这些公钥/密钥对呢？我又该如何使用、部署它们？在Linux系统中，有一些非常强大、非常好用的命令工具帮助我们操作它们。这些命令会在后续谈论应用的技术实现的文章中介绍。(默认Linux环境)
+非对称加密技术最著名的，也是本系列文章将会介绍的，是两大应用：SSH登录和SSL协议。SSH登录的原理相对简单，阮一峰的博客上有几篇文章介绍得非常详细好懂，因此只会有一篇文章讨论它。
+而SSL协议，内容会多一些。首先，参考阮一峰的博客，会有一篇文章关于SSL加密的基本原理(包括Digest, Signature, Certificate等概念)。其次，因为Certificate在现实中使用得非常广泛，会有一到两篇文章介绍Certificate证书与X.509标准，也会介绍CA以及Certificate的&amp;rdquo;信任链&amp;rdquo;，PKI等概念。然后，会有一篇文章介绍如何为自己的域名生成Certificate。最后，从另外一个角度出发，会有一篇文章讨论当浏览器通过https链接访问网页时的交互流程(基本上翻译一篇国外的博客)。
+非对称加密技术也可以在DNS系统中使用，即DNSSEC技术。关于这一技术，如果有时间的话，也会有一到两篇博客予以介绍。</description>
     </item>
     
   </channel>
