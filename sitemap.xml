@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.yuantops.com/tech/blogging-with-ox-hugo/</loc>
+    <lastmod>2019-07-24T23:42:35+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.yuantops.com/tech/homebridge-plugin-tutorial/</loc>
     <lastmod>2018-07-29T17:48:19+00:00</lastmod>
   </url>
@@ -560,13 +565,13 @@
   
   <url>
     <loc>https://blog.yuantops.com/tags/emacs/</loc>
-    <lastmod>2018-01-04T00:31:08+00:00</lastmod>
+    <lastmod>2019-07-24T23:42:35+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yuantops.com/tags/gh-pages/</loc>
-    <lastmod>2018-05-12T08:45:52+00:00</lastmod>
+    <lastmod>2019-07-24T23:42:35+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -650,13 +655,13 @@
   
   <url>
     <loc>https://blog.yuantops.com/categories/tech/</loc>
-    <lastmod>2018-07-29T17:48:19+00:00</lastmod>
+    <lastmod>2019-07-24T23:42:35+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yuantops.com/tech/</loc>
-    <lastmod>2018-07-29T17:48:19+00:00</lastmod>
+    <lastmod>2019-07-24T23:42:35+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -668,7 +673,7 @@
   
   <url>
     <loc>https://blog.yuantops.com/</loc>
-    <lastmod>2018-07-29T17:48:19+00:00</lastmod>
+    <lastmod>2019-07-24T23:42:35+08:00</lastmod>
     <priority>0</priority>
   </url>
   

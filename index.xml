@@ -9,8 +9,18 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Sun, 29 Jul 2018 17:48:19 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jul 2019 00:00:00 +0800</lastBuildDate>
     <atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>How to blog with ox-hugo in Emacs</title>
+      <link>https://blog.yuantops.com/tech/blogging-with-ox-hugo/</link>
+      <pubDate>Wed, 24 Jul 2019 00:00:00 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/blogging-with-ox-hugo/</guid>
+      <description>&lt;p&gt;我的&lt;a href=&#34;https://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/&#34;&gt;一篇老博客&lt;/a&gt;，介绍了用Emacs和Org-mode写博客的工作流。总的来说，勉强符合预期，流程稍显磕绊。今天上网冲浪，偶然发现基于Org-mode写博客有了正规军： &lt;code&gt;ox-hugo&lt;/code&gt; 。经过短暂研究，决定抛弃旧爱 &lt;code&gt;ox-pandoc&lt;/code&gt;, 拥抱新欢 &lt;code&gt;ox-hugo&lt;/code&gt; 。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>[译文]让Siri变身完美家庭助手：兼容Apple Homekit不支持的设备</title>
