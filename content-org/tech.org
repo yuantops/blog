@@ -1,0 +1,20 @@
+#+author: yuan.tops@gmail.com
+#+hugo_base_dir: ../
+#+HUGO_SECTION: tech
+# Categories
+#+filetags: @tech
+#+hugo_auto_set_lastmod: t	
+
+* All about this blog                                              :gh_pages:
+** DONE How to blog with ox-hugo in Emacs                             :Emacs:
+:PROPERTIES:
+:EXPORT_HUGO_CATEGORIES: Tech
+:EXPORT_DATE: "2019-07-24T22:29:52+08:00"
+:EXPORT_HUGO_PUBLISHDATE: "2019-07-24T22:29:52Z"
+:EXPORT_FILE_NAME: blogging-with-ox-hugo
+:EXPORT_DESCRIPTION: 发现一个用Emacs写blog的新工具: ox-hugo。它与org-mode融合得非常自然，更好用。本文记录如何在Emacs中配置与使用ox-hugo。
+:END:
+
+我的[[https://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/][一篇老博客]]，介绍了用Emacs和Org-mode写博客的工作流。总的来说，勉强符合预期，流程稍显磕绊。今天上网冲浪，偶然发现基于Org-mode写博客有了正规军： ~ox-hugo~ 。经过短暂研究，决定抛弃旧爱 ~ox-pandoc~, 拥抱新欢 ~ox-hugo~ 。
+
+* Golang is great                                                    :Golang:

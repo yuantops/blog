@@ -1,0 +1,11 @@
+#+author: yuan.tops@gmail.com
+#+hugo_base_dir: ../
+#+HUGO_SECTION: Opioions
+# Categories
+#+filetags: @Opinions
+#+hugo_auto_set_lastmod: t	
+
+* 读书笔记                                                          :Reading:
+** TODO 我的多抓鱼阅读书单                                            :Emacs:
+
+* 杂俎                                                              :Reality:

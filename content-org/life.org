@@ -1,0 +1,11 @@
+#+author: yuan.tops@gmail.com
+#+hugo_base_dir: ../
+#+HUGO_SECTION: life
+# Categories
+#+filetags: @life
+#+hugo_auto_set_lastmod: t	
+
+* 喜                                                                    :Joy:
+** TODO 深圳初体验                                                    :Shenzhen:
+
+* 怒                                                                 :Anger:
