@@ -1,13 +1,13 @@
 languageCode = "en-us"
 title = "Yuantops' Blog"
 baseurl = "https://blog.yuantops.com/"
-theme = "hugo-theme-minos"  
+theme = "hugo-theme-minos"
 copyright = "All rights reserved."
+googleAnalytics = "UA-57420914-1"
 
 [params]
     smartToc = true
     katex = true
-    googleAnalytics = "UA-57420914-1"
     hasCJKLanguage = true
 
 [author]
@@ -19,7 +19,7 @@ copyright = "All rights reserved."
     weight = 1
     identifier = "archives"
     url = "/archives/"
-#[[menu.main]]			
+#[[menu.main]]
 #    name = "Categories"
 #    weight = 2
 #    url = "/categories/"
