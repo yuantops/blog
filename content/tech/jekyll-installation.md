@@ -2,7 +2,7 @@
 Categories = ["Tech"]
 date = "2014-12-30T00:00:00Z"
 Description = "使用GitHub pages搭建博客越来越流行。GitHub pages使用的文件解析引擎是Jekyll。在本地安装Jekyll，将自己的博客调试合适后再推送到GitHub，会省事很多。本文介绍如何在本地安装Jekyll。"
-Tags = ["gh-pages","GitHub"]
+Tags = ["gh-pages"]
 title = "Jekyll安装指南"
 +++
 
