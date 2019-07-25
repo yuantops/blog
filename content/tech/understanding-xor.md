@@ -4,9 +4,9 @@ author = ["yuan.tops@gmail.com"]
 description = "理解xor"
 date = 2019-07-25T00:00:00+08:00
 publishDate = 2019-07-25T00:00:00+08:00
-lastmod = 2019-07-25T15:40:22+08:00
+lastmod = 2019-07-25T15:45:42+08:00
 tags = ["Linux"]
-categories = ["tech"]
+categories = ["Tech"]
 draft = false
 keywords = ["xor"]
 +++
