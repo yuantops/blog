@@ -197,12 +197,13 @@ EOF
       <pubDate>Thu, 25 Jul 2019 00:00:00 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/understanding-xor/</guid>
-      <description>&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;We can interpret the action of XOR in a number of different ways, and this helps to shed light on its properties. The most obvious way to interpret it is as its name suggests, ‘exclusive OR’: A ⊕ B is true if and only if precisely one of A and B is true. Another way to think of it is as identifying difference in a pair of bytes: A ⊕ B = ‘the bits where they differ’. This interpretation makes it obvious that A ⊕ A = 0 (byte A does not differ from itself in any bit) and A ⊕ 0 = A (byte A differs from 0 precisely in the bit positions that equal 1) and is also useful when thinking about toggling and encryption later on.
-
-The last, and most powerful, interpretation of XOR is in terms of parity, i.e. whether something is odd or even. For any n bits, A1 ⊕ A2 ⊕ … ⊕ An = 1 if and only if the number of 1s is odd. This can be proved quite easily by induction and use of associativity. It is the crucial observation that leads to many of the properties that follow, including error detection, data protection and adding.
-
- Essentially the combined value x ^ y ‘remembers’ both states, and one state is the key to getting at the other.
-&lt;/code&gt;&lt;/pre&gt;
+      <description>&lt;blockquote&gt;
+&lt;p&gt;We can interpret the action of XOR in a number of different ways, and this helps to shed light on its properties. The most obvious way to interpret it is as its name suggests, ‘exclusive OR’: A ⊕ B is true if and only if precisely one of A and B is true. Another way to think of it is as identifying difference in a pair of bytes: A ⊕ B = ‘the bits where they differ’. This interpretation makes it obvious that A ⊕ A = 0 (byte A does not differ from itself in any bit) and A ⊕ 0 = A (byte A differs from 0 precisely in the bit positions that equal 1) and is also useful when thinking about toggling and encryption later on. &lt;br /&gt;
+&lt;br /&gt;
+The last, and most powerful, interpretation of XOR is in terms of parity, i.e. whether something is odd or even. For any n bits, A1 ⊕ A2 ⊕ … ⊕ An = 1 if and only if the number of 1s is odd. This can be proved quite easily by induction and use of associativity. It is the crucial observation that leads to many of the properties that follow, including error detection, data protection and adding. &lt;br /&gt;
+&lt;br /&gt;
+ Essentially the combined value x ^ y ‘remembers’ both states, and one state is the key to getting at the other.&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
     </item>
     
