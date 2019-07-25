@@ -144,30 +144,31 @@ keywords = [&amp;quot;&amp;quot;]
 
 &lt;h2 id=&#34;关于重定向顺序&#34;&gt;关于重定向顺序&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Note that the order of redirections is signi cant. For example, the command
-
-ls &amp;gt; dirlist 2&amp;gt;&amp;amp;1
-directs both standard output ( file descriptor 1) and standard error ( le descriptor 2) to the file dirlist, while the command ls 2&amp;gt;&amp;amp;1 &amp;gt; dirlist directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist.
-&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note that the order of redirections is signi cant. For example, the command &lt;br /&gt;
+&lt;br /&gt;
+ls &amp;gt; dirlist 2&amp;gt;&amp;amp;1 &lt;br /&gt;
+directs both standard output ( file descriptor 1) and standard error ( le descriptor 2) to the file dirlist, while the command ls 2&amp;gt;&amp;amp;1 &amp;gt; dirlist directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist. &lt;br /&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h2 id=&#34;将stdout-和-stderr-重定向到-文件&#34;&gt;将Stdout 和 Stderr 重定向到 文件&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;This construct allows both the standard output ( file descriptor 1) and the standard error output ( file descriptor 2) to be redirected to the file whose name is the expansion of word.
-
-There are two formats for redirecting standard output and standard error:
-
-&amp;amp;&amp;gt;word and
-
+&lt;blockquote&gt;
+&lt;p&gt;This construct allows both the standard output ( file descriptor 1) and the standard error output ( file descriptor 2) to be redirected to the file whose name is the expansion of word. &lt;br /&gt;
+&lt;br /&gt;
+There are two formats for redirecting standard output and standard error:&lt;br /&gt;
+&lt;br /&gt;
+&amp;amp;&amp;gt;word and &lt;br /&gt;
+&lt;br /&gt;
 &amp;gt;&amp;amp;word
-
-Of the two forms, the first is preferred. This is semantically equivalent to
-&amp;gt;word 2&amp;gt;&amp;amp;1
-
-&lt;/code&gt;&lt;/pre&gt;
+&lt;br /&gt;
+Of the two forms, the first is preferred. This is semantically equivalent to&lt;br /&gt;
+&amp;gt;word 2&amp;gt;&amp;amp;1&lt;br /&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h2 id=&#34;here-document&#34;&gt;Here Document&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Here Documents
+&lt;pre&gt;&lt;code class=&#34;language-nil&#34;&gt;Here Documents
 This type of redirection instructs the shell to read input from the current source until a line containing only word (with no trailing blanks) is seen.
 
 All of the lines read up to that point are then used as the standard input for a command.
@@ -186,7 +187,6 @@ $ cat &amp;lt;&amp;lt;EOF &amp;gt; print.sh
 echo \$PWD
 echo $PWD
 EOF
-
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

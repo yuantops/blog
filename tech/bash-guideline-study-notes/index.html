@@ -96,30 +96,31 @@
 
 <h2 id="关于重定向顺序">关于重定向顺序</h2>
 
-<pre><code class="language-text">Note that the order of redirections is signi cant. For example, the command
-
-ls &gt; dirlist 2&gt;&amp;1
-directs both standard output ( file descriptor 1) and standard error ( le descriptor 2) to the file dirlist, while the command ls 2&gt;&amp;1 &gt; dirlist directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist.
-</code></pre>
+<blockquote>
+<p>Note that the order of redirections is signi cant. For example, the command <br />
+<br />
+ls &gt; dirlist 2&gt;&amp;1 <br />
+directs both standard output ( file descriptor 1) and standard error ( le descriptor 2) to the file dirlist, while the command ls 2&gt;&amp;1 &gt; dirlist directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist. <br /></p>
+</blockquote>
 
 <h2 id="将stdout-和-stderr-重定向到-文件">将Stdout 和 Stderr 重定向到 文件</h2>
 
-<pre><code class="language-text">This construct allows both the standard output ( file descriptor 1) and the standard error output ( file descriptor 2) to be redirected to the file whose name is the expansion of word.
-
-There are two formats for redirecting standard output and standard error:
-
-&amp;&gt;word and
-
+<blockquote>
+<p>This construct allows both the standard output ( file descriptor 1) and the standard error output ( file descriptor 2) to be redirected to the file whose name is the expansion of word. <br />
+<br />
+There are two formats for redirecting standard output and standard error:<br />
+<br />
+&amp;&gt;word and <br />
+<br />
 &gt;&amp;word
-
-Of the two forms, the first is preferred. This is semantically equivalent to
-&gt;word 2&gt;&amp;1
-
-</code></pre>
+<br />
+Of the two forms, the first is preferred. This is semantically equivalent to<br />
+&gt;word 2&gt;&amp;1<br /></p>
+</blockquote>
 
 <h2 id="here-document">Here Document</h2>
 
-<pre><code class="language-text">Here Documents
+<pre><code class="language-nil">Here Documents
 This type of redirection instructs the shell to read input from the current source until a line containing only word (with no trailing blanks) is seen.
 
 All of the lines read up to that point are then used as the standard input for a command.
@@ -138,7 +139,6 @@ $ cat &lt;&lt;EOF &gt; print.sh
 echo \$PWD
 echo $PWD
 EOF
-
 </code></pre>
 
         </div>

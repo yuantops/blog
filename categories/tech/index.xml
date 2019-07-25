@@ -37,7 +37,7 @@
       <pubDate>Thu, 25 Jul 2019 00:00:00 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/bash-guideline-study-notes/</guid>
-      <description>关于重定向顺序 Note that the order of redirections is signi cant. For example, the command ls &amp;gt; dirlist 2&amp;gt;&amp;amp;1 directs both standard output ( file descriptor 1) and standard error ( le descriptor 2) to the file dirlist, while the command ls 2&amp;gt;&amp;amp;1 &amp;gt; dirlist directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist.</description>
+      <description>关于重定向顺序  Note that the order of redirections is signi cant. For example, the command ls &amp;gt; dirlist 2&amp;gt;&amp;amp;1 directs both standard output ( file descriptor 1) and standard error ( le descriptor 2) to the file dirlist, while the command ls 2&amp;gt;&amp;amp;1 &amp;gt; dirlist directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist.</description>
     </item>
     
     <item>
