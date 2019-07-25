@@ -2,10 +2,10 @@
 #+hugo_base_dir: ../
 #+HUGO_SECTION: tech
 # Categories
-#+filetags: @tech
+#+filetags: @Tech
 #+hugo_auto_set_lastmod: t
 
-* All about this blog                                                           :gh_pages:hugo:@Tech:
+* All about this blog                                                           :gh_pages:hugo:
 ** DONE How to blog with ox-hugo in Emacs                                       :Emacs:
    CLOSED: [2019-07-25 Thu 14:47]
 :PROPERTIES:
@@ -172,5 +172,6 @@ The last, and most powerful, interpretation of XOR is in terms of parity, i.e. w
 \\
  Essentially the combined value x ^ y ‘remembers’ both states, and one state is the key to getting at the other.
 #+END_QUOTE
+
 
 * Golang is great                                                               :Golang:
