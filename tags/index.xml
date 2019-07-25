@@ -71,7 +71,7 @@
     <item>
       <title>Emacs</title>
       <link>https://blog.yuantops.com/tags/emacs/</link>
-      <pubDate>Wed, 24 Jul 2019 00:00:00 +0800</pubDate>
+      <pubDate>Thu, 25 Jul 2019 14:47:00 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tags/emacs/</guid>
       <description></description>
@@ -80,7 +80,7 @@
     <item>
       <title>Gh Pages</title>
       <link>https://blog.yuantops.com/tags/gh-pages/</link>
-      <pubDate>Wed, 24 Jul 2019 00:00:00 +0800</pubDate>
+      <pubDate>Thu, 25 Jul 2019 14:47:00 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tags/gh-pages/</guid>
       <description></description>
@@ -119,6 +119,15 @@
       <pubDate>Fri, 09 Jan 2015 00:00:00 +0000</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tags/http/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hugo</title>
+      <link>https://blog.yuantops.com/tags/hugo/</link>
+      <pubDate>Thu, 25 Jul 2019 14:47:00 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tags/hugo/</guid>
       <description></description>
     </item>
     

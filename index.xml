@@ -9,16 +9,128 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Wed, 24 Jul 2019 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jul 2019 14:47:00 +0800</lastBuildDate>
     <atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>How to blog with ox-hugo in Emacs</title>
       <link>https://blog.yuantops.com/tech/blogging-with-ox-hugo/</link>
-      <pubDate>Wed, 24 Jul 2019 00:00:00 +0800</pubDate>
+      <pubDate>Thu, 25 Jul 2019 14:47:00 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/blogging-with-ox-hugo/</guid>
-      <description>&lt;p&gt;我的&lt;a href=&#34;https://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/&#34;&gt;一篇老博客&lt;/a&gt;，介绍了用Emacs和Org-mode写博客的工作流。总的来说，勉强符合预期，流程稍显磕绊。今天上网冲浪，偶然发现基于Org-mode写博客有了正规军： &lt;code&gt;ox-hugo&lt;/code&gt; 。经过短暂研究，决定抛弃旧爱 &lt;code&gt;ox-pandoc&lt;/code&gt;, 拥抱新欢 &lt;code&gt;ox-hugo&lt;/code&gt; 。&lt;/p&gt;
+      <description>
+
+&lt;p&gt;我的&lt;a href=&#34;https://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/&#34;&gt;一篇老博客&lt;/a&gt;，介绍了用Emacs和Org-mode写博客的工作流。总的来说，勉强符合预期，流程稍显磕绊。今天偶然发现，用Org-mode写博客有了正规军： &lt;code&gt;ox-hugo&lt;/code&gt; 。简单试用之后,发现 &lt;code&gt;ox-hugo&lt;/code&gt; 表现很流畅，几乎就是对之前流程的升级，于是毫不犹豫选 &lt;code&gt;ox-hugo&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;ox-hugo&lt;/code&gt; 是一个工作在Org-mode的Emacs包，安装过程可以说平平无奇：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;M x&lt;/code&gt; &lt;code&gt;package-refresh-contents&lt;/code&gt; :: 更新安装源&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;添加Emacs配置。修改细节与Emacs配置风格相关，我使用&lt;a href=&#34;https://github.com/purcell/emacs.d&#34;&gt;Purcell维护的.emacs.d配置&lt;/a&gt;，仅供参考。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;在 &lt;code&gt;.emacs.d/lisp/&lt;/code&gt; 目录下，新增配置文件 &lt;code&gt;init-ox-hugo.el&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-emacs-lisp&#34; data-lang=&#34;emacs-lisp&#34;&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;3
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;4
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;5
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;6
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-emacs-lisp&#34; data-lang=&#34;emacs-lisp&#34;&gt;        (require-package &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ox-hugo&lt;/span&gt;)
+
+        (with-eval-after-load &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ox&lt;/span&gt; (require &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ox-hugo&lt;/span&gt;))
+
+        (provide &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;init-ox-hugo&lt;/span&gt;)
+
+        &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在入口配置文件 &lt;code&gt;.emacs.d/init.el&lt;/code&gt; 中，引用新增的配置文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-lisp&#34;&gt;
+(require &#39;init-ox-hugo)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;写博客新流程&#34;&gt;写博客新流程&lt;/h2&gt;
+
+&lt;p&gt;现在，org文件可以直接导出为Hugo支持的Markdown格式了。这一点 &lt;code&gt;ox-pandoc&lt;/code&gt; 也能做到，但 &lt;code&gt;ox-hugo&lt;/code&gt; 还能做得更多。&lt;/p&gt;
+
+&lt;p&gt;回顾之前的工作流:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;新建xx.org文件&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;输入二级标题，接着插入 &lt;code&gt;front matter&lt;/code&gt; 。 &lt;code&gt;front matter&lt;/code&gt; 内容大致如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;+++
+title = &amp;quot;&amp;quot;
+date = &amp;quot;&amp;quot;
+Categories = [&amp;quot;Tech&amp;quot;]
+Tags = [&amp;quot;Emacs&amp;quot;]
+Description = &amp;quot;&amp;quot;
+keywords = [&amp;quot;&amp;quot;]
++++
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;写博客正文&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;按下 &lt;code&gt;C-c C-e&lt;/code&gt; , 将二级标题对应的subtree导出为Markdown格式文件&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;将Markdown格式文件保存到contents/tech/目录。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;code&gt;front matter&lt;/code&gt; 是hugo渲染文件需要的必要元信息, 例如文章标签、分类、标题等。ox-hugo改进之一，是使用org-mode语法放置元信息，不再需要手动设置 &lt;code&gt;front matter&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;Org-mode支持为headline设置 tags。 &lt;code&gt;ox-hugo&lt;/code&gt; 沿用这点，org-mode的tag就是文章标签, 以@开头的tag就是文章分类。其他例如作者、日期、文件名的元信息，通过 &lt;code&gt;:PROPERTIES:&lt;/code&gt; 设置。在导出Markdown格式时，ox-hugo会自动提取这些数据。因为ox-hugo可以一次导出所有subtree，因此 &lt;code&gt;ox-hugo&lt;/code&gt; 官方推荐做法是，所有文章放到一个org文件，&lt;a href=&#34;https://ox-hugo.scripter.co/doc/screenshots/#screenshot-one-post-per-subtree&#34;&gt;每个Subtree对应一篇文章&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;对于习惯一个org文件对应一篇文章的作者而言，ox-hugo也予以尊重，&lt;a href=&#34;https://ox-hugo.scripter.co/doc/org-meta-data-to-hugo-front-matter/&#34;&gt;在文件头添加对应配置项即可&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;我的实践&#34;&gt;我的实践&lt;/h2&gt;
+
+&lt;p&gt;对本博客而言，考虑到1)文章固定只有3个分类，2)现在已有很多存量md格式的文章，我采取一种折中做法: 一个分类对应一个org文件，org文件里每个subtree对应一篇文章。这样兼顾现状，而且新文章顺利迁移到新做法。就每个org文件来说，元信息分为两大类：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;对整个文件都生效的配置，放到文件开头；&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;#+author: yuan.tops@gmail.com
+#+hugo_base_dir: ../
+#+HUGO_SECTION: tech
+# Categories
+#+filetags: @tech
+#+hugo_auto_set_lastmod: t
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;对单篇文章生效的配置，放到subtree的标题下面。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-props&#34;&gt;:PROPERTIES:
+:EXPORT_HUGO_CATEGORIES: Tech
+:EXPORT_DATE: &amp;quot;2019-07-24T22:29:52+08:00&amp;quot;
+:EXPORT_HUGO_PUBLISHDATE: &amp;quot;2019-07-24T22:29:52Z&amp;quot;
+:EXPORT_FILE_NAME: blogging-with-ox-hugo
+:EXPORT_DESCRIPTION: 发现一个用Emacs写blog的新工具: ox-hugo。它与org-mode融合得非常自然，更好用。本文记录如何在Emacs中配置与使用ox-hugo。
+:END:
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;以本文为例，配置如图:
+&lt;img src=&#34;https://blog.yuantops.com/ox-hugo/screenshot-org-subtree.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+
+&lt;p&gt;Emacs学习曲线盘旋上升, Org-mode也是如此。不断折腾，乐在其中！&lt;/p&gt;
 </description>
     </item>
     

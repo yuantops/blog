@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo on Yuantops&#39; Blog</title>
+    <link>https://blog.yuantops.com/tags/hugo/</link>
+    <description>Recent content in Hugo on Yuantops&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
+    <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Thu, 25 Jul 2019 14:47:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yuantops.com/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How to blog with ox-hugo in Emacs</title>
+      <link>https://blog.yuantops.com/tech/blogging-with-ox-hugo/</link>
+      <pubDate>Thu, 25 Jul 2019 14:47:00 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/blogging-with-ox-hugo/</guid>
+      <description>我的一篇老博客，介绍了用Emacs和Org-mode写博客的工作流。总的来说，勉强符合预期，流程稍显磕绊。今天偶然发现，用Org-mode写博客有了正规军： ox-hugo 。简单试用之后,发现 ox-hugo 表现很流畅，几乎就是对之前流程的升级，于是毫不犹豫选 ox-hugo 。
+安装 ox-hugo 是一个工作在Org-mode的Emacs包，安装过程可以说平平无奇：
+ M x package-refresh-contents :: 更新安装源 添加Emacs配置。修改细节与Emacs配置风格相关，我使用Purcell维护的.emacs.d配置，仅供参考。
+ 在 .emacs.d/lisp/ 目录下，新增配置文件 init-ox-hugo.el
+1 2 3 4 5 6 7  (require-package &amp;#39;ox-hugo) (with-eval-after-load &amp;#39;ox (require &amp;#39;ox-hugo)) (provide &amp;#39;init-ox-hugo)    在入口配置文件 .emacs.d/init.el 中，引用新增的配置文件
+(require &#39;init-ox-hugo)    写博客新流程 现在，org文件可以直接导出为Hugo支持的Markdown格式了。这一点 ox-pandoc 也能做到，但 ox-hugo 还能做得更多。
+回顾之前的工作流:
+ 新建xx.org文件 输入二级标题，接着插入 front matter 。 front matter 内容大致如下：
++++ title = &amp;quot;&amp;quot; date = &amp;quot;&amp;quot; Categories = [&amp;quot;Tech&amp;quot;] Tags = [&amp;quot;Emacs&amp;quot;] Description = &amp;quot;&amp;quot; keywords = [&amp;quot;&amp;quot;] +++  写博客正文</description>
+    </item>
+    
+  </channel>
+</rss>
