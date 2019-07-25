@@ -4,7 +4,7 @@ author = ["yuan.tops@gmail.com"]
 description = "《Bash Guideline》摘抄与笔记"
 date = 2019-07-25T00:00:00+08:00
 publishDate = 2019-07-25T00:00:00+08:00
-lastmod = 2019-07-25T15:45:40+08:00
+lastmod = 2019-07-25T16:00:38+08:00
 tags = ["Linux"]
 categories = ["Tech"]
 draft = false
@@ -13,34 +13,31 @@ keywords = ["bash"]
 
 ## 关于重定向顺序 {#关于重定向顺序}
 
-```text
-Note that the order of redirections is signi cant. For example, the command
-
-ls > dirlist 2>&1
-directs both standard output ( file descriptor 1) and standard error ( le descriptor 2) to the file dirlist, while the command ls 2>&1 > dirlist directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist.
-```
+>
+>
+> Note that the order of redirections is signi cant. For example, the command <br />
+> <br />
+> ls > dirlist 2>&1 <br />
+> directs both standard output ( file descriptor 1) and standard error ( le descriptor 2) to the file dirlist, while the command ls 2>&1 > dirlist directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist. <br />
 
 
 ## 将Stdout 和 Stderr 重定向到 文件 {#将stdout-和-stderr-重定向到-文件}
 
-```text
-This construct allows both the standard output ( file descriptor 1) and the standard error output ( file descriptor 2) to be redirected to the file whose name is the expansion of word.
-
-There are two formats for redirecting standard output and standard error:
-
-&>word and
-
->&word
-
-Of the two forms, the first is preferred. This is semantically equivalent to
->word 2>&1
-
-```
+> This construct allows both the standard output ( file descriptor 1) and the standard error output ( file descriptor 2) to be redirected to the file whose name is the expansion of word. <br />
+> <br />
+> There are two formats for redirecting standard output and standard error:<br />
+> <br />
+> &>word and <br />
+> <br />
+> >&word
+> <br />
+> Of the two forms, the first is preferred. This is semantically equivalent to<br />
+> >word 2>&1<br />
 
 
 ## Here Document {#here-document}
 
-```text
+```nil
 Here Documents
 This type of redirection instructs the shell to read input from the current source until a line containing only word (with no trailing blanks) is seen.
 
@@ -60,5 +57,4 @@ $ cat <<EOF > print.sh
 echo \$PWD
 echo $PWD
 EOF
-
 ```
