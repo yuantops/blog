@@ -4,12 +4,17 @@
   
   <url>
     <loc>https://blog.yuantops.com/tech/blogging-with-ox-hugo/</loc>
-    <lastmod>2019-07-25T15:22:46+08:00</lastmod>
+    <lastmod>2019-07-25T15:30:20+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.yuantops.com/tech/bash-guideline-study-notes/</loc>
-    <lastmod>2019-07-25T15:22:48+08:00</lastmod>
+    <lastmod>2019-07-25T15:30:22+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.yuantops.com/tech/understanding-xor/</loc>
+    <lastmod>2019-07-25T15:30:24+08:00</lastmod>
   </url>
   
   <url>
@@ -570,13 +575,13 @@
   
   <url>
     <loc>https://blog.yuantops.com/tags/emacs/</loc>
-    <lastmod>2019-07-25T15:22:46+08:00</lastmod>
+    <lastmod>2019-07-25T15:30:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yuantops.com/tags/gh-pages/</loc>
-    <lastmod>2019-07-25T15:22:46+08:00</lastmod>
+    <lastmod>2019-07-25T15:30:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -600,7 +605,7 @@
   
   <url>
     <loc>https://blog.yuantops.com/tags/hugo/</loc>
-    <lastmod>2019-07-25T15:22:46+08:00</lastmod>
+    <lastmod>2019-07-25T15:30:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -618,7 +623,7 @@
   
   <url>
     <loc>https://blog.yuantops.com/tags/linux/</loc>
-    <lastmod>2019-07-25T15:22:48+08:00</lastmod>
+    <lastmod>2019-07-25T15:30:22+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -660,13 +665,13 @@
   
   <url>
     <loc>https://blog.yuantops.com/categories/tech/</loc>
-    <lastmod>2019-07-25T15:22:46+08:00</lastmod>
+    <lastmod>2019-07-25T15:30:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yuantops.com/tech/</loc>
-    <lastmod>2019-07-25T15:22:46+08:00</lastmod>
+    <lastmod>2019-07-25T15:30:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -678,7 +683,7 @@
   
   <url>
     <loc>https://blog.yuantops.com/</loc>
-    <lastmod>2019-07-25T15:22:46+08:00</lastmod>
+    <lastmod>2019-07-25T15:30:20+08:00</lastmod>
     <priority>0</priority>
   </url>
   

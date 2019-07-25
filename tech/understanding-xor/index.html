@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Bash Guideline Notes // Yuantops&#39; Blog</title>
+    <title>Understanding XOR // Yuantops&#39; Blog</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="Bash Guideline Notes" />
-<meta property="og:description" content="《Bash Guideline》摘抄与笔记" />
+    <meta property="og:title" content="Understanding XOR" />
+<meta property="og:description" content="理解xor" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="https://blog.yuantops.com/tech/bash-guideline-study-notes/" />
+<meta property="og:url" content="https://blog.yuantops.com/tech/understanding-xor/" />
 
 
     <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
@@ -26,8 +26,8 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-    <meta name="description" content="《Bash Guideline》摘抄与笔记">
-    <meta name="keywords" content="bash,">
+    <meta name="description" content="理解xor">
+    <meta name="keywords" content="xor,">
     <meta name="author" content="[yuan.tops@gmail.com]">
 
     <meta name="generator" content="Hugo 0.51-DEV" />
@@ -63,11 +63,11 @@
     <div class="article-inner">
         
         <header class="article-header">
-            <h1 class="article-title" itemprop="name">Bash Guideline Notes</h1>
+            <h1 class="article-title" itemprop="name">Understanding XOR</h1>
         </header>
         
         <div class="article-meta">
-            <a href="/tech/bash-guideline-study-notes/" class="article-date">
+            <a href="/tech/understanding-xor/" class="article-date">
                 <time datetime='2019-07-25T00:00:00.000&#43;08:00' itemprop="datePublished">2019-07-25</time>
             </a>
             
@@ -81,7 +81,7 @@
                 </div>
 		
 		<div class="article-category">
-	      	  323字, 约2分钟读完
+	      	  226字, 约2分钟读完
 		</div>
 	    
 
@@ -92,72 +92,16 @@
             
         </div>
         <div class="article-entry" itemprop="articleBody">
-            
+            <pre><code class="language-text">We can interpret the action of XOR in a number of different ways, and this helps to shed light on its properties. The most obvious way to interpret it is as its name suggests, ‘exclusive OR’: A ⊕ B is true if and only if precisely one of A and B is true. Another way to think of it is as identifying difference in a pair of bytes: A ⊕ B = ‘the bits where they differ’. This interpretation makes it obvious that A ⊕ A = 0 (byte A does not differ from itself in any bit) and A ⊕ 0 = A (byte A differs from 0 precisely in the bit positions that equal 1) and is also useful when thinking about toggling and encryption later on.
 
-<h2 id="关于重定向顺序">关于重定向顺序</h2>
+The last, and most powerful, interpretation of XOR is in terms of parity, i.e. whether something is odd or even. For any n bits, A1 ⊕ A2 ⊕ … ⊕ An = 1 if and only if the number of 1s is odd. This can be proved quite easily by induction and use of associativity. It is the crucial observation that leads to many of the properties that follow, including error detection, data protection and adding.
 
-<pre><code class="language-text">Note that the order of redirections is signi cant. For example, the command
-
-ls &gt; dirlist 2&gt;&amp;1
-directs both standard output ( file descriptor 1) and standard error ( le descriptor 2) to the file dirlist, while the command ls 2&gt;&amp;1 &gt; dirlist directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist.
-</code></pre>
-
-<h2 id="将stdout-和-stderr-重定向到-文件">将Stdout 和 Stderr 重定向到 文件</h2>
-
-<pre><code class="language-text">This construct allows both the standard output ( file descriptor 1) and the standard error output ( file descriptor 2) to be redirected to the file whose name is the expansion of word.
-
-There are two formats for redirecting standard output and standard error:
-
-&amp;&gt;word and
-
-&gt;&amp;word
-
-Of the two forms, the first is preferred. This is semantically equivalent to
-&gt;word 2&gt;&amp;1
-
-</code></pre>
-
-<h2 id="here-document">Here Document</h2>
-
-<pre><code class="language-text">Here Documents
-This type of redirection instructs the shell to read input from the current source until a line containing only word (with no trailing blanks) is seen.
-
-All of the lines read up to that point are then used as the standard input for a command.
-
-The format of here-documents is:
-
-          &lt;&lt;[-]word
-                  here-document
-          delimiter
-No parameter expansion, command substitution, arithmetic expansion, or pathname expansion is performed on word. If any characters in word are quoted, the delimiter is the result of quote removal on word, and the lines in the here-document are not expanded. If word is unquoted, all lines of the here-document are subjected to parameter expansion, command substitution, and arithmetic expansion. In the latter case, the character sequence \&lt;newline&gt; is ignored, and \ must be used to quote the characters \, $, and `.
-
-If the redirection operator is &lt;&lt;-, then all leading tab characters are stripped from input lines and the line containing delimiter. This allows here-documents within shell scripts to be indented in a natural fashion.
-
-$ cat &lt;&lt;EOF &gt; print.sh
-#!/bin/bash
-echo \$PWD
-echo $PWD
-EOF
-
+ Essentially the combined value x ^ y ‘remembers’ both states, and one state is the key to getting at the other.
 </code></pre>
 
         </div>
 
         
-        
-        <div class="article-toc" style="display:none;">
-            <h3>Contents</h3>
-            <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#关于重定向顺序">关于重定向顺序</a></li>
-<li><a href="#将stdout-和-stderr-重定向到-文件">将Stdout 和 Stderr 重定向到 文件</a></li>
-<li><a href="#here-document">Here Document</a></li>
-</ul></li>
-</ul>
-</nav>
-        </div>
         
         
 
@@ -219,15 +163,15 @@ EOF
     </div>
     <nav id="article-nav">
     
-    <a href="/tech/blogging-with-ox-hugo/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/tech/bash-guideline-study-notes/" id="article-nav-newer" class="article-nav-link-wrap">
         <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            How to blog with ox-hugo in Emacs
+            Bash Guideline Notes
         </div>
     </a>
     
     
-    <a href="/tech/understanding-xor/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">Understanding XOR&nbsp;<span>&gt;</span></div>
+    <a href="/tech/homebridge-plugin-tutorial/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">[译文]让Siri变身完美家庭助手：兼容Apple Homekit不支持的设备&nbsp;<span>&gt;</span></div>
     </a>
     
 </nav>

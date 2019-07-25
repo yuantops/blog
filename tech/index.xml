@@ -41,6 +41,15 @@
     </item>
     
     <item>
+      <title>Understanding XOR</title>
+      <link>https://blog.yuantops.com/tech/understanding-xor/</link>
+      <pubDate>Thu, 25 Jul 2019 00:00:00 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/understanding-xor/</guid>
+      <description>We can interpret the action of XOR in a number of different ways, and this helps to shed light on its properties. The most obvious way to interpret it is as its name suggests, ‘exclusive OR’: A ⊕ B is true if and only if precisely one of A and B is true. Another way to think of it is as identifying difference in a pair of bytes: A ⊕ B = ‘the bits where they differ’.</description>
+    </item>
+    
+    <item>
       <title>[译文]让Siri变身完美家庭助手：兼容Apple Homekit不支持的设备</title>
       <link>https://blog.yuantops.com/tech/homebridge-plugin-tutorial/</link>
       <pubDate>Sun, 29 Jul 2018 17:48:19 +0000</pubDate>
