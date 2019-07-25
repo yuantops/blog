@@ -108,7 +108,6 @@ Emacs学习曲线盘旋上升, Org-mode也是如此。不断折腾，乐在其�
 :EXPORT_DESCRIPTION: 《Bash Guideline》摘抄与笔记
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :keywords '( "bash" )
 :END:
-
 *** 关于重定向顺序
 #+BEGIN_SRC text
 Note that the order of redirections is signi cant. For example, the command
@@ -157,7 +156,6 @@ EOF
 
 #+END_SRC
 
-
 ** Understanding XOR
 :PROPERTIES:
 :EXPORT_DATE: "2019-07-25T15:29:52+08:00"
@@ -167,12 +165,12 @@ EOF
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :keywords '( "xor" )
 :END:
 
-#+BEGIN_SRC text
-We can interpret the action of XOR in a number of different ways, and this helps to shed light on its properties. The most obvious way to interpret it is as its name suggests, ‘exclusive OR’: A ⊕ B is true if and only if precisely one of A and B is true. Another way to think of it is as identifying difference in a pair of bytes: A ⊕ B = ‘the bits where they differ’. This interpretation makes it obvious that A ⊕ A = 0 (byte A does not differ from itself in any bit) and A ⊕ 0 = A (byte A differs from 0 precisely in the bit positions that equal 1) and is also useful when thinking about toggling and encryption later on.
-
-The last, and most powerful, interpretation of XOR is in terms of parity, i.e. whether something is odd or even. For any n bits, A1 ⊕ A2 ⊕ … ⊕ An = 1 if and only if the number of 1s is odd. This can be proved quite easily by induction and use of associativity. It is the crucial observation that leads to many of the properties that follow, including error detection, data protection and adding.
-
+#+BEGIN_QUOTE
+We can interpret the action of XOR in a number of different ways, and this helps to shed light on its properties. The most obvious way to interpret it is as its name suggests, ‘exclusive OR’: A ⊕ B is true if and only if precisely one of A and B is true. Another way to think of it is as identifying difference in a pair of bytes: A ⊕ B = ‘the bits where they differ’. This interpretation makes it obvious that A ⊕ A = 0 (byte A does not differ from itself in any bit) and A ⊕ 0 = A (byte A differs from 0 precisely in the bit positions that equal 1) and is also useful when thinking about toggling and encryption later on. \\
+\\
+The last, and most powerful, interpretation of XOR is in terms of parity, i.e. whether something is odd or even. For any n bits, A1 ⊕ A2 ⊕ … ⊕ An = 1 if and only if the number of 1s is odd. This can be proved quite easily by induction and use of associativity. It is the crucial observation that leads to many of the properties that follow, including error detection, data protection and adding. \\
+\\
  Essentially the combined value x ^ y ‘remembers’ both states, and one state is the key to getting at the other.
-#+END_SRC
+#+END_QUOTE
 
 * Golang is great                                                               :Golang:
