@@ -135,6 +135,63 @@ keywords = [&amp;quot;&amp;quot;]
     </item>
     
     <item>
+      <title>Bash Guideline Notes</title>
+      <link>https://blog.yuantops.com/tech/bash-guideline-study-notes/</link>
+      <pubDate>Thu, 25 Jul 2019 00:00:00 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/bash-guideline-study-notes/</guid>
+      <description>
+
+&lt;h2 id=&#34;关于重定向顺序&#34;&gt;关于重定向顺序&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Note that the order of redirections is signi cant. For example, the command
+
+ls &amp;gt; dirlist 2&amp;gt;&amp;amp;1
+directs both standard output ( file descriptor 1) and standard error ( le descriptor 2) to the file dirlist, while the command ls 2&amp;gt;&amp;amp;1 &amp;gt; dirlist directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;将stdout-和-stderr-重定向到-文件&#34;&gt;将Stdout 和 Stderr 重定向到 文件&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;This construct allows both the standard output ( file descriptor 1) and the standard error output ( file descriptor 2) to be redirected to the file whose name is the expansion of word.
+
+There are two formats for redirecting standard output and standard error:
+
+&amp;amp;&amp;gt;word and
+
+&amp;gt;&amp;amp;word
+
+Of the two forms, the first is preferred. This is semantically equivalent to
+&amp;gt;word 2&amp;gt;&amp;amp;1
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;here-document&#34;&gt;Here Document&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;Here Documents
+This type of redirection instructs the shell to read input from the current source until a line containing only word (with no trailing blanks) is seen.
+
+All of the lines read up to that point are then used as the standard input for a command.
+
+The format of here-documents is:
+
+          &amp;lt;&amp;lt;[-]word
+                  here-document
+          delimiter
+No parameter expansion, command substitution, arithmetic expansion, or pathname expansion is performed on word. If any characters in word are quoted, the delimiter is the result of quote removal on word, and the lines in the here-document are not expanded. If word is unquoted, all lines of the here-document are subjected to parameter expansion, command substitution, and arithmetic expansion. In the latter case, the character sequence \&amp;lt;newline&amp;gt; is ignored, and \ must be used to quote the characters \, $, and `.
+
+If the redirection operator is &amp;lt;&amp;lt;-, then all leading tab characters are stripped from input lines and the line containing delimiter. This allows here-documents within shell scripts to be indented in a natural fashion.
+
+$ cat &amp;lt;&amp;lt;EOF &amp;gt; print.sh
+#!/bin/bash
+echo \$PWD
+echo $PWD
+EOF
+
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>[译文]让Siri变身完美家庭助手：兼容Apple Homekit不支持的设备</title>
       <link>https://blog.yuantops.com/tech/homebridge-plugin-tutorial/</link>
       <pubDate>Sun, 29 Jul 2018 17:48:19 +0000</pubDate>

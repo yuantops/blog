@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Jekyll安装指南 // Yuantops&#39; Blog</title>
+    <title>Bash Guideline Notes // Yuantops&#39; Blog</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="Jekyll安装指南" />
-<meta property="og:description" content="使用GitHub pages搭建博客越来越流行。GitHub pages使用的文件解析引擎是Jekyll。在本地安装Jekyll，将自己的博客调试合适后再推送到GitHub，会省事很多。本文介绍如何在本地安装Jekyll。" />
+    <meta property="og:title" content="Bash Guideline Notes" />
+<meta property="og:description" content="《Bash Guideline》摘抄与笔记" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="https://blog.yuantops.com/tech/jekyll-installation/" />
+<meta property="og:url" content="https://blog.yuantops.com/tech/bash-guideline-study-notes/" />
 
 
     <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
@@ -26,9 +26,9 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-    <meta name="description" content="使用GitHub pages搭建博客越来越流行。GitHub pages使用的文件解析引擎是Jekyll。在本地安装Jekyll，将自己的博客调试合适后再推送到GitHub，会省事很多。本文介绍如何在本地安装Jekyll。">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
+    <meta name="description" content="《Bash Guideline》摘抄与笔记">
+    <meta name="keywords" content="bash,">
+    <meta name="author" content="[yuan.tops@gmail.com]">
 
     <meta name="generator" content="Hugo 0.51-DEV" />
 </head>
@@ -63,12 +63,12 @@
     <div class="article-inner">
         
         <header class="article-header">
-            <h1 class="article-title" itemprop="name">Jekyll安装指南</h1>
+            <h1 class="article-title" itemprop="name">Bash Guideline Notes</h1>
         </header>
         
         <div class="article-meta">
-            <a href="/tech/jekyll-installation/" class="article-date">
-                <time datetime='2014-12-30T00:00:00.000&#43;00:00' itemprop="datePublished">2014-12-30</time>
+            <a href="/tech/bash-guideline-study-notes/" class="article-date">
+                <time datetime='2019-07-25T00:00:00.000&#43;08:00' itemprop="datePublished">2019-07-25</time>
             </a>
             
             
@@ -76,12 +76,12 @@
                 <div class="article-category">
                     
                     
-                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
+                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">tech</a>
                     
                 </div>
 		
 		<div class="article-category">
-	      	  56字, 约1分钟读完
+	      	  323字, 约2分钟读完
 		</div>
 	    
 
@@ -94,48 +94,52 @@
         <div class="article-entry" itemprop="articleBody">
             
 
-<h3 id="环境准备">环境准备</h3>
+<h2 id="关于重定向顺序">关于重定向顺序</h2>
 
-<p>准备安装Jekyll前，确保系统满足以下条件：</p>
+<pre><code class="language-text">Note that the order of redirections is signi cant. For example, the command
 
-<ul>
-<li>Ruby<br /></li>
-<li>RubyGems<br /></li>
-<li>Linux, Unix, 或者 Mac OS X<br /></li>
-<li>Nodejs, 或者其它JavaScript运行环境<br /></li>
-</ul>
+ls &gt; dirlist 2&gt;&amp;1
+directs both standard output ( file descriptor 1) and standard error ( le descriptor 2) to the file dirlist, while the command ls 2&gt;&amp;1 &gt; dirlist directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist.
+</code></pre>
 
-<p>以Ubuntu为例，安装上述软件的方法：<br />
-<strong>Ruby</strong><br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo apt-get install ruby, ruby-dev</code></pre></div>
-要注意，*ruby-dev*包需要一并安装，否则在后续会报错。</p>
+<h2 id="将stdout-和-stderr-重定向到-文件">将Stdout 和 Stderr 重定向到 文件</h2>
 
-<p>在Redhat/Fedora下，需要安装的软件包为ruby,ruby-devel。有可能还需要安装gcc包。<br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo yum install ruby, ruby-devel, gcc</code></pre></div></p>
+<pre><code class="language-text">This construct allows both the standard output ( file descriptor 1) and the standard error output ( file descriptor 2) to be redirected to the file whose name is the expansion of word.
 
-<p><strong>RubyGems</strong><br />
-RubyGems是Ruby程序包管理器，类似Redhat的RPM。更多的概念介绍，请参看<a href="http://henter.me/post/ruby-rvm-gem-rake-bundle-rails.html">整理Ruby相关的各种概念</a>。<br />
-新版本的Ruby已经包含RubyGems，无需额外安装了。</p>
+There are two formats for redirecting standard output and standard error:
 
-<p><strong>Nodejs</strong><br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo apt-get install nodejs</code></pre></div></p>
+&amp;&gt;word and
 
-<h3 id="设置gemfile">设置Gemfile</h3>
+&gt;&amp;word
 
-<p>将GitHub上你的博客Repo克隆到本地。假设Repo的根目录为blog。终端路径切换到blog目录，新建名为<code>Gemfile</code>的文件，并填充内容:</p>
+Of the two forms, the first is preferred. This is semantically equivalent to
+&gt;word 2&gt;&amp;1
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">source <span style="color:#e6db74">&#39;https://rubygems.org&#39;</span>
-gem <span style="color:#e6db74">&#39;github-pages&#39;</span></code></pre></div>
+</code></pre>
 
-<h3 id="使用rubygems安装jekyll">使用RubyGems安装Jekyll</h3>
+<h2 id="here-document">Here Document</h2>
 
-<p>终端路径切换到blog，运行命令：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo gem install jekyll</code></pre></div></p>
+<pre><code class="language-text">Here Documents
+This type of redirection instructs the shell to read input from the current source until a line containing only word (with no trailing blanks) is seen.
 
-<h3 id="运行jekyll-查看博客效果">运行Jekyll，查看博客效果</h3>
+All of the lines read up to that point are then used as the standard input for a command.
 
-<p>终端路径切换到blog，运行命令：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ jekyll serve</code></pre></div></p>
+The format of here-documents is:
+
+          &lt;&lt;[-]word
+                  here-document
+          delimiter
+No parameter expansion, command substitution, arithmetic expansion, or pathname expansion is performed on word. If any characters in word are quoted, the delimiter is the result of quote removal on word, and the lines in the here-document are not expanded. If word is unquoted, all lines of the here-document are subjected to parameter expansion, command substitution, and arithmetic expansion. In the latter case, the character sequence \&lt;newline&gt; is ignored, and \ must be used to quote the characters \, $, and `.
+
+If the redirection operator is &lt;&lt;-, then all leading tab characters are stripped from input lines and the line containing delimiter. This allows here-documents within shell scripts to be indented in a natural fashion.
+
+$ cat &lt;&lt;EOF &gt; print.sh
+#!/bin/bash
+echo \$PWD
+echo $PWD
+EOF
+
+</code></pre>
 
         </div>
 
@@ -147,13 +151,9 @@ gem <span style="color:#e6db74">&#39;github-pages&#39;</span></code></pre></div>
 <ul>
 <li>
 <ul>
-<li>
-<ul>
-<li><a href="#环境准备">环境准备</a></li>
-<li><a href="#设置gemfile">设置Gemfile</a></li>
-<li><a href="#使用rubygems安装jekyll">使用RubyGems安装Jekyll</a></li>
-<li><a href="#运行jekyll-查看博客效果">运行Jekyll，查看博客效果</a></li>
-</ul></li>
+<li><a href="#关于重定向顺序">关于重定向顺序</a></li>
+<li><a href="#将stdout-和-stderr-重定向到-文件">将Stdout 和 Stderr 重定向到 文件</a></li>
+<li><a href="#here-document">Here Document</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -208,7 +208,7 @@ gem <span style="color:#e6db74">&#39;github-pages&#39;</span></code></pre></div>
             <ul class="article-tag-list">
                 
                 <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/gh-pages">gh-pages
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/linux">Linux
                     </a>
                 </li>
                 
@@ -219,15 +219,15 @@ gem <span style="color:#e6db74">&#39;github-pages&#39;</span></code></pre></div>
     </div>
     <nav id="article-nav">
     
-    <a href="/tech/add-tags-in-gh-pages/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/tech/blogging-with-ox-hugo/" id="article-nav-newer" class="article-nav-link-wrap">
         <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            在GitHub pages中添加标签Tags(非插件方式)
+            How to blog with ox-hugo in Emacs
         </div>
     </a>
     
     
-    <a href="/tech/oracle-java-tutorial-byte-stream/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">Byte Streams -- Oracle Java Tutorial 翻译&nbsp;<span>&gt;</span></div>
+    <a href="/tech/homebridge-plugin-tutorial/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">[译文]让Siri变身完美家庭助手：兼容Apple Homekit不支持的设备&nbsp;<span>&gt;</span></div>
     </a>
     
 </nav>
