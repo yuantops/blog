@@ -1,11 +1,30 @@
 #+author: yuan.tops@gmail.com
 #+hugo_base_dir: ../
-#+HUGO_SECTION: Opioions
+#+HUGO_SECTION: opinions
 # Categories
-#+filetags: @Opinions
+#+filetags: @opinions
 #+hugo_auto_set_lastmod: t	
 
-* 读书笔记                                                          :Reading:
+* 读书笔记                                                     :Reading:阅读:
+
+** TODO 2019阅读书单
+:PROPERTIES:
+:EXPORT_DATE: 2019-07-29T22:48:40
+:EXPORT_HUGO_PUBLISHDATE: 2019-07-29T22:48:40
+:EXPORT_FILE_NAME: 2019-my-reading-list
+:EXPORT_DESCRIPTION: 2019年，我读完一本书，就把笔记写在这里。
+:END:
+
+今年我的工作有点变化，跳了一次槽，住处也从杭州搬到深圳。深圳是个年轻城市，各种设施健全。我没多久就发现，家附近步行十五分钟有一个自助图书站，与深圳图书馆总馆资源共享。我在官网或微信公众号预约图书，等两三天，书会配送到图书站，晚上散步刚好顺便取回。虽然不是所有图书都能预借，但已经很方便了，同时也给了自己多读书的理由。看来，今年阅读量达到历史最高水平毫无悬念。
+
+*** [[https://book.douban.com/subject/26953874/][全球首家交易所史话]]
+去图书站还书时，它正躺在书架上，刚好我那时正在准备相关考试，就借回来了。
+
+书名已经足够直观，讲的是全球首家证券交易所初期的一些故事。地点在荷兰阿姆斯特丹，围绕着东印度公司股票的发行、流通、交易，作者通过一些具体事例，展示了现代证券市场一些交易手法的萌芽形态。对我而言，这些概念原本是枯燥的、抽象的，变得丰满、具体了。
+
+按时间顺序，作者
+
+
 ** TODO 我的多抓鱼阅读书单                                            :Emacs:
 
 * 杂俎                                                              :Reality:
