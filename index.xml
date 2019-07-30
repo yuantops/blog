@@ -9,8 +9,50 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Thu, 25 Jul 2019 14:47:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jul 2019 22:48:40 +0000</lastBuildDate>
     <atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>2019阅读书单</title>
+      <link>https://blog.yuantops.com/opinions/2019-my-reading-list/</link>
+      <pubDate>Mon, 29 Jul 2019 22:48:40 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/opinions/2019-my-reading-list/</guid>
+      <description>
+
+&lt;p&gt;今年我的工作有点变化，跳了一次槽，住处也从杭州搬到深圳。深圳是个年轻城市，各种设施健全。没多久就发现，家附近步行十五分钟有一个社区图书站，与深圳图书馆总馆共享资源。从官网或微信公众号预约的书，两三天即配送到站，晚上散步刚好顺便取回。虽然不是所有书都能预约，但已经很方便。&lt;/p&gt;
+
+&lt;p&gt;如此优越的借书条件，自然不能浪费。看来，今年阅读量一定可以达到历史最高水平。&lt;/p&gt;
+
+&lt;h2 id=&#34;全球首家交易所史话&#34;&gt;全球首家交易所史话&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://book.douban.com/subject/26953874/&#34;&gt;豆瓣链接&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;时间: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;&amp;lt;2019-07-30 Tue&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;去图书站还书，它正躺在书架上，刚好我那时在准备证券从业考试，便将它借回。&lt;/p&gt;
+
+&lt;p&gt;书名足够直观，讲的是全球首家证券交易所初期的一些故事。地点在荷兰阿姆斯特丹，作者围绕着东印度公司股票的发行、流通、交易，通过一些具体事例，展示了现代证券市场一些交易手法的萌芽形态。对我而言，这些概念原本是枯燥的、抽象的，通过历史事件的演绎，变得丰满、具体。书中介绍了好些证券行业术语，对加深理解很有帮助：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;《愤怒的投资者》: &lt;strong&gt;远期交易&lt;/strong&gt;, &lt;strong&gt;裸卖空&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;《第一次繁荣》: &lt;strong&gt;做市商&lt;/strong&gt;, &lt;strong&gt;股票交易所&lt;/strong&gt;, &lt;strong&gt;郁金香狂热&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;《犹太裔商人》: &lt;strong&gt;经纪人&lt;/strong&gt; , &lt;strong&gt;投机商&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;《交易俱乐部》: &lt;strong&gt;证券抵押贷款(回购)&lt;/strong&gt;, &lt;strong&gt;中央结算&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;《投机交易》: &lt;strong&gt;期权&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;作为刚转行证券业的新手，虽然故事里的金额有些算不太清楚，但仍不失故事本身的趣味。如果一个读者完全没有金融背景，单单拓宽眼界也是好的。&lt;/p&gt;
+
+&lt;p&gt;最后，说一些不足之处：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;翻译水平一般。以P176为例，&amp;rdquo;萨尔瓦多通过东印度公司的会计将一份价值3000荷兰盾的股票转入摩恩斯的账户作为贷款抵押品&amp;rdquo;，结合上下文，这里的&amp;rdquo;价值3000荷兰盾&amp;rdquo;应该是票面价值。原文不知如何表述，译文应该注明为好。&lt;/li&gt;
+&lt;li&gt;原文最后没有介绍全球首个证券交易所的结局，似乎有些不圆满？&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
     
     <item>
       <title>How to blog with ox-hugo in Emacs</title>
