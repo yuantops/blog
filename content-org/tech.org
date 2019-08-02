@@ -99,6 +99,9 @@ Org-mode支持为headline设置 tags。 ~ox-hugo~ 沿用这点，org-mode的tag�
 Emacs学习曲线盘旋上升, Org-mode也是如此。不断折腾，乐在其中！
 
 
+* Raspeberry Tutorials                                                          :树莓派:
+** TODO 用树莓派和Calibre搭建电子书服务器
+
 * Road to linux expert                                                          :Linux:
 ** Bash Guideline Notes
 :PROPERTIES:
