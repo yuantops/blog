@@ -9,14 +9,12 @@ branches:
     - hugo
     
 install:
-  - mkdir $HOME/src
-  - cd $HOME/src
-  - git clone https://github.com/gohugoio/hugo.git
+  - mkdir $HOME/hugo
+  - wget https://github.com/gohugoio/hugo/releases/download/v0.50/hugo_0.50_Linux-64bit.tar.gz
+  - tar -xzf hugo_0.50_Linux-64bit.tar.gz -C hugo
   - cd hugo
-  - git checkout stable
-  - go install
-  - cd $TRAVIS_BUILD_DIR
   - hugo version
+  - export PATH=$(pwd):$PATH
 
 script:
   - hugo
