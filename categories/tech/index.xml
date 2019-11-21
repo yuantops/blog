@@ -9,10 +9,27 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Thu, 25 Jul 2019 14:47:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 21 Nov 2019 15:53:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yuantops.com/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>浏览器会处理URL里的相对路径</title>
+      <link>https://blog.yuantops.com/tech/how_web_broswer_handles_url_relative_path/</link>
+      <pubDate>Thu, 21 Nov 2019 15:53:00 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/how_web_broswer_handles_url_relative_path/</guid>
+      <description>新系统上线前，安全部门扫描出一个高危漏洞：文件任意下载漏洞。渗透测试人员在URL里加上相对路径，不断发起HTTP请求，居然成功下载到Linux系统密码文件。修复漏洞挺简单，限制HTTP服务访问文件系统权限，不允许超出指定目录，几行代码搞定。
+修复之后准备进行验证，第一步当然是复现漏洞。没想到，这一步就挺曲折。
+消失的点号 打开chrome，在地址栏输入带了相对路径( .. )的URL。URL指向一个文件，理论上，会触发文件下载。结果是：地址栏URL路径里点号全不见了，变成了一个正常地址。多试几遍，把双点号换成单点号，仍然如此。用 wiresharks 抓包看HTTP报文，请求头 path 没有点号。这说明，浏览器做了手脚。
+ Google搜之，找到一份解析URI的RFC3968标准，专门有一章论述解析点号：Remove Dot Segments。经过解析，点号和双点号会消失，这个过程被称为 remove_dot_segments 。(RFC3968给出了这个过程的伪代码。)
+ Google官方在一篇文章里，将Chrome解析URL的过程称为 `Canonicalization` (display-urls-in-canonical-form) 。经过解析，Chrome地址栏的点号变成实际值。
+  结合两篇文档，原理清楚了：浏览器遵循RFC3968规范处理URL相对路径，所以点号和双点号都被干掉了。
+改用Burp Suite重现问题 不能用浏览器复现问题，改尝试 curl 命令。结果，curl也不能复现。好在可以借助 Burp Suite 工具。
+Burp Suite是一款攻击web服务的集成工具，一般黑客用它来渗透网络。我们牛刀小用，用来拦截、修改HTTP请求报文。过程不在此赘述。总之，用它绕过了相对路径解析、重现了漏洞。
+修复漏洞 略。</description>
+    </item>
     
     <item>
       <title>How to blog with ox-hugo in Emacs</title>

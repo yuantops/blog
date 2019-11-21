@@ -9,8 +9,44 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Mon, 29 Jul 2019 22:48:40 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 21 Nov 2019 15:53:00 +0800</lastBuildDate>
     <atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>浏览器会处理URL里的相对路径</title>
+      <link>https://blog.yuantops.com/tech/how_web_broswer_handles_url_relative_path/</link>
+      <pubDate>Thu, 21 Nov 2019 15:53:00 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/how_web_broswer_handles_url_relative_path/</guid>
+      <description>
+
+&lt;p&gt;新系统上线前，安全部门扫描出一个高危漏洞：文件任意下载漏洞。渗透测试人员在URL里加上相对路径，不断发起HTTP请求，居然成功下载到Linux系统密码文件。修复漏洞挺简单，限制HTTP服务访问文件系统权限，不允许超出指定目录，几行代码搞定。&lt;/p&gt;
+
+&lt;p&gt;修复之后准备进行验证，第一步当然是复现漏洞。没想到，这一步就挺曲折。&lt;/p&gt;
+
+&lt;h2 id=&#34;消失的点号&#34;&gt;消失的点号&lt;/h2&gt;
+
+&lt;p&gt;打开chrome，在地址栏输入带了相对路径( &lt;strong&gt;..&lt;/strong&gt; )的URL。URL指向一个文件，理论上，会触发文件下载。结果是：地址栏URL路径里点号全不见了，变成了一个正常地址。多试几遍，把双点号换成单点号，仍然如此。用 wiresharks 抓包看HTTP报文，请求头 &lt;em&gt;path&lt;/em&gt; 没有点号。这说明，浏览器做了手脚。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Google搜之，找到一份解析URI的RFC3968标准，专门有一章论述解析点号：&lt;a href=&#34;https://tools.ietf.org/html/rfc3986#section-5.2.4&#34;&gt;Remove Dot Segments&lt;/a&gt;。经过解析，点号和双点号会消失，这个过程被称为 &lt;strong&gt;remove_dot_segments&lt;/strong&gt; 。(RFC3968给出了这个过程的伪代码。)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Google官方在一篇文章里，将Chrome解析URL的过程称为 `Canonicalization` (&lt;a href=&#34;https://chromium.googlesource.com/chromium/src/+/master/docs/security/url%5Fdisplay%5Fguidelines/url%5Fdisplay%5Fguidelines.md#display-urls-in-canonical-form&#34;&gt;display-urls-in-canonical-form&lt;/a&gt;) 。经过解析，Chrome地址栏的点号变成实际值。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;结合两篇文档，原理清楚了：浏览器遵循RFC3968规范处理URL相对路径，所以点号和双点号都被干掉了。&lt;/p&gt;
+
+&lt;h2 id=&#34;改用burp-suite重现问题&#34;&gt;改用Burp Suite重现问题&lt;/h2&gt;
+
+&lt;p&gt;不能用浏览器复现问题，改尝试 &lt;strong&gt;curl&lt;/strong&gt; 命令。结果，curl也不能复现。好在可以借助 &lt;strong&gt;Burp Suite&lt;/strong&gt; 工具。&lt;/p&gt;
+
+&lt;p&gt;Burp Suite是一款攻击web服务的集成工具，一般黑客用它来渗透网络。我们牛刀小用，用来拦截、修改HTTP请求报文。过程不在此赘述。总之，用它绕过了相对路径解析、重现了漏洞。&lt;/p&gt;
+
+&lt;h2 id=&#34;修复漏洞&#34;&gt;修复漏洞&lt;/h2&gt;
+
+&lt;p&gt;略。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>2019阅读书单</title>
