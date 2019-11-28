@@ -4,7 +4,7 @@ author = ["yuan.tops@gmail.com"]
 description = "2019年，我读完一本书，就把笔记写在这里。"
 date = 2019-07-29T22:48:40
 publishDate = 2019-07-29T22:48:40
-lastmod = 2019-11-28T18:46:55+08:00
+lastmod = 2019-11-28T19:19:07+08:00
 tags = ["Reading", "阅读"]
 categories = ["opinions"]
 draft = false
@@ -15,7 +15,7 @@ draft = false
 如此优越的借书条件，自然不能浪费。看来，今年阅读量一定可以达到历史最高水平。
 
 
-## <span class="org-todo done DONE">DONE</span> 押沙龙，押沙龙！ {#押沙龙-押沙龙}
+## 押沙龙，押沙龙！ {#押沙龙-押沙龙}
 
 -   [豆瓣链接](https://book.douban.com/subject/4619135/)
 -   个人评分: ☆☆☆☆☆
