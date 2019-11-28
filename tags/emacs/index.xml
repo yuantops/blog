@@ -25,7 +25,7 @@
  M x package-refresh-contents :: 更新安装源 添加Emacs配置。修改细节与Emacs配置风格相关，我使用Purcell维护的.emacs.d配置，仅供参考。
  在 .emacs.d/lisp/ 目录下，新增配置文件 init-ox-hugo.el
 1 2 3 4 5 6 7  (require-package &amp;#39;ox-hugo)(with-eval-after-load &amp;#39;ox (require &amp;#39;ox-hugo))(provide &amp;#39;init-ox-hugo)   在入口配置文件 .emacs.d/init.el 中，引用新增的配置文件
-(require &#39;init-ox-hugo)    写博客新流程 现在，org文件可以直接导出为Hugo支持的Markdown格式了。这一点 ox-pandoc 也能做到，但 ox-hugo 还能做得更多。
+(require &#39;init-ox-hugo)    写博客旧流程 现在，org文件可以直接导出为Hugo支持的Markdown格式了。这一点 ox-pandoc 也能做到，但 ox-hugo 还能做得更多。
 回顾之前的工作流:
  新建xx.org文件 输入二级标题，接着插入 front matter 。 front matter 内容大致如下：
 +++ title = &amp;quot;&amp;quot; date = &amp;quot;&amp;quot; Categories = [&amp;quot;Tech&amp;quot;] Tags = [&amp;quot;Emacs&amp;quot;] Description = &amp;quot;&amp;quot; keywords = [&amp;quot;&amp;quot;] +++  写博客正文</description>
