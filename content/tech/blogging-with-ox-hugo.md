@@ -4,7 +4,7 @@ author = ["yuan.tops@gmail.com"]
 description = "发现一个用Emacs写blog的新工具: ox-hugo。它与org-mode融合得非常自然，更好用。本文记录如何在Emacs中配置与使用ox-hugo。"
 date = 2019-07-25T14:47:00+08:00
 publishDate = 2019-07-24T00:00:00+08:00
-lastmod = 2019-07-25T16:00:36+08:00
+lastmod = 2019-11-21T15:54:27+08:00
 tags = ["gh-pages", "hugo", "Emacs"]
 categories = ["Tech"]
 draft = false
@@ -40,7 +40,7 @@ keywords = ["ox-hugo"]
         ```
 
 
-## 写博客新流程 {#写博客新流程}
+## 写博客旧流程 {#写博客旧流程}
 
 现在，org文件可以直接导出为Hugo支持的Markdown格式了。这一点 `ox-pandoc` 也能做到，但 `ox-hugo` 还能做得更多。
 
