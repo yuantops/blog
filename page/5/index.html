@@ -64,55 +64,6 @@
                 
                 
                 <header class="article-header">
-                    <h1 itemprop="name"><a class="article-title" href="/tech/surfaceview-dual-cache/">Android SurfaceView双缓存机制与闪屏现象分析 </a></h1>
-                </header>
-                
-                <div class="article-meta">
-                    <a href="/tech/surfaceview-dual-cache/" class="article-date">
-                        <time datetime='2015-07-26T00:00:00.000&#43;00:00' itemprop="datePublished">2015-07-26</time>
-                    </a>
-                    
-                    
-                    <div class="post-categories">
-                        <div class="article-category">
-                            
-                            
-                            <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
-                            
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-                <div class="article-entry" itemprop="articleBody">
-                    <p>
-                        
-                    SurfaceView控件适合内存耗费大、需要频繁刷新的场景，常用于显示游戏、动画、视频等。为提升显示性能，SurfaceView使用了双缓存机制。但我在使用过程中出现了闪屏现象：刷新过程中，正常帧和黑屏交替出现。本文讨论闪屏问题的原因，以及可行的改进方法。
-                    </p>
-                </div>
-
-		
-		
-                <footer class="article-footer">
-                    <ul class="article-tag-list">
-                        
-                        <li class="article-tag-list-item">
-                            <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/android">Android
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </footer>
-                
-		
-            </div>
-        </article>
-        
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-            <div class="article-inner">
-                
-                
-                <header class="article-header">
                     <h1 itemprop="name"><a class="article-title" href="/tech/helix-server-streaming-guide/">用Helix Server建立点播流/直播流的方法 </a></h1>
                 </header>
                 
@@ -454,6 +405,55 @@
                     </p>
                 </div>
 
+		
+            </div>
+        </article>
+        
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+            <div class="article-inner">
+                
+                
+                <header class="article-header">
+                    <h1 itemprop="name"><a class="article-title" href="/tech/some-clarification-about-java-socket-port/">厘清Java Socket端口问题 -- 服务器的端口是什么 </a></h1>
+                </header>
+                
+                <div class="article-meta">
+                    <a href="/tech/some-clarification-about-java-socket-port/" class="article-date">
+                        <time datetime='2015-01-13T00:00:00.000&#43;00:00' itemprop="datePublished">2015-01-13</time>
+                    </a>
+                    
+                    
+                    <div class="post-categories">
+                        <div class="article-category">
+                            
+                            
+                            <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="article-entry" itemprop="articleBody">
+                    <p>
+                        
+                    java中用ServerSocket.accept()方法接受客户端的socket连接申请后，一个新的socket将会生成。关于这个socket，它两头的IP和端口是怎么确定的，存在着不同解释。本文将说明并验证：新建socket的服务器端端口号就是服务器正在监听的端口号，而不是随机分配的端口号。
+                    </p>
+                </div>
+
+		
+		
+                <footer class="article-footer">
+                    <ul class="article-tag-list">
+                        
+                        <li class="article-tag-list-item">
+                            <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/java">Java
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </footer>
+                
 		
             </div>
         </article>
