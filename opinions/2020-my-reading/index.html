@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>浏览器会处理URL里的相对路径 // Yuantops&#39; Blog</title>
+    <title>2020读书笔记 // Yuantops&#39; Blog</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="浏览器会处理URL里的相对路径" />
-<meta property="og:description" content="如果要访问的url包含相对路径，浏览器会尝试解析相对路径，再访问解析得到的地址。" />
+    <meta property="og:title" content="2020读书笔记" />
+<meta property="og:description" content="学而不思则罔；为自己留痕" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="https://blog.yuantops.com/tech/how_web_broswer_handles_url_relative_path/" />
+<meta property="og:url" content="https://blog.yuantops.com/opinions/2020-my-reading/" />
 
 
     <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
@@ -26,8 +26,8 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-    <meta name="description" content="如果要访问的url包含相对路径，浏览器会尝试解析相对路径，再访问解析得到的地址。">
-    <meta name="keywords" content="http,">
+    <meta name="description" content="学而不思则罔；为自己留痕">
+    <meta name="keywords" content="">
     <meta name="author" content="[yuan.tops@gmail.com]">
 
     <meta name="generator" content="Hugo 0.50" />
@@ -63,12 +63,12 @@
     <div class="article-inner">
         
         <header class="article-header">
-            <h1 class="article-title" itemprop="name">浏览器会处理URL里的相对路径</h1>
+            <h1 class="article-title" itemprop="name">2020读书笔记</h1>
         </header>
         
         <div class="article-meta">
-            <a href="/tech/how_web_broswer_handles_url_relative_path/" class="article-date">
-                <time datetime='2019-11-21T15:53:00.000&#43;08:00' itemprop="datePublished">2019-11-21</time>
+            <a href="/opinions/2020-my-reading/" class="article-date">
+                <time datetime='2020-02-06T12:00:00.000&#43;00:00' itemprop="datePublished">2020-02-06</time>
             </a>
             
             
@@ -76,12 +76,12 @@
                 <div class="article-category">
                     
                     
-                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
+                    <a class="article-category-link" href="https://blog.yuantops.com//categories/opinions">opinions</a>
                     
                 </div>
 		
 		<div class="article-category">
-	      	  32字, 约1分钟读完
+	      	  9字, 约1分钟读完
 		</div>
 	    
 
@@ -94,31 +94,19 @@
         <div class="article-entry" itemprop="articleBody">
             
 
-<p>新系统上线前，安全部门扫描出一个高危漏洞：文件任意下载漏洞。渗透测试人员在URL里加上相对路径，不断发起HTTP请求，居然成功下载到Linux系统密码文件。修复漏洞挺简单，限制HTTP服务访问文件系统权限，不允许超出指定目录，几行代码搞定。</p>
+<h2 id="钟鼓楼">钟鼓楼</h2>
 
-<p>修复之后准备进行验证，第一步当然是复现漏洞。没想到，这一步就挺曲折。</p>
+<ul>
+<li><a href="https://book.douban.com/subject/4619135/">豆瓣链接</a></li>
+<li>个人评分: ☆☆☆☆☆</li>
+<li>时间：<span class="timestamp-wrapper"><span class="timestamp">&lt;2020-01-02 周四&gt;</span></span></li>
+</ul>
 
-<h2 id="消失的点号">消失的点号</h2>
+<p>一本讲北京小市民的书，生动描述一段时间里鼓楼附近一群胡同居民的生活和矛盾，登场人物多，紧凑。穿插很多笔墨，写老北京民俗。这本书不仅有故事性，而且能丰富人文知识。</p>
 
-<p>打开chrome，在地址栏输入带了相对路径( <strong>..</strong> )的URL。URL指向一个文件，理论上，会触发文件下载。结果是：地址栏URL路径里点号全不见了，变成了一个正常地址。多试几遍，把双点号换成单点号，仍然如此。用 wiresharks 抓包看HTTP报文，请求头 <em>path</em> 没有点号。这说明，浏览器做了手脚。</p>
+<p>书中人物基本涵盖当时社会各个阶层，高级领导，知识分子，演员/戏剧，工人，农民，个体户，国企员工……每个阶层的刻画都生动，在社会变革来临之际，个人被动参与成为时代洪流的分子，他们被裹挟，喜怒哀乐折射宏大里的真实色彩，居然能让我不觉疏离。将这么多人画得生动，情节安排得紧凑，是作者的笔力了得。</p>
 
-<ol>
-<li><p>Google搜之，找到一份解析URI的RFC3968标准，专门有一章论述解析点号：<a href="https://tools.ietf.org/html/rfc3986#section-5.2.4">Remove Dot Segments</a>。经过解析，点号和双点号会消失，这个过程被称为 <strong>remove_dot_segments</strong> 。(RFC3968给出了这个过程的伪代码。)</p></li>
-
-<li><p>Google官方在一篇文章里，将Chrome解析URL的过程称为 `Canonicalization` (<a href="https://chromium.googlesource.com/chromium/src/+/master/docs/security/url%5Fdisplay%5Fguidelines/url%5Fdisplay%5Fguidelines.md#display-urls-in-canonical-form">display-urls-in-canonical-form</a>) 。经过解析，Chrome地址栏的点号变成实际值。</p></li>
-</ol>
-
-<p>结合两篇文档，原理清楚了：浏览器遵循RFC3968规范处理URL相对路径，所以点号和双点号都被干掉了。</p>
-
-<h2 id="改用burp-suite重现问题">改用Burp Suite重现问题</h2>
-
-<p>不能用浏览器复现问题，改尝试 <strong>curl</strong> 命令。结果，curl也不能复现。好在可以借助 <strong>Burp Suite</strong> 工具。</p>
-
-<p>Burp Suite是一款攻击web服务的集成工具，一般黑客用它来渗透网络。我们牛刀小用，用来拦截、修改HTTP请求报文。过程不在此赘述。总之，用它绕过了相对路径解析、重现了漏洞。</p>
-
-<h2 id="修复漏洞">修复漏洞</h2>
-
-<p>略。</p>
+<p>当然读这本书也有一些别扭之处：一是夹叙夹议风格，旁白忒多了，简直像说书话本；二是老干体，遣词造句就是有些老旧口吻，我合理怀疑是作者故意对语言做“包浆”；三是里面青年人物思想的发展，有点突兀：最后一群年轻人，居然聚会讨论青年人的使命！想到八九十年代其他文学作品，都有类似情节，我合理推测那个时代，社会风气就是这么心怀天下、蓬勃向上。（想到2020年的今天，这种风气荡然无存，怀念之余令人神伤。）</p>
 
         </div>
 
@@ -130,9 +118,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#消失的点号">消失的点号</a></li>
-<li><a href="#改用burp-suite重现问题">改用Burp Suite重现问题</a></li>
-<li><a href="#修复漏洞">修复漏洞</a></li>
+<li><a href="#钟鼓楼">钟鼓楼</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -187,12 +173,12 @@
             <ul class="article-tag-list">
                 
                 <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/gh-pages">gh-pages
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/reading">Reading
                     </a>
                 </li>
                 
                 <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/hugo">hugo
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/%E9%98%85%E8%AF%BB">阅读
                     </a>
                 </li>
                 
@@ -203,15 +189,9 @@
     </div>
     <nav id="article-nav">
     
-    <a href="/opinions/2020-my-reading/" id="article-nav-newer" class="article-nav-link-wrap">
-        <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            2020读书笔记
-        </div>
-    </a>
     
-    
-    <a href="/opinions/2019-my-reading-list/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">2019阅读书单&nbsp;<span>&gt;</span></div>
+    <a href="/tech/how_web_broswer_handles_url_relative_path/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">浏览器会处理URL里的相对路径&nbsp;<span>&gt;</span></div>
     </a>
     
 </nav>

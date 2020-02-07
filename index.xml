@@ -9,8 +9,32 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Thu, 21 Nov 2019 15:53:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 06 Feb 2020 12:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>2020读书笔记</title>
+      <link>https://blog.yuantops.com/opinions/2020-my-reading/</link>
+      <pubDate>Thu, 06 Feb 2020 12:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/opinions/2020-my-reading/</guid>
+      <description>
+
+&lt;h2 id=&#34;钟鼓楼&#34;&gt;钟鼓楼&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://book.douban.com/subject/4619135/&#34;&gt;豆瓣链接&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;个人评分: ☆☆☆☆☆&lt;/li&gt;
+&lt;li&gt;时间：&lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;&amp;lt;2020-01-02 周四&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一本讲北京小市民的书，生动描述一段时间里鼓楼附近一群胡同居民的生活和矛盾，登场人物多，紧凑。穿插很多笔墨，写老北京民俗。这本书不仅有故事性，而且能丰富人文知识。&lt;/p&gt;
+
+&lt;p&gt;书中人物基本涵盖当时社会各个阶层，高级领导，知识分子，演员/戏剧，工人，农民，个体户，国企员工……每个阶层的刻画都生动，在社会变革来临之际，个人被动参与成为时代洪流的分子，他们被裹挟，喜怒哀乐折射宏大里的真实色彩，居然能让我不觉疏离。将这么多人画得生动，情节安排得紧凑，是作者的笔力了得。&lt;/p&gt;
+
+&lt;p&gt;当然读这本书也有一些别扭之处：一是夹叙夹议风格，旁白忒多了，简直像说书话本；二是老干体，遣词造句就是有些老旧口吻，我合理怀疑是作者故意对语言做“包浆”；三是里面青年人物思想的发展，有点突兀：最后一群年轻人，居然聚会讨论青年人的使命！想到八九十年代其他文学作品，都有类似情节，我合理推测那个时代，社会风气就是这么心怀天下、蓬勃向上。（想到2020年的今天，这种风气荡然无存，怀念之余令人神伤。）&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>浏览器会处理URL里的相对路径</title>
