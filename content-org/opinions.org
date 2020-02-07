@@ -7,11 +7,11 @@
 
 * 读书笔记                                                     :Reading:阅读:
 
-** 2020阅读书单
+** 2020读书笔记
 :PROPERTIES:
 :EXPORT_DATE: 2020-02-07T12:00:00
 :EXPORT_HUGO_PUBLISHDATE: 2020-02-07T12:00:00
-:EXPORT_FILE_NAME: 2020-my-reading-list
+:EXPORT_FILE_NAME: 2020-my-reading
 :EXPORT_DESCRIPTION: 学而不思则罔；为自己留痕
 :END:
 
