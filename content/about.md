@@ -8,7 +8,7 @@ url = "/about/"
 ## 关于博客
 这里是 [@yuantops](https://github.com/yuantops) 的个人网志。  
 
-我在这里记录值得沉淀的技术经验，还有个人的思考与感悟。
+这里记录值得沉淀的技术经验，还有我的思考感悟。
 
 欢迎用[RSS订阅](https://blog.yuantops.com/index.xml) (什么[是RSS订阅?](https://zh.wikipedia.org/wiki/RSS))。
 
