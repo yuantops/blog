@@ -1,10 +1,10 @@
 +++
 title = "2020读书笔记"
 author = ["yuan.tops@gmail.com"]
-description = "学而不思则罔；为自己留痕"
+description = "学而不思则罔；为思考留痕"
 date = 2020-02-06T12:00:00
 publishDate = 2020-02-06T12:00:00
-lastmod = 2020-02-07T17:43:44+08:00
+lastmod = 2020-02-07T17:44:38+08:00
 tags = ["Reading", "阅读"]
 categories = ["opinions"]
 draft = false
