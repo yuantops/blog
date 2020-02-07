@@ -273,6 +273,15 @@
     </item>
     
     <item>
+      <title>2020阅读书单</title>
+      <link>https://blog.yuantops.com/opinions/2020-my-reading-list/</link>
+      <pubDate>Mon, 29 Jul 2019 22:48:40 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/opinions/2020-my-reading-list/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>How to blog with ox-hugo in Emacs</title>
       <link>https://blog.yuantops.com/tech/blogging-with-ox-hugo/</link>
       <pubDate>Thu, 25 Jul 2019 14:47:00 +0800</pubDate>
