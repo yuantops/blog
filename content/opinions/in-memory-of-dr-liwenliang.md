@@ -1,10 +1,10 @@
 +++
 title = "纪念李文亮医生"
 author = ["yuan.tops@gmail.com"]
-description = "“一个健康的社会不该只有一种声音。—— 李文亮 2月1日于治疗期间接受《财新》专访”"
+description = "“一个健康的社会不该只有一种声音。“  —— 李文亮 2月1日于治疗期间接受《财新》专访"
 date = 2020-02-07T08:00:00
 publishDate = 2020-02-07T08:00:00
-lastmod = 2020-02-07T17:40:58+08:00
+lastmod = 2020-02-07T17:43:47+08:00
 tags = ["Reality"]
 categories = ["opinions"]
 draft = false
