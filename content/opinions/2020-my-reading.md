@@ -4,7 +4,7 @@ author = ["yuan.tops@gmail.com"]
 description = "学而不思则罔；为思考留痕"
 date = 2020-02-06T12:00:00
 publishDate = 2020-02-06T12:00:00
-lastmod = 2020-02-10T09:44:12+08:00
+lastmod = 2020-02-26T16:06:24+08:00
 tags = ["Reading", "阅读"]
 categories = ["opinions"]
 draft = false
@@ -14,7 +14,7 @@ draft = false
 
 -   [豆瓣链接](https://book.douban.com/subject/4619135/)
 -   个人评分: ☆☆☆☆☆
--   时间：<span class="timestamp-wrapper"><span class="timestamp">&lt;2020-01-02 周四&gt;</span></span>
+-   时间：<span class="timestamp-wrapper"><span class="timestamp">&lt;2020-01-02 Thu&gt;</span></span>
 
 一本讲北京小市民的书，生动描述一段时间里鼓楼附近一群胡同居民的生活和矛盾，登场人物多，紧凑。穿插很多笔墨，写老北京民俗。这本书不仅有故事性，而且能丰富人文知识。
 

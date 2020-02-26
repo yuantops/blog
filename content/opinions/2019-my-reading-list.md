@@ -4,7 +4,7 @@ author = ["yuan.tops@gmail.com"]
 description = "2019年，我读完一本书，就把笔记写在这里。"
 date = 2019-07-29T22:48:40
 publishDate = 2019-07-29T22:48:40
-lastmod = 2020-02-10T09:44:14+08:00
+lastmod = 2020-02-26T16:06:25+08:00
 tags = ["Reading", "阅读"]
 categories = ["opinions"]
 draft = false
@@ -19,7 +19,7 @@ draft = false
 
 -   [豆瓣链接](https://book.douban.com/subject/4619135/)
 -   个人评分: ☆☆☆☆☆
--   时间：<span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-05 周二&gt;</span></span>
+-   时间：<span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-05 Tue&gt;</span></span>
 
 和它在图书馆偶遇，命中注定是我第一本福克纳。
 
@@ -38,7 +38,7 @@ draft = false
 
 -   [豆瓣链接](https://book.douban.com/subject/26631626/)
 -   个人评分: ☆☆☆☆☆
--   时间：<span class="timestamp-wrapper"><span class="timestamp">&lt;2019-08-28 周三&gt;</span></span>
+-   时间：<span class="timestamp-wrapper"><span class="timestamp">&lt;2019-08-28 Wed&gt;</span></span>
 
 去还书，站在书架前，这本西班牙小说有点突出。拿回家，前言就让我虎躯一震：作者乌纳穆诺身世特殊，是乱伦所生，他父亲居然是他母亲的亲舅舅！！\_(¦3」∠)\_
 
@@ -60,7 +60,7 @@ draft = false
 ## 在华五十年 {#在华五十年}
 
 -   [豆瓣链接](https://www.douban.com/doubanapp/dispatch/book/4882116)
--   时间: <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-08-06 周二&gt;</span></span>
+-   时间: <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-08-06 Tue&gt;</span></span>
 -   来源: 社区自助图书站
 
 在大陆受教育的人，肯定听过司徒雷登。我在杭州时，曾搜索杭城历史，知道他和杭州颇有渊源，死后连骸骨也安葬在杭州半山。但那时对他生平和事迹所知甚少，只知道是个美国人。读完这本书，才有了整体认识，改用敬意的眼光看他。我甚至感到遗憾：如果早半年看到这本书，定会去半山陵园瞻仰他。
@@ -81,7 +81,7 @@ draft = false
 ## 全球首家交易所史话 {#全球首家交易所史话}
 
 -   [豆瓣链接](https://book.douban.com/subject/26953874/)
--   时间: <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-07-30 周二&gt;</span></span>
+-   时间: <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-07-30 Tue&gt;</span></span>
 
 去图书站还书，它正躺在书架上，刚好我那时在准备证券从业考试，便将它借回。
 
@@ -98,7 +98,7 @@ draft = false
 最后，说一些不足之处：
 
 1.  翻译水平一般。以P176为例，"萨尔瓦多通过东印度公司的会计将一份价值3000荷兰盾的股票转入摩恩斯的账户作为贷款抵押品"，结合上下文，这里的"价值3000荷兰盾"应该是票面价值。不知原文如何用词，译文应该注明为好。
-2.  原文最后没有介绍全球首个证券交易所的结局，有些不圆满。维基百科上，阿姆斯特丹证券交易所[中文词条](https://zh.wikipedia.org/wiki/%25E9%2598%25BF%25E5%25A7%2586%25E6%2596%25AF%25E7%2589%25B9%25E4%25B8%25B9%25E8%25AF%2581%25E5%2588%25B8%25E4%25BA%25A4%25E6%2598%2593%25E6%2589%2580)是这么说的:
+2.  原文最后没有介绍全球首个证券交易所的结局，有些不圆满。维基百科上，阿姆斯特丹证券交易所[中文词条](https://zh.wikipedia.org/wiki/阿姆斯特丹证券交易所)是这么说的:
 
     > 2000年9月22日，阿姆斯特丹证券交易所与布鲁塞尔证券交易所和巴黎证券交易所合并成立了欧洲证券交易所。
 
@@ -106,7 +106,7 @@ draft = false
 ## 无人生还 {#无人生还}
 
 -   [豆瓣链接](https://book.douban.com/subject/24859822/)
--   时间:<span class="timestamp-wrapper"><span class="timestamp">&lt;2020-01-02 周四&gt;</span></span>
+-   时间:<span class="timestamp-wrapper"><span class="timestamp">&lt;2020-01-02 Thu&gt;</span></span>
 
 最近一段时间看阿加莎·克里斯蒂的侦探小说比较多，陆陆续续借了几本，大多是新星出版社的。马普尔小姐系列，大侦探波洛系列，都挺不错。这本书不属于这两个系列，有独立的人物和情节设定，而且非常有名：据说是“风雪山庄”推理模式的开山鼻祖。当然看的时候我不知道，在豆瓣评论区被科普的。
 
@@ -122,7 +122,7 @@ PS:《无人生还》后来被阿加莎本人改编成舞台剧。[豆瓣链接]
 ## 约翰·克利斯朵夫 {#约翰-克利斯朵夫}
 
 -   [豆瓣链接](https://book.douban.com/subject/26978476/)
--   时间: <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-12-22 周日&gt;</span></span>
+-   时间: <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-12-22 Sun&gt;</span></span>
 
 有一些书，无数次听说，但一直鼓不起勇气去读。《约翰·克利斯朵夫》无疑就是这样一本书。傅雷家书里，经常列举约翰·克利斯朵夫的例子鼓励傅聪，让他做一个好艺术家。可以说久闻大名。
 
@@ -136,7 +136,7 @@ PS:《无人生还》后来被阿加莎本人改编成舞台剧。[豆瓣链接]
 ## 生活中的心理学 {#生活中的心理学}
 
 -   [豆瓣链接](https://book.douban.com/subject/20501403/)
--   时间: <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-12-07 周六&gt;</span></span>
+-   时间: <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-12-07 Sat&gt;</span></span>
 
 在Kindle上看的。没看完，翻译太垃圾，读不下去。
 
@@ -144,7 +144,7 @@ PS:《无人生还》后来被阿加莎本人改编成舞台剧。[豆瓣链接]
 ## 麦客 {#麦客}
 
 -   [豆瓣链接](https://book.douban.com/subject/27067323/)
--   时间: <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-30 周六&gt;</span></span>
+-   时间: <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-30 Sat&gt;</span></span>
 
 从社区图书馆随手取回。翻了两页，甚是后悔。简直是糟蹋纸张。
 
@@ -152,7 +152,7 @@ PS:《无人生还》后来被阿加莎本人改编成舞台剧。[豆瓣链接]
 ## 尼罗河上的惨案 {#尼罗河上的惨案}
 
 -   [豆瓣链接](https://book.douban.com/subject/25697546/)
--   时间：<span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-22 周五&gt;</span></span>
+-   时间：<span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-22 Fri&gt;</span></span>
 
 又一本阿加莎作品。看的时候觉得精彩，过了俩月，完全不记得情节。我老了 :(
 
@@ -160,7 +160,7 @@ PS:《无人生还》后来被阿加莎本人改编成舞台剧。[豆瓣链接]
 ## 东方快车谋杀案 {#东方快车谋杀案}
 
 -   [豆瓣链接](https://book.douban.com/subject/24153048/)
--   <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-22 周五&gt;</span></span>
+-   <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-22 Fri&gt;</span></span>
 
 一则集体复仇故事。结局一反套路，凶手没有伏法。阿婆（跟着别人如此称呼作者）让波洛侦探揭示真相，却不下定论。最终，恶贯满盈者得到报应，其余皆大欢喜。法庭审判缺席、凶手伏诛的故事，不是一次读到——它让人想到《无人生还》。这两个故事有很多类似：《无》是一人杀多人，《东》是多人杀一人;两个故事都有“孤岛”的外部设定： 《无》发生在一座与世隔绝的孤岛，《东》发生在一列被困的雪地列车；两个故事里，最后胜利的都不是法律，而是人情；从情节来说，《无》更精巧，连环谋杀堪称完美，结局引人深思；《东》结局令人舒适。
 
@@ -170,7 +170,7 @@ PS:《无人生还》后来被阿加莎本人改编成舞台剧。[豆瓣链接]
 ## 迷雾 {#迷雾}
 
 -   [豆瓣链接](https://book.douban.com/subject/26824581/)
--   时间: <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-17 周日&gt;</span></span>
+-   时间: <span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-17 Sun&gt;</span></span>
 
 我承认，这本书看得我迷失自己。当书里主人翁居然跳出来和作者对话时，我脑子明显抽搐。认清本质，不要被骗，这书讲哲学的。
 
@@ -178,7 +178,7 @@ PS:《无人生还》后来被阿加莎本人改编成舞台剧。[豆瓣链接]
 ## 破镜谋杀案 {#破镜谋杀案}
 
 -   [豆瓣链接](https://book.douban.com/subject/25986370/)
--   时间：<span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-17 周日&gt;</span></span>
+-   时间：<span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-17 Sun&gt;</span></span>
 
 文学作品中，对人性的刻画往往令人印象深刻。看完《破镜谋杀案》，脑子里全是这起谋杀的起因。死者被害，根源在她的性格：为人善良，缺失同理心，却又格外热情鲁莽，易于自我感动，无意间伤害他人而不自知。这样的人实在令人厌烦。
 
@@ -190,7 +190,7 @@ PS:《无人生还》后来被阿加莎本人改编成舞台剧。[豆瓣链接]
 ## 第六感觉 {#第六感觉}
 
 -   [豆瓣链接](https://book.douban.com/subject/27146579/)
--   时间：<span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-16 周六&gt;</span></span>
+-   时间：<span class="timestamp-wrapper"><span class="timestamp">&lt;2019-11-16 Sat&gt;</span></span>
 
 一位加拿大华人医生的行医小记。通过这本书，得以管窥国外成熟医疗体系，和国内差别太大。读完几点感受：
 
