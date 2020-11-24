@@ -2,7 +2,7 @@
 title = "浏览器验证SSL数字证书的步骤"
 author = ["yuan.tops@gmail.com"]
 description = "本文介绍通过https协议访问网站时，浏览器验证服务器SSL证书的原理，并以Chrome访问百度为例进行分析。"
-lastmod = 2020-11-24T00:12:06+08:00
+lastmod = 2020-11-24T09:07:26+08:00
 categories = ["Tech"]
 draft = false
 keywords = ["ssl"]
@@ -164,6 +164,8 @@ certificate_list
 借助wireshark，我们实际操作一番。
 
 打开wireshark, 开始抓包，再访问百度官网(<https://www.baidu.com>)。抓包细节如下：　
+
+![wireshark抓包分析](/ox-hugo/ssl_certificate_wireshark.png)
 
 
 ## PKS {#pks}
