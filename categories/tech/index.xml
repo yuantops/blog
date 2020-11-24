@@ -9,7 +9,7 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Tue, 24 Nov 2020 00:12:06 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 24 Nov 2020 09:07:26 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yuantops.com/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
@@ -17,7 +17,7 @@
     <item>
       <title>浏览器验证SSL数字证书的步骤</title>
       <link>https://blog.yuantops.com/tech/how_do_web_broswer_validate_ssl_certificates/</link>
-      <pubDate>Tue, 24 Nov 2020 00:12:06 +0800</pubDate>
+      <pubDate>Tue, 24 Nov 2020 09:07:26 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/how_do_web_broswer_validate_ssl_certificates/</guid>
       <description>浏览器和服务器使用SSL/TLS通信时，双方首先要通过几次握手(Handshake)，建立加密信道。简单说来，分为下面３步:
