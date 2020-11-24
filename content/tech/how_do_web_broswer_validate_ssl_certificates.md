@@ -165,8 +165,7 @@ certificate_list
 
 打开wireshark, 开始抓包，再访问百度官网(<https://www.baidu.com>)。抓包细节如下：　
 
-![wireshark抓包分析](/ox-hugo/ssl_certificate_wireshark.png)
-
+![](/ox-hugo/ssl_certificate_wireshark.png)
 
 ## PKS {#pks}
 

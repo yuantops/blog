@@ -318,11 +318,13 @@ X.509 v3格式允许签发人定义证书所能支持的最大路径长度。这
  #+END_SRC
 
 *** 两个重要RFC标准
+上面转载的文章，详细讲述了浏览器的验证过程。细心人会发现，文章多次提到RFC 5280。这个标准定义了X.509证书格式，是互联网加密体系中处于基石地位的标准之一。除了RFC 5280，还有一个比较重要的标准 RFC 5246，定义了SSL传输层协议。
+
 **** [RFC 5280] PKI X.509 v3规范　
 https://tools.ietf.org/html/rfc5280   
 
-其中，section-6 给出了证书validation算法。
-第一部分的译文多次提到RFC 5820标准。这个标准定义了X.509格式，并给出了路径验证算法（section-6）。
+***** 路径验证算法
+其中，section-6 给出了证书validation算法，并给出了路径验证算法（section-6）。
 在此，摘录关键部分: 
 #+BEGIN_SRC  text
  (a)  for all x in {1, ..., n-1}, the subject of certificate x is
@@ -338,6 +340,10 @@ https://tools.ietf.org/html/rfc5280
 #+END_SRC 
 
 根据算法，第一个证书由trust anchor签发，下一个证书由这个证书签发……直到最后的叶子节点证书。这样由信任锚长出一个链条，一环扣一环，链条上每个节点都是可信的。
+
+***** 证书指纹(fingerprint)验证算法
+x509如何计算fingerprint(digest)?
+https://stackoverflow.com/questions/4803799/how-to-calculate-x-509-certificates-sha-1-fingerprint
 
 **** [RFC 5246] TLS 1.2规范
 https://tools.ietf.org/html/rfc5246   
@@ -362,6 +368,8 @@ certificate_list
 借助wireshark，我们实际操作一番。  
 
 打开wireshark, 开始抓包，再访问百度官网(https://www.baidu.com)。抓包细节如下：　
+
+[[file:e:/blog/static/ox-hugo/ssl_certificate_wireshark.png][wireshark抓包分析]]
 
 *** PKS 
 *** JKS
