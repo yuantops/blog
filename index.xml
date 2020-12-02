@@ -172,12 +172,6 @@ X.509 v3格式允许签发人定义证书所能支持的最大路径长度。这
 &lt;p&gt;打开wireshark, 开始抓包，再访问百度官网(&lt;a href=&#34;https://www.baidu.com&#34;&gt;https://www.baidu.com&lt;/a&gt;)。抓包细节如下：　&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://blog.yuantops.com/ox-hugo/ssl_certificate_wireshark.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;pks&#34;&gt;PKS&lt;/h2&gt;
-
-&lt;h2 id=&#34;jks&#34;&gt;JKS&lt;/h2&gt;
-
-&lt;h2 id=&#34;x-dot-509&#34;&gt;X.509&lt;/h2&gt;
 </description>
     </item>
     
