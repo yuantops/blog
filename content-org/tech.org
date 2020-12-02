@@ -342,8 +342,11 @@ https://tools.ietf.org/html/rfc5280
 根据算法，第一个证书由trust anchor签发，下一个证书由这个证书签发……直到最后的叶子节点证书。这样由信任锚长出一个链条，一环扣一环，链条上每个节点都是可信的。
 
 ***** 证书指纹(fingerprint)验证算法
-x509如何计算fingerprint(digest)?
+x509如何计算fingerprint?
 https://stackoverflow.com/questions/4803799/how-to-calculate-x-509-certificates-sha-1-fingerprint
+
+生成过程: 1) 根据signature算法，计算出证书TBS部分的signature 2) 证书签发者issuer用自己的私钥加密signature，得到fingerprint
+验证过程: 1) 根据signature算法，计算出证书TBS部分的signature 2) 使用证书签发者issuer的公钥解密fingerprint, 得到signature 3) 比对两个signature
 
 **** [RFC 5246] TLS 1.2规范
 https://tools.ietf.org/html/rfc5246   
@@ -371,6 +374,27 @@ certificate_list
 
 [[file:e:/blog/static/ox-hugo/ssl_certificate_wireshark.png][wireshark抓包分析]]
 
-*** PKS 
-*** JKS
-*** X.509 
+
+** 手工验证一张数字证书的有效性
+:PROPERTIES:
+:EXPORT_HUGO_CATEGORIES: Tech
+:EXPORT_FILE_NAME: validate_a_digital_certificate_step_by_step
+:EXPORT_DESCRIPTION: 尽可能细致地实践证书验证算法
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :keywords '( "ssl" "CA" )
+:END:
+
+上一篇 [[https://blog.yuantops.com/tech/how_do_web_broswer_validate_ssl_certificates/][博客]] 讨论浏览器验证数字证书的流程。这篇文章更深入一步，用笨方法一步步手工验证证书的合法性。本文参考这则[[https://security.stackexchange.com/questions/127095/manually-walking-through-the-signature-validation-of-a-certificate][回答]]。
+
+*** 如何得到一张证书
+第一步，我们需要得到一张数字证书。
+
+打开chrome，访问本博客网址(https://blog.yuantops.com)，地址栏最左侧有个小锁图案 —— 这是网站受到HTTPS加密保护的标志。点击小锁　-> "certificate" -> "Details" -> "Export..."，可以选择证书的导出格式。
+
+这里稍作暂停, 先了解一下常见证书格式.
+
+**** PEM 
+Privacy Enhanced Email
+**** DER
+
+**** PEM 与 DER 相互转换
+

@@ -167,10 +167,3 @@ certificate_list
 
 ![](/ox-hugo/ssl_certificate_wireshark.png)
 
-## PKS {#pks}
-
-
-## JKS {#jks}
-
-
-## X.509 {#x-dot-509}
