@@ -383,18 +383,21 @@ certificate_list
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :keywords '( "ssl" "CA" )
 :END:
 
-上一篇 [[https://blog.yuantops.com/tech/how_do_web_broswer_validate_ssl_certificates/][博客]] 讨论浏览器验证数字证书的流程。这篇文章更深入一步，用笨方法一步步手工验证证书的合法性。本文参考这则[[https://security.stackexchange.com/questions/127095/manually-walking-through-the-signature-validation-of-a-certificate][回答]]。
+上一篇 [[https://blog.yuantops.com/tech/how_do_web_broswer_validate_ssl_certificates/][博客]] 讨论浏览器验证数字证书的流程。这篇文章更深入一步，用笨方法一步步手工验证证书的合法性。本文参考: [[https://security.stackexchange.com/questions/127095/manually-walking-through-the-signature-validation-of-a-certificate][回答]] 与 [[https://segmentfault.com/a/1190000019008423][X.509、PKCS文件格式介绍]]。
 
-*** 如何得到一张证书
-第一步，我们需要得到一张数字证书。
-
-打开chrome，访问本博客网址(https://blog.yuantops.com)，地址栏最左侧有个小锁图案 —— 这是网站受到HTTPS加密保护的标志。点击小锁　-> "certificate" -> "Details" -> "Export..."，可以选择证书的导出格式。
-
-这里稍作暂停, 先了解一下常见证书格式.
-
+*** ASN.1, DER与PEM
 **** PEM 
 Privacy Enhanced Email
 **** DER
 
 **** PEM 与 DER 相互转换
+
+*** 如何得到一张证书
+借助浏览器，我们可以方便导出证书。
+
+打开chrome，访问本博客网址(https://blog.yuantops.com)，地址栏最左侧有个小锁图案 —— 这是网站受到HTTPS加密保护的标志。点击小锁　-> "certificate" -> "Details" -> "Export..."，可以选择证书的导出格式。
+
+这里稍作暂停, 先了解一下常见证书格式.
+
+
 
