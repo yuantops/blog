@@ -382,22 +382,45 @@ certificate_list
 :EXPORT_DESCRIPTION: 尽可能细致地实践证书验证算法
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :keywords '( "ssl" "CA" )
 :END:
+上一篇 [[https://blog.yuantops.com/tech/how_do_web_broswer_validate_ssl_certificates/][博客]] 讨论浏览器验证数字证书的流程。这篇文章更深入一步，用原始方法一步步手工验证证书的合法性。本文参考: [[https://security.stackexchange.com/questions/127095/manually-walking-through-the-signature-validation-of-a-certificate][回答]] 与 [[https://segmentfault.com/a/1190000019008423][X.509、PKCS文件格式介绍]]。
 
-上一篇 [[https://blog.yuantops.com/tech/how_do_web_broswer_validate_ssl_certificates/][博客]] 讨论浏览器验证数字证书的流程。这篇文章更深入一步，用笨方法一步步手工验证证书的合法性。本文参考: [[https://security.stackexchange.com/questions/127095/manually-walking-through-the-signature-validation-of-a-certificate][回答]] 与 [[https://segmentfault.com/a/1190000019008423][X.509、PKCS文件格式介绍]]。
+*** 基础名词
+**** ASN.1, DER与PEM
+ASN.1是一种接口描述语言，它用来定义一种数据结构。DER是一种编码规则，它用二进制表示ASN.1定义的数据。很多密码学标准使用ASN.1定义数据结构，用DER编码。但因为DER的内容是二进制的，不方便传输，人们对DER二进制内容进行Base64编码，将其转换为ASCII码，并在头和尾加上标签，就是PEM格式。PEM全称Privacy-Enhanced Mail，起初是为了便于邮件传输，后来在很多场景得到广泛应用。
 
-*** ASN.1, DER与PEM
-**** PEM 
-Privacy Enhanced Email
-**** DER
-
-**** PEM 与 DER 相互转换
+**** X.509
+X.509是RFC5280定义的一种公钥证书格式(public key certificate)。X.509证书也被称为数字Digital Certificate。一张X.509包含一个Public Key和一个身份信息。X.509证书要么是自签发，要么是被CA签发。
 
 *** 如何得到一张证书
-借助浏览器，我们可以方便导出证书。
+借助浏览器，可以方便导出数字证书。
 
-打开chrome，访问本博客网址(https://blog.yuantops.com)，地址栏最左侧有个小锁图案 —— 这是网站受到HTTPS加密保护的标志。点击小锁　-> "certificate" -> "Details" -> "Export..."，可以选择证书的导出格式。
+打开chrome，访问本博客网址(https://blog.yuantops.com)，地址栏最左侧有个小锁图案 —— 这是网站受到HTTPS加密保护的标志。点击小锁　-> "certificate" -> "Details" -> "Export..."，可以选择证书的导出格式。在"Details"标签，观察"Certificate Subject Alternative Name"字段，值包含"DNS Name: yuantops.com" "DNS　Name: *.yuantops.com"，说明证书的确属于这个域名。
 
-这里稍作暂停, 先了解一下常见证书格式.
+选择"Base64-encoded ASCII, single certificate"，得到一张PEM格式证书。
 
+*** 计算证书签名
+验证签名，是为了确认证书没有被篡改。
+
+引用RFC5280 4.1.1.3:
+#+BEGIN_SRC txt
+   The signatureValue field contains a digital signature computed upon
+   the ASN.1 DER encoded tbsCertificate.  The ASN.1 DER encoded
+   tbsCertificate is used as the input to the signature function. 
+#+END_SRC
+对DER格式的tbsCertificate进行签名。tbs是ToBeSigned首字母缩写。
+
+引用RFC5280[4.1.1.1] tbsCertificate:
+#+BEGIN_SRC txt
+   The field contains the names of the subject and issuer, a public key
+   associated with the subject, a validity period, and other associated
+   information.  The fields are described in detail in Section 4.1.2;
+   the tbsCertificate usually includes extensions, which are described
+   in Section 4.2.
+#+END_SRC
+tbsCertificate是证书中除去签名算法、签名值的部分。证书签发者使用自己私钥，对tbsCertificate部分应用签名算法，得到签名值。
+
+现在，开始手工验证签名。
+
+**** 将PEM转换为DER格式
 
 
