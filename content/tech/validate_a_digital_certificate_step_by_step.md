@@ -2,7 +2,7 @@
 title = "手工验证一张数字证书的有效性"
 author = ["yuan.tops@gmail.com"]
 description = "尽可能细致地实践证书验证算法"
-lastmod = 2020-12-06T12:03:30+08:00
+lastmod = 2020-12-06T12:17:47+08:00
 categories = ["Tech"]
 draft = false
 keywords = ["ssl", "CA"]
@@ -288,11 +288,13 @@ openssl asn1parse -in sni.cloudflaressl.com -strparse 1137 -out cloudflaressl.si
 
 我们将其导出为文件，保存到本地，文件名为 \`Cloudflare\_Inc\_ECC\_CA-3\`。
 
+从证书提取公钥:
+
 ```nil
 openssl x509 -in Cloudflare_Inc_ECC_CA-3 -noout -pubkey > Cloudflare_Inc_ECC_CA-3.pub
 ```
 
-将公钥转换为PEM格式，以观察内容:
+如果想观察公钥内容，可以将其转换为PEM格式:
 
 ```text
 openssl pkey -in Cloudflare_Inc_ECC_CA-3.pub -pubin -text
