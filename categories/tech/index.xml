@@ -9,7 +9,7 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Sun, 06 Dec 2020 12:03:30 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 06 Dec 2020 12:17:47 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yuantops.com/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
@@ -17,7 +17,7 @@
     <item>
       <title>手工验证一张数字证书的有效性</title>
       <link>https://blog.yuantops.com/tech/validate_a_digital_certificate_step_by_step/</link>
-      <pubDate>Sun, 06 Dec 2020 12:03:30 +0800</pubDate>
+      <pubDate>Sun, 06 Dec 2020 12:17:47 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/validate_a_digital_certificate_step_by_step/</guid>
       <description>上一篇 博客 讨论浏览器验证数字证书的流程。这篇文章更深入一步，用原始方法一步步手工验证证书的合法性。本文主要参考: 回答 与 X.509、PKCS文件格式介绍。

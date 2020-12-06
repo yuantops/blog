@@ -9,13 +9,13 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Sun, 06 Dec 2020 12:03:30 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 06 Dec 2020 12:17:47 +0800</lastBuildDate>
     <atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>手工验证一张数字证书的有效性</title>
       <link>https://blog.yuantops.com/tech/validate_a_digital_certificate_step_by_step/</link>
-      <pubDate>Sun, 06 Dec 2020 12:03:30 +0800</pubDate>
+      <pubDate>Sun, 06 Dec 2020 12:17:47 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/validate_a_digital_certificate_step_by_step/</guid>
       <description>
@@ -274,10 +274,12 @@ tbsCertificate is used as the input to the signature function.
 
 &lt;p&gt;我们将其导出为文件，保存到本地，文件名为 `Cloudflare_Inc_ECC_CA-3`。&lt;/p&gt;
 
+&lt;p&gt;从证书提取公钥:&lt;/p&gt;
+
 &lt;pre&gt;&lt;code class=&#34;language-nil&#34;&gt;openssl x509 -in Cloudflare_Inc_ECC_CA-3 -noout -pubkey &amp;gt; Cloudflare_Inc_ECC_CA-3.pub
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;将公钥转换为PEM格式，以观察内容:&lt;/p&gt;
+&lt;p&gt;如果想观察公钥内容，可以将其转换为PEM格式:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;openssl pkey -in Cloudflare_Inc_ECC_CA-3.pub -pubin -text
 
