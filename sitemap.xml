@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.yuantops.com/tech/validate_a_digital_certificate_step_by_step/</loc>
+    <lastmod>2020-12-06T12:03:30+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.yuantops.com/tech/how_do_web_broswer_validate_ssl_certificates/</loc>
     <lastmod>2020-11-24T09:07:26+08:00</lastmod>
   </url>
@@ -707,13 +712,13 @@
   
   <url>
     <loc>https://blog.yuantops.com/categories/tech/</loc>
-    <lastmod>2020-11-24T09:07:26+08:00</lastmod>
+    <lastmod>2020-12-06T12:03:30+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yuantops.com/tech/</loc>
-    <lastmod>2020-11-24T09:07:26+08:00</lastmod>
+    <lastmod>2020-12-06T12:03:30+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -725,7 +730,7 @@
   
   <url>
     <loc>https://blog.yuantops.com/</loc>
-    <lastmod>2020-11-24T09:07:26+08:00</lastmod>
+    <lastmod>2020-12-06T12:03:30+08:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -9,10 +9,29 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Tue, 24 Nov 2020 09:07:26 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 06 Dec 2020 12:03:30 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yuantops.com/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>手工验证一张数字证书的有效性</title>
+      <link>https://blog.yuantops.com/tech/validate_a_digital_certificate_step_by_step/</link>
+      <pubDate>Sun, 06 Dec 2020 12:03:30 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/validate_a_digital_certificate_step_by_step/</guid>
+      <description>上一篇 博客 讨论浏览器验证数字证书的流程。这篇文章更深入一步，用原始方法一步步手工验证证书的合法性。本文主要参考: 回答 与 X.509、PKCS文件格式介绍。
+基础名词 ASN.1, DER与PEM ASN.1是一种接口描述语言，它用来定义一种数据结构。
+DER是一种编码规则，它用二进制表示ASN.1定义的数据。很多密码学标准使用ASN.1定义数据结构，用DER编码。
+但因为DER的内容是二进制的，不方便传输，人们对DER二进制内容进行Base64编码，将其转换为ASCII码，并在头和尾加上标签，就是PEM格式。PEM全称Privacy-Enhanced Mail，起初是为了便于邮件传输，后来在很多场景得到广泛应用。
+X.509 X.509是RFC5280定义的一种公钥证书格式(public key certificate)。X.509证书也被称为数字Digital Certificate。一张X.509包含一个Public Key和一个身份信息。X.509证书要么是自签发，要么是被CA签发。
+如何得到一张证书 借助浏览器，可以方便导出数字证书。
+打开chrome，访问本博客网址(https://blog.yuantops.com)，地址栏最左侧有个小锁图案 —— 这是网站受到HTTPS加密保护的标志。
+在&amp;rdquo;Details&amp;rdquo;标签，观察&amp;rdquo;Certificate Subject Alternative Name&amp;rdquo;字段，值包含&amp;rdquo;DNS Name: yuantops.com&amp;rdquo; &amp;ldquo;DNS　Name: *.yuantops.com&amp;rdquo;，说明证书的确属于这个域名。
+点击小锁　-&amp;gt; &amp;ldquo;certificate&amp;rdquo; -&amp;gt; &amp;ldquo;Details&amp;rdquo; -&amp;gt; &amp;ldquo;Export&amp;hellip;&amp;ldquo;，可以选择证书的导出格式。
+选择&amp;rdquo;Base64-encoded ASCII, single certificate&amp;rdquo;，得到一张PEM格式证书。将它保存为`sni.cloudflaressl.com`。
+-----BEGIN CERTIFICATE----- MIIEwzCCBGmgAwIBAgIQDVZy4W9/IjNEOZEGQ2ADTjAKBggqhkjOPQQDAjBKMQsw CQYDVQQGEwJVUzEZMBcGA1UEChMQQ2xvdWRmbGFyZSwgSW5jLjEgMB4GA1UEAxMX Q2xvdWRmbGFyZSBJbmMgRUNDIENBLTMwHhcNMjAwODA3MDAwMDAwWhcNMjEwODA3 MTIwMDAwWjBtMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDVNh biBGcmFuY2lzY28xGTAXBgNVBAoTEENsb3VkZmxhcmUsIEluYy4xHjAcBgNVBAMT FXNuaS5jbG91ZGZsYXJlc3NsLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IA BCh3/Sz4YWHFP32cBLzErjTKy4/AdFKU37wFK8kzP7sdhM3/BxdJNKeRYNwcDimw k76zgHaaGki0AzvCTMa+llWjggMMMIIDCDAfBgNVHSMEGDAWgBSlzjfq67B1DpRn iLRF+tkkEIeWHzAdBgNVHQ4EFgQUi9pqgIAX5apgTXwOGZ9k1FALDL0wPgYDVR0R BDcwNYIOKi55dWFudG9wcy5jb22CFXNuaS5jbG91ZGZsYXJlc3NsLmNvbYIMeXVh bnRvcHMuY29tMA4GA1UdDwEB/wQEAwIHgDAdBgNVHSUEFjAUBggrBgEFBQcDAQYI KwYBBQUHAwIwewYDVR0fBHQwcjA3oDWgM4YxaHR0cDovL2NybDMuZGlnaWNlcnQu Y29tL0Nsb3VkZmxhcmVJbmNFQ0NDQS0zLmNybDA3oDWgM4YxaHR0cDovL2NybDQu ZGlnaWNlcnQuY29tL0Nsb3VkZmxhcmVJbmNFQ0NDQS0zLmNybDBMBgNVHSAERTBD MDcGCWCGSAGG/WwBATAqMCgGCCsGAQUFBwIBFhxodHRwczovL3d3dy5kaWdpY2Vy dC5jb20vQ1BTMAgGBmeBDAECAjB2BggrBgEFBQcBAQRqMGgwJAYIKwYBBQUHMAGG GGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0aHR0cDovL2Nh Y2VydHMuZGlnaWNlcnQuY29tL0Nsb3VkZmxhcmVJbmNFQ0NDQS0zLmNydDAMBgNV HRMBAf8EAjAAMIIBBAYKKwYBBAHWeQIEAgSB9QSB8gDwAHYA9lyUL9F3MCIUVBgI MJRWjuNNExkzv98MLyALzE7xZOMAAAFzyS9NoAAABAMARzBFAiB5au5KCRfkyBcI 7jECy/NvNPkKEoMUUTwZP+rZbHtn8AIhAKOR2Lh2zsCw+gy38abKie1fyd1rmm0c GA/pP6PykChvAHYAXNxDkv7mq0VEsV6a1FbmEDf71fpH3KFzlLJe5vbHDsoAAAFz yS9N0wAABAMARzBFAiALkQMvm51FKVO2JRFiWWEgqu4x9rGHy2JH6P2m18lrLQIh AN1PcRtCiY+gihkncncx18OZM6e5CGZruk05EDGThLTvMAoGCCqGSM49BAMCA0gA MEUCIHXeLOwERMHY88NliKhUzs1MwoJap9sNm9qQLGXYCpEMAiEA1ZsGvWxusXK9 tAgwUjlWi5Ke5rvM/i01sYl6bpls4Z0= -----END CERTIFICATE-----  分析证书结构 RFC5280规定了X.</description>
+    </item>
     
     <item>
       <title>浏览器验证SSL数字证书的步骤</title>
