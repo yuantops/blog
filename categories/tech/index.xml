@@ -9,10 +9,37 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Sun, 06 Dec 2020 12:17:47 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 09 Dec 2020 16:46:26 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yuantops.com/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>关于连接池大小</title>
+      <link>https://blog.yuantops.com/tech/about_pool_sizing/</link>
+      <pubDate>Wed, 09 Dec 2020 16:46:26 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/about_pool_sizing/</guid>
+      <description>这篇文章讲得很好，值得一读:
+About Pool Sizing https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing
+结论 综合CPU核数，磁盘IO，网络状况，得到一个经验公式:
+ connections = ((core_count * 2) + effective_spindle_count)
+ A formula which has held up pretty well across a lot of benchmarks for years is that for optimal throughput the number of active connections should be somewhere near ((core_count * 2) + effective_spindle_count). Core count should not include HT threads, even if hyperthreading is enabled. Effective spindle count is zero if the active data set is fully cached, and approaches the actual number of spindles as the cache hit rate falls.</description>
+    </item>
+    
+    <item>
+      <title>artifact存在, 但maven报错: Could not resolve artifact</title>
+      <link>https://blog.yuantops.com/tech/maven_cannot_resolve_local_artifact_error/</link>
+      <pubDate>Wed, 09 Dec 2020 16:33:48 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/maven_cannot_resolve_local_artifact_error/</guid>
+      <description>如果你遇到这个问题，而local repository里jar确实存在，一定看一眼你使用的maven版本：你可能遇到maven 3的一个坑。
+简而言之，maven3 开始验证本地仓库jar包的repository_id。
+原因 从maven3开始，从远程仓库下载jar包时，会在jar文件旁边生成一个`_maven.repositories`文件，文件里写明它来自哪个repository。
+如果当前项目的effective pom(`mvn ` 查看)里，生效的repository列表不包含这个jar包的repository_id，就会 报错 。
+解决办法 简单粗暴: 把`_maven.repositories`全删掉
+find ~/.m2/repository -name _maven.repositories -exec rm -v {} \;  参考 参考 StackOverflow网友回答 。</description>
+    </item>
     
     <item>
       <title>手工验证一张数字证书的有效性</title>

@@ -9,8 +9,72 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Sun, 06 Dec 2020 12:17:47 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 09 Dec 2020 16:46:26 +0800</lastBuildDate>
     <atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>关于连接池大小</title>
+      <link>https://blog.yuantops.com/tech/about_pool_sizing/</link>
+      <pubDate>Wed, 09 Dec 2020 16:46:26 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/about_pool_sizing/</guid>
+      <description>
+
+&lt;p&gt;这篇文章讲得很好，值得一读:&lt;/p&gt;
+
+&lt;h2 id=&#34;about-pool-sizing&#34;&gt;About Pool Sizing&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing&#34;&gt;https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;结论&#34;&gt;结论&lt;/h2&gt;
+
+&lt;p&gt;综合CPU核数，磁盘IO，网络状况，得到一个经验公式:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;connections = ((core_count * 2) + effective_spindle_count)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;A formula which has held up pretty well across a lot of benchmarks for years is
+that for optimal throughput the number of active connections should be somewhere
+near ((core_count * 2) + effective_spindle_count). Core count should not include
+HT threads, even if hyperthreading is enabled. Effective spindle count is zero if
+the active data set is fully cached, and approaches the actual number of spindles
+as the cache hit rate falls. ... There hasn&#39;t been any analysis so far regarding
+how well the formula works with SSDs.
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>artifact存在, 但maven报错: Could not resolve artifact</title>
+      <link>https://blog.yuantops.com/tech/maven_cannot_resolve_local_artifact_error/</link>
+      <pubDate>Wed, 09 Dec 2020 16:33:48 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/maven_cannot_resolve_local_artifact_error/</guid>
+      <description>
+
+&lt;p&gt;如果你遇到这个问题，而local repository里jar确实存在，一定看一眼你使用的maven版本：你可能遇到maven 3的一个坑。&lt;/p&gt;
+
+&lt;p&gt;简而言之，maven3 开始验证本地仓库jar包的repository_id。&lt;/p&gt;
+
+&lt;h2 id=&#34;原因&#34;&gt;原因&lt;/h2&gt;
+
+&lt;p&gt;从maven3开始，从远程仓库下载jar包时，会在jar文件旁边生成一个`_maven.repositories`文件，文件里写明它来自哪个repository。&lt;/p&gt;
+
+&lt;p&gt;如果当前项目的effective pom(`mvn &lt;effective-pom&gt;` 查看)里，生效的repository列表不包含这个jar包的repository_id，就会 &lt;strong&gt;报错&lt;/strong&gt; 。&lt;/p&gt;
+
+&lt;h2 id=&#34;解决办法&#34;&gt;解决办法&lt;/h2&gt;
+
+&lt;p&gt;简单粗暴: 把`_maven.repositories`全删掉&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;find ~/.m2/repository -name _maven.repositories -exec rm -v {} \;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+
+&lt;p&gt;参考 &lt;a href=&#34;https://stackoverflow.com/questions/16866978/maven-cant-find-my-local-artifacts&#34;&gt;StackOverflow网友回答&lt;/a&gt; 。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>手工验证一张数字证书的有效性</title>
