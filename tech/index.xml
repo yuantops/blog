@@ -9,10 +9,21 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Wed, 09 Dec 2020 16:46:26 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 06 Jan 2021 11:11:24 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yuantops.com/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Java 使用指定 classloader 创建 class</title>
+      <link>https://blog.yuantops.com/tech/define_class_with_custom_classloader/</link>
+      <pubDate>Wed, 06 Jan 2021 11:11:24 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/define_class_with_custom_classloader/</guid>
+      <description>有时需要在程序运行时动态创建 Java 类（加载自定义文件，或者是加载 Javassist 之类字节码增强工具创建出来的字节码等）。要注意的是，不同类加载器加载的类，彼此是不可见的，也就不能直接实例化。
+要突破这个限制，需要一点 hack: 利用反射机制，在根据字节码创建类时，指定 classloader。下面的代码从著名的 jodd 库摘录，请自行学习。
+/** * Defines a class from byte array into the specified class loader. * Warning: this is a &amp;lt;b&amp;gt;hack&amp;lt;/b&amp;gt;! * @param className optional class name, may be &amp;lt;code&amp;gt;null&amp;lt;/code&amp;gt; * @param classData bytecode data * @param classLoader classloader that will load class */ public static Class defineClass(final String className, final byte[] classData, ClassLoader classLoader) { if (classLoader == null) { classLoader = Thread.</description>
+    </item>
     
     <item>
       <title>关于连接池大小</title>

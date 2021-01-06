@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>刀在口上之日——纪念她 // Yuantops&#39; Blog</title>
+    <title>Java 使用指定 classloader 创建 class // Yuantops&#39; Blog</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="刀在口上之日——纪念她" />
-<meta property="og:description" content="林昭是真理和勇气的代表，她在黑暗中追求光明的努力，使我深受感动。真理是宝贵的，追寻她的路上充满艰难，但我们已经有了榜样。林昭就是我们的榜样。" />
+    <meta property="og:title" content="Java 使用指定 classloader 创建 class" />
+<meta property="og:description" content="一个 Java hack" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="https://blog.yuantops.com/opinions/in-memory-of-linzhao/" />
+<meta property="og:url" content="https://blog.yuantops.com/tech/define_class_with_custom_classloader/" />
 
 
     <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
@@ -26,9 +26,9 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-    <meta name="description" content="林昭是真理和勇气的代表，她在黑暗中追求光明的努力，使我深受感动。真理是宝贵的，追寻她的路上充满艰难，但我们已经有了榜样。林昭就是我们的榜样。">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
+    <meta name="description" content="一个 Java hack">
+    <meta name="keywords" content="java,">
+    <meta name="author" content="[yuan.tops@gmail.com]">
 
     <meta name="generator" content="Hugo 0.50" />
 </head>
@@ -63,12 +63,12 @@
     <div class="article-inner">
         
         <header class="article-header">
-            <h1 class="article-title" itemprop="name">刀在口上之日——纪念她</h1>
+            <h1 class="article-title" itemprop="name">Java 使用指定 classloader 创建 class</h1>
         </header>
         
         <div class="article-meta">
-            <a href="/opinions/in-memory-of-linzhao/" class="article-date">
-                <time datetime='2012-04-29T00:00:00.000&#43;00:00' itemprop="datePublished">2012-04-29</time>
+            <a href="/tech/define_class_with_custom_classloader/" class="article-date">
+                <time datetime='2021-01-06T11:11:24.000&#43;08:00' itemprop="datePublished">2021-01-06</time>
             </a>
             
             
@@ -76,12 +76,12 @@
                 <div class="article-category">
                     
                     
-                    <a class="article-category-link" href="https://blog.yuantops.com//categories/opinions">Opinions</a>
+                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
                     
                 </div>
 		
 		<div class="article-category">
-	      	  7字, 约1分钟读完
+	      	  109字, 约1分钟读完
 		</div>
 	    
 
@@ -92,19 +92,30 @@
             
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <p>今天是林昭去世的纪念日，纪念她。</p>
+            <p>有时需要在程序运行时动态创建 Java 类（加载自定义文件，或者是加载 Javassist 之类字节码增强工具创建出来的字节码等）。要注意的是，不同类加载器加载的类，彼此是不可见的，也就不能直接实例化。</p>
 
-<p>林昭生于民国，少年时迎来新中国的成立，在“革命”中度过最宝贵的青年时代。</p>
+<p>要突破这个限制，需要一点 hack: 利用反射机制，在根据字节码创建类时，指定 classloader。下面的代码从著名的 <code>jodd</code> 库摘录，请自行学习。</p>
 
-<p>在“革命”年代，她一度陷入狂热，投身到“革命”中。后来她进入北大，在北大她疯狂看书，学会思考，反省曾经的暴行，并痛下决心不再说违心话。在北大一次批判会议中，她坚持自己的观点，和组织者发生了激烈的辩论。别人问她是谁，她说，“我告诉你吧，我可以告诉你没关系，武松杀了人还写：杀人者打虎武松也呢。我林昭还没杀人，我告诉你，我姓林，双木林，昭，刀在口上之日。”字字铿锵。</p>
-
-<p>文革时她被投入监狱，受到极其非人道的待遇。她多次绝食未果。她用手指蘸血，在白床单上写《告人类》，被判尤其徒刑后写《判决后的申明》。最后她被枪决，没有罪名。行刑后公安人员向林昭母亲索要5分钱的子弹费。当然最后，她被平反。</p>
-
-<p>我敬佩她，因为她作为一个独立思考的女性，在如此昏暗的年代，能有勇气不妥协，敢发出自己的声音。即使在狱中，即使受到非人的待遇，她仍然坚持原则。</p>
-
-<p>林昭是真理和勇气的代表，她在黑暗中追求光明的努力，使我深受感动。真理是宝贵的，追寻她的路上充满艰难，但我们已经有了榜样。林昭就是我们的榜样。</p>
-
-<p>纪念她。</p>
+<pre><code class="language-java">/**
+ * Defines a class from byte array into the specified class loader.
+ * Warning: this is a &lt;b&gt;hack&lt;/b&gt;!
+ * @param className optional class name, may be &lt;code&gt;null&lt;/code&gt;
+ * @param classData bytecode data
+ * @param classLoader classloader that will load class
+ */
+public static Class defineClass(final String className, final byte[] classData, ClassLoader classLoader) {
+    if (classLoader == null) {
+        classLoader = Thread.currentThread().getContextClassLoader();
+    }
+    try {
+        final Method defineClassMethod = ClassLoader.class.getDeclaredMethod(&quot;defineClass&quot;, String.class, byte[].class, int.class, int.class);
+        defineClassMethod.setAccessible(true);
+        return (Class) defineClassMethod.invoke(classLoader, className, classData, 0, classData.length);
+    } catch (Throwable th) {
+        throw new RuntimeException(&quot;Define class failed: &quot; + className, th);
+    }
+}
+</code></pre>
 
         </div>
 
@@ -157,15 +168,9 @@
     </div>
     <nav id="article-nav">
     
-    <a href="/opinions/the-word-beauty-of-biancheng/" id="article-nav-newer" class="article-nav-link-wrap">
-        <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            《边城》的文字美
-        </div>
-    </a>
     
-    
-    <a href="/opinions/song-dynasty-imperfection-of-the-military/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">读历史-宋 武功稍逊&nbsp;<span>&gt;</span></div>
+    <a href="/tech/about_pool_sizing/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">关于连接池大小&nbsp;<span>&gt;</span></div>
     </a>
     
 </nav>
