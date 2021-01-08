@@ -757,6 +757,32 @@ find ~/.m2/repository -name _maven.repositories -exec rm -v {} \;
     }
 #+END_SRC
 
+** 使用自定义 Classloader 加载类，利用反射创建实例时出现 NoSuchMethodException 
+:PROPERTIES:
+:EXPORT_HUGO_CATEGORIES: Tech
+:EXPORT_FILE_NAME: NoSuchMethodException_when_using_classloader_and_reflection
+:EXPORT_DESCRIPTION: 一个类被不同 classloader 加载，它们将变成不同的类
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :keywords '( "java" )
+:END:
+
+最近在做一个需求，需要在程序运行时, 从当前 classpath 之外的指定路径加载(已经编译好的)类，并创建它的实例对象。
+
+在程序运行时改变程序结构，本是动态语言的技能点，不是 Java 的强项。但借助 Java 语言 ~JavaCompiler~ 与 ~反射~ 等动态相关特性，也能勉强做到。 好在就这个需求而言，我们拿到的是编译好的 ~.class~ ，不需要编译开始从头做起。 
+
+所以我们就从类的动态加载出发，开始做了。 下面是实施步骤，以及遇到的问题。
+
+*** 实施步骤
+1. 我们使用了 Github 上一个可以动态加载 Maven 类的依赖库: [[https://github.com/nanosai/modrun][ModRun]]。
+2. 将要加载的类所在 jar 包，连同它依赖的 jar 包，按 maven repository 目录结构放置。
+3. 加载类，得到 Class ~clazz~ 。
+4. 使用反射，调用 ~clazz.getDeclaredConstructor("xxxType1", "xxxType2")~ ，得到构建函数。
+5. 构建函数调用 ~invoke()~, 传入参数，预期得到所需要的对象。
+
+*** 问题描述
+进行到第 4 步，就
+
+参考链接: [[https://stackoverflow.com/questions/2999824/classcastexception-when-creating-an-instance-of-a-class-using-reflection-and-cla][StackOverflow 网友回答]] 
+
 * Miscellaneous
 ** 关于连接池大小
 :PROPERTIES:
