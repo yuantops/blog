@@ -2,7 +2,7 @@
 title = "使用自定义 Classloader 加载类，利用反射创建实例时出现 NoSuchMethodException"
 author = ["yuan.tops@gmail.com"]
 description = "java 中的类是由类的全名以及类的 classloader 来限定的；同一个类被不同 classloader 加载，它们将变成不同的类"
-lastmod = 2021-01-08T17:15:22+08:00
+lastmod = 2021-01-08T17:33:57+08:00
 categories = ["Tech"]
 draft = false
 keywords = ["java"]
@@ -35,17 +35,17 @@ keywords = ["java"]
 
 用 IDEA 断点调试，观察报错点，查看第 4 步入参的 classloader，与 clazz 的 classloader 确实不一样。如果改为传入 moduleClassLoader 加载的类，报错会消失，走到第 5 步；第 5 步会报错: object is not an instance of declaring class
 
-原因不变，还是因为传入的对象，与调用者不属于同一个 classloader，违反了可见性原则。
+原因不变，还是因为传入的对象，与调用者不属于同一个 classloader，虽然类名相同，也是不同类。
 
 
 ## 解决方法 {#解决方法}
 
-放弃使用 ModRun ，用自定义的 ClassLoader 替代。在实现这个 ClassLoader 时，要将当前使用的 ClassLoader 设置 parent。这样依据双亲委托机制，这样就满足了可见性原则。可以参考 [IsolatingClassLoader.java](https://github.com/eclipse-vertx/vert.x/blob/master/src/main/java/io/vertx/core/impl/IsolatingClassLoader.java) 。
+放弃使用 ModRun ，用自定义的 ClassLoader 替代。在实现这个 ClassLoader 时，要将当前使用的 ClassLoader 设置为 parent。依据双亲委托机制，这样满足可见性原则。可以参考 [IsolatingClassLoader.java](https://github.com/eclipse-vertx/vert.x/blob/master/src/main/java/io/vertx/core/impl/IsolatingClassLoader.java) 。
 
 
 ## Java 类加载机制三大原则 {#java-类加载机制三大原则}
 
-1.  委托原则： 如果一个类还没有被加载，类加载器会委托它的父加载器去加载它
+1.  委托原则： 如果一个类还没有被加载，类加载器会委托它的父加载器去加载它。
 2.  可见性原则: 被父亲类加载器加载的类对于孩子加载器是可见的，但关系相反相反则不可见。
 3.  独特性原则: 当一个类加载器加载一个类时，它的孩子加载器绝不会重新加载这个类。
 
