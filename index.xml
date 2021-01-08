@@ -9,13 +9,13 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Fri, 08 Jan 2021 17:15:22 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 08 Jan 2021 17:33:57 +0800</lastBuildDate>
     <atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>使用自定义 Classloader 加载类，利用反射创建实例时出现 NoSuchMethodException</title>
       <link>https://blog.yuantops.com/tech/nosuchmethodexception_when_using_classloader_and_reflection/</link>
-      <pubDate>Fri, 08 Jan 2021 17:15:22 +0800</pubDate>
+      <pubDate>Fri, 08 Jan 2021 17:33:57 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/nosuchmethodexception_when_using_classloader_and_reflection/</guid>
       <description>
@@ -46,16 +46,16 @@
 
 &lt;p&gt;用 IDEA 断点调试，观察报错点，查看第 4 步入参的 classloader，与 clazz 的 classloader 确实不一样。如果改为传入 moduleClassLoader 加载的类，报错会消失，走到第 5 步；第 5 步会报错: object is not an instance of declaring class&lt;/p&gt;
 
-&lt;p&gt;原因不变，还是因为传入的对象，与调用者不属于同一个 classloader，违反了可见性原则。&lt;/p&gt;
+&lt;p&gt;原因不变，还是因为传入的对象，与调用者不属于同一个 classloader，虽然类名相同，也是不同类。&lt;/p&gt;
 
 &lt;h2 id=&#34;解决方法&#34;&gt;解决方法&lt;/h2&gt;
 
-&lt;p&gt;放弃使用 ModRun ，用自定义的 ClassLoader 替代。在实现这个 ClassLoader 时，要将当前使用的 ClassLoader 设置 parent。这样依据双亲委托机制，这样就满足了可见性原则。可以参考 &lt;a href=&#34;https://github.com/eclipse-vertx/vert.x/blob/master/src/main/java/io/vertx/core/impl/IsolatingClassLoader.java&#34;&gt;IsolatingClassLoader.java&lt;/a&gt; 。&lt;/p&gt;
+&lt;p&gt;放弃使用 ModRun ，用自定义的 ClassLoader 替代。在实现这个 ClassLoader 时，要将当前使用的 ClassLoader 设置为 parent。依据双亲委托机制，这样满足可见性原则。可以参考 &lt;a href=&#34;https://github.com/eclipse-vertx/vert.x/blob/master/src/main/java/io/vertx/core/impl/IsolatingClassLoader.java&#34;&gt;IsolatingClassLoader.java&lt;/a&gt; 。&lt;/p&gt;
 
 &lt;h2 id=&#34;java-类加载机制三大原则&#34;&gt;Java 类加载机制三大原则&lt;/h2&gt;
 
 &lt;ol&gt;
-&lt;li&gt;委托原则： 如果一个类还没有被加载，类加载器会委托它的父加载器去加载它&lt;/li&gt;
+&lt;li&gt;委托原则： 如果一个类还没有被加载，类加载器会委托它的父加载器去加载它。&lt;/li&gt;
 &lt;li&gt;可见性原则: 被父亲类加载器加载的类对于孩子加载器是可见的，但关系相反相反则不可见。&lt;/li&gt;
 &lt;li&gt;独特性原则: 当一个类加载器加载一个类时，它的孩子加载器绝不会重新加载这个类。&lt;/li&gt;
 &lt;/ol&gt;

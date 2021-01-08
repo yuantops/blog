@@ -9,7 +9,7 @@
     <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
     <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Fri, 08 Jan 2021 17:15:22 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 08 Jan 2021 17:33:57 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.yuantops.com/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
@@ -17,7 +17,7 @@
     <item>
       <title>使用自定义 Classloader 加载类，利用反射创建实例时出现 NoSuchMethodException</title>
       <link>https://blog.yuantops.com/tech/nosuchmethodexception_when_using_classloader_and_reflection/</link>
-      <pubDate>Fri, 08 Jan 2021 17:15:22 +0800</pubDate>
+      <pubDate>Fri, 08 Jan 2021 17:33:57 +0800</pubDate>
       <author>yuan.tops@gmail.com (yuantops)</author>
       <guid>https://blog.yuantops.com/tech/nosuchmethodexception_when_using_classloader_and_reflection/</guid>
       <description>最近在做一个需求，需要在程序运行时, 从当前 classpath 之外的指定路径加载(已经编译好的)类，并创建它的实例对象。
