@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.yuantops.com/tech/nosuchmethodexception_when_using_classloader_and_reflection/</loc>
+    <lastmod>2021-01-08T17:15:22+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.yuantops.com/tech/define_class_with_custom_classloader/</loc>
     <lastmod>2021-01-06T11:11:24+08:00</lastmod>
   </url>
@@ -727,13 +732,13 @@
   
   <url>
     <loc>https://blog.yuantops.com/categories/tech/</loc>
-    <lastmod>2021-01-06T11:11:24+08:00</lastmod>
+    <lastmod>2021-01-08T17:15:22+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.yuantops.com/tech/</loc>
-    <lastmod>2021-01-06T11:11:24+08:00</lastmod>
+    <lastmod>2021-01-08T17:15:22+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -745,7 +750,7 @@
   
   <url>
     <loc>https://blog.yuantops.com/</loc>
-    <lastmod>2021-01-06T11:11:24+08:00</lastmod>
+    <lastmod>2021-01-08T17:15:22+08:00</lastmod>
     <priority>0</priority>
   </url>
   
