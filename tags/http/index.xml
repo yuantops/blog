@@ -1,26 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Http on Yuantops&#39; Blog</title>
-    <link>https://blog.yuantops.com/tags/http/</link>
-    <description>Recent content in Http on Yuantops&#39; Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
-    <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
-    <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Fri, 09 Jan 2015 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://blog.yuantops.com/tags/http/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>HTTP Methods: GET vs. POST</title>
-      <link>https://blog.yuantops.com/tech/difference-between-http-get-and-post/</link>
-      <pubDate>Fri, 09 Jan 2015 00:00:00 +0000</pubDate>
-      <author>yuan.tops@gmail.com (yuantops)</author>
-      <guid>https://blog.yuantops.com/tech/difference-between-http-get-and-post/</guid>
-      <description>##HTTP是什么？
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Http on Yuantops&#39; Blog</title><link>https://blog.yuantops.com/tags/http/</link><description>Recent content in Http on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Fri, 09 Jan 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.yuantops.com/tags/http/index.xml" rel="self" type="application/rss+xml"/><item><title>HTTP Methods: GET vs. POST</title><link>https://blog.yuantops.com/tech/difference-between-http-get-and-post/</link><pubDate>Fri, 09 Jan 2015 00:00:00 +0000</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/difference-between-http-get-and-post/</guid><description>##HTTP是什么？
 超文本传输协议(The Hypertext Transfer Protocol, HTTP)是为客户端(client)与服务器(server)之间的通信(communication)设计的。
 HTTP是在客户端与服务器之间以请求-响应(request-response)方式工作的协议。
 客户端可以是一个网页浏览器，服务器可以是一台提供web服务的主机上的某个应用程序。
@@ -30,21 +8,17 @@ HTTP是在客户端与服务器之间以请求-响应(request-response)方式工
 ##GET方式 注意，GET请求的查询字符串(name/value对)是包含在URL中发送的
 /test/demo_form.asp?name1=value1&amp;amp;name2=value2
 关于GET还需注意：
- GET请求能被缓存
- GET请求保存在浏览器的历史记录中
- GET请求能被当作书签添加 GET请求永远不应用在处理敏感数据的场合
- GET请求有长度限制
- GET请求只应该用来获取数据
-  ##POST方式 注意，POST请求的查询字符串(name/value对)是包含在HTTP消息体中发送的
+GET请求能被缓存
+GET请求保存在浏览器的历史记录中
+GET请求能被当作书签添加 GET请求永远不应用在处理敏感数据的场合
+GET请求有长度限制
+GET请求只应该用来获取数据
+##POST方式 注意，POST请求的查询字符串(name/value对)是包含在HTTP消息体中发送的
 POST /test/demo_form.asp HTTP/1.1 Host: w3schools.com name1=value1&amp;amp;name2=value2
 关于POST还需注意：
- POST请求不能被缓存
- POST请求不保存在浏览器的历史记录中
- POST请求不能被添作标签
- POST请求没有长度限制
-  ##GET与POST对比
-    GET POST     返回/刷新按钮 无影响 数据会被再次提交(浏览器应该会警示用户这一点)   书签 能被添作书签 不能被添作书签   缓存 能被缓存 不能缓存   编码方式 application/x-www-form-urlencoded application/x-www-form-urlencoded或者multipart/form-data。   历史记录 参数保存在浏览器记录中 参数不保存   数据长度限制 在传输数据时，GET方式会将数据添加到URL中，而URL的最大长度是2048个字符。 无限制   数据类型限制 只允许ASCII字符 无限制。二进制数据也是合法的。   安全 与POST相比，更不安全，因为GET方式数据是URL的一部分。永远不要用GET来发送密码之类的敏感信息！ 相对GET更安全一点，因为数据不会存储在浏览器历史记录或者服务器日志中。   可见性 每个人都能看见URL中的数据 数据不在URL中显示    ##原文链接 HTTP Methods: GET vs.</description>
-    </item>
-    
-  </channel>
-</rss>
+POST请求不能被缓存
+POST请求不保存在浏览器的历史记录中
+POST请求不能被添作标签
+POST请求没有长度限制
+##GET与POST对比
+GET POST 返回/刷新按钮 无影响 数据会被再次提交(浏览器应该会警示用户这一点) 书签 能被添作书签 不能被添作书签 缓存 能被缓存 不能缓存 编码方式 application/x-www-form-urlencoded application/x-www-form-urlencoded或者multipart/form-data。 历史记录 参数保存在浏览器记录中 参数不保存 数据长度限制 在传输数据时，GET方式会将数据添加到URL中，而URL的最大长度是2048个字符。 无限制 数据类型限制 只允许ASCII字符 无限制。二进制数据也是合法的。 安全 与POST相比，更不安全，因为GET方式数据是URL的一部分。永远不要用GET来发送密码之类的敏感信息！ 相对GET更安全一点，因为数据不会存储在浏览器历史记录或者服务器日志中。 可见性 每个人都能看见URL中的数据 数据不在URL中显示 ##原文链接 HTTP Methods: GET vs.</description></item></channel></rss>
