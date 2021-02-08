@@ -1,46 +1,101 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Gh Pages on Yuantops&#39; Blog</title><link>https://blog.yuantops.com/tags/gh-pages/</link><description>Recent content in Gh Pages on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Thu, 21 Nov 2019 15:53:00 +0800</lastBuildDate><atom:link href="https://blog.yuantops.com/tags/gh-pages/index.xml" rel="self" type="application/rss+xml"/><item><title>浏览器会处理URL里的相对路径</title><link>https://blog.yuantops.com/tech/how_web_broswer_handles_url_relative_path/</link><pubDate>Thu, 21 Nov 2019 15:53:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/how_web_broswer_handles_url_relative_path/</guid><description>新系统上线前，安全部门扫描出一个高危漏洞：文件任意下载漏洞。渗透测试人员在URL里加上相对路径，不断发起HTTP请求，居然成功下载到Linux系统密码文件。修复漏洞挺简单，限制HTTP服务访问文件系统权限，不允许超出指定目录，几行代码搞定。
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gh Pages on Yuantops&#39; Blog</title>
+    <link>https://blog.yuantops.com/tags/gh-pages/</link>
+    <description>Recent content in Gh Pages on Yuantops&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
+    <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Thu, 21 Nov 2019 15:53:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yuantops.com/tags/gh-pages/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>浏览器会处理URL里的相对路径</title>
+      <link>https://blog.yuantops.com/tech/how_web_broswer_handles_url_relative_path/</link>
+      <pubDate>Thu, 21 Nov 2019 15:53:00 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/how_web_broswer_handles_url_relative_path/</guid>
+      <description>新系统上线前，安全部门扫描出一个高危漏洞：文件任意下载漏洞。渗透测试人员在URL里加上相对路径，不断发起HTTP请求，居然成功下载到Linux系统密码文件。修复漏洞挺简单，限制HTTP服务访问文件系统权限，不允许超出指定目录，几行代码搞定。
 修复之后准备进行验证，第一步当然是复现漏洞。没想到，这一步就挺曲折。
 消失的点号 打开chrome，在地址栏输入带了相对路径( .. )的URL。URL指向一个文件，理论上，会触发文件下载。结果是：地址栏URL路径里点号全不见了，变成了一个正常地址。多试几遍，把双点号换成单点号，仍然如此。用 wiresharks 抓包看HTTP报文，请求头 path 没有点号。这说明，浏览器做了手脚。
-Google搜之，找到一份解析URI的RFC3968标准，专门有一章论述解析点号：Remove Dot Segments。经过解析，点号和双点号会消失，这个过程被称为 remove_dot_segments 。(RFC3968给出了这个过程的伪代码。)
-Google官方在一篇文章里，将Chrome解析URL的过程称为 `Canonicalization` (display-urls-in-canonical-form) 。经过解析，Chrome地址栏的点号变成实际值。
-结合两篇文档，原理清楚了：浏览器遵循RFC3968规范处理URL相对路径，所以点号和双点号都被干掉了。
+ Google搜之，找到一份解析URI的RFC3968标准，专门有一章论述解析点号：Remove Dot Segments。经过解析，点号和双点号会消失，这个过程被称为 remove_dot_segments 。(RFC3968给出了这个过程的伪代码。)
+ Google官方在一篇文章里，将Chrome解析URL的过程称为 `Canonicalization` (display-urls-in-canonical-form) 。经过解析，Chrome地址栏的点号变成实际值。
+  结合两篇文档，原理清楚了：浏览器遵循RFC3968规范处理URL相对路径，所以点号和双点号都被干掉了。
 改用Burp Suite重现问题 不能用浏览器复现问题，改尝试 curl 命令。结果，curl也不能复现。好在可以借助 Burp Suite 工具。
 Burp Suite是一款攻击web服务的集成工具，一般黑客用它来渗透网络。我们牛刀小用，用来拦截、修改HTTP请求报文。过程不在此赘述。总之，用它绕过了相对路径解析、重现了漏洞。
-修复漏洞 略。</description></item><item><title>How to blog with ox-hugo in Emacs</title><link>https://blog.yuantops.com/tech/blogging-with-ox-hugo/</link><pubDate>Thu, 25 Jul 2019 14:47:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/blogging-with-ox-hugo/</guid><description>我的一篇老博客，介绍了用Emacs和Org-mode写博客的工作流。总的来说，勉强符合预期，流程稍显磕绊。今天偶然发现，用Org-mode写博客有了正规军： ox-hugo 。简单试用之后,发现 ox-hugo 表现很流畅，几乎就是对之前流程的升级，于是毫不犹豫选 ox-hugo 。
+修复漏洞 略。</description>
+    </item>
+    
+    <item>
+      <title>How to blog with ox-hugo in Emacs</title>
+      <link>https://blog.yuantops.com/tech/blogging-with-ox-hugo/</link>
+      <pubDate>Thu, 25 Jul 2019 14:47:00 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/blogging-with-ox-hugo/</guid>
+      <description>我的一篇老博客，介绍了用Emacs和Org-mode写博客的工作流。总的来说，勉强符合预期，流程稍显磕绊。今天偶然发现，用Org-mode写博客有了正规军： ox-hugo 。简单试用之后,发现 ox-hugo 表现很流畅，几乎就是对之前流程的升级，于是毫不犹豫选 ox-hugo 。
 安装 ox-hugo 是一个工作在Org-mode的Emacs包，安装过程可以说平平无奇：
-M x package-refresh-contents :: 更新安装源 添加Emacs配置。修改细节与Emacs配置风格相关，我使用Purcell维护的.emacs.d配置，仅供参考。
-在 .emacs.d/lisp/ 目录下，新增配置文件 init-ox-hugo.el
-1 2 3 4 5 6 7 (require-package &amp;#39;ox-hugo)
-(with-eval-after-load &amp;#39;ox (require &amp;#39;ox-hugo))
-(provide &amp;#39;init-ox-hugo)
-在入口配置文件 .emacs.d/init.el 中，引用新增的配置文件
-(require &#39;init-ox-hugo) 写博客旧流程 现在，org文件可以直接导出为Hugo支持的Markdown格式了。这一点 ox-pandoc 也能做到，但 ox-hugo 还能做得更多。
+ M x package-refresh-contents :: 更新安装源 添加Emacs配置。修改细节与Emacs配置风格相关，我使用Purcell维护的.emacs.d配置，仅供参考。
+ 在 .emacs.d/lisp/ 目录下，新增配置文件 init-ox-hugo.el
+1 2 3 4 5 6 7  (require-package &amp;#39;ox-hugo)(with-eval-after-load &amp;#39;ox (require &amp;#39;ox-hugo))(provide &amp;#39;init-ox-hugo)   在入口配置文件 .emacs.d/init.el 中，引用新增的配置文件
+(require &#39;init-ox-hugo)    写博客旧流程 现在，org文件可以直接导出为Hugo支持的Markdown格式了。这一点 ox-pandoc 也能做到，但 ox-hugo 还能做得更多。
 回顾之前的工作流:
-新建xx.org文件 输入二级标题，接着插入 front matter 。 front matter 内容大致如下：
-+++ title = &amp;quot;&amp;quot; date = &amp;quot;&amp;quot; Categories = [&amp;quot;Tech&amp;quot;] Tags = [&amp;quot;Emacs&amp;quot;] Description = &amp;quot;&amp;quot; keywords = [&amp;quot;&amp;quot;] +++ 写博客正文</description></item><item><title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages</title><link>https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</link><pubDate>Sat, 12 May 2018 08:45:52 +0000</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</guid><description>这个博客托管在GitHub Pages上已经有一段时间。最初使用的静态站点生成工具是Jekyll，后来换成Hugo，因为是免费，一直都还比较满意。只有一个小痛点，博客从写完到部署的步骤多：写文章 -&amp;gt; build -&amp;gt; deploy…
+ 新建xx.org文件 输入二级标题，接着插入 front matter 。 front matter 内容大致如下：
++++ title = &amp;quot;&amp;quot; date = &amp;quot;&amp;quot; Categories = [&amp;quot;Tech&amp;quot;] Tags = [&amp;quot;Emacs&amp;quot;] Description = &amp;quot;&amp;quot; keywords = [&amp;quot;&amp;quot;] +++  写博客正文</description>
+    </item>
+    
+    <item>
+      <title>Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages</title>
+      <link>https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</link>
+      <pubDate>Sat, 12 May 2018 08:45:52 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/hugo-travis-ci-auto-deploy-to-gh-pages/</guid>
+      <description>这个博客托管在GitHub Pages上已经有一段时间。最初使用的静态站点生成工具是Jekyll，后来换成Hugo，因为是免费，一直都还比较满意。只有一个小痛点，博客从写完到部署的步骤多：写文章 -&amp;gt; build -&amp;gt; deploy…
 我之前写过一篇用Emacs写博客的workflow，把&amp;rdquo;写文章&amp;rdquo;的流程优化了一把。之后又小打小闹，用GitHub的webhook做了一个commit message关键字触发的小服务，把&amp;rdquo;build&amp;rdquo;和&amp;rdquo;deploy&amp;rdquo;做成自动化。这个服务跑在免费的Google Cloud上，使用体验还不错，可惜主机没续费，服务直接停掉，源码也丢失了。
 随手Google一把GitHub Page的持续集成，才后知后觉地发现自己想要的东东已经有了成熟解决方案，而且还可以 免费 用：Travis CI。于是我颇愉快地接受它，并简单地在这里记录下来。
 什么是Travis CI 一个持续化集成平台，类似Jenkins。功能强大，和GitHub的集成尤其好，我们用它部署个人博客算大材小用。它有两个版本:
-https://travis-ci.org/ 免费版本，可以集成GitHub的public项目 https://travis-ci.com/ 商业版本，可以集成GitHub的private项目 我们使用第一个，免费版本。
+ https://travis-ci.org/ 免费版本，可以集成GitHub的public项目 https://travis-ci.com/ 商业版本，可以集成GitHub的private项目  我们使用第一个，免费版本。
 本博客现状回顾 在进一步描述具体步骤之前，有必要先简要回顾本博客的现状：
-用Hugo生成静态站点文件 两个git分支, hugo: 存放博客源码, gh-pages: 存放Hugo生成的静态站点文件 自定义域名: `blog.yuantops.com`, 而不是默认的yuantops.github.io 配置Travis CI 为Travis CI生成GitHub Token 打开GitHub。路径: &amp;ldquo;Settings&amp;rdquo;-&amp;gt;&amp;ldquo;Developer settings&amp;rdquo;-&amp;gt;&amp;ldquo;Personal access tokens&amp;rdquo;-&amp;gt;&amp;ldquo;Generate new token&amp;rdquo;。
+ 用Hugo生成静态站点文件 两个git分支, hugo: 存放博客源码, gh-pages: 存放Hugo生成的静态站点文件 自定义域名: `blog.yuantops.com`, 而不是默认的yuantops.github.io  配置Travis CI 为Travis CI生成GitHub Token 打开GitHub。路径: &amp;ldquo;Settings&amp;rdquo;-&amp;gt;&amp;ldquo;Developer settings&amp;rdquo;-&amp;gt;&amp;ldquo;Personal access tokens&amp;rdquo;-&amp;gt;&amp;ldquo;Generate new token&amp;rdquo;。
 因为是public项目，而且Travis CI是用来push代码，所以只需勾选 public_repo, repo:status, repo_deployment 三项。
 Token一会儿就会隐藏，不能找回，所以拷贝好，进入下一步。
-配置Travis CI构建选项 用GitHub方式登录Travis CI(https://travis-ci.org/) &amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;General&amp;rdquo; 勾选&amp;rdquo;Build only if .travis.yml is present&amp;rdquo;和&amp;rdquo;Build pushed branches&amp;rdquo;两项。 &amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;Environment Variables&amp;rdquo; 添加&amp;rdquo;GITHUBTOKEN&amp;ldquo;，值是上一步得到的Token 在git根目录下添加 .</description></item><item><title>在GitHub pages中添加标签Tags(非插件方式)</title><link>https://blog.yuantops.com/tech/add-tags-in-gh-pages/</link><pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/add-tags-in-gh-pages/</guid><description>参考内容 本文参考了以下内容：
-Alphabetizing Jekyll Page Tags In Pure Liquid (Without Plugins)
-Tips For Sorting Tags In GitHub Page With Jekyll
-HOW TO USE TAGS AND CATEGORIES ON GITHUB PAGES WITHOUT PLUGINS
-思路 Jekyll引擎按照post/page文件-layout模板-HTML文件的逻辑处理、生成数据，因此添加Tags功能时也应遵循对应的顺序。
+配置Travis CI构建选项  用GitHub方式登录Travis CI(https://travis-ci.org/) &amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;General&amp;rdquo; 勾选&amp;rdquo;Build only if .travis.yml is present&amp;rdquo;和&amp;rdquo;Build pushed branches&amp;rdquo;两项。 &amp;ldquo;Settings&amp;rdquo;-&amp;ldquo;Environment Variables&amp;rdquo; 添加&amp;rdquo;GITHUBTOKEN&amp;ldquo;，值是上一步得到的Token  在git根目录下添加 .</description>
+    </item>
+    
+    <item>
+      <title>在GitHub pages中添加标签Tags(非插件方式)</title>
+      <link>https://blog.yuantops.com/tech/add-tags-in-gh-pages/</link>
+      <pubDate>Wed, 31 Dec 2014 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/add-tags-in-gh-pages/</guid>
+      <description>参考内容 本文参考了以下内容：
+ Alphabetizing Jekyll Page Tags In Pure Liquid (Without Plugins)
+ Tips For Sorting Tags In GitHub Page With Jekyll
+ HOW TO USE TAGS AND CATEGORIES ON GITHUB PAGES WITHOUT PLUGINS
+  思路 Jekyll引擎按照post/page文件-layout模板-HTML文件的逻辑处理、生成数据，因此添加Tags功能时也应遵循对应的顺序。
 1. 在_posts目录下新建post文件时，在yaml头中加入tags变量。如果有多个tag，那么用中括号括起来、逗号分开。
 2. 在_layouts目录下，post文件引用的模板文件中，加入解析单个post文件的tags的逻辑，并显示。
 3. 在博客文件夹的根目录下新建一个tags.html文件，列出博客所有文章的tags，通过Html定位符确定每个tag的位置。将这个页面的链接摆放在首页或者其它合适的地方。
 步骤 Step 1 在_layouts目录下的post.html文件中，在你想Tags出现的地方加入下面的代码：
-&amp;lt;p class=&amp;#34;entry-tags&amp;#34;&amp;gt; {% for tag in page.tags %}&amp;lt;a href=&amp;#34;{{ site.url }}/tags.html#{{ tag | cgi_ e scape }}&amp;#34; title=&amp;#34;Pages tagged {{ tag }}&amp;#34; rel=&amp;#34;tag&amp;#34; class=&amp;#34;post-tag&amp;#34;&amp;gt;{{ tag }}&amp;lt;/a&amp;gt;{% unless forloop.</description></item><item><title>Jekyll安装指南</title><link>https://blog.yuantops.com/tech/jekyll-installation/</link><pubDate>Tue, 30 Dec 2014 00:00:00 +0000</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/jekyll-installation/</guid><description>环境准备 准备安装Jekyll前，确保系统满足以下条件：
-Ruby
-RubyGems
-Linux, Unix, 或者 Mac OS X
-Nodejs, 或者其它JavaScript运行环境
-以Ubuntu为例，安装上述软件的方法：
+&amp;lt;p class=&amp;#34;entry-tags&amp;#34;&amp;gt; {% for tag in page.tags %}&amp;lt;a href=&amp;#34;{{ site.url }}/tags.html#{{ tag | cgi_ e scape }}&amp;#34; title=&amp;#34;Pages tagged {{ tag }}&amp;#34; rel=&amp;#34;tag&amp;#34; class=&amp;#34;post-tag&amp;#34;&amp;gt;{{ tag }}&amp;lt;/a&amp;gt;{% unless forloop.</description>
+    </item>
+    
+    <item>
+      <title>Jekyll安装指南</title>
+      <link>https://blog.yuantops.com/tech/jekyll-installation/</link>
+      <pubDate>Tue, 30 Dec 2014 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/jekyll-installation/</guid>
+      <description>环境准备 准备安装Jekyll前，确保系统满足以下条件：
+ Ruby
+ RubyGems
+ Linux, Unix, 或者 Mac OS X
+ Nodejs, 或者其它JavaScript运行环境
+  以Ubuntu为例，安装上述软件的方法：
 Ruby
 $ sudo apt-get install ruby, ruby-dev 要注意，*ruby-dev*包需要一并安装，否则在后续会报错。
 在Redhat/Fedora下，需要安装的软件包为ruby,ruby-devel。有可能还需要安装gcc包。
@@ -52,6 +107,19 @@ Nodejs
 $ sudo apt-get install nodejs
 设置Gemfile 将GitHub上你的博客Repo克隆到本地。假设Repo的根目录为blog。终端路径切换到blog目录，新建名为Gemfile的文件，并填充内容:
 source &amp;#39;https://rubygems.org&amp;#39; gem &amp;#39;github-pages&amp;#39; 使用RubyGems安装Jekyll 终端路径切换到blog，运行命令： $ sudo gem install jekyll
-运行Jekyll，查看博客效果 终端路径切换到blog，运行命令： $ jekyll serve</description></item><item><title>制作属于自己的字母favicon</title><link>https://blog.yuantops.com/tech/make-custom-character-favicon/</link><pubDate>Sat, 20 Dec 2014 00:00:00 +0000</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/make-custom-character-favicon/</guid><description>每个自己搭建博客的人，应该都想自己的博客更具个性。favicon是浏览器浏览网页时标签左边的那个小图标，是可以自己设计的。
+运行Jekyll，查看博客效果 终端路径切换到blog，运行命令： $ jekyll serve</description>
+    </item>
+    
+    <item>
+      <title>制作属于自己的字母favicon</title>
+      <link>https://blog.yuantops.com/tech/make-custom-character-favicon/</link>
+      <pubDate>Sat, 20 Dec 2014 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/make-custom-character-favicon/</guid>
+      <description>每个自己搭建博客的人，应该都想自己的博客更具个性。favicon是浏览器浏览网页时标签左边的那个小图标，是可以自己设计的。
 这里，推荐一个网站：faviconist.com。你可以输入一个字母，得到这个字母的图标，而且字体、文字前景色、背景色都可以调整。调整到满意后，下载到本地，保存到对应的网页文件夹，就可以了。
-效果可以参见我的网页。</description></item></channel></rss>
+效果可以参见我的网页。</description>
+    </item>
+    
+  </channel>
+</rss>

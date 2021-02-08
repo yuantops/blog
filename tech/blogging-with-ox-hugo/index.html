@@ -1,22 +1,155 @@
-<!doctype html><html><head><meta charset=utf-8><title>How to blog with ox-hugo in Emacs // Yuantops&#39; Blog</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property=og:title content="How to blog with ox-hugo in Emacs"><meta property=og:description content="发现一个用Emacs写blog的新工具: ox-hugo。它与org-mode融合得非常自然，更好用。本文记录如何在Emacs中配置与使用ox-hugo。"><meta property=og:type content=website><meta property=og:locale content=en_US><meta property=og:url content=https://blog.yuantops.com/tech/blogging-with-ox-hugo/><link href rel=alternate type=application/rss+xml title="Yuantops' Blog"><link rel="shortcut icon" href=/favicon.ico><link href=https://blog.yuantops.com/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=https://blog.yuantops.com/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=https://blog.yuantops.com/css/style.css><link href=http://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta name=description content="发现一个用Emacs写blog的新工具: ox-hugo。它与org-mode融合得非常自然，更好用。本文记录如何在Emacs中配置与使用ox-hugo。"><meta name=keywords content=ox-hugo,><meta name=author content=[yuan.tops@gmail.com]><meta name=generator content="Hugo 0.50"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a><a id=logo class=logo-text href=https://blog.yuantops.com/>Yuantops&#39; Blog</a><nav id=main-nav><a class=main-nav-link href=/archives/>Archives</a>
-<a class=main-nav-link href=/about/>About</a>
-<a class=main-nav-link href=/index.xml>RSS</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>How to blog with ox-hugo in Emacs</h1></header><div class=article-meta><a href=/tech/blogging-with-ox-hugo/ class=article-date><time datetime=2019-07-25T14:47:00.000&#43;08:00 itemprop=datePublished>2019-07-25</time></a><div class=post-categories><div class=article-category><a class=article-category-link href=https://blog.yuantops.com//categories/tech>Tech</a></div><div class=article-category>133字, 约1分钟读完</div></div></div><div class=article-entry itemprop=articleBody><p>我的<a href=https://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/>一篇老博客</a>，介绍了用Emacs和Org-mode写博客的工作流。总的来说，勉强符合预期，流程稍显磕绊。今天偶然发现，用Org-mode写博客有了正规军： <code>ox-hugo</code> 。简单试用之后,发现 <code>ox-hugo</code> 表现很流畅，几乎就是对之前流程的升级，于是毫不犹豫选 <code>ox-hugo</code> 。</p><h2 id=安装>安装</h2><p><code>ox-hugo</code> 是一个工作在Org-mode的Emacs包，安装过程可以说平平无奇：</p><ol><li><code>M x</code> <code>package-refresh-contents</code> :: 更新安装源</li><li><p>添加Emacs配置。修改细节与Emacs配置风格相关，我使用<a href=https://github.com/purcell/emacs.d>Purcell维护的.emacs.d配置</a>，仅供参考。</p><ul><li><p>在 <code>.emacs.d/lisp/</code> 目录下，新增配置文件 <code>init-ox-hugo.el</code></p><div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-emacs-lisp data-lang=emacs-lisp><span style="margin-right:.4em;padding:0 .4em;color:#7c7c79">1
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7c7c79">2
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7c7c79">3
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7c7c79">4
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7c7c79">5
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7c7c79">6
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7c7c79">7
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-emacs-lisp data-lang=emacs-lisp>        (require-package <span style=color:#e6db74>&#39;ox-hugo</span>)
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>How to blog with ox-hugo in Emacs // Yuantops&#39; Blog</title>
 
-        (with-eval-after-load <span style=color:#e6db74>&#39;ox</span> (require <span style=color:#e6db74>&#39;ox-hugo</span>))
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="How to blog with ox-hugo in Emacs" />
+<meta property="og:description" content="发现一个用Emacs写blog的新工具: ox-hugo。它与org-mode融合得非常自然，更好用。本文记录如何在Emacs中配置与使用ox-hugo。" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://blog.yuantops.com/tech/blogging-with-ox-hugo/" />
 
-        (provide <span style=color:#e6db74>&#39;init-ox-hugo</span>)
 
-        </code></pre></td></tr></table></div></div></li><li><p>在入口配置文件 <code>.emacs.d/init.el</code> 中，引用新增的配置文件</p><pre><code class=language-lisp>
+    <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://blog.yuantops.com/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://blog.yuantops.com/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://blog.yuantops.com/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="发现一个用Emacs写blog的新工具: ox-hugo。它与org-mode融合得非常自然，更好用。本文记录如何在Emacs中配置与使用ox-hugo。">
+    <meta name="keywords" content="ox-hugo,">
+    <meta name="author" content="[yuan.tops@gmail.com]">
+
+    <meta name="generator" content="Hugo 0.50" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://blog.yuantops.com/">Yuantops&#39; Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/archives/">Archives</a>
+                
+                <a class="main-nav-link" href="/about/">About</a>
+                
+                <a class="main-nav-link" href="/index.xml">RSS</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">How to blog with ox-hugo in Emacs</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/tech/blogging-with-ox-hugo/" class="article-date">
+                <time datetime='2019-07-25T14:47:00.000&#43;08:00' itemprop="datePublished">2019-07-25</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
+                    
+                </div>
+		
+		<div class="article-category">
+	      	  133字, 约1分钟读完
+		</div>
+	    
+
+            </div>
+            
+
+	    
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<p>我的<a href="https://blog.yuantops.com/tech/emacs-orgmode-hugo-with-oxpandoc/">一篇老博客</a>，介绍了用Emacs和Org-mode写博客的工作流。总的来说，勉强符合预期，流程稍显磕绊。今天偶然发现，用Org-mode写博客有了正规军： <code>ox-hugo</code> 。简单试用之后,发现 <code>ox-hugo</code> 表现很流畅，几乎就是对之前流程的升级，于是毫不犹豫选 <code>ox-hugo</code> 。</p>
+
+<h2 id="安装">安装</h2>
+
+<p><code>ox-hugo</code> 是一个工作在Org-mode的Emacs包，安装过程可以说平平无奇：</p>
+
+<ol>
+<li><code>M x</code> <code>package-refresh-contents</code> :: 更新安装源</li>
+
+<li><p>添加Emacs配置。修改细节与Emacs配置风格相关，我使用<a href="https://github.com/purcell/emacs.d">Purcell维护的.emacs.d配置</a>，仅供参考。</p>
+
+<ul>
+<li><p>在 <code>.emacs.d/lisp/</code> 目录下，新增配置文件 <code>init-ox-hugo.el</code></p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">        (require-package <span style="color:#e6db74">&#39;ox-hugo</span>)
+
+        (with-eval-after-load <span style="color:#e6db74">&#39;ox</span> (require <span style="color:#e6db74">&#39;ox-hugo</span>))
+
+        (provide <span style="color:#e6db74">&#39;init-ox-hugo</span>)
+
+        </code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>在入口配置文件 <code>.emacs.d/init.el</code> 中，引用新增的配置文件</p>
+
+<pre><code class="language-lisp">
 (require 'init-ox-hugo)
 
-</code></pre></li></ul></li></ol><h2 id=写博客旧流程>写博客旧流程</h2><p>现在，org文件可以直接导出为Hugo支持的Markdown格式了。这一点 <code>ox-pandoc</code> 也能做到，但 <code>ox-hugo</code> 还能做得更多。</p><p>回顾之前的工作流:</p><ol><li>新建xx.org文件</li><li><p>输入二级标题，接着插入 <code>front matter</code> 。 <code>front matter</code> 内容大致如下：</p><pre><code class=language-yaml>+++
+</code></pre></li>
+</ul></li>
+</ol>
+
+<h2 id="写博客旧流程">写博客旧流程</h2>
+
+<p>现在，org文件可以直接导出为Hugo支持的Markdown格式了。这一点 <code>ox-pandoc</code> 也能做到，但 <code>ox-hugo</code> 还能做得更多。</p>
+
+<p>回顾之前的工作流:</p>
+
+<ol>
+<li>新建xx.org文件</li>
+
+<li><p>输入二级标题，接着插入 <code>front matter</code> 。 <code>front matter</code> 内容大致如下：</p>
+
+<pre><code class="language-yaml">+++
 title = &quot;&quot;
 date = &quot;&quot;
 Categories = [&quot;Tech&quot;]
@@ -24,20 +157,202 @@ Tags = [&quot;Emacs&quot;]
 Description = &quot;&quot;
 keywords = [&quot;&quot;]
 +++
-</code></pre></li><li><p>写博客正文</p></li><li><p>按下 <code>C-c C-e</code> , 将二级标题对应的subtree导出为Markdown格式文件</p></li><li><p>将Markdown格式文件保存到contents/tech/目录。</p></li></ol><p><code>front matter</code> 是hugo渲染文件需要的必要元信息, 例如文章标签、分类、标题等。ox-hugo改进之一，是使用org-mode语法放置元信息，不再需要手动设置 <code>front matter</code> 。</p><p>Org-mode支持为headline设置 tags。 <code>ox-hugo</code> 沿用这点，org-mode的tag就是文章标签, 以@开头的tag就是文章分类。其他例如作者、日期、文件名的元信息，通过 <code>:PROPERTIES:</code> 设置。在导出Markdown格式时，ox-hugo会自动提取这些数据。因为ox-hugo可以一次导出所有subtree，因此 <code>ox-hugo</code> 官方推荐做法是，所有文章放到一个org文件，<a href=https://ox-hugo.scripter.co/doc/screenshots/#screenshot-one-post-per-subtree>每个Subtree对应一篇文章</a>。</p><p>对于习惯一个org文件对应一篇文章的作者而言，ox-hugo也予以尊重，<a href=https://ox-hugo.scripter.co/doc/org-meta-data-to-hugo-front-matter/>在文件头添加对应配置项即可</a>。</p><h2 id=我的实践>我的实践</h2><p>对本博客而言，考虑到1)文章固定只有3个分类，2)现在已有很多存量md格式的文章，我采取一种折中做法: 一个分类对应一个org文件，org文件里每个subtree对应一篇文章。这样兼顾现状，而且新文章顺利迁移到新做法。就每个org文件来说，元信息分为两大类：</p><ol><li><p>对整个文件都生效的配置，放到文件开头；</p><pre><code class=language-yaml>#+author: yuan.tops@gmail.com
+</code></pre></li>
+
+<li><p>写博客正文</p></li>
+
+<li><p>按下 <code>C-c C-e</code> , 将二级标题对应的subtree导出为Markdown格式文件</p></li>
+
+<li><p>将Markdown格式文件保存到contents/tech/目录。</p></li>
+</ol>
+
+<p><code>front matter</code> 是hugo渲染文件需要的必要元信息, 例如文章标签、分类、标题等。ox-hugo改进之一，是使用org-mode语法放置元信息，不再需要手动设置 <code>front matter</code> 。</p>
+
+<p>Org-mode支持为headline设置 tags。 <code>ox-hugo</code> 沿用这点，org-mode的tag就是文章标签, 以@开头的tag就是文章分类。其他例如作者、日期、文件名的元信息，通过 <code>:PROPERTIES:</code> 设置。在导出Markdown格式时，ox-hugo会自动提取这些数据。因为ox-hugo可以一次导出所有subtree，因此 <code>ox-hugo</code> 官方推荐做法是，所有文章放到一个org文件，<a href="https://ox-hugo.scripter.co/doc/screenshots/#screenshot-one-post-per-subtree">每个Subtree对应一篇文章</a>。</p>
+
+<p>对于习惯一个org文件对应一篇文章的作者而言，ox-hugo也予以尊重，<a href="https://ox-hugo.scripter.co/doc/org-meta-data-to-hugo-front-matter/">在文件头添加对应配置项即可</a>。</p>
+
+<h2 id="我的实践">我的实践</h2>
+
+<p>对本博客而言，考虑到1)文章固定只有3个分类，2)现在已有很多存量md格式的文章，我采取一种折中做法: 一个分类对应一个org文件，org文件里每个subtree对应一篇文章。这样兼顾现状，而且新文章顺利迁移到新做法。就每个org文件来说，元信息分为两大类：</p>
+
+<ol>
+<li><p>对整个文件都生效的配置，放到文件开头；</p>
+
+<pre><code class="language-yaml">#+author: yuan.tops@gmail.com
 #+hugo_base_dir: ../
 #+HUGO_SECTION: tech
 # Categories
 #+filetags: @tech
 #+hugo_auto_set_lastmod: t
-</code></pre></li><li><p>对单篇文章生效的配置，放到subtree的标题下面。</p><pre><code class=language-props>:PROPERTIES:
+</code></pre></li>
+
+<li><p>对单篇文章生效的配置，放到subtree的标题下面。</p>
+
+<pre><code class="language-props">:PROPERTIES:
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_DATE: &quot;2019-07-24T22:29:52+08:00&quot;
 :EXPORT_HUGO_PUBLISHDATE: &quot;2019-07-24T22:29:52Z&quot;
 :EXPORT_FILE_NAME: blogging-with-ox-hugo
 :EXPORT_DESCRIPTION: 发现一个用Emacs写blog的新工具: ox-hugo。它与org-mode融合得非常自然，更好用。本文记录如何在Emacs中配置与使用ox-hugo。
 :END:
-</code></pre></li></ol><p>以本文为例，配置如图:
-<img src=/ox-hugo/screenshot-org-subtree.png alt></p><h2 id=总结>总结</h2><p>Emacs学习曲线盘旋上升, Org-mode也是如此。不断折腾，乐在其中！</p></div><div class=article-toc style=display:none><h3>Contents</h3><nav id=TableOfContents><ul><li><ul><li><a href=#安装>安装</a></li><li><a href=#写博客旧流程>写博客旧流程</a></li><li><a href=#我的实践>我的实践</a></li><li><a href=#总结>总结</a></li></ul></li></ul></nav></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin=anonymous></script><script>(function(){var $toc=$('#TableOfContents');if($toc.length>0){var $window=$(window);function onScroll(){var currentScroll=$window.scrollTop();var h=$('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');var id="";h.each(function(i,e){e=$(e);if(e.offset().top-10<=currentScroll){id=e.attr('id');}});var active=$toc.find('a.active');if(active.length==1&&active.eq(0).attr('href')=='#'+id)return true;active.each(function(i,e){$(e).removeClass('active').siblings('ul').hide();});$toc.find('a[href="#'+id+'"]').parentsUntil('#TableOfContents').each(function(i,e){$(e).children('a').addClass('active').siblings('ul').show();});}
-$window.on('scroll',onScroll);$(document).ready(function(){$toc.find('a').parent('li').find('ul').hide();onScroll();document.getElementsByClassName('article-toc')[0].style.display='';});}})();</script><footer class=article-footer><ul class=article-tag-list><li class=article-tag-list-item><a class=article-tag-list-link href=https://blog.yuantops.com//tags/gh-pages>gh-pages</a></li><li class=article-tag-list-item><a class=article-tag-list-link href=https://blog.yuantops.com//tags/hugo>hugo</a></li><li class=article-tag-list-item><a class=article-tag-list-link href=https://blog.yuantops.com//tags/emacs>Emacs</a></li></ul></footer></div><nav id=article-nav><a href=/opinions/2019-my-reading-list/ id=article-nav-newer class=article-nav-link-wrap><div class=article-nav-title><span>&lt;</span>&nbsp;
-2019阅读书单</div></a><a href=/tech/bash-guideline-study-notes/ id=article-nav-older class=article-nav-link-wrap><div class=article-nav-title>Bash Guideline Notes&nbsp;<span>&gt;</span></div></a></nav></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2012-2021 @yuantops&nbsp;</br>Proudly powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos>Minos</a></div></div><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-57420914-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin=anonymous></script><script>hljs.initHighlightingOnLoad();</script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css integrity=sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0 crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js integrity=sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1 crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin=anonymous></script><script>renderMathInElement(document.body);</script><script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var header=document.getElementById('header');if(header.classList.contains('mobile-on')){header.classList.remove('mobile-on');}else{header.classList.add('mobile-on');}});</script></footer></div></body></html>
+</code></pre></li>
+</ol>
+
+<p>以本文为例，配置如图:
+<img src="/ox-hugo/screenshot-org-subtree.png" alt="" /></p>
+
+<h2 id="总结">总结</h2>
+
+<p>Emacs学习曲线盘旋上升, Org-mode也是如此。不断折腾，乐在其中！</p>
+
+        </div>
+
+        
+        
+        <div class="article-toc" style="display:none;">
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#写博客旧流程">写博客旧流程</a></li>
+<li><a href="#我的实践">我的实践</a></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <script>
+            (function() {
+                var $toc = $('#TableOfContents');
+                if ($toc.length > 0) {
+                    var $window = $(window);
+
+                    function onScroll(){
+                        var currentScroll = $window.scrollTop();
+                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                        var id = "";
+                        h.each(function (i, e) {
+                            e = $(e);
+                            if (e.offset().top - 10 <= currentScroll) {
+                                id = e.attr('id');
+                            }
+                        });
+                        var active = $toc.find('a.active');
+                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+                        active.each(function (i, e) {
+                            $(e).removeClass('active').siblings('ul').hide();
+                        });
+                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                            $(e).children('a').addClass('active').siblings('ul').show();
+                        });
+                    }
+
+                    $window.on('scroll', onScroll);
+                    $(document).ready(function() {
+                        $toc.find('a').parent('li').find('ul').hide();
+                        onScroll();
+                        document.getElementsByClassName('article-toc')[0].style.display = '';
+                    });
+                }
+            })();
+        </script>
+        
+
+
+        
+	
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/gh-pages">gh-pages
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/hugo">hugo
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/emacs">Emacs
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+	
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/opinions/2019-my-reading-list/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            2019阅读书单
+        </div>
+    </a>
+    
+    
+    <a href="/tech/bash-guideline-study-notes/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Bash Guideline Notes&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2012-2021 @yuantops&nbsp; </br>
+            Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57420914-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
+        <script>renderMathInElement(document.body);</script>
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

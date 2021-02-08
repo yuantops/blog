@@ -1,32 +1,298 @@
-<!doctype html><html><head><meta charset=utf-8><title>Byte Streams -- Oracle Java Tutorial 翻译 // Yuantops&#39; Blog</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property=og:title content="Byte Streams -- Oracle Java Tutorial 翻译"><meta property=og:description content="本文是Oracle Java开发手册中关于Byte Stream章节的翻译，个人手工翻译，非转载。"><meta property=og:type content=website><meta property=og:locale content=en_US><meta property=og:url content=https://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/><link href rel=alternate type=application/rss+xml title="Yuantops' Blog"><link rel="shortcut icon" href=/favicon.ico><link href=https://blog.yuantops.com/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=https://blog.yuantops.com/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=https://blog.yuantops.com/css/style.css><link href=http://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta name=description content="本文是Oracle Java开发手册中关于Byte Stream章节的翻译，个人手工翻译，非转载。"><meta name=keywords content><meta name=author content><meta name=generator content="Hugo 0.50"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a><a id=logo class=logo-text href=https://blog.yuantops.com/>Yuantops&#39; Blog</a><nav id=main-nav><a class=main-nav-link href=/archives/>Archives</a>
-<a class=main-nav-link href=/about/>About</a>
-<a class=main-nav-link href=/index.xml>RSS</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>Byte Streams -- Oracle Java Tutorial 翻译</h1></header><div class=article-meta><a href=/tech/oracle-java-tutorial-byte-stream/ class=article-date><time datetime=2014-12-29T00:00:00.000&#43;00:00 itemprop=datePublished>2014-12-29</time></a><div class=post-categories><div class=article-category><a class=article-category-link href=https://blog.yuantops.com//categories/tech>Tech</a></div><div class=article-category>85字, 约1分钟读完</div></div></div><div class=article-entry itemprop=articleBody><h2 id=byte-streams-字节流>Byte Streams 字节流</h2><p>程序使用*字节流*来处理8bit字节的输入和输出。所有的字节流类都派生(descend)自InputStream和OutputStream。</p><p>字节流类有很多。为了演示字节流的工作原理，我们将关注文件的I/O字节流,FileInputStream和FileOutputStream。其它字节流类的使用方法往往与之类似，仅在构造的方法上存在差别。</p><h3 id=使用字节流>使用字节流</h3><p>下面我们通过一段代码CopyBytes来演示FileInputStream和FileOutputStream的用法。这段代码通过字节流逐字节地拷贝xanadu.txt。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#f92672>import</span> java.io.FileInputStream<span style=color:#f92672>;</span>
-<span style=color:#f92672>import</span> java.io.FileOutputStream<span style=color:#f92672>;</span>
-<span style=color:#f92672>import</span> java.io.IOException<span style=color:#f92672>;</span>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Byte Streams -- Oracle Java Tutorial 翻译 // Yuantops&#39; Blog</title>
 
-<span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>CopyBytes</span> <span style=color:#f92672>{</span>
-	   <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span><span style=color:#f92672>(</span>String<span style=color:#f92672>[]</span> args<span style=color:#f92672>)</span> <span style=color:#66d9ef>throws</span> IOException <span style=color:#f92672>{</span>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="Byte Streams -- Oracle Java Tutorial 翻译" />
+<meta property="og:description" content="本文是Oracle Java开发手册中关于Byte Stream章节的翻译，个人手工翻译，非转载。" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://blog.yuantops.com/tech/oracle-java-tutorial-byte-stream/" />
 
-        FileInputStream in <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span><span style=color:#f92672>;</span>
-        FileOutputStream out <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span><span style=color:#f92672>;</span>
 
-        <span style=color:#66d9ef>try</span> <span style=color:#f92672>{</span>
-            in <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> FileInputStream<span style=color:#f92672>(</span><span style=color:#e6db74>&#34;xanadu.txt&#34;</span><span style=color:#f92672>);</span>
-            out <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> FileOutputStream<span style=color:#f92672>(</span><span style=color:#e6db74>&#34;outagain.txt&#34;</span><span style=color:#f92672>);</span>
-            <span style=color:#66d9ef>int</span> c<span style=color:#f92672>;</span>
+    <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
+    <link rel="shortcut icon" href="/favicon.ico">
 
-            <span style=color:#66d9ef>while</span> <span style=color:#f92672>((</span>c <span style=color:#f92672>=</span> in<span style=color:#f92672>.</span><span style=color:#a6e22e>read</span><span style=color:#f92672>())</span> <span style=color:#f92672>!=</span> <span style=color:#f92672>-</span>1<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
-                out<span style=color:#f92672>.</span><span style=color:#a6e22e>write</span><span style=color:#f92672>(</span>c<span style=color:#f92672>);</span>
-            <span style=color:#f92672>}</span>
-        <span style=color:#f92672>}</span> <span style=color:#66d9ef>finally</span> <span style=color:#f92672>{</span>
-            <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span>in <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span><span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
-               in<span style=color:#f92672>.</span><span style=color:#a6e22e>close</span><span style=color:#f92672>();</span>
-            <span style=color:#f92672>}</span>
-            <span style=color:#66d9ef>if</span> <span style=color:#f92672>(</span>out <span style=color:#f92672>!=</span> <span style=color:#66d9ef>null</span><span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
-               out<span style=color:#f92672>.</span><span style=color:#a6e22e>close</span><span style=color:#f92672>();</span>
-            <span style=color:#f92672>}</span>
-        <span style=color:#f92672>}</span>
-    <span style=color:#f92672>}</span>
-<span style=color:#f92672>}</span></code></pre></div><p>CopyBytes在运行时形成一个循环:它不断从输入流中逐字节地读入数据，然后将字节输出到输出流。如下图所示。</p><p><img src=http://docs.oracle.com/javase/tutorial/figures/essential/byteStream.gif alt=图片链接 title="Byte Stream"></p><h3 id=永远记得关闭流>永远记得关闭流</h3><p>关闭不再使用的流十分重要——以至于你可以看到在CopyBytes中，我们甚至使用finally区块来确保输入流和输出流即使在出现错误的情况下都能被关闭。关闭操作可以避免严重的资源泄露。</p><p>可能出现的错误是CopyBytes无法打开一个或者多个文件。当这样的错误发生时，与这些文件相关的流变量不会改变它们最初的null值。这就是为什么在CopyBytes中，当我们最后调用close函数时要先确认每个流变量所持有的引用对象非空的原因。</p><h3 id=何时避免使用字节流>何时避免使用字节流</h3><p>CopyBytes看上去是一个很普通的程序，但它实际上是一种你应该避免使用的、低层次的I/O操作方式。因为xanadu.txt中包含了字符数据，所以最适当的方式是使用字符流(character stream)。我们将在下一部分讨论字符流。对于更复杂的数据类型，也有专门的流类来处理它们。字节流只应该用于最原始的I/O操作。</p><p>那为何还要讨论字节流呢？因为所有其它的流类的<strong>基础</strong>都是字节流。</p><h3 id=原文链接>原文链接</h3><p><a href=http://docs.oracle.com/javase/tutorial/essential/io/bytestreams.html>Byte Streams</a></p></div><div class=article-toc style=display:none><h3>Contents</h3><nav id=TableOfContents><ul><li><ul><li><a href=#byte-streams-字节流>Byte Streams 字节流</a><ul><li><a href=#使用字节流>使用字节流</a></li><li><a href=#永远记得关闭流>永远记得关闭流</a></li><li><a href=#何时避免使用字节流>何时避免使用字节流</a></li><li><a href=#原文链接>原文链接</a></li></ul></li></ul></li></ul></nav></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin=anonymous></script><script>(function(){var $toc=$('#TableOfContents');if($toc.length>0){var $window=$(window);function onScroll(){var currentScroll=$window.scrollTop();var h=$('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');var id="";h.each(function(i,e){e=$(e);if(e.offset().top-10<=currentScroll){id=e.attr('id');}});var active=$toc.find('a.active');if(active.length==1&&active.eq(0).attr('href')=='#'+id)return true;active.each(function(i,e){$(e).removeClass('active').siblings('ul').hide();});$toc.find('a[href="#'+id+'"]').parentsUntil('#TableOfContents').each(function(i,e){$(e).children('a').addClass('active').siblings('ul').show();});}
-$window.on('scroll',onScroll);$(document).ready(function(){$toc.find('a').parent('li').find('ul').hide();onScroll();document.getElementsByClassName('article-toc')[0].style.display='';});}})();</script><footer class=article-footer><ul class=article-tag-list><li class=article-tag-list-item><a class=article-tag-list-link href=https://blog.yuantops.com//tags/java>Java</a></li></ul></footer></div><nav id=article-nav><a href=/tech/jekyll-installation/ id=article-nav-newer class=article-nav-link-wrap><div class=article-nav-title><span>&lt;</span>&nbsp;
-Jekyll安装指南</div></a><a href=/tech/oracle-java-tutorial-character-stream/ id=article-nav-older class=article-nav-link-wrap><div class=article-nav-title>Character Streams -- Oracle Java Tutorial 翻译&nbsp;<span>&gt;</span></div></a></nav></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2012-2021 @yuantops&nbsp;</br>Proudly powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos>Minos</a></div></div><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-57420914-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin=anonymous></script><script>hljs.initHighlightingOnLoad();</script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css integrity=sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0 crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js integrity=sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1 crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin=anonymous></script><script>renderMathInElement(document.body);</script><script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var header=document.getElementById('header');if(header.classList.contains('mobile-on')){header.classList.remove('mobile-on');}else{header.classList.add('mobile-on');}});</script></footer></div></body></html>
+    <link href="https://blog.yuantops.com/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://blog.yuantops.com/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://blog.yuantops.com/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="本文是Oracle Java开发手册中关于Byte Stream章节的翻译，个人手工翻译，非转载。">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.50" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://blog.yuantops.com/">Yuantops&#39; Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/archives/">Archives</a>
+                
+                <a class="main-nav-link" href="/about/">About</a>
+                
+                <a class="main-nav-link" href="/index.xml">RSS</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Byte Streams -- Oracle Java Tutorial 翻译</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/tech/oracle-java-tutorial-byte-stream/" class="article-date">
+                <time datetime='2014-12-29T00:00:00.000&#43;00:00' itemprop="datePublished">2014-12-29</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
+                    
+                </div>
+		
+		<div class="article-category">
+	      	  85字, 约1分钟读完
+		</div>
+	    
+
+            </div>
+            
+
+	    
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h2 id="byte-streams-字节流">Byte Streams 字节流</h2>
+
+<p>程序使用*字节流*来处理8bit字节的输入和输出。所有的字节流类都派生(descend)自InputStream和OutputStream。</p>
+
+<p>字节流类有很多。为了演示字节流的工作原理，我们将关注文件的I/O字节流,FileInputStream和FileOutputStream。其它字节流类的使用方法往往与之类似，仅在构造的方法上存在差别。</p>
+
+<h3 id="使用字节流">使用字节流</h3>
+
+<p>下面我们通过一段代码CopyBytes来演示FileInputStream和FileOutputStream的用法。这段代码通过字节流逐字节地拷贝xanadu.txt。</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.io.FileInputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.FileOutputStream<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.io.IOException<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CopyBytes</span> <span style="color:#f92672">{</span>
+	   <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException <span style="color:#f92672">{</span>
+
+        FileInputStream in <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+        FileOutputStream out <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+
+        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+            in <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileInputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;xanadu.txt&#34;</span><span style="color:#f92672">);</span>
+            out <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileOutputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;outagain.txt&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">int</span> c<span style="color:#f92672">;</span>
+
+            <span style="color:#66d9ef">while</span> <span style="color:#f92672">((</span>c <span style="color:#f92672">=</span> in<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">())</span> <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                out<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>c<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>in <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+               in<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>out <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+               out<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+
+<p>CopyBytes在运行时形成一个循环:它不断从输入流中逐字节地读入数据，然后将字节输出到输出流。如下图所示。</p>
+
+<p><img src="http://docs.oracle.com/javase/tutorial/figures/essential/byteStream.gif" alt="图片链接" title="Byte Stream" /></p>
+
+<h3 id="永远记得关闭流">永远记得关闭流</h3>
+
+<p>关闭不再使用的流十分重要——以至于你可以看到在CopyBytes中，我们甚至使用finally区块来确保输入流和输出流即使在出现错误的情况下都能被关闭。关闭操作可以避免严重的资源泄露。</p>
+
+<p>可能出现的错误是CopyBytes无法打开一个或者多个文件。当这样的错误发生时，与这些文件相关的流变量不会改变它们最初的null值。这就是为什么在CopyBytes中，当我们最后调用close函数时要先确认每个流变量所持有的引用对象非空的原因。</p>
+
+<h3 id="何时避免使用字节流">何时避免使用字节流</h3>
+
+<p>CopyBytes看上去是一个很普通的程序，但它实际上是一种你应该避免使用的、低层次的I/O操作方式。因为xanadu.txt中包含了字符数据，所以最适当的方式是使用字符流(character stream)。我们将在下一部分讨论字符流。对于更复杂的数据类型，也有专门的流类来处理它们。字节流只应该用于最原始的I/O操作。</p>
+
+<p>那为何还要讨论字节流呢？因为所有其它的流类的<strong>基础</strong>都是字节流。</p>
+
+<h3 id="原文链接">原文链接</h3>
+
+<p><a href="http://docs.oracle.com/javase/tutorial/essential/io/bytestreams.html">Byte Streams</a></p>
+
+        </div>
+
+        
+        
+        <div class="article-toc" style="display:none;">
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#byte-streams-字节流">Byte Streams 字节流</a>
+<ul>
+<li><a href="#使用字节流">使用字节流</a></li>
+<li><a href="#永远记得关闭流">永远记得关闭流</a></li>
+<li><a href="#何时避免使用字节流">何时避免使用字节流</a></li>
+<li><a href="#原文链接">原文链接</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <script>
+            (function() {
+                var $toc = $('#TableOfContents');
+                if ($toc.length > 0) {
+                    var $window = $(window);
+
+                    function onScroll(){
+                        var currentScroll = $window.scrollTop();
+                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                        var id = "";
+                        h.each(function (i, e) {
+                            e = $(e);
+                            if (e.offset().top - 10 <= currentScroll) {
+                                id = e.attr('id');
+                            }
+                        });
+                        var active = $toc.find('a.active');
+                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+                        active.each(function (i, e) {
+                            $(e).removeClass('active').siblings('ul').hide();
+                        });
+                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                            $(e).children('a').addClass('active').siblings('ul').show();
+                        });
+                    }
+
+                    $window.on('scroll', onScroll);
+                    $(document).ready(function() {
+                        $toc.find('a').parent('li').find('ul').hide();
+                        onScroll();
+                        document.getElementsByClassName('article-toc')[0].style.display = '';
+                    });
+                }
+            })();
+        </script>
+        
+
+
+        
+	
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/java">Java
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+	
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/tech/jekyll-installation/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Jekyll安装指南
+        </div>
+    </a>
+    
+    
+    <a href="/tech/oracle-java-tutorial-character-stream/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Character Streams -- Oracle Java Tutorial 翻译&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2012-2021 @yuantops&nbsp; </br>
+            Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57420914-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
+        <script>renderMathInElement(document.body);</script>
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

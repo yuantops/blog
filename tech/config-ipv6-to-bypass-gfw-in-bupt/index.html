@@ -1,5 +1,333 @@
-<!doctype html><html><head><meta charset=utf-8><title>北邮校园网通过配置IPv6使用Google服务 // Yuantops&#39; Blog</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property=og:title content=北邮校园网通过配置IPv6使用Google服务><meta property=og:description content=北邮作为教育网华北主节点之一，对IPv6的支持十分成熟，校内IPv6资源十分丰富。本文介绍IPv6的配置方法，它使我们能最大程度地利用校内外的IPv6资源。><meta property=og:type content=website><meta property=og:locale content=en_US><meta property=og:url content=https://blog.yuantops.com/tech/config-ipv6-to-bypass-gfw-in-bupt/><link href rel=alternate type=application/rss+xml title="Yuantops' Blog"><link rel="shortcut icon" href=/favicon.ico><link href=https://blog.yuantops.com/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=https://blog.yuantops.com/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=https://blog.yuantops.com/css/style.css><link href=http://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta name=description content=北邮作为教育网华北主节点之一，对IPv6的支持十分成熟，校内IPv6资源十分丰富。本文介绍IPv6的配置方法，它使我们能最大程度地利用校内外的IPv6资源。><meta name=keywords content=北邮youtube,ipv6上youtube,><meta name=author content><meta name=generator content="Hugo 0.50"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a><a id=logo class=logo-text href=https://blog.yuantops.com/>Yuantops&#39; Blog</a><nav id=main-nav><a class=main-nav-link href=/archives/>Archives</a>
-<a class=main-nav-link href=/about/>About</a>
-<a class=main-nav-link href=/index.xml>RSS</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>北邮校园网通过配置IPv6使用Google服务</h1></header><div class=article-meta><a href=/tech/config-ipv6-to-bypass-gfw-in-bupt/ class=article-date><time datetime=2015-01-17T00:00:00.000&#43;00:00 itemprop=datePublished>2015-01-17</time></a><div class=post-categories><div class=article-category><a class=article-category-link href=https://blog.yuantops.com//categories/tech>Tech</a></div><div class=article-category>92字, 约1分钟读完</div></div></div><div class=article-entry itemprop=articleBody><h2 id=前提>前提</h2><p>首先，本文针对的是北邮校园网。我在北邮学十亲测，机器是Linux Mint。</p><p>其次，请确保:</p><ol><li>自己的机器支持IPv6。Win7默认安装了IPv6协议，WinXP可能需要自己手动安装。我自己的Linux mint默认安装了IPv6。<br></li><li>自己的网络支持IPv6。包括北邮在内的绝大多数高校校园网都架设了IPv6，通过校园网上网的同学理论上不必担心这点。所以，还在使用校园网的同学们，趁IPv6还没被盯上，珍惜现在吧。<br></li></ol><p><em>验证方法</em></p><p>打开浏览器，访问<a href=http://ipv6-test.com/>IPv6test.com</a>，页面上&rdquo;IPv6 connectivity&rdquo;一项如果显示&rdquo;Supported&rdquo;，说明前提条件满足。或者访问<a href=http://bt.byr.cn>BYR BT</a>，这是只支持IPv6方式访问的站点，如果能访问也说明前提条件满足。</p><h2 id=目标>目标</h2><ul><li>使用谷歌的服务(google search, gmail, google calendar, google scholar, google plus, youtube, etc.)<br></li><li>访问其它支持IPv6的网站: wikipedia, facebook, etc.<br></li></ul><p>除了能部分避开G)(F)(W之外，北邮校园网内通过IPv6通道产生的流量是不计费的，所以，即使从节约流量这一点看也是值得的。</p><h2 id=姿势简介>姿势简介</h2><p>总的来说，这个方法是靠访问网站的IPv6地址。如果要去的网站没有IPv6地址，那就没辙。而让我的电脑知道一个网站的IPv6地址(如果存在的话)，有两个法子:</p><ul><li>修改hosts文件<br></li><li>使用IPv6 DNS服务器<br></li></ul><p>当系统准备访问一个站点时，它需要知道目的站点的IP地址。它先会读取hosts文件，看里面是否有* IP-主机名* 的记录。如果有，它会直接按IP地址访问站点。如果hosts文件中没有相应记录，那么它会向系统设置的DNS服务器查询。DNS服务器会返回目的站点的IP地址。</p><p>所以，这两个方法可以同时使用。(有关DNS的知识，本文限于篇幅将不做讨论。)</p><h3 id=修改hosts文件>修改hosts文件</h3><p>这是一份内容随时更新的hosts文件：<a href=https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts>Hosts</a> 。这份文件属于托管在GitHub上的<a href=https://github.com/lennylxx/ipv6-hosts/>一个项目</a>，里面除了IPv6地址外还有一小部分由活雷锋搜集的IPv4地址，大家可以参考。</p><p>将<a href=https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts>Hosts</a>文件的文本复制过来，用任意一款文字编辑器打开hosts文件，将内容粘贴进来。</p><p>hosts文件在不同操作系统中的位置不同。在Windows下，它的默认路径是:<br>%SystemRoot%\system32\drivers\etc\hosts</p><p>在Linux下，以我的Mint为例，它的路径是:<br>/etc/hosts</p><p>修改它需要系统权限。如果是Linux，记得在前面加上sudo。</p><p>改完hosts，就已经能达到我们的目标了，可以使用Google的服务了。当然，我们还可以继续下面一步，来个双保险。</p><h3 id=使用ipv6-dns服务器>使用IPv6 DNS服务器</h3><p>支持IPv6 的免费DNS解析服务器很多，在此仅以Google为例。如果使用其它的IPv6 DNS服务器，将下文中的IP地址替换过来就好。</p><p>Google提供公共<a href=https://developers.google.com/speed/public-dns/docs/using>DNS解析服务</a>，能解析IPv6地址。Google DNS服务器在它的IPv6地址上监听IPv6的通道发来的查询请求。如果这个查询求的是IPv6地址，而且地址存在，那么Google服务器会返回结果AAAA记录。</p><p>GoogleDNS服务器的IPv6地址是:</p><ul><li>2001:4860:4860::8888<br></li><li>2001:4860:4860::8844<br></li></ul><p>将它们设为自己的首选DNS服务器。对于一个典型的Linux系统:</p><ol><li>编辑/etc/resolv.conf文件:<br>sudo vi /etc/resolv.conf<br></li><li>添加如下两条记录:<br>nameserver 2001:4860:4860::8888<br>nameserver 2001:4860:4860::8844<br>这两条记录顺序无所谓；也可以只添加一条。<br></li><li>保存退出。<br></li></ol><p>如果系统是通过DHCP服务器获取的IP地址，那么resolv.conf文件可能会在每次开机时自动被初始化覆盖。这时，可以尝试将DNS服务器的记录保存在初始化的配置文件中。</p><p>例如，我的Mint中/etc/resolv.f文件提示“OpenDNS Fallback (configured by Linux Mint in /etc/resolvconf/resolv.conf.d/tail)”，那么我将这两条记录拷贝到/etc/resolvconf/resolv.conf.d/tail里就好了。</p><p>好了，到现在配置已经完成。可以通过浏览器访问Google的网站试试看了。</p><h2 id=其它>其它</h2><h3 id=北邮校园网内网的dns服务器>北邮校园网内网的DNS服务器</h3><p>DNS查询也是需要走校外流量的。所以，最好不要将首选DNS服务器设置为外网服务器。北邮校园网内搭建有DNS服务器，譬如:</p><p>#学十能用的内网DNS服务器<br>10.3.9.4， 10.3.9.5， 10.3.9.6</p><h3 id=手机科学上网>手机科学上网</h3><p>如果手机通过WiFi接入IPv6网络，修改DNS服务器地址为Google DNS服务器的地址，那么手机也能访问Google了。亲测，iOS7的safari能打开youtube。</p><h3 id=一些观察手段>一些观察手段</h3><p>在Chrome浏览器地址栏中输入: <code>chrome://net-internals/#dns</code>可以看到浏览器的DNS解析记录。</p></div><div class=article-toc style=display:none><h3>Contents</h3><nav id=TableOfContents><ul><li><ul><li><a href=#前提>前提</a></li><li><a href=#目标>目标</a></li><li><a href=#姿势简介>姿势简介</a><ul><li><a href=#修改hosts文件>修改hosts文件</a></li><li><a href=#使用ipv6-dns服务器>使用IPv6 DNS服务器</a></li></ul></li><li><a href=#其它>其它</a><ul><li><a href=#北邮校园网内网的dns服务器>北邮校园网内网的DNS服务器</a></li><li><a href=#手机科学上网>手机科学上网</a></li><li><a href=#一些观察手段>一些观察手段</a></li></ul></li></ul></li></ul></nav></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin=anonymous></script><script>(function(){var $toc=$('#TableOfContents');if($toc.length>0){var $window=$(window);function onScroll(){var currentScroll=$window.scrollTop();var h=$('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');var id="";h.each(function(i,e){e=$(e);if(e.offset().top-10<=currentScroll){id=e.attr('id');}});var active=$toc.find('a.active');if(active.length==1&&active.eq(0).attr('href')=='#'+id)return true;active.each(function(i,e){$(e).removeClass('active').siblings('ul').hide();});$toc.find('a[href="#'+id+'"]').parentsUntil('#TableOfContents').each(function(i,e){$(e).children('a').addClass('active').siblings('ul').show();});}
-$window.on('scroll',onScroll);$(document).ready(function(){$toc.find('a').parent('li').find('ul').hide();onScroll();document.getElementsByClassName('article-toc')[0].style.display='';});}})();</script></div><nav id=article-nav><a href=/tech/ipv4-private-address-space/ id=article-nav-newer class=article-nav-link-wrap><div class=article-nav-title><span>&lt;</span>&nbsp;
-IPv4协议保留的私有IP段</div></a><a href=/tech/some-clarification-about-java-socket-port/ id=article-nav-older class=article-nav-link-wrap><div class=article-nav-title>厘清Java Socket端口问题 -- 服务器的端口是什么&nbsp;<span>&gt;</span></div></a></nav></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2012-2021 @yuantops&nbsp;</br>Proudly powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos>Minos</a></div></div><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-57420914-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin=anonymous></script><script>hljs.initHighlightingOnLoad();</script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css integrity=sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0 crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js integrity=sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1 crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin=anonymous></script><script>renderMathInElement(document.body);</script><script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var header=document.getElementById('header');if(header.classList.contains('mobile-on')){header.classList.remove('mobile-on');}else{header.classList.add('mobile-on');}});</script></footer></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>北邮校园网通过配置IPv6使用Google服务 // Yuantops&#39; Blog</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="北邮校园网通过配置IPv6使用Google服务" />
+<meta property="og:description" content="北邮作为教育网华北主节点之一，对IPv6的支持十分成熟，校内IPv6资源十分丰富。本文介绍IPv6的配置方法，它使我们能最大程度地利用校内外的IPv6资源。" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://blog.yuantops.com/tech/config-ipv6-to-bypass-gfw-in-bupt/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://blog.yuantops.com/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://blog.yuantops.com/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://blog.yuantops.com/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="北邮作为教育网华北主节点之一，对IPv6的支持十分成熟，校内IPv6资源十分丰富。本文介绍IPv6的配置方法，它使我们能最大程度地利用校内外的IPv6资源。">
+    <meta name="keywords" content="北邮youtube,ipv6上youtube,">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.50" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://blog.yuantops.com/">Yuantops&#39; Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/archives/">Archives</a>
+                
+                <a class="main-nav-link" href="/about/">About</a>
+                
+                <a class="main-nav-link" href="/index.xml">RSS</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">北邮校园网通过配置IPv6使用Google服务</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/tech/config-ipv6-to-bypass-gfw-in-bupt/" class="article-date">
+                <time datetime='2015-01-17T00:00:00.000&#43;00:00' itemprop="datePublished">2015-01-17</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
+                    
+                </div>
+		
+		<div class="article-category">
+	      	  92字, 约1分钟读完
+		</div>
+	    
+
+            </div>
+            
+
+	    
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h2 id="前提">前提</h2>
+
+<p>首先，本文针对的是北邮校园网。我在北邮学十亲测，机器是Linux Mint。</p>
+
+<p>其次，请确保:</p>
+
+<ol>
+<li>自己的机器支持IPv6。Win7默认安装了IPv6协议，WinXP可能需要自己手动安装。我自己的Linux mint默认安装了IPv6。<br /></li>
+<li>自己的网络支持IPv6。包括北邮在内的绝大多数高校校园网都架设了IPv6，通过校园网上网的同学理论上不必担心这点。所以，还在使用校园网的同学们，趁IPv6还没被盯上，珍惜现在吧。<br /></li>
+</ol>
+
+<p><em>验证方法</em></p>
+
+<p>打开浏览器，访问<a href="http://ipv6-test.com/">IPv6test.com</a>，页面上&rdquo;IPv6 connectivity&rdquo;一项如果显示&rdquo;Supported&rdquo;，说明前提条件满足。或者访问<a href="http://bt.byr.cn">BYR BT</a>，这是只支持IPv6方式访问的站点，如果能访问也说明前提条件满足。</p>
+
+<h2 id="目标">目标</h2>
+
+<ul>
+<li>使用谷歌的服务(google search, gmail, google calendar, google scholar, google plus, youtube, etc.)<br /></li>
+<li>访问其它支持IPv6的网站: wikipedia, facebook, etc.<br /></li>
+</ul>
+
+<p>除了能部分避开G)(F)(W之外，北邮校园网内通过IPv6通道产生的流量是不计费的，所以，即使从节约流量这一点看也是值得的。</p>
+
+<h2 id="姿势简介">姿势简介</h2>
+
+<p>总的来说，这个方法是靠访问网站的IPv6地址。如果要去的网站没有IPv6地址，那就没辙。而让我的电脑知道一个网站的IPv6地址(如果存在的话)，有两个法子:</p>
+
+<ul>
+<li>修改hosts文件<br /></li>
+<li>使用IPv6 DNS服务器<br /></li>
+</ul>
+
+<p>当系统准备访问一个站点时，它需要知道目的站点的IP地址。它先会读取hosts文件，看里面是否有* IP-主机名* 的记录。如果有，它会直接按IP地址访问站点。如果hosts文件中没有相应记录，那么它会向系统设置的DNS服务器查询。DNS服务器会返回目的站点的IP地址。</p>
+
+<p>所以，这两个方法可以同时使用。(有关DNS的知识，本文限于篇幅将不做讨论。)</p>
+
+<h3 id="修改hosts文件">修改hosts文件</h3>
+
+<p>这是一份内容随时更新的hosts文件：<a href="https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts">Hosts</a> 。这份文件属于托管在GitHub上的<a href="https://github.com/lennylxx/ipv6-hosts/">一个项目</a>，里面除了IPv6地址外还有一小部分由活雷锋搜集的IPv4地址，大家可以参考。</p>
+
+<p>将<a href="https://raw.githubusercontent.com/lennylxx/ipv6-hosts/master/hosts">Hosts</a>文件的文本复制过来，用任意一款文字编辑器打开hosts文件，将内容粘贴进来。</p>
+
+<p>hosts文件在不同操作系统中的位置不同。在Windows下，它的默认路径是:<br />
+        %SystemRoot%\system32\drivers\etc\hosts</p>
+
+<p>在Linux下，以我的Mint为例，它的路径是:<br />
+        /etc/hosts</p>
+
+<p>修改它需要系统权限。如果是Linux，记得在前面加上sudo。</p>
+
+<p>改完hosts，就已经能达到我们的目标了，可以使用Google的服务了。当然，我们还可以继续下面一步，来个双保险。</p>
+
+<h3 id="使用ipv6-dns服务器">使用IPv6 DNS服务器</h3>
+
+<p>支持IPv6 的免费DNS解析服务器很多，在此仅以Google为例。如果使用其它的IPv6 DNS服务器，将下文中的IP地址替换过来就好。</p>
+
+<p>Google提供公共<a href="https://developers.google.com/speed/public-dns/docs/using">DNS解析服务</a>，能解析IPv6地址。Google DNS服务器在它的IPv6地址上监听IPv6的通道发来的查询请求。如果这个查询求的是IPv6地址，而且地址存在，那么Google服务器会返回结果AAAA记录。</p>
+
+<p>GoogleDNS服务器的IPv6地址是:</p>
+
+<ul>
+<li>2001:4860:4860::8888<br /></li>
+<li>2001:4860:4860::8844<br /></li>
+</ul>
+
+<p>将它们设为自己的首选DNS服务器。对于一个典型的Linux系统:</p>
+
+<ol>
+<li>编辑/etc/resolv.conf文件:<br />
+    sudo vi /etc/resolv.conf<br /></li>
+<li>添加如下两条记录:<br />
+nameserver 2001:4860:4860::8888<br />
+nameserver 2001:4860:4860::8844<br />
+这两条记录顺序无所谓；也可以只添加一条。<br /></li>
+<li>保存退出。<br /></li>
+</ol>
+
+<p>如果系统是通过DHCP服务器获取的IP地址，那么resolv.conf文件可能会在每次开机时自动被初始化覆盖。这时，可以尝试将DNS服务器的记录保存在初始化的配置文件中。</p>
+
+<p>例如，我的Mint中/etc/resolv.f文件提示“OpenDNS Fallback (configured by Linux Mint in /etc/resolvconf/resolv.conf.d/tail)”，那么我将这两条记录拷贝到/etc/resolvconf/resolv.conf.d/tail里就好了。</p>
+
+<p>好了，到现在配置已经完成。可以通过浏览器访问Google的网站试试看了。</p>
+
+<h2 id="其它">其它</h2>
+
+<h3 id="北邮校园网内网的dns服务器">北邮校园网内网的DNS服务器</h3>
+
+<p>DNS查询也是需要走校外流量的。所以，最好不要将首选DNS服务器设置为外网服务器。北邮校园网内搭建有DNS服务器，譬如:</p>
+
+<p>#学十能用的内网DNS服务器<br />
+    10.3.9.4， 10.3.9.5， 10.3.9.6</p>
+
+<h3 id="手机科学上网">手机科学上网</h3>
+
+<p>如果手机通过WiFi接入IPv6网络，修改DNS服务器地址为Google DNS服务器的地址，那么手机也能访问Google了。亲测，iOS7的safari能打开youtube。</p>
+
+<h3 id="一些观察手段">一些观察手段</h3>
+
+<p>在Chrome浏览器地址栏中输入: <code>chrome://net-internals/#dns</code>可以看到浏览器的DNS解析记录。</p>
+
+        </div>
+
+        
+        
+        <div class="article-toc" style="display:none;">
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#前提">前提</a></li>
+<li><a href="#目标">目标</a></li>
+<li><a href="#姿势简介">姿势简介</a>
+<ul>
+<li><a href="#修改hosts文件">修改hosts文件</a></li>
+<li><a href="#使用ipv6-dns服务器">使用IPv6 DNS服务器</a></li>
+</ul></li>
+<li><a href="#其它">其它</a>
+<ul>
+<li><a href="#北邮校园网内网的dns服务器">北邮校园网内网的DNS服务器</a></li>
+<li><a href="#手机科学上网">手机科学上网</a></li>
+<li><a href="#一些观察手段">一些观察手段</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <script>
+            (function() {
+                var $toc = $('#TableOfContents');
+                if ($toc.length > 0) {
+                    var $window = $(window);
+
+                    function onScroll(){
+                        var currentScroll = $window.scrollTop();
+                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                        var id = "";
+                        h.each(function (i, e) {
+                            e = $(e);
+                            if (e.offset().top - 10 <= currentScroll) {
+                                id = e.attr('id');
+                            }
+                        });
+                        var active = $toc.find('a.active');
+                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+                        active.each(function (i, e) {
+                            $(e).removeClass('active').siblings('ul').hide();
+                        });
+                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                            $(e).children('a').addClass('active').siblings('ul').show();
+                        });
+                    }
+
+                    $window.on('scroll', onScroll);
+                    $(document).ready(function() {
+                        $toc.find('a').parent('li').find('ul').hide();
+                        onScroll();
+                        document.getElementsByClassName('article-toc')[0].style.display = '';
+                    });
+                }
+            })();
+        </script>
+        
+
+
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/tech/ipv4-private-address-space/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            IPv4协议保留的私有IP段
+        </div>
+    </a>
+    
+    
+    <a href="/tech/some-clarification-about-java-socket-port/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">厘清Java Socket端口问题 -- 服务器的端口是什么&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2012-2021 @yuantops&nbsp; </br>
+            Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57420914-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
+        <script>renderMathInElement(document.body);</script>
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

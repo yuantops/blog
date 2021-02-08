@@ -1,7 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dns on Yuantops&#39; Blog</title><link>https://blog.yuantops.com/tags/dns/</link><description>Recent content in Dns on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Tue, 23 Dec 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.yuantops.com/tags/dns/index.xml" rel="self" type="application/rss+xml"/><item><title>BIND安装笔记</title><link>https://blog.yuantops.com/tech/bind-installation-guide/</link><pubDate>Tue, 23 Dec 2014 00:00:00 +0000</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/bind-installation-guide/</guid><description>安装环境 网络环境：两台KVM虚拟机，通过NAT方式组成子网(IP地址分别为192.168.100.139, 192.168.100.172)，彼此能ping通，均能访问互联网
-系统：Redhat 6.6
-要解析的域名：yuantops.com 安装BIND软件包 $ yum install bind bind-utils
-为要解析的域名生成DNSSEC KEY 这一步不是配置基本DNS解析器时必须包括的步骤，因此可以省略。
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dns on Yuantops&#39; Blog</title>
+    <link>https://blog.yuantops.com/tags/dns/</link>
+    <description>Recent content in Dns on Yuantops&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
+    <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Tue, 23 Dec 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.yuantops.com/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>BIND安装笔记</title>
+      <link>https://blog.yuantops.com/tech/bind-installation-guide/</link>
+      <pubDate>Tue, 23 Dec 2014 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/bind-installation-guide/</guid>
+      <description>安装环境  网络环境：两台KVM虚拟机，通过NAT方式组成子网(IP地址分别为192.168.100.139, 192.168.100.172)，彼此能ping通，均能访问互联网
+ 系统：Redhat 6.6
+ 要解析的域名：yuantops.com  安装BIND软件包  $ yum install bind bind-utils
+ 为要解析的域名生成DNSSEC KEY 这一步不是配置基本DNS解析器时必须包括的步骤，因此可以省略。
 DNSSEC是为了解决DNS欺骗和缓存污染而设计的一种安全机制。由于DNS域名解析系统在设计之初没有考虑到安全问题，经常有针对DNS系统的攻击发生，而且由于DNS协议十分脆弱，攻击一旦发生就会造成大面积的影响甚至瘫痪。DNSSEC的原理是通过引入加密技术，依靠数字签名保证DNS应答报文的真实性和完整性。具体的介绍请见DNSSEC的原理、配置与部署简介一文。
 假设我要解析的域名为yuantops.com，准备将这个域名对应的DNSSEC KEY文件保存在/var/named/路径下。
 &amp;gt; $ cd /var/named
@@ -13,7 +35,11 @@ rndc是BIND安装包提供的一种域名服务控制工具，它可以运行在
 &amp;gt; $ rndc-confgen -a -r /dev/urandom
 在/etc路径下生成了rndc.key文件。
 配置BIND对域名的解析 这一步是必须完成的、最重要的步骤。
-新建yuantops.com域的zone文件，保存到/var/named/dynamic目录。
+ 新建yuantops.com域的zone文件，保存到/var/named/dynamic目录。
 域的zone文件有自己的语法规范，配置起来需要事先对DNS的术语有一定了解。可以参看文章一和 文章二。
 下面是域yuantops.com的zone文件yuantops.com.db的内容:
-&amp;gt;$TTL 86400 ; 24 hours could have been written as 24h or 1d</description></item></channel></rss>
+&amp;gt;$TTL 86400 ; 24 hours could have been written as 24h or 1d</description>
+    </item>
+    
+  </channel>
+</rss>

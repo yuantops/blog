@@ -1,6 +1,244 @@
-<!doctype html><html><head><meta charset=utf-8><title>Android SurfaceView双缓存机制与闪屏现象分析 // Yuantops&#39; Blog</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property=og:title content="Android SurfaceView双缓存机制与闪屏现象分析"><meta property=og:description content=SurfaceView控件适合内存耗费大、需要频繁刷新的场景，常用于显示游戏、动画、视频等。为提升显示性能，SurfaceView使用了双缓存机制。但我在使用过程中出现了闪屏现象：刷新过程中，正常帧和黑屏交替出现。本文讨论闪屏问题的原因，以及可行的改进方法。><meta property=og:type content=website><meta property=og:locale content=en_US><meta property=og:url content=https://blog.yuantops.com/tech/surfaceview-dual-cache/><link href rel=alternate type=application/rss+xml title="Yuantops' Blog"><link rel="shortcut icon" href=/favicon.ico><link href=https://blog.yuantops.com/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=https://blog.yuantops.com/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=https://blog.yuantops.com/css/style.css><link href=http://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta name=description content=SurfaceView控件适合内存耗费大、需要频繁刷新的场景，常用于显示游戏、动画、视频等。为提升显示性能，SurfaceView使用了双缓存机制。但我在使用过程中出现了闪屏现象：刷新过程中，正常帧和黑屏交替出现。本文讨论闪屏问题的原因，以及可行的改进方法。><meta name=keywords content><meta name=author content><meta name=generator content="Hugo 0.50"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a><a id=logo class=logo-text href=https://blog.yuantops.com/>Yuantops&#39; Blog</a><nav id=main-nav><a class=main-nav-link href=/archives/>Archives</a>
-<a class=main-nav-link href=/about/>About</a>
-<a class=main-nav-link href=/index.xml>RSS</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>Android SurfaceView双缓存机制与闪屏现象分析</h1></header><div class=article-meta><a href=/tech/surfaceview-dual-cache/ class=article-date><time datetime=2015-07-26T00:00:00.000&#43;00:00 itemprop=datePublished>2015-07-26</time></a><div class=post-categories><div class=article-category><a class=article-category-link href=https://blog.yuantops.com//categories/tech>Tech</a></div><div class=article-category>43字, 约1分钟读完</div></div></div><div class=article-entry itemprop=articleBody><p>##理解SurfaceView<br>SurfaceView是View的子类，所以View有的特点它都有。但它有特殊之处：它引入了缓存机制，优化了内容刷新的过程，使UI Thread不至于崩溃。更新它的内容，我们要用到与之关联的SurfaceHolder。</p><p>比较特殊的在于SurfaceView的“双缓存”(Double-buffer)机制。更新SurfaceView的常见流程是&rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&rdquo;, 如果你遇到SurfaceView闪烁的情况，像鬼片里电视机的那种闪法，那十之八九是栽倒在双缓存的坑里了。Google告诉了我这个问题的答案，希望你能用上。</p><p>##双缓存(Double-buffer)与黑屏闪烁<br>以下内容来自<a href=http://markmail.org/message/mxserqvi37hnajp5>邮件列表的讨论</a>，我对它们进行一点梳理。</p><ol><li><p>每个SurfaceView 对象有两个独立的graphic buffer，官方SDK将它们称作&rdquo;front buffer&rdquo;和&rdquo;back buffer&rdquo;。</p></li><li><p>常规的&rdquo;double-buffer&rdquo;会这么做：每一帧的数据都被绘制到back buffer，然后back buffer的内容被持续翻转(flip)到front buffer；屏幕一直显示front buffer。但Android SurfaceView的&rdquo;double-buffer&rdquo;却是这么做的：在buffer A里绘制内容，然后让屏幕显示buffer A; 下一个循环，在buffer B里绘制内容，然后让屏幕显示buffer B; 如此往复。于是，屏幕上显示的内容依次来自buffer A, B, A, B,&hellip;.这样看来，两个buffer其实没有主从的分别，与其称之为&rdquo;front buffer&rdquo;&ldquo;back buffer&rdquo;，毋宁称之为&rdquo;buffer A&rdquo;&ldquo;buffer B&rdquo;。</p></li><li><p>Android中&rdquo;double-buffer&rdquo;的实现机制，可以很好地解释闪屏现象。在第一个&rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&rdquo;循环中，更新的是buffer A的内容；到下一个&rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&rdquo;循环中，更新的是buffer B的内容。如果buffer A与buffer B中某个buffer内容为空，当屏幕轮流显示它们时，就会出现画面黑屏闪烁现象。</p></li></ol><p>##解决方法
-出现黑屏是因为buffer A与buffer B中一者内容为空，而且为空的一方还被post到了屏幕。于是有两种解决思路：</p><ol><li><p>不让空buffer出现：每次向一个buffer写完内容并post之后，顺便用这个buffer的内容填充另一个buffer。这样能保证两个buffer的内容是同步的，缺点是做了无用功，耗费性能。</p></li><li><p>不post空buffer到屏幕：当准备更新内容时，先判断内容是否为空，只有非空时才启动&rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&rdquo;这个流程。</p></li></ol></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin=anonymous></script><script>(function(){var $toc=$('#TableOfContents');if($toc.length>0){var $window=$(window);function onScroll(){var currentScroll=$window.scrollTop();var h=$('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');var id="";h.each(function(i,e){e=$(e);if(e.offset().top-10<=currentScroll){id=e.attr('id');}});var active=$toc.find('a.active');if(active.length==1&&active.eq(0).attr('href')=='#'+id)return true;active.each(function(i,e){$(e).removeClass('active').siblings('ul').hide();});$toc.find('a[href="#'+id+'"]').parentsUntil('#TableOfContents').each(function(i,e){$(e).children('a').addClass('active').siblings('ul').show();});}
-$window.on('scroll',onScroll);$(document).ready(function(){$toc.find('a').parent('li').find('ul').hide();onScroll();document.getElementsByClassName('article-toc')[0].style.display='';});}})();</script><footer class=article-footer><ul class=article-tag-list><li class=article-tag-list-item><a class=article-tag-list-link href=https://blog.yuantops.com//tags/android>Android</a></li></ul></footer></div><nav id=article-nav><a href=/opinions/a-lottery-for-american-dream/ id=article-nav-newer class=article-nav-link-wrap><div class=article-nav-title><span>&lt;</span>&nbsp;
-一张彩票，一个人的美国梦</div></a><a href=/tech/helix-server-streaming-guide/ id=article-nav-older class=article-nav-link-wrap><div class=article-nav-title>用Helix Server建立点播流/直播流的方法&nbsp;<span>&gt;</span></div></a></nav></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2012-2021 @yuantops&nbsp;</br>Proudly powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos>Minos</a></div></div><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-57420914-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin=anonymous></script><script>hljs.initHighlightingOnLoad();</script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css integrity=sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0 crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js integrity=sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1 crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin=anonymous></script><script>renderMathInElement(document.body);</script><script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var header=document.getElementById('header');if(header.classList.contains('mobile-on')){header.classList.remove('mobile-on');}else{header.classList.add('mobile-on');}});</script></footer></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Android SurfaceView双缓存机制与闪屏现象分析 // Yuantops&#39; Blog</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="Android SurfaceView双缓存机制与闪屏现象分析" />
+<meta property="og:description" content="SurfaceView控件适合内存耗费大、需要频繁刷新的场景，常用于显示游戏、动画、视频等。为提升显示性能，SurfaceView使用了双缓存机制。但我在使用过程中出现了闪屏现象：刷新过程中，正常帧和黑屏交替出现。本文讨论闪屏问题的原因，以及可行的改进方法。" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://blog.yuantops.com/tech/surfaceview-dual-cache/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://blog.yuantops.com/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://blog.yuantops.com/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://blog.yuantops.com/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="SurfaceView控件适合内存耗费大、需要频繁刷新的场景，常用于显示游戏、动画、视频等。为提升显示性能，SurfaceView使用了双缓存机制。但我在使用过程中出现了闪屏现象：刷新过程中，正常帧和黑屏交替出现。本文讨论闪屏问题的原因，以及可行的改进方法。">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.50" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://blog.yuantops.com/">Yuantops&#39; Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/archives/">Archives</a>
+                
+                <a class="main-nav-link" href="/about/">About</a>
+                
+                <a class="main-nav-link" href="/index.xml">RSS</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">Android SurfaceView双缓存机制与闪屏现象分析</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/tech/surfaceview-dual-cache/" class="article-date">
+                <time datetime='2015-07-26T00:00:00.000&#43;00:00' itemprop="datePublished">2015-07-26</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
+                    
+                </div>
+		
+		<div class="article-category">
+	      	  43字, 约1分钟读完
+		</div>
+	    
+
+            </div>
+            
+
+	    
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            <p>##理解SurfaceView<br />
+SurfaceView是View的子类，所以View有的特点它都有。但它有特殊之处：它引入了缓存机制，优化了内容刷新的过程，使UI Thread不至于崩溃。更新它的内容，我们要用到与之关联的SurfaceHolder。</p>
+
+<p>比较特殊的在于SurfaceView的“双缓存”(Double-buffer)机制。更新SurfaceView的常见流程是&rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&rdquo;, 如果你遇到SurfaceView闪烁的情况，像鬼片里电视机的那种闪法，那十之八九是栽倒在双缓存的坑里了。Google告诉了我这个问题的答案，希望你能用上。</p>
+
+<p>##双缓存(Double-buffer)与黑屏闪烁<br />
+以下内容来自<a href="http://markmail.org/message/mxserqvi37hnajp5">邮件列表的讨论</a>，我对它们进行一点梳理。</p>
+
+<ol>
+<li><p>每个SurfaceView 对象有两个独立的graphic buffer，官方SDK将它们称作&rdquo;front buffer&rdquo;和&rdquo;back buffer&rdquo;。</p></li>
+
+<li><p>常规的&rdquo;double-buffer&rdquo;会这么做：每一帧的数据都被绘制到back buffer，然后back buffer的内容被持续翻转(flip)到front buffer；屏幕一直显示front buffer。但Android SurfaceView的&rdquo;double-buffer&rdquo;却是这么做的：在buffer A里绘制内容，然后让屏幕显示buffer A; 下一个循环，在buffer B里绘制内容，然后让屏幕显示buffer B; 如此往复。于是，屏幕上显示的内容依次来自buffer A, B, A, B,&hellip;.这样看来，两个buffer其实没有主从的分别，与其称之为&rdquo;front buffer&rdquo;&ldquo;back buffer&rdquo;，毋宁称之为&rdquo;buffer A&rdquo;&ldquo;buffer B&rdquo;。</p></li>
+
+<li><p>Android中&rdquo;double-buffer&rdquo;的实现机制，可以很好地解释闪屏现象。在第一个&rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&rdquo;循环中，更新的是buffer A的内容；到下一个&rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&rdquo;循环中，更新的是buffer B的内容。如果buffer A与buffer B中某个buffer内容为空，当屏幕轮流显示它们时，就会出现画面黑屏闪烁现象。</p></li>
+</ol>
+
+<p>##解决方法
+出现黑屏是因为buffer A与buffer B中一者内容为空，而且为空的一方还被post到了屏幕。于是有两种解决思路：</p>
+
+<ol>
+<li><p>不让空buffer出现：每次向一个buffer写完内容并post之后，顺便用这个buffer的内容填充另一个buffer。这样能保证两个buffer的内容是同步的，缺点是做了无用功，耗费性能。</p></li>
+
+<li><p>不post空buffer到屏幕：当准备更新内容时，先判断内容是否为空，只有非空时才启动&rdquo;lockCanvas-drawCanvas-unlockCanvasAndPost&rdquo;这个流程。</p></li>
+</ol>
+
+        </div>
+
+        
+        
+        
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <script>
+            (function() {
+                var $toc = $('#TableOfContents');
+                if ($toc.length > 0) {
+                    var $window = $(window);
+
+                    function onScroll(){
+                        var currentScroll = $window.scrollTop();
+                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                        var id = "";
+                        h.each(function (i, e) {
+                            e = $(e);
+                            if (e.offset().top - 10 <= currentScroll) {
+                                id = e.attr('id');
+                            }
+                        });
+                        var active = $toc.find('a.active');
+                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+                        active.each(function (i, e) {
+                            $(e).removeClass('active').siblings('ul').hide();
+                        });
+                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                            $(e).children('a').addClass('active').siblings('ul').show();
+                        });
+                    }
+
+                    $window.on('scroll', onScroll);
+                    $(document).ready(function() {
+                        $toc.find('a').parent('li').find('ul').hide();
+                        onScroll();
+                        document.getElementsByClassName('article-toc')[0].style.display = '';
+                    });
+                }
+            })();
+        </script>
+        
+
+
+        
+	
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/android">Android
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+	
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/opinions/a-lottery-for-american-dream/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            一张彩票，一个人的美国梦
+        </div>
+    </a>
+    
+    
+    <a href="/tech/helix-server-streaming-guide/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">用Helix Server建立点播流/直播流的方法&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2012-2021 @yuantops&nbsp; </br>
+            Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57420914-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
+        <script>renderMathInElement(document.body);</script>
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

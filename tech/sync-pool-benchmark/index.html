@@ -1,9 +1,128 @@
-<!doctype html><html><head><meta charset=utf-8><title>用Benchmark验证sync.Pool对GC latency的优化效果 // Yuantops&#39; Blog</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property=og:title content="用Benchmark验证sync.Pool对GC latency的优化效果"><meta property=og:description content=sync.Pool确实能极大减少GC次数。><meta property=og:type content=website><meta property=og:locale content=en_US><meta property=og:url content=https://blog.yuantops.com/tech/sync-pool-benchmark/><link href rel=alternate type=application/rss+xml title="Yuantops' Blog"><link rel="shortcut icon" href=/favicon.ico><link href=https://blog.yuantops.com/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=https://blog.yuantops.com/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=https://blog.yuantops.com/css/style.css><link href=http://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta name=description content=sync.Pool确实能极大减少GC次数。><meta name=keywords content="go GC优化,sync.Pool性能,"><meta name=author content><meta name=generator content="Hugo 0.50"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a><a id=logo class=logo-text href=https://blog.yuantops.com/>Yuantops&#39; Blog</a><nav id=main-nav><a class=main-nav-link href=/archives/>Archives</a>
-<a class=main-nav-link href=/about/>About</a>
-<a class=main-nav-link href=/index.xml>RSS</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>用Benchmark验证sync.Pool对GC latency的优化效果</h1></header><div class=article-meta><a href=/tech/sync-pool-benchmark/ class=article-date><time datetime=2018-05-11T10:33:25.000&#43;00:00 itemprop=datePublished>2018-05-11</time></a><div class=post-categories><div class=article-category><a class=article-category-link href=https://blog.yuantops.com//categories/tech>Tech</a></div><div class=article-category>378字, 约2分钟读完</div></div></div><div class=article-entry itemprop=articleBody><p>可能是为了避免重复造轮子，Go官方库推出了sync.Pool:一个thread-safe、可回收/重用对象的内存池。对性能优化狂魔而言，sync.Pool无疑是一个优化GC的好工具，因为理论上重用对象会减少了GC次数，缩短latency。这篇文章是sync.Pool的性能验证报告：sync.Pool确实能极大减少GC次数。</p><h1 id=benchmark关注什么>Benchmark关注什么？</h1><p>在写Benchmark代码之前，要先确定如何衡量GC效果。很直观地，GC次数越少，效果越好。但GC次数的粒度太大，说服力不够，还需要其他的指标。</p><p>这篇文章<a href=https://making.pusher.com/golangs-real-time-gc-in-theory-and-practice/>Golang real time
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用Benchmark验证sync.Pool对GC latency的优化效果 // Yuantops&#39; Blog</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="用Benchmark验证sync.Pool对GC latency的优化效果" />
+<meta property="og:description" content="sync.Pool确实能极大减少GC次数。" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://blog.yuantops.com/tech/sync-pool-benchmark/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://blog.yuantops.com/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://blog.yuantops.com/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://blog.yuantops.com/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="sync.Pool确实能极大减少GC次数。">
+    <meta name="keywords" content="go GC优化,sync.Pool性能,">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.50" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://blog.yuantops.com/">Yuantops&#39; Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/archives/">Archives</a>
+                
+                <a class="main-nav-link" href="/about/">About</a>
+                
+                <a class="main-nav-link" href="/index.xml">RSS</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">用Benchmark验证sync.Pool对GC latency的优化效果</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/tech/sync-pool-benchmark/" class="article-date">
+                <time datetime='2018-05-11T10:33:25.000&#43;00:00' itemprop="datePublished">2018-05-11</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
+                    
+                </div>
+		
+		<div class="article-category">
+	      	  378字, 约2分钟读完
+		</div>
+	    
+
+            </div>
+            
+
+	    
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<p>可能是为了避免重复造轮子，Go官方库推出了sync.Pool:一个thread-safe、可回收/重用对象的内存池。对性能优化狂魔而言，sync.Pool无疑是一个优化GC的好工具，因为理论上重用对象会减少了GC次数，缩短latency。这篇文章是sync.Pool的性能验证报告：sync.Pool确实能极大减少GC次数。</p>
+
+<h1 id="benchmark关注什么">Benchmark关注什么？</h1>
+
+<p>在写Benchmark代码之前，要先确定如何衡量GC效果。很直观地，GC次数越少，效果越好。但GC次数的粒度太大，说服力不够，还需要其他的指标。</p>
+
+<p>这篇文章<a href="https://making.pusher.com/golangs-real-time-gc-in-theory-and-practice/">Golang real time
 gc</a>
-给我了答案。不断往一个size固定的buffer里覆盖写入数据，记录写入耗时。被覆盖掉的数据会变成垃圾，继而触发GC，所以耗时就是latency。</p><p>原文引述如下：</p><pre><code>The benchmark program repeatedly pushes messages into a size-limited buffer. Old messages constantly expire and become garbage.
-</code></pre><p>于是，Benchmark的实现，以及关注的指标就确定了：</p><ol><li>GC次数</li><li>数据写入耗时</li></ol><h1 id=代码实现>代码实现</h1><h2 id=不用sync-pool的实现>不用sync.Pool的实现</h2><p>见<a href=https://play.golang.org/p/049Xmy1lTfV>https://play.golang.org/p/049Xmy1lTfV</a></p><pre><code class=language-go>   package main
+给我了答案。不断往一个size固定的buffer里覆盖写入数据，记录写入耗时。被覆盖掉的数据会变成垃圾，继而触发GC，所以耗时就是latency。</p>
+
+<p>原文引述如下：</p>
+
+<pre><code>The benchmark program repeatedly pushes messages into a size-limited buffer. Old messages constantly expire and become garbage.
+</code></pre>
+
+<p>于是，Benchmark的实现，以及关注的指标就确定了：</p>
+
+<ol>
+<li>GC次数</li>
+<li>数据写入耗时</li>
+</ol>
+
+<h1 id="代码实现">代码实现</h1>
+
+<h2 id="不用sync-pool的实现">不用sync.Pool的实现</h2>
+
+<p>见<a href="https://play.golang.org/p/049Xmy1lTfV">https://play.golang.org/p/049Xmy1lTfV</a></p>
+
+<pre><code class="language-go">   package main
 
 import (
   &quot;fmt&quot;
@@ -47,7 +166,13 @@ func main() {
   }
   fmt.Println(&quot;Worst push time: &quot;, worst)
 }
-</code></pre><h2 id=用sync-pool的实现>用sync.Pool的实现</h2><p>见<a href=https://play.golang.org/p/Wop29wN7>https://play.golang.org/p/Wop29wN7</a><sub>Dp</sub></p><pre><code class=language-go>   package main
+</code></pre>
+
+<h2 id="用sync-pool的实现">用sync.Pool的实现</h2>
+
+<p>见<a href="https://play.golang.org/p/Wop29wN7">https://play.golang.org/p/Wop29wN7</a><sub>Dp</sub></p>
+
+<pre><code class="language-go">   package main
 
 import (
   &quot;fmt&quot;
@@ -103,18 +228,188 @@ func main() {
   }
   fmt.Println(&quot;Worst push time: &quot;, worst)
 }
-</code></pre><h1 id=运行代码>运行代码</h1><p>因为要观察GC次数，我们需要打开GODEBUG的GCTRACE开关`GODEBUG=gctrace=1`。</p><p>(下面的数据是在我的Thinkpad T450上跑出来的。)</p><h2 id=不使用sync-pool的实现>不使用sync.Pool的实现</h2><p>触发454次GC，最差写入耗时50.40ms。</p><p>摘录一部分output:</p><pre><code class=language-shell>$ GODEBUG=gctrace=1 go run benchmark_gc.go
+</code></pre>
+
+<h1 id="运行代码">运行代码</h1>
+
+<p>因为要观察GC次数，我们需要打开GODEBUG的GCTRACE开关`GODEBUG=gctrace=1`。</p>
+
+<p>(下面的数据是在我的Thinkpad T450上跑出来的。)</p>
+
+<h2 id="不使用sync-pool的实现">不使用sync.Pool的实现</h2>
+
+<p>触发454次GC，最差写入耗时50.40ms。</p>
+
+<p>摘录一部分output:</p>
+
+<pre><code class="language-shell">$ GODEBUG=gctrace=1 go run benchmark_gc.go
 gc 1 @0.041s 0%: 0.044+0.39+0.037 ms clock, 0.13+0.19/0.26/0.40+0.11 ms cpu, 4-&gt;4-&gt;0 MB, 5 MB goal, 4 P
 ...
 gc 454 @106.994s 4%: 0.012+29+0.045 ms clock, 0.048+1.6/26/39+0.18 ms cpu, 422-&gt;437-&gt;219 MB, 439 MB goal, 4 P
 Worst push time:  50.401524ms
-</code></pre><h2 id=用sync-pool的实现-1>用sync.Pool的实现</h2><p>触发22次GC，最差写入耗时36.14ms</p><p>摘录一部分output:</p><pre><code class=language-shell> GODEBUG=gctrace=1 go run benchmark_gc_pool.go 
+</code></pre>
+
+<h2 id="用sync-pool的实现-1">用sync.Pool的实现</h2>
+
+<p>触发22次GC，最差写入耗时36.14ms</p>
+
+<p>摘录一部分output:</p>
+
+<pre><code class="language-shell"> GODEBUG=gctrace=1 go run benchmark_gc_pool.go 
 gc 1 @0.045s 0%: 0.047+1.2+0.077 ms clock, 0.19+0.12/1.1/0.50+0.30 ms cpu, 4-&gt;4-&gt;0 MB, 5 MB goal, 4 P
 # command-line-arguments
 gc 1 @0.007s 6%: 0.051+2.2+0.024 ms clock, 0.15+0.32/2.1/1.5+0.073 ms cpu, 4-&gt;4-&gt;3 MB, 5 MB goal, 4 P
 .....
 gc 22 @76.006s 0%: 0.015+53+0.039 ms clock, 0.062+1.7/32/0.62+0.15 ms cpu, 401-&gt;401-&gt;205 MB, 411 MB goal, 4 P
 Worst push time:  36.141858ms
-</code></pre><h1 id=结论>结论</h1><p>sync.Pool的效果很不错，值得尝试。</p></div><div class=article-toc style=display:none><h3>Contents</h3><nav id=TableOfContents><ul><li><a href=#benchmark关注什么>Benchmark关注什么？</a></li><li><a href=#代码实现>代码实现</a><ul><li><a href=#不用sync-pool的实现>不用sync.Pool的实现</a></li><li><a href=#用sync-pool的实现>用sync.Pool的实现</a></li></ul></li><li><a href=#运行代码>运行代码</a><ul><li><a href=#不使用sync-pool的实现>不使用sync.Pool的实现</a></li><li><a href=#用sync-pool的实现-1>用sync.Pool的实现</a></li></ul></li><li><a href=#结论>结论</a></li></ul></nav></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin=anonymous></script><script>(function(){var $toc=$('#TableOfContents');if($toc.length>0){var $window=$(window);function onScroll(){var currentScroll=$window.scrollTop();var h=$('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');var id="";h.each(function(i,e){e=$(e);if(e.offset().top-10<=currentScroll){id=e.attr('id');}});var active=$toc.find('a.active');if(active.length==1&&active.eq(0).attr('href')=='#'+id)return true;active.each(function(i,e){$(e).removeClass('active').siblings('ul').hide();});$toc.find('a[href="#'+id+'"]').parentsUntil('#TableOfContents').each(function(i,e){$(e).children('a').addClass('active').siblings('ul').show();});}
-$window.on('scroll',onScroll);$(document).ready(function(){$toc.find('a').parent('li').find('ul').hide();onScroll();document.getElementsByClassName('article-toc')[0].style.display='';});}})();</script><footer class=article-footer><ul class=article-tag-list><li class=article-tag-list-item><a class=article-tag-list-link href=https://blog.yuantops.com//tags/golang>Golang</a></li></ul></footer></div><nav id=article-nav><a href=/tech/hugo-travis-ci-auto-deploy-to-gh-pages/ id=article-nav-newer class=article-nav-link-wrap><div class=article-nav-title><span>&lt;</span>&nbsp;
-Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages</div></a><a href=/tech/emacs-config-go-dev-environ/ id=article-nav-older class=article-nav-link-wrap><div class=article-nav-title>Emacs Golang开发环境配置指南&nbsp;<span>&gt;</span></div></a></nav></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2012-2021 @yuantops&nbsp;</br>Proudly powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos>Minos</a></div></div><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-57420914-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin=anonymous></script><script>hljs.initHighlightingOnLoad();</script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css integrity=sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0 crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js integrity=sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1 crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin=anonymous></script><script>renderMathInElement(document.body);</script><script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var header=document.getElementById('header');if(header.classList.contains('mobile-on')){header.classList.remove('mobile-on');}else{header.classList.add('mobile-on');}});</script></footer></div></body></html>
+</code></pre>
+
+<h1 id="结论">结论</h1>
+
+<p>sync.Pool的效果很不错，值得尝试。</p>
+
+        </div>
+
+        
+        
+        <div class="article-toc" style="display:none;">
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li><a href="#benchmark关注什么">Benchmark关注什么？</a></li>
+<li><a href="#代码实现">代码实现</a>
+<ul>
+<li><a href="#不用sync-pool的实现">不用sync.Pool的实现</a></li>
+<li><a href="#用sync-pool的实现">用sync.Pool的实现</a></li>
+</ul></li>
+<li><a href="#运行代码">运行代码</a>
+<ul>
+<li><a href="#不使用sync-pool的实现">不使用sync.Pool的实现</a></li>
+<li><a href="#用sync-pool的实现-1">用sync.Pool的实现</a></li>
+</ul></li>
+<li><a href="#结论">结论</a></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <script>
+            (function() {
+                var $toc = $('#TableOfContents');
+                if ($toc.length > 0) {
+                    var $window = $(window);
+
+                    function onScroll(){
+                        var currentScroll = $window.scrollTop();
+                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                        var id = "";
+                        h.each(function (i, e) {
+                            e = $(e);
+                            if (e.offset().top - 10 <= currentScroll) {
+                                id = e.attr('id');
+                            }
+                        });
+                        var active = $toc.find('a.active');
+                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+                        active.each(function (i, e) {
+                            $(e).removeClass('active').siblings('ul').hide();
+                        });
+                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                            $(e).children('a').addClass('active').siblings('ul').show();
+                        });
+                    }
+
+                    $window.on('scroll', onScroll);
+                    $(document).ready(function() {
+                        $toc.find('a').parent('li').find('ul').hide();
+                        onScroll();
+                        document.getElementsByClassName('article-toc')[0].style.display = '';
+                    });
+                }
+            })();
+        </script>
+        
+
+
+        
+	
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/golang">Golang
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+	
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/tech/hugo-travis-ci-auto-deploy-to-gh-pages/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Blog自动部署实践: Hugo &#43; Travis CI -&gt; GitHub Pages
+        </div>
+    </a>
+    
+    
+    <a href="/tech/emacs-config-go-dev-environ/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Emacs Golang开发环境配置指南&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2012-2021 @yuantops&nbsp; </br>
+            Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57420914-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
+        <script>renderMathInElement(document.body);</script>
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>
