@@ -1,5 +1,456 @@
-<!doctype html><html><head><meta charset=utf-8><title>理解Docker -- Docker Official Docs翻译 // Yuantops&#39; Blog</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property=og:title content="理解Docker -- Docker Official Docs翻译"><meta property=og:description content=Docker是新兴的一种虚拟化技术，发展势头强劲，而且已经被很多企业投入到实际部署中。本文是Docker.com官方文档的翻译，介绍Docker的技术优势、应用场景、架构、组件以及使用到的技术。个人手工翻译，原创非转载。><meta property=og:type content=website><meta property=og:locale content=en_US><meta property=og:url content=https://blog.yuantops.com/tech/understanding-docker/><link href rel=alternate type=application/rss+xml title="Yuantops' Blog"><link rel="shortcut icon" href=/favicon.ico><link href=https://blog.yuantops.com/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=https://blog.yuantops.com/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=https://blog.yuantops.com/css/style.css><link href=http://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta name=description content=Docker是新兴的一种虚拟化技术，发展势头强劲，而且已经被很多企业投入到实际部署中。本文是Docker.com官方文档的翻译，介绍Docker的技术优势、应用场景、架构、组件以及使用到的技术。个人手工翻译，原创非转载。><meta name=keywords content><meta name=author content><meta name=generator content="Hugo 0.50"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a><a id=logo class=logo-text href=https://blog.yuantops.com/>Yuantops&#39; Blog</a><nav id=main-nav><a class=main-nav-link href=/archives/>Archives</a>
-<a class=main-nav-link href=/about/>About</a>
-<a class=main-nav-link href=/index.xml>RSS</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>理解Docker -- Docker Official Docs翻译</h1></header><div class=article-meta><a href=/tech/understanding-docker/ class=article-date><time datetime=2015-01-12T00:00:00.000&#43;00:00 itemprop=datePublished>2015-01-12</time></a><div class=post-categories><div class=article-category><a class=article-category-link href=https://blog.yuantops.com//categories/tech>Tech</a></div><div class=article-category>163字, 约1分钟读完</div></div></div><div class=article-entry itemprop=articleBody><h3 id=docker是什么>Docker是什么</h3><p>Docker是用于开发(develop)、转移(ship)、运行(run)程序(application)的一个开放平台。Docker的设计目的是为了更快地传递程序。在Docker的帮助下，你能将程序与硬件基础(infrastructure)隔离、把硬件基础看作一个可管理的程序。Docker能帮你更快地转移代码、测试代码、部署代码，缩短编写代码与运行代码之间的周期。</p><p>Docker将一种轻量级的容器虚拟化平台技术(container virtualization platform)与相应的工作流程和工具结合起来，从而能帮你管理、部署自己的程序。</p><p>在核心层面，Docker支持在一个容器(container)中安全(securely)、独立(isolated)地运行几乎任何一种程序。这种独立性、安全性允许你在主机(host)上同时运行多个容器。容器在运行时不需要分配额外负载给监视程序(hypervisor)，它的这种轻量级特性意味着你能更大限度地使用硬件资源。</p><p>基于容器虚拟化，Docker提供的工具和平台能帮助你：</p><ul><li>将你的程序(和支持的组件)放到Docker容器中<br></li><li>分发(distribute)、转移(ship)这些容器给自己的团队成员，以便他们后续的开发和测试<br></li><li>把这些程序部署到产品环境中，不管你的产品环境位于本地数据中心还是在云中<br></li></ul><h2 id=我能用docker做什么>我能用Docker做什么？</h2><p><em>更快地转移程序</em><br>Docker是帮你处理开发周期的绝好工具。Docker能允许开发者在包含你的程序和服务的本地容器上开发，然后它能整合到一个连续的整合、部署工作流程中。</p><p>举个例子。开发者在本地编写程序，通过Docker将开发环境与同事共享。当他们的工作完成时，开发者将他们的代码和开发环境推送到一个测试环境上，并且执行任何必要的测试。然后，你能从测试环境将Docker镜像(image)推送到产品，部署代码。</p><p><em>更方便地部署、扩展</em><br>Docker基于容器的平台支持高便携性(portable)的工作负载(workload)。Docker容器能运行在开发者的本地机器上、数据中心的物理/虚拟机器上，也能运行在云端。</p><p><em>支持更高密度，运行更多工作负载</em><br>Docker是轻量级的，而且很快。与基于监督程序(hypervisor)的虚拟机相比，它提供了可变的、低消耗的替代方案。在高密度(high density)的工作环境中，这一点就显得格外重要，例如：当搭建你自己的云或者Platform-as-a-service服务时。不止如此，当你想尽可能地利用你的资源来做小型/中型的部署时，Docker也同样有用。</p><h2 id=docker的主要组件有哪些>Docker的主要组件有哪些？</h2><p>Docker主要组件有两个：</p><ul><li>Docker: 开源的容器虚拟化平台</li><li><a href=https://hub.docker.com/>Docker Hub</a>：Software-as-a-Service平台，用来分享、管理Docker容器<br></li></ul><p><strong>注意</strong>：Docker受开源协议Apache 2.0约束</p><h2 id=docker的架构>Docker的架构</h2><p>Docker使用客户端-服务器架构。Docker<em>客户端</em>(client)与Docker<em>守护进程</em>(deamon)通信，后者来完成建立版本(build)、运行(run)、分发(distribute)Docker容器等工作。Docker客户端和守护进程*可以*同时运行在一个系统上；你也可以将Docker客户端连接到一个远程Docker守护进程。Docker客户端和Docker守护进程通过socket或者REST API通信。</p><p><img src=https://docs.docker.com/article-img/architecture.svg alt="Docker Arch"></p><h3 id=docker守护进程>Docker守护进程</h3><p>如上图所示，Docker守护进程运行在一台宿主机器上。用户不直接与守护进程通信，而是通过客户端与之通信。</p><h3 id=docker客户端>Docker客户端</h3><p>Docker客户端，往往是二进制形式的<code>docker</code>程序，是Docker最主要的用户使用接口。它接收来自用户的命令，将它来回地与守护程序进行通信。</p><h3 id=在docker内部>在Docker内部</h3><p>为了理解Docker的内部原理，你需要理解三个组件：</p><ul><li>镜像(image)<br></li><li>仓库(registry)<br></li><li>容器(container)<br></li></ul><h3 id=镜像>#镜像</h3><p>镜像是一个只读(read-only)的模板。例如，一个镜像可能包含安装了Apache和你的Web服务器的一个Ubuntu操作系统。镜像是用来创造Docker容器的。通过Docker，你能以简单的方式创建新的镜像、更新现存的镜像，或者下载别人已经创建好了的镜像。Docker镜像是Docker的<strong>创建(build)</strong>组件。</p><h3 id=仓库>仓库</h3><p>仓库保存镜像。它们是你用来上传、下载镜像的私有/公有场所。官方的Docker仓库是<a href=https://hub.docker.com/>Docker Hub</a>，它提供了一个巨大的镜像仓库集以供你使用。你可以自己创建镜像，也可以使用别人事先已经建好了的镜像。Docker仓库是Docker的<strong>分发(distribute)</strong>组件。</p><h3 id=容器>容器</h3><p>容器与目录类似。容器包含了运行一个程序所需要的所有东西。每个容器都是创建自一个镜像。容器可以被运行、启动、停止、移动、删除。每个容器都是一个隔离、安全的程序平台。Docker容器是Docker的<strong>运行(run)</strong>组件。</p><h2 id=那么-docker到底如何工作>那么，Docker到底如何工作？</h2><p>现在，我们已经知道：</p><ol><li>你可以创建Docker镜像来保存程序<br></li><li>你可以从Docker镜像中新建Docker容器来运行程序<br></li><li>你可以通过<a href=https://hub.docker.com/>Docker Hub</a>或者自己的私有仓库来分享Docker镜像<br></li></ol><p>下面，让我们看看这些组件是如何协作起来使Docker工作的。</p><h2 id=镜像如何工作>镜像如何工作？</h2><p>我们已经知道，镜像是只读模板，由它们启动容器。每个镜像由一系列层(layer)组成。Docker利用<a href=http://en.wikipedia.org/wiki/UnionFS>union file system</a>将这些层组合成单个镜像。Union file system允许独立文件系统的文件和目录(被称作branch)被透明地叠架起来(overlaid)，以此组成一个单个紧密的文件系统。</p><p>Docker被称为“轻量级”，原因之一就在于这些层。当你改变一个镜像的时候，譬如说将某个程序更新到了新版本，一个层会被新建出来。如果我们使用的是虚拟机，这时候往往需要替换整个镜像，要不就是整体再创建一个版本。对比之下，Docker只需添加或者更新一个层。如此，你不必再去分发一整个镜像，而仅仅需要更新层就好了，这使得发布Docker的镜像变得更快、更容易。</p><p>每个镜像都以一个基础镜像为起点，譬如<code>ubuntu</code>，一个基础的Ubuntu镜像，或者<code>fedora</code>，一个基础的Fedora镜像。你也可以用自己的镜像做新镜像的基础镜像，譬如如果你有个基础的Apache镜像，你就能用它作你所有网页程序镜像的基础。</p><blockquote><p>注意：Docker一般从<a href=https://hub.docker.com/>Docker Hub</a>中获取基础镜像。</p></blockquote><p>从基础镜像出发，我们能通过简单、描述性的一系列步骤(我们称其为<em>指示(instructions)</em>)新建一个镜像。每一步都会在我们的镜像中新建一个层。这些步骤包括以下动作：</p><ul><li>运行命令<br></li><li>添加文件或者目录<br></li><li>创建环境变量<br></li><li>定义当启动从这个镜像创建的容器时，应该运行那些进程<br></li></ul><p>这些指示被保存在<code>Dockerfile</code>文件中。当你申请从镜像生成一个版本(build)时，Docker会读取<code>Dockerfile</code>、执行指示，然后返回最终的镜像。</p><h2 id=仓库如何工作>仓库如何工作？</h2><p>仓库是Docker镜像的存储之处。当你创建了一个镜像，你可以将它推送到公共仓库<a href=https://hub.docker.com/>Docker Hub</a>或者自己防火墙之内的私有仓库。</p><p>使用Docker客户端，你能搜索已发布的镜像，然后将它们拉去到本地的Docker主机，再从它里面创建容器。</p><p><a href=https://hub.docker.com/>Docker Hub</a>提供镜像的公有和私有存储。公有存储可以被任何人搜索、下载。私有存储不显示在搜索结果中，而且只有你和你的用户能从中拉取镜像、用这些镜像来生成容器。</p><h2 id=容器如何工作>容器如何工作？</h2><p>容器由操作系统、用户添加的文件和元文件(meta-data)构成。我们已经知道，每个容器都由一个镜像创建。这个镜像告诉Docker应该持有什么、在启动容器时应该运行什么，以及其他一系列的配置文件。镜像是只读的。当Docker从镜像创建一个容器时，它在镜像的顶端加上一个读写层(read-write layer)，这样我们的程序就能在它上面运行了。</p><h2 id=启动一个容器时-发生了什么>启动一个容器时，发生了什么</h2><p>不论通过<code>docker</code>命令还是API，Docker客户端通知Docker守护进程去启动一个容器。<br>$ sudo docker run -i -t ubuntu /bin/bash</p><p>我们将这条命令分解来看。Docker客户端通过带<code>run</code>参数的<code>docker</code>命令新启动一个容器。为了启动一个容器，Docker客户端至少需要告知Docker守护进程：<br>- 容器应该创建自哪个Docker镜像。在这里是<code>ubuntu</code>，一个基础Ubuntu镜像。<br>- 当容器启动后，你要在容器内运行什么命令。这里是<code>/bin/bash</code>，它在容器内启动了Bash shell。</p><p>那么，当我们运行这条命令时，后台发生了什么呢？</p><p>Docker按顺序做了如下事情：</p><ul><li><strong>拉取ubunut镜像</strong>：Docker检查<code>ubuntu</code>镜像是否存在，如果在本地不存在，那么它从<a href=https://hub.docker.com/>Docker Hub</a>下载镜像；如果镜像已经存在，Docker将利用它启动新容器。<br></li><li><strong>创建新容器</strong>：Docker有了镜像，用它来新建一个容器。<br></li><li><strong>分配文件系统，挂载读写层</strong>：在文件系统中新建了容器，并给镜像新添了一个读写层。<br></li><li><strong>分配网络/网桥接口</strong>：新建一个网络接口，使Docker容器能与本地主机通信。<br></li><li><strong>设置IP地址</strong>：从地址池中找到一个可用IP，将它关联到容器。<br></li><li><strong>执行你指定的程序</strong>：运行程序。<br></li><li><strong>捕获、提供程序输出结果</strong>：连接并记录标准输入、标准输出、标准错误，使你能看到程序的运行情况。<br></li></ul><p>恭喜，你有了一个运行中的容器！从这里，你可以管理容器，与程序交互，然后当结束后停止、移除容器。</p><h2 id=底层技术>底层技术</h2><p>Docker用Go语言编写，而且利用了Linux 内核的相关特性来完成上述的功能。</p><h3 id=命名空间-namespace>命名空间(namespace)</h3><p>Docker使用了一项叫作<code>命名空间(namespace)</code>的技术来为容器提供隔离的工作空间。当我们启动一个容器时，Docker会为它创建一系列命名空间。</p><p>这样形成了一个隔离层：容器的每个部分都在它自己的命名空间里运行，而且没有访问它之外的权限。</p><p>Docker使用的部分命名空间包括：<br>- <strong>pid命名空间</strong>：用于进程隔离(PID, Process ID)<br>- <strong>net命名空间</strong>：用于管理网络接口(NET, networking)<br>- <strong>ipc命名空间</strong>：用于管理IPC资源(IPC, InterProcess Communication进程间通信)<br>- <strong>mnt命名空间</strong>：用于管理挂载点(MNT, Mount)<br>- <strong>uts命名空间</strong>：用于内核和版本标志隔离(UTS, Unix Timesharing System)</p><h3 id=组控制-control-groups>组控制(Control groups)</h3><p>Docker还用到<code>cgroups</code>技术来进行组控制。隔离运行中程序的关键一点在于，让它们只使用你想让它使用的资源。这确保这些容器在宿主机器上能规规矩矩的。组控制允许Docker能向容器共享硬件资源，而且在必要时候设置资源的上限和限制。例如，可以设置某个特定容器的内存上限。</p><h3 id=union-file-systems>Union file Systems</h3><p>Union file Systems，或者UnionFS，是通过创建层的方式运行的，轻量、快速的文件系统。Docker使用Union file Systems为容器提供块(block)。Docker能利用包括AUFS, btrfs, vfs, 和DeviceMapper在内的Union file Systems。</p><h3 id=容器格式>容器格式</h3><p>Docker将这些组件结合成一个我们称之为容器格式的包裹层(wrapper)。默认的容器格式被称作<code>libcontainer</code>。Docker也支持使用<a href=https://linuxcontainers.org/>LXC</a>的传统Linux容器。未来，Docker可能会支持更多的容器格式，例如可能会整合BSD Jail或者Solaris Zone。</p><h2 id=下一步>下一步</h2><h3 id=安装docker>安装Docker</h3><p>访问<a href=https://docs.docker.com/installation/#installation>installation guide</a></p><h2 id=docker用户指南>Docker用户指南</h2><p><a href=https://docs.docker.com/userguide/>Learn Docker in depth</a></p><h2 id=原文链接>原文链接</h2><p><a href=https://docs.docker.com/introduction/understanding-docker/>About Docker</a></p></div><div class=article-toc style=display:none><h3>Contents</h3><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#docker是什么>Docker是什么</a></li></ul></li><li><a href=#我能用docker做什么>我能用Docker做什么？</a></li><li><a href=#docker的主要组件有哪些>Docker的主要组件有哪些？</a></li><li><a href=#docker的架构>Docker的架构</a><ul><li><a href=#docker守护进程>Docker守护进程</a></li><li><a href=#docker客户端>Docker客户端</a></li><li><a href=#在docker内部>在Docker内部</a></li><li><a href=#镜像>#镜像</a></li><li><a href=#仓库>仓库</a></li><li><a href=#容器>容器</a></li></ul></li><li><a href=#那么-docker到底如何工作>那么，Docker到底如何工作？</a></li><li><a href=#镜像如何工作>镜像如何工作？</a></li><li><a href=#仓库如何工作>仓库如何工作？</a></li><li><a href=#容器如何工作>容器如何工作？</a></li><li><a href=#启动一个容器时-发生了什么>启动一个容器时，发生了什么</a></li><li><a href=#底层技术>底层技术</a><ul><li><a href=#命名空间-namespace>命名空间(namespace)</a></li><li><a href=#组控制-control-groups>组控制(Control groups)</a></li><li><a href=#union-file-systems>Union file Systems</a></li><li><a href=#容器格式>容器格式</a></li></ul></li><li><a href=#下一步>下一步</a><ul><li><a href=#安装docker>安装Docker</a></li></ul></li><li><a href=#docker用户指南>Docker用户指南</a></li><li><a href=#原文链接>原文链接</a></li></ul></li></ul></nav></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin=anonymous></script><script>(function(){var $toc=$('#TableOfContents');if($toc.length>0){var $window=$(window);function onScroll(){var currentScroll=$window.scrollTop();var h=$('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');var id="";h.each(function(i,e){e=$(e);if(e.offset().top-10<=currentScroll){id=e.attr('id');}});var active=$toc.find('a.active');if(active.length==1&&active.eq(0).attr('href')=='#'+id)return true;active.each(function(i,e){$(e).removeClass('active').siblings('ul').hide();});$toc.find('a[href="#'+id+'"]').parentsUntil('#TableOfContents').each(function(i,e){$(e).children('a').addClass('active').siblings('ul').show();});}
-$window.on('scroll',onScroll);$(document).ready(function(){$toc.find('a').parent('li').find('ul').hide();onScroll();document.getElementsByClassName('article-toc')[0].style.display='';});}})();</script><footer class=article-footer><ul class=article-tag-list><li class=article-tag-list-item><a class=article-tag-list-link href=https://blog.yuantops.com//tags/docker>Docker</a></li></ul></footer></div><nav id=article-nav><a href=/tech/some-clarification-about-java-socket-port/ id=article-nav-newer class=article-nav-link-wrap><div class=article-nav-title><span>&lt;</span>&nbsp;
-厘清Java Socket端口问题 -- 服务器的端口是什么</div></a><a href=/tech/android-activity-lifecycle-with-two-activites/ id=article-nav-older class=article-nav-link-wrap><div class=article-nav-title>Activity的生命周期以及两个Activity跳转时的状态变化&nbsp;<span>&gt;</span></div></a></nav></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2012-2021 @yuantops&nbsp;</br>Proudly powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos>Minos</a></div></div><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-57420914-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin=anonymous></script><script>hljs.initHighlightingOnLoad();</script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css integrity=sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0 crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js integrity=sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1 crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin=anonymous></script><script>renderMathInElement(document.body);</script><script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var header=document.getElementById('header');if(header.classList.contains('mobile-on')){header.classList.remove('mobile-on');}else{header.classList.add('mobile-on');}});</script></footer></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>理解Docker -- Docker Official Docs翻译 // Yuantops&#39; Blog</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="理解Docker -- Docker Official Docs翻译" />
+<meta property="og:description" content="Docker是新兴的一种虚拟化技术，发展势头强劲，而且已经被很多企业投入到实际部署中。本文是Docker.com官方文档的翻译，介绍Docker的技术优势、应用场景、架构、组件以及使用到的技术。个人手工翻译，原创非转载。" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://blog.yuantops.com/tech/understanding-docker/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://blog.yuantops.com/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://blog.yuantops.com/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://blog.yuantops.com/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="Docker是新兴的一种虚拟化技术，发展势头强劲，而且已经被很多企业投入到实际部署中。本文是Docker.com官方文档的翻译，介绍Docker的技术优势、应用场景、架构、组件以及使用到的技术。个人手工翻译，原创非转载。">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.50" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://blog.yuantops.com/">Yuantops&#39; Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/archives/">Archives</a>
+                
+                <a class="main-nav-link" href="/about/">About</a>
+                
+                <a class="main-nav-link" href="/index.xml">RSS</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">理解Docker -- Docker Official Docs翻译</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/tech/understanding-docker/" class="article-date">
+                <time datetime='2015-01-12T00:00:00.000&#43;00:00' itemprop="datePublished">2015-01-12</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
+                    
+                </div>
+		
+		<div class="article-category">
+	      	  163字, 约1分钟读完
+		</div>
+	    
+
+            </div>
+            
+
+	    
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h3 id="docker是什么">Docker是什么</h3>
+
+<p>Docker是用于开发(develop)、转移(ship)、运行(run)程序(application)的一个开放平台。Docker的设计目的是为了更快地传递程序。在Docker的帮助下，你能将程序与硬件基础(infrastructure)隔离、把硬件基础看作一个可管理的程序。Docker能帮你更快地转移代码、测试代码、部署代码，缩短编写代码与运行代码之间的周期。</p>
+
+<p>Docker将一种轻量级的容器虚拟化平台技术(container virtualization platform)与相应的工作流程和工具结合起来，从而能帮你管理、部署自己的程序。</p>
+
+<p>在核心层面，Docker支持在一个容器(container)中安全(securely)、独立(isolated)地运行几乎任何一种程序。这种独立性、安全性允许你在主机(host)上同时运行多个容器。容器在运行时不需要分配额外负载给监视程序(hypervisor)，它的这种轻量级特性意味着你能更大限度地使用硬件资源。</p>
+
+<p>基于容器虚拟化，Docker提供的工具和平台能帮助你：</p>
+
+<ul>
+<li>将你的程序(和支持的组件)放到Docker容器中<br /></li>
+<li>分发(distribute)、转移(ship)这些容器给自己的团队成员，以便他们后续的开发和测试<br /></li>
+<li>把这些程序部署到产品环境中，不管你的产品环境位于本地数据中心还是在云中<br /></li>
+</ul>
+
+<h2 id="我能用docker做什么">我能用Docker做什么？</h2>
+
+<p><em>更快地转移程序</em><br />
+Docker是帮你处理开发周期的绝好工具。Docker能允许开发者在包含你的程序和服务的本地容器上开发，然后它能整合到一个连续的整合、部署工作流程中。</p>
+
+<p>举个例子。开发者在本地编写程序，通过Docker将开发环境与同事共享。当他们的工作完成时，开发者将他们的代码和开发环境推送到一个测试环境上，并且执行任何必要的测试。然后，你能从测试环境将Docker镜像(image)推送到产品，部署代码。</p>
+
+<p><em>更方便地部署、扩展</em><br />
+Docker基于容器的平台支持高便携性(portable)的工作负载(workload)。Docker容器能运行在开发者的本地机器上、数据中心的物理/虚拟机器上，也能运行在云端。</p>
+
+<p><em>支持更高密度，运行更多工作负载</em><br />
+Docker是轻量级的，而且很快。与基于监督程序(hypervisor)的虚拟机相比，它提供了可变的、低消耗的替代方案。在高密度(high density)的工作环境中，这一点就显得格外重要，例如：当搭建你自己的云或者Platform-as-a-service服务时。不止如此，当你想尽可能地利用你的资源来做小型/中型的部署时，Docker也同样有用。</p>
+
+<h2 id="docker的主要组件有哪些">Docker的主要组件有哪些？</h2>
+
+<p>Docker主要组件有两个：</p>
+
+<ul>
+<li>Docker: 开源的容器虚拟化平台</li>
+<li><a href="https://hub.docker.com/">Docker Hub</a>：Software-as-a-Service平台，用来分享、管理Docker容器<br /></li>
+</ul>
+
+<p><strong>注意</strong>：Docker受开源协议Apache 2.0约束</p>
+
+<h2 id="docker的架构">Docker的架构</h2>
+
+<p>Docker使用客户端-服务器架构。Docker<em>客户端</em>(client)与Docker<em>守护进程</em>(deamon)通信，后者来完成建立版本(build)、运行(run)、分发(distribute)Docker容器等工作。Docker客户端和守护进程*可以*同时运行在一个系统上；你也可以将Docker客户端连接到一个远程Docker守护进程。Docker客户端和Docker守护进程通过socket或者REST API通信。</p>
+
+<p><img src="https://docs.docker.com/article-img/architecture.svg" alt="Docker Arch" /></p>
+
+<h3 id="docker守护进程">Docker守护进程</h3>
+
+<p>如上图所示，Docker守护进程运行在一台宿主机器上。用户不直接与守护进程通信，而是通过客户端与之通信。</p>
+
+<h3 id="docker客户端">Docker客户端</h3>
+
+<p>Docker客户端，往往是二进制形式的<code>docker</code>程序，是Docker最主要的用户使用接口。它接收来自用户的命令，将它来回地与守护程序进行通信。</p>
+
+<h3 id="在docker内部">在Docker内部</h3>
+
+<p>为了理解Docker的内部原理，你需要理解三个组件：</p>
+
+<ul>
+<li>镜像(image)<br /></li>
+<li>仓库(registry)<br /></li>
+<li>容器(container)<br /></li>
+</ul>
+
+<h3 id="镜像">#镜像</h3>
+
+<p>镜像是一个只读(read-only)的模板。例如，一个镜像可能包含安装了Apache和你的Web服务器的一个Ubuntu操作系统。镜像是用来创造Docker容器的。通过Docker，你能以简单的方式创建新的镜像、更新现存的镜像，或者下载别人已经创建好了的镜像。Docker镜像是Docker的<strong>创建(build)</strong>组件。</p>
+
+<h3 id="仓库">仓库</h3>
+
+<p>仓库保存镜像。它们是你用来上传、下载镜像的私有/公有场所。官方的Docker仓库是<a href="https://hub.docker.com/">Docker Hub</a>，它提供了一个巨大的镜像仓库集以供你使用。你可以自己创建镜像，也可以使用别人事先已经建好了的镜像。Docker仓库是Docker的<strong>分发(distribute)</strong>组件。</p>
+
+<h3 id="容器">容器</h3>
+
+<p>容器与目录类似。容器包含了运行一个程序所需要的所有东西。每个容器都是创建自一个镜像。容器可以被运行、启动、停止、移动、删除。每个容器都是一个隔离、安全的程序平台。Docker容器是Docker的<strong>运行(run)</strong>组件。</p>
+
+<h2 id="那么-docker到底如何工作">那么，Docker到底如何工作？</h2>
+
+<p>现在，我们已经知道：</p>
+
+<ol>
+<li>你可以创建Docker镜像来保存程序<br /></li>
+<li>你可以从Docker镜像中新建Docker容器来运行程序<br /></li>
+<li>你可以通过<a href="https://hub.docker.com/">Docker Hub</a>或者自己的私有仓库来分享Docker镜像<br /></li>
+</ol>
+
+<p>下面，让我们看看这些组件是如何协作起来使Docker工作的。</p>
+
+<h2 id="镜像如何工作">镜像如何工作？</h2>
+
+<p>我们已经知道，镜像是只读模板，由它们启动容器。每个镜像由一系列层(layer)组成。Docker利用<a href="http://en.wikipedia.org/wiki/UnionFS">union file system</a>将这些层组合成单个镜像。Union file system允许独立文件系统的文件和目录(被称作branch)被透明地叠架起来(overlaid)，以此组成一个单个紧密的文件系统。</p>
+
+<p>Docker被称为“轻量级”，原因之一就在于这些层。当你改变一个镜像的时候，譬如说将某个程序更新到了新版本，一个层会被新建出来。如果我们使用的是虚拟机，这时候往往需要替换整个镜像，要不就是整体再创建一个版本。对比之下，Docker只需添加或者更新一个层。如此，你不必再去分发一整个镜像，而仅仅需要更新层就好了，这使得发布Docker的镜像变得更快、更容易。</p>
+
+<p>每个镜像都以一个基础镜像为起点，譬如<code>ubuntu</code>，一个基础的Ubuntu镜像，或者<code>fedora</code>，一个基础的Fedora镜像。你也可以用自己的镜像做新镜像的基础镜像，譬如如果你有个基础的Apache镜像，你就能用它作你所有网页程序镜像的基础。</p>
+
+<blockquote>
+<p>注意：Docker一般从<a href="https://hub.docker.com/">Docker Hub</a>中获取基础镜像。</p>
+</blockquote>
+
+<p>从基础镜像出发，我们能通过简单、描述性的一系列步骤(我们称其为<em>指示(instructions)</em>)新建一个镜像。每一步都会在我们的镜像中新建一个层。这些步骤包括以下动作：</p>
+
+<ul>
+<li>运行命令<br /></li>
+<li>添加文件或者目录<br /></li>
+<li>创建环境变量<br /></li>
+<li>定义当启动从这个镜像创建的容器时，应该运行那些进程<br /></li>
+</ul>
+
+<p>这些指示被保存在<code>Dockerfile</code>文件中。当你申请从镜像生成一个版本(build)时，Docker会读取<code>Dockerfile</code>、执行指示，然后返回最终的镜像。</p>
+
+<h2 id="仓库如何工作">仓库如何工作？</h2>
+
+<p>仓库是Docker镜像的存储之处。当你创建了一个镜像，你可以将它推送到公共仓库<a href="https://hub.docker.com/">Docker Hub</a>或者自己防火墙之内的私有仓库。</p>
+
+<p>使用Docker客户端，你能搜索已发布的镜像，然后将它们拉去到本地的Docker主机，再从它里面创建容器。</p>
+
+<p><a href="https://hub.docker.com/">Docker Hub</a>提供镜像的公有和私有存储。公有存储可以被任何人搜索、下载。私有存储不显示在搜索结果中，而且只有你和你的用户能从中拉取镜像、用这些镜像来生成容器。</p>
+
+<h2 id="容器如何工作">容器如何工作？</h2>
+
+<p>容器由操作系统、用户添加的文件和元文件(meta-data)构成。我们已经知道，每个容器都由一个镜像创建。这个镜像告诉Docker应该持有什么、在启动容器时应该运行什么，以及其他一系列的配置文件。镜像是只读的。当Docker从镜像创建一个容器时，它在镜像的顶端加上一个读写层(read-write layer)，这样我们的程序就能在它上面运行了。</p>
+
+<h2 id="启动一个容器时-发生了什么">启动一个容器时，发生了什么</h2>
+
+<p>不论通过<code>docker</code>命令还是API，Docker客户端通知Docker守护进程去启动一个容器。<br />
+$ sudo docker run -i -t ubuntu /bin/bash</p>
+
+<p>我们将这条命令分解来看。Docker客户端通过带<code>run</code>参数的<code>docker</code>命令新启动一个容器。为了启动一个容器，Docker客户端至少需要告知Docker守护进程：<br />
+- 容器应该创建自哪个Docker镜像。在这里是<code>ubuntu</code>，一个基础Ubuntu镜像。<br />
+- 当容器启动后，你要在容器内运行什么命令。这里是<code>/bin/bash</code>，它在容器内启动了Bash shell。</p>
+
+<p>那么，当我们运行这条命令时，后台发生了什么呢？</p>
+
+<p>Docker按顺序做了如下事情：</p>
+
+<ul>
+<li><strong>拉取ubunut镜像</strong>：Docker检查<code>ubuntu</code>镜像是否存在，如果在本地不存在，那么它从<a href="https://hub.docker.com/">Docker Hub</a>下载镜像；如果镜像已经存在，Docker将利用它启动新容器。<br /></li>
+<li><strong>创建新容器</strong>：Docker有了镜像，用它来新建一个容器。<br /></li>
+<li><strong>分配文件系统，挂载读写层</strong>：在文件系统中新建了容器，并给镜像新添了一个读写层。<br /></li>
+<li><strong>分配网络/网桥接口</strong>：新建一个网络接口，使Docker容器能与本地主机通信。<br /></li>
+<li><strong>设置IP地址</strong>：从地址池中找到一个可用IP，将它关联到容器。<br /></li>
+<li><strong>执行你指定的程序</strong>：运行程序。<br /></li>
+<li><strong>捕获、提供程序输出结果</strong>：连接并记录标准输入、标准输出、标准错误，使你能看到程序的运行情况。<br /></li>
+</ul>
+
+<p>恭喜，你有了一个运行中的容器！从这里，你可以管理容器，与程序交互，然后当结束后停止、移除容器。</p>
+
+<h2 id="底层技术">底层技术</h2>
+
+<p>Docker用Go语言编写，而且利用了Linux 内核的相关特性来完成上述的功能。</p>
+
+<h3 id="命名空间-namespace">命名空间(namespace)</h3>
+
+<p>Docker使用了一项叫作<code>命名空间(namespace)</code>的技术来为容器提供隔离的工作空间。当我们启动一个容器时，Docker会为它创建一系列命名空间。</p>
+
+<p>这样形成了一个隔离层：容器的每个部分都在它自己的命名空间里运行，而且没有访问它之外的权限。</p>
+
+<p>Docker使用的部分命名空间包括：<br />
+- <strong>pid命名空间</strong>：用于进程隔离(PID, Process ID)<br />
+- <strong>net命名空间</strong>：用于管理网络接口(NET, networking)<br />
+- <strong>ipc命名空间</strong>：用于管理IPC资源(IPC, InterProcess Communication进程间通信)<br />
+- <strong>mnt命名空间</strong>：用于管理挂载点(MNT, Mount)<br />
+- <strong>uts命名空间</strong>：用于内核和版本标志隔离(UTS, Unix Timesharing System)</p>
+
+<h3 id="组控制-control-groups">组控制(Control groups)</h3>
+
+<p>Docker还用到<code>cgroups</code>技术来进行组控制。隔离运行中程序的关键一点在于，让它们只使用你想让它使用的资源。这确保这些容器在宿主机器上能规规矩矩的。组控制允许Docker能向容器共享硬件资源，而且在必要时候设置资源的上限和限制。例如，可以设置某个特定容器的内存上限。</p>
+
+<h3 id="union-file-systems">Union file Systems</h3>
+
+<p>Union file Systems，或者UnionFS，是通过创建层的方式运行的，轻量、快速的文件系统。Docker使用Union file Systems为容器提供块(block)。Docker能利用包括AUFS, btrfs, vfs, 和DeviceMapper在内的Union file Systems。</p>
+
+<h3 id="容器格式">容器格式</h3>
+
+<p>Docker将这些组件结合成一个我们称之为容器格式的包裹层(wrapper)。默认的容器格式被称作<code>libcontainer</code>。Docker也支持使用<a href="https://linuxcontainers.org/">LXC</a>的传统Linux容器。未来，Docker可能会支持更多的容器格式，例如可能会整合BSD Jail或者Solaris Zone。</p>
+
+<h2 id="下一步">下一步</h2>
+
+<h3 id="安装docker">安装Docker</h3>
+
+<p>访问<a href="https://docs.docker.com/installation/#installation">installation guide</a></p>
+
+<h2 id="docker用户指南">Docker用户指南</h2>
+
+<p><a href="https://docs.docker.com/userguide/">Learn Docker in depth</a></p>
+
+<h2 id="原文链接">原文链接</h2>
+
+<p><a href="https://docs.docker.com/introduction/understanding-docker/">About Docker</a></p>
+
+        </div>
+
+        
+        
+        <div class="article-toc" style="display:none;">
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#docker是什么">Docker是什么</a></li>
+</ul></li>
+<li><a href="#我能用docker做什么">我能用Docker做什么？</a></li>
+<li><a href="#docker的主要组件有哪些">Docker的主要组件有哪些？</a></li>
+<li><a href="#docker的架构">Docker的架构</a>
+<ul>
+<li><a href="#docker守护进程">Docker守护进程</a></li>
+<li><a href="#docker客户端">Docker客户端</a></li>
+<li><a href="#在docker内部">在Docker内部</a></li>
+<li><a href="#镜像">#镜像</a></li>
+<li><a href="#仓库">仓库</a></li>
+<li><a href="#容器">容器</a></li>
+</ul></li>
+<li><a href="#那么-docker到底如何工作">那么，Docker到底如何工作？</a></li>
+<li><a href="#镜像如何工作">镜像如何工作？</a></li>
+<li><a href="#仓库如何工作">仓库如何工作？</a></li>
+<li><a href="#容器如何工作">容器如何工作？</a></li>
+<li><a href="#启动一个容器时-发生了什么">启动一个容器时，发生了什么</a></li>
+<li><a href="#底层技术">底层技术</a>
+<ul>
+<li><a href="#命名空间-namespace">命名空间(namespace)</a></li>
+<li><a href="#组控制-control-groups">组控制(Control groups)</a></li>
+<li><a href="#union-file-systems">Union file Systems</a></li>
+<li><a href="#容器格式">容器格式</a></li>
+</ul></li>
+<li><a href="#下一步">下一步</a>
+<ul>
+<li><a href="#安装docker">安装Docker</a></li>
+</ul></li>
+<li><a href="#docker用户指南">Docker用户指南</a></li>
+<li><a href="#原文链接">原文链接</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <script>
+            (function() {
+                var $toc = $('#TableOfContents');
+                if ($toc.length > 0) {
+                    var $window = $(window);
+
+                    function onScroll(){
+                        var currentScroll = $window.scrollTop();
+                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                        var id = "";
+                        h.each(function (i, e) {
+                            e = $(e);
+                            if (e.offset().top - 10 <= currentScroll) {
+                                id = e.attr('id');
+                            }
+                        });
+                        var active = $toc.find('a.active');
+                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+                        active.each(function (i, e) {
+                            $(e).removeClass('active').siblings('ul').hide();
+                        });
+                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                            $(e).children('a').addClass('active').siblings('ul').show();
+                        });
+                    }
+
+                    $window.on('scroll', onScroll);
+                    $(document).ready(function() {
+                        $toc.find('a').parent('li').find('ul').hide();
+                        onScroll();
+                        document.getElementsByClassName('article-toc')[0].style.display = '';
+                    });
+                }
+            })();
+        </script>
+        
+
+
+        
+	
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/docker">Docker
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+	
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/tech/some-clarification-about-java-socket-port/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            厘清Java Socket端口问题 -- 服务器的端口是什么
+        </div>
+    </a>
+    
+    
+    <a href="/tech/android-activity-lifecycle-with-two-activites/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Activity的生命周期以及两个Activity跳转时的状态变化&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2012-2021 @yuantops&nbsp; </br>
+            Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57420914-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
+        <script>renderMathInElement(document.body);</script>
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,6 +1,259 @@
-<!doctype html><html><head><meta charset=utf-8><title>视频格式学习笔记 // Yuantops&#39; Blog</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property=og:title content=视频格式学习笔记><meta property=og:description content="平时我们常能听人说“视频格式”。有时候我们说一个视频是AVI格式，MKV格式，或者RMVB，MOV等。有时候又在别的场合把H.264, H.263,  MPEG称作视频格式。这往往令人感到混乱。最近我在网上查了一些资料，写一篇博客做一下总结。"><meta property=og:type content=website><meta property=og:locale content=en_US><meta property=og:url content=https://blog.yuantops.com/tech/video-format-and-container-study/><link href rel=alternate type=application/rss+xml title="Yuantops' Blog"><link rel="shortcut icon" href=/favicon.ico><link href=https://blog.yuantops.com/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=https://blog.yuantops.com/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=https://blog.yuantops.com/css/style.css><link href=http://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta name=description content="平时我们常能听人说“视频格式”。有时候我们说一个视频是AVI格式，MKV格式，或者RMVB，MOV等。有时候又在别的场合把H.264, H.263,  MPEG称作视频格式。这往往令人感到混乱。最近我在网上查了一些资料，写一篇博客做一下总结。"><meta name=keywords content><meta name=author content><meta name=generator content="Hugo 0.50"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a><a id=logo class=logo-text href=https://blog.yuantops.com/>Yuantops&#39; Blog</a><nav id=main-nav><a class=main-nav-link href=/archives/>Archives</a>
-<a class=main-nav-link href=/about/>About</a>
-<a class=main-nav-link href=/index.xml>RSS</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>视频格式学习笔记</h1></header><div class=article-meta><a href=/tech/video-format-and-container-study/ class=article-date><time datetime=2015-01-28T00:00:00.000&#43;00:00 itemprop=datePublished>2015-01-28</time></a><div class=post-categories><div class=article-category><a class=article-category-link href=https://blog.yuantops.com//categories/tech>Tech</a></div><div class=article-category>48字, 约1分钟读完</div></div></div><div class=article-entry itemprop=articleBody><p>在生活语境里所说的“视频格式”，在学术上有两个概念与之对应：Container format (封装格式)和Codec (暂且译为“编解码格式”)。</p><ol><li><p>Container format (封装格式)
-Container format 描述了视频文件的结构。正如它的字面含义所说，它是对一个“容器”的规范。一个视频文件往往会包含图像和音频，还有一些配置信息(如图像和音频的关联，如何解码它们等)：这些内容需要按照一定的规则组织、存储起来，Container format就是这些规则。</p><p>如果一个视频文件是以某个Container format封装起来的，那么它的后缀名一般会体现出来。所以，后缀名只是形式，只是为了便于识别(例如，windows系统会根据文件的后缀名决定以什么程序打开它)，不代表实质性的内容。</p><p>附录(一)是常见的视频封装格式和后缀的对应表。</p></li><li><p>Codec (编解码格式)<br>Codec是一种压缩标准。而文件的压缩/还原是通过编/解码实现的，所以Codec也可理解成编/解码标准。要知道，未经过处理的原始视频和音频文件十分巨大，不好存储、传输。为了节省磁盘空间和网络带宽，原始的视频和音频文件都会通过编码压缩体积，然后需要播放时再通过逆向过程解码还原。Codec就是规定编/解码实现细节(数字存储空间、帧速率、比特率、分辨率等)的标准，不同的标准对于压缩的质量和效率有影响。</p><p>世界上制定这套标准的有两大阵营：ITU-T VCEG(Visual Coding Experts Group，国际电联旗下的标准化组织)和MPEG(Moving Picture Experts Group, ISO旗下的组织)。MPEG系列标准是MPEG制定的，H.26x系列标准是ITU-T制定的。这两套标准的更进一步介绍可以参见附录(二)。</p></li><li><p>Container format 和Codec 有关系吗？<br>不妨将视频文件看作容器(Container)，那么这个容器里盛放的就是遵循某种Codec的内容(Content)。一个容器里应该能放下视频、音频、数据信息，即使它们遵循的Codec不相同。例如，QuickTime File Format (.MOV)支持几乎所有的Codec，MPEG(.MP4)也支持相当广的Codec。所以，单从视频文件的格式是无法获知它的质量细节的，这些细节取决与采用的Codec。比较专业的说法是，“给我一个H.264 Quicktime文件(.mov)”。</p></li><li><p>为何还是有点迷糊？<br>以上的解释是从学术角度出发的。只要分清了这些术语，那么在学术讨论时不会有含糊。但现实生活中人们不会一丝不苟地区分“Container format ”“Codec”，往往只会说“这是一个mov文件”。这是日常用语与学术术语混用造成的理解上的混乱。</p><p>另外，Container format和Codec的命名也有让清醒的人摸不清头脑。例如，“MPEG-4”既是“Container format ”，也是“Codec”，这也让混乱的名词世界更糟糕。</p></li></ol><h3 id=参考>参考</h3><ol><li><a href=https://library.rice.edu/services/dmc/guides/video/VideoFormatsGuide.pdf>https://library.rice.edu/services/dmc/guides/video/VideoFormatsGuide.pdf</a></li><li><a href=https://app.zencoder.com/docs/faq/codecs-and-formats>https://app.zencoder.com/docs/faq/codecs-and-formats</a></li></ol><h3 id=附录一-常见的视频封装格式和后缀的对应表>附录一 常见的视频封装格式和后缀的对应表</h3><p><img src="https://app.yinxiang.com/shard/s11/res/a7088df6-98db-4089-8bb6-93a2beb1c76e/7295b9399a1a37290870fa8f35f4762e_b.jpg.png?resizeSmall&amp;width=313" alt=常见的视频封装格式和后缀的对应表></p></div><div class=article-toc style=display:none><h3>Contents</h3><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#参考>参考</a></li><li><a href=#附录一-常见的视频封装格式和后缀的对应表>附录一 常见的视频封装格式和后缀的对应表</a></li></ul></li></ul></li></ul></nav></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin=anonymous></script><script>(function(){var $toc=$('#TableOfContents');if($toc.length>0){var $window=$(window);function onScroll(){var currentScroll=$window.scrollTop();var h=$('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');var id="";h.each(function(i,e){e=$(e);if(e.offset().top-10<=currentScroll){id=e.attr('id');}});var active=$toc.find('a.active');if(active.length==1&&active.eq(0).attr('href')=='#'+id)return true;active.each(function(i,e){$(e).removeClass('active').siblings('ul').hide();});$toc.find('a[href="#'+id+'"]').parentsUntil('#TableOfContents').each(function(i,e){$(e).children('a').addClass('active').siblings('ul').show();});}
-$window.on('scroll',onScroll);$(document).ready(function(){$toc.find('a').parent('li').find('ul').hide();onScroll();document.getElementsByClassName('article-toc')[0].style.display='';});}})();</script></div><nav id=article-nav><a href=/tech/rest-basics/ id=article-nav-newer class=article-nav-link-wrap><div class=article-nav-title><span>&lt;</span>&nbsp;
-REST基础概念笔记</div></a><a href=/tech/find-out-process-listening-on-a-port/ id=article-nav-older class=article-nav-link-wrap><div class=article-nav-title>Linux确定监听某个端口的进程&nbsp;<span>&gt;</span></div></a></nav></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2012-2021 @yuantops&nbsp;</br>Proudly powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos>Minos</a></div></div><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-57420914-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin=anonymous></script><script>hljs.initHighlightingOnLoad();</script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css integrity=sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0 crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js integrity=sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1 crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin=anonymous></script><script>renderMathInElement(document.body);</script><script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var header=document.getElementById('header');if(header.classList.contains('mobile-on')){header.classList.remove('mobile-on');}else{header.classList.add('mobile-on');}});</script></footer></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>视频格式学习笔记 // Yuantops&#39; Blog</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="视频格式学习笔记" />
+<meta property="og:description" content="平时我们常能听人说“视频格式”。有时候我们说一个视频是AVI格式，MKV格式，或者RMVB，MOV等。有时候又在别的场合把H.264, H.263,  MPEG称作视频格式。这往往令人感到混乱。最近我在网上查了一些资料，写一篇博客做一下总结。" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://blog.yuantops.com/tech/video-format-and-container-study/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://blog.yuantops.com/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://blog.yuantops.com/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://blog.yuantops.com/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="平时我们常能听人说“视频格式”。有时候我们说一个视频是AVI格式，MKV格式，或者RMVB，MOV等。有时候又在别的场合把H.264, H.263,  MPEG称作视频格式。这往往令人感到混乱。最近我在网上查了一些资料，写一篇博客做一下总结。">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.50" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://blog.yuantops.com/">Yuantops&#39; Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/archives/">Archives</a>
+                
+                <a class="main-nav-link" href="/about/">About</a>
+                
+                <a class="main-nav-link" href="/index.xml">RSS</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">视频格式学习笔记</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/tech/video-format-and-container-study/" class="article-date">
+                <time datetime='2015-01-28T00:00:00.000&#43;00:00' itemprop="datePublished">2015-01-28</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
+                    
+                </div>
+		
+		<div class="article-category">
+	      	  48字, 约1分钟读完
+		</div>
+	    
+
+            </div>
+            
+
+	    
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<p>在生活语境里所说的“视频格式”，在学术上有两个概念与之对应：Container format (封装格式)和Codec (暂且译为“编解码格式”)。</p>
+
+<ol>
+<li><p>Container format (封装格式)
+Container format 描述了视频文件的结构。正如它的字面含义所说，它是对一个“容器”的规范。一个视频文件往往会包含图像和音频，还有一些配置信息(如图像和音频的关联，如何解码它们等)：这些内容需要按照一定的规则组织、存储起来，Container format就是这些规则。</p>
+
+<p>如果一个视频文件是以某个Container format封装起来的，那么它的后缀名一般会体现出来。所以，后缀名只是形式，只是为了便于识别(例如，windows系统会根据文件的后缀名决定以什么程序打开它)，不代表实质性的内容。</p>
+
+<p>附录(一)是常见的视频封装格式和后缀的对应表。</p></li>
+
+<li><p>Codec (编解码格式)<br />
+Codec是一种压缩标准。而文件的压缩/还原是通过编/解码实现的，所以Codec也可理解成编/解码标准。要知道，未经过处理的原始视频和音频文件十分巨大，不好存储、传输。为了节省磁盘空间和网络带宽，原始的视频和音频文件都会通过编码压缩体积，然后需要播放时再通过逆向过程解码还原。Codec就是规定编/解码实现细节(数字存储空间、帧速率、比特率、分辨率等)的标准，不同的标准对于压缩的质量和效率有影响。</p>
+
+<p>世界上制定这套标准的有两大阵营：ITU-T VCEG(Visual Coding Experts Group，国际电联旗下的标准化组织)和MPEG(Moving Picture Experts Group, ISO旗下的组织)。MPEG系列标准是MPEG制定的，H.26x系列标准是ITU-T制定的。这两套标准的更进一步介绍可以参见附录(二)。</p></li>
+
+<li><p>Container format 和Codec 有关系吗？<br />
+不妨将视频文件看作容器(Container)，那么这个容器里盛放的就是遵循某种Codec的内容(Content)。一个容器里应该能放下视频、音频、数据信息，即使它们遵循的Codec不相同。例如，QuickTime File Format (.MOV)支持几乎所有的Codec，MPEG(.MP4)也支持相当广的Codec。所以，单从视频文件的格式是无法获知它的质量细节的，这些细节取决与采用的Codec。比较专业的说法是，“给我一个H.264 Quicktime文件(.mov)”。</p></li>
+
+<li><p>为何还是有点迷糊？<br />
+以上的解释是从学术角度出发的。只要分清了这些术语，那么在学术讨论时不会有含糊。但现实生活中人们不会一丝不苟地区分“Container format ”“Codec”，往往只会说“这是一个mov文件”。这是日常用语与学术术语混用造成的理解上的混乱。</p>
+
+<p>另外，Container format和Codec的命名也有让清醒的人摸不清头脑。例如，“MPEG-4”既是“Container format ”，也是“Codec”，这也让混乱的名词世界更糟糕。</p></li>
+</ol>
+
+<h3 id="参考">参考</h3>
+
+<ol>
+<li><a href="https://library.rice.edu/services/dmc/guides/video/VideoFormatsGuide.pdf">https://library.rice.edu/services/dmc/guides/video/VideoFormatsGuide.pdf</a></li>
+<li><a href="https://app.zencoder.com/docs/faq/codecs-and-formats">https://app.zencoder.com/docs/faq/codecs-and-formats</a></li>
+</ol>
+
+<h3 id="附录一-常见的视频封装格式和后缀的对应表">附录一 常见的视频封装格式和后缀的对应表</h3>
+
+<p><img src="https://app.yinxiang.com/shard/s11/res/a7088df6-98db-4089-8bb6-93a2beb1c76e/7295b9399a1a37290870fa8f35f4762e_b.jpg.png?resizeSmall&amp;width=313" alt="常见的视频封装格式和后缀的对应表" /></p>
+
+        </div>
+
+        
+        
+        <div class="article-toc" style="display:none;">
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#参考">参考</a></li>
+<li><a href="#附录一-常见的视频封装格式和后缀的对应表">附录一 常见的视频封装格式和后缀的对应表</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <script>
+            (function() {
+                var $toc = $('#TableOfContents');
+                if ($toc.length > 0) {
+                    var $window = $(window);
+
+                    function onScroll(){
+                        var currentScroll = $window.scrollTop();
+                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                        var id = "";
+                        h.each(function (i, e) {
+                            e = $(e);
+                            if (e.offset().top - 10 <= currentScroll) {
+                                id = e.attr('id');
+                            }
+                        });
+                        var active = $toc.find('a.active');
+                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+                        active.each(function (i, e) {
+                            $(e).removeClass('active').siblings('ul').hide();
+                        });
+                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                            $(e).children('a').addClass('active').siblings('ul').show();
+                        });
+                    }
+
+                    $window.on('scroll', onScroll);
+                    $(document).ready(function() {
+                        $toc.find('a').parent('li').find('ul').hide();
+                        onScroll();
+                        document.getElementsByClassName('article-toc')[0].style.display = '';
+                    });
+                }
+            })();
+        </script>
+        
+
+
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/tech/rest-basics/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            REST基础概念笔记
+        </div>
+    </a>
+    
+    
+    <a href="/tech/find-out-process-listening-on-a-port/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Linux确定监听某个端口的进程&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2012-2021 @yuantops&nbsp; </br>
+            Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57420914-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
+        <script>renderMathInElement(document.body);</script>
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

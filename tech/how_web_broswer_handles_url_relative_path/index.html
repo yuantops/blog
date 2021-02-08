@@ -1,5 +1,266 @@
-<!doctype html><html><head><meta charset=utf-8><title>浏览器会处理URL里的相对路径 // Yuantops&#39; Blog</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property=og:title content=浏览器会处理URL里的相对路径><meta property=og:description content=如果要访问的url包含相对路径，浏览器会尝试解析相对路径，再访问解析得到的地址。><meta property=og:type content=website><meta property=og:locale content=en_US><meta property=og:url content=https://blog.yuantops.com/tech/how_web_broswer_handles_url_relative_path/><link href rel=alternate type=application/rss+xml title="Yuantops' Blog"><link rel="shortcut icon" href=/favicon.ico><link href=https://blog.yuantops.com/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=https://blog.yuantops.com/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=https://blog.yuantops.com/css/style.css><link href=http://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta name=description content=如果要访问的url包含相对路径，浏览器会尝试解析相对路径，再访问解析得到的地址。><meta name=keywords content=http,><meta name=author content=[yuan.tops@gmail.com]><meta name=generator content="Hugo 0.50"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a><a id=logo class=logo-text href=https://blog.yuantops.com/>Yuantops&#39; Blog</a><nav id=main-nav><a class=main-nav-link href=/archives/>Archives</a>
-<a class=main-nav-link href=/about/>About</a>
-<a class=main-nav-link href=/index.xml>RSS</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>浏览器会处理URL里的相对路径</h1></header><div class=article-meta><a href=/tech/how_web_broswer_handles_url_relative_path/ class=article-date><time datetime=2019-11-21T15:53:00.000&#43;08:00 itemprop=datePublished>2019-11-21</time></a><div class=post-categories><div class=article-category><a class=article-category-link href=https://blog.yuantops.com//categories/tech>Tech</a></div><div class=article-category>32字, 约1分钟读完</div></div></div><div class=article-entry itemprop=articleBody><p>新系统上线前，安全部门扫描出一个高危漏洞：文件任意下载漏洞。渗透测试人员在URL里加上相对路径，不断发起HTTP请求，居然成功下载到Linux系统密码文件。修复漏洞挺简单，限制HTTP服务访问文件系统权限，不允许超出指定目录，几行代码搞定。</p><p>修复之后准备进行验证，第一步当然是复现漏洞。没想到，这一步就挺曲折。</p><h2 id=消失的点号>消失的点号</h2><p>打开chrome，在地址栏输入带了相对路径( <strong>..</strong> )的URL。URL指向一个文件，理论上，会触发文件下载。结果是：地址栏URL路径里点号全不见了，变成了一个正常地址。多试几遍，把双点号换成单点号，仍然如此。用 wiresharks 抓包看HTTP报文，请求头 <em>path</em> 没有点号。这说明，浏览器做了手脚。</p><ol><li><p>Google搜之，找到一份解析URI的RFC3968标准，专门有一章论述解析点号：<a href=https://tools.ietf.org/html/rfc3986#section-5.2.4>Remove Dot Segments</a>。经过解析，点号和双点号会消失，这个过程被称为 <strong>remove_dot_segments</strong> 。(RFC3968给出了这个过程的伪代码。)</p></li><li><p>Google官方在一篇文章里，将Chrome解析URL的过程称为 `Canonicalization` (<a href=https://chromium.googlesource.com/chromium/src/+/master/docs/security/url%5Fdisplay%5Fguidelines/url%5Fdisplay%5Fguidelines.md#display-urls-in-canonical-form>display-urls-in-canonical-form</a>) 。经过解析，Chrome地址栏的点号变成实际值。</p></li></ol><p>结合两篇文档，原理清楚了：浏览器遵循RFC3968规范处理URL相对路径，所以点号和双点号都被干掉了。</p><h2 id=改用burp-suite重现问题>改用Burp Suite重现问题</h2><p>不能用浏览器复现问题，改尝试 <strong>curl</strong> 命令。结果，curl也不能复现。好在可以借助 <strong>Burp Suite</strong> 工具。</p><p>Burp Suite是一款攻击web服务的集成工具，一般黑客用它来渗透网络。我们牛刀小用，用来拦截、修改HTTP请求报文。过程不在此赘述。总之，用它绕过了相对路径解析、重现了漏洞。</p><h2 id=修复漏洞>修复漏洞</h2><p>略。</p></div><div class=article-toc style=display:none><h3>Contents</h3><nav id=TableOfContents><ul><li><ul><li><a href=#消失的点号>消失的点号</a></li><li><a href=#改用burp-suite重现问题>改用Burp Suite重现问题</a></li><li><a href=#修复漏洞>修复漏洞</a></li></ul></li></ul></nav></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin=anonymous></script><script>(function(){var $toc=$('#TableOfContents');if($toc.length>0){var $window=$(window);function onScroll(){var currentScroll=$window.scrollTop();var h=$('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');var id="";h.each(function(i,e){e=$(e);if(e.offset().top-10<=currentScroll){id=e.attr('id');}});var active=$toc.find('a.active');if(active.length==1&&active.eq(0).attr('href')=='#'+id)return true;active.each(function(i,e){$(e).removeClass('active').siblings('ul').hide();});$toc.find('a[href="#'+id+'"]').parentsUntil('#TableOfContents').each(function(i,e){$(e).children('a').addClass('active').siblings('ul').show();});}
-$window.on('scroll',onScroll);$(document).ready(function(){$toc.find('a').parent('li').find('ul').hide();onScroll();document.getElementsByClassName('article-toc')[0].style.display='';});}})();</script><footer class=article-footer><ul class=article-tag-list><li class=article-tag-list-item><a class=article-tag-list-link href=https://blog.yuantops.com//tags/gh-pages>gh-pages</a></li><li class=article-tag-list-item><a class=article-tag-list-link href=https://blog.yuantops.com//tags/hugo>hugo</a></li></ul></footer></div><nav id=article-nav><a href=/opinions/2020-my-reading/ id=article-nav-newer class=article-nav-link-wrap><div class=article-nav-title><span>&lt;</span>&nbsp;
-2020读书笔记</div></a><a href=/opinions/2019-my-reading-list/ id=article-nav-older class=article-nav-link-wrap><div class=article-nav-title>2019阅读书单&nbsp;<span>&gt;</span></div></a></nav></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2012-2021 @yuantops&nbsp;</br>Proudly powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos>Minos</a></div></div><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-57420914-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin=anonymous></script><script>hljs.initHighlightingOnLoad();</script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css integrity=sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0 crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js integrity=sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1 crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin=anonymous></script><script>renderMathInElement(document.body);</script><script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var header=document.getElementById('header');if(header.classList.contains('mobile-on')){header.classList.remove('mobile-on');}else{header.classList.add('mobile-on');}});</script></footer></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>浏览器会处理URL里的相对路径 // Yuantops&#39; Blog</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="浏览器会处理URL里的相对路径" />
+<meta property="og:description" content="如果要访问的url包含相对路径，浏览器会尝试解析相对路径，再访问解析得到的地址。" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://blog.yuantops.com/tech/how_web_broswer_handles_url_relative_path/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="https://blog.yuantops.com/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://blog.yuantops.com/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://blog.yuantops.com/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="如果要访问的url包含相对路径，浏览器会尝试解析相对路径，再访问解析得到的地址。">
+    <meta name="keywords" content="http,">
+    <meta name="author" content="[yuan.tops@gmail.com]">
+
+    <meta name="generator" content="Hugo 0.50" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://blog.yuantops.com/">Yuantops&#39; Blog</a>
+            <nav id="main-nav">
+                
+                <a class="main-nav-link" href="/archives/">Archives</a>
+                
+                <a class="main-nav-link" href="/about/">About</a>
+                
+                <a class="main-nav-link" href="/index.xml">RSS</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            <h1 class="article-title" itemprop="name">浏览器会处理URL里的相对路径</h1>
+        </header>
+        
+        <div class="article-meta">
+            <a href="/tech/how_web_broswer_handles_url_relative_path/" class="article-date">
+                <time datetime='2019-11-21T15:53:00.000&#43;08:00' itemprop="datePublished">2019-11-21</time>
+            </a>
+            
+            
+            <div class="post-categories">
+                <div class="article-category">
+                    
+                    
+                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
+                    
+                </div>
+		
+		<div class="article-category">
+	      	  32字, 约1分钟读完
+		</div>
+	    
+
+            </div>
+            
+
+	    
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<p>新系统上线前，安全部门扫描出一个高危漏洞：文件任意下载漏洞。渗透测试人员在URL里加上相对路径，不断发起HTTP请求，居然成功下载到Linux系统密码文件。修复漏洞挺简单，限制HTTP服务访问文件系统权限，不允许超出指定目录，几行代码搞定。</p>
+
+<p>修复之后准备进行验证，第一步当然是复现漏洞。没想到，这一步就挺曲折。</p>
+
+<h2 id="消失的点号">消失的点号</h2>
+
+<p>打开chrome，在地址栏输入带了相对路径( <strong>..</strong> )的URL。URL指向一个文件，理论上，会触发文件下载。结果是：地址栏URL路径里点号全不见了，变成了一个正常地址。多试几遍，把双点号换成单点号，仍然如此。用 wiresharks 抓包看HTTP报文，请求头 <em>path</em> 没有点号。这说明，浏览器做了手脚。</p>
+
+<ol>
+<li><p>Google搜之，找到一份解析URI的RFC3968标准，专门有一章论述解析点号：<a href="https://tools.ietf.org/html/rfc3986#section-5.2.4">Remove Dot Segments</a>。经过解析，点号和双点号会消失，这个过程被称为 <strong>remove_dot_segments</strong> 。(RFC3968给出了这个过程的伪代码。)</p></li>
+
+<li><p>Google官方在一篇文章里，将Chrome解析URL的过程称为 `Canonicalization` (<a href="https://chromium.googlesource.com/chromium/src/+/master/docs/security/url%5Fdisplay%5Fguidelines/url%5Fdisplay%5Fguidelines.md#display-urls-in-canonical-form">display-urls-in-canonical-form</a>) 。经过解析，Chrome地址栏的点号变成实际值。</p></li>
+</ol>
+
+<p>结合两篇文档，原理清楚了：浏览器遵循RFC3968规范处理URL相对路径，所以点号和双点号都被干掉了。</p>
+
+<h2 id="改用burp-suite重现问题">改用Burp Suite重现问题</h2>
+
+<p>不能用浏览器复现问题，改尝试 <strong>curl</strong> 命令。结果，curl也不能复现。好在可以借助 <strong>Burp Suite</strong> 工具。</p>
+
+<p>Burp Suite是一款攻击web服务的集成工具，一般黑客用它来渗透网络。我们牛刀小用，用来拦截、修改HTTP请求报文。过程不在此赘述。总之，用它绕过了相对路径解析、重现了漏洞。</p>
+
+<h2 id="修复漏洞">修复漏洞</h2>
+
+<p>略。</p>
+
+        </div>
+
+        
+        
+        <div class="article-toc" style="display:none;">
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#消失的点号">消失的点号</a></li>
+<li><a href="#改用burp-suite重现问题">改用Burp Suite重现问题</a></li>
+<li><a href="#修复漏洞">修复漏洞</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+        <script>
+            (function() {
+                var $toc = $('#TableOfContents');
+                if ($toc.length > 0) {
+                    var $window = $(window);
+
+                    function onScroll(){
+                        var currentScroll = $window.scrollTop();
+                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                        var id = "";
+                        h.each(function (i, e) {
+                            e = $(e);
+                            if (e.offset().top - 10 <= currentScroll) {
+                                id = e.attr('id');
+                            }
+                        });
+                        var active = $toc.find('a.active');
+                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+                        active.each(function (i, e) {
+                            $(e).removeClass('active').siblings('ul').hide();
+                        });
+                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                            $(e).children('a').addClass('active').siblings('ul').show();
+                        });
+                    }
+
+                    $window.on('scroll', onScroll);
+                    $(document).ready(function() {
+                        $toc.find('a').parent('li').find('ul').hide();
+                        onScroll();
+                        document.getElementsByClassName('article-toc')[0].style.display = '';
+                    });
+                }
+            })();
+        </script>
+        
+
+
+        
+	
+        <footer class="article-footer">
+            <ul class="article-tag-list">
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/gh-pages">gh-pages
+                    </a>
+                </li>
+                
+                <li class="article-tag-list-item">
+                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/hugo">hugo
+                    </a>
+                </li>
+                
+            </ul>
+        </footer>
+        
+	
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/opinions/2020-my-reading/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            2020读书笔记
+        </div>
+    </a>
+    
+    
+    <a href="/opinions/2019-my-reading-list/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">2019阅读书单&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2012-2021 @yuantops&nbsp; </br>
+            Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
+        </div>
+    </div>
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-57420914-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
+        <script>renderMathInElement(document.body);</script>
+    
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

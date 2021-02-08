@@ -1,9 +1,49 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Yuantops&#39; Blog</title><link>https://blog.yuantops.com/tags/linux/</link><description>Recent content in Linux on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Thu, 25 Jul 2019 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yuantops.com/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Bash Guideline Notes</title><link>https://blog.yuantops.com/tech/bash-guideline-study-notes/</link><pubDate>Thu, 25 Jul 2019 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/bash-guideline-study-notes/</guid><description>关于重定向顺序 Note that the order of redirections is signi cant. For example, the command ls &amp;gt; dirlist 2&amp;gt;&amp;amp;1 directs both standard output ( file descriptor 1) and standard error ( le descriptor 2) to the file dirlist, while the command ls 2&amp;gt;&amp;amp;1 &amp;gt; dirlist directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist.</description></item><item><title>Understanding XOR</title><link>https://blog.yuantops.com/tech/understanding-xor/</link><pubDate>Thu, 25 Jul 2019 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/understanding-xor/</guid><description>We can interpret the action of XOR in a number of different ways, and this helps to shed light on its properties. The most obvious way to interpret it is as its name suggests, ‘exclusive OR’: A ⊕ B is true if and only if precisely one of A and B is true. Another way to think of it is as identifying difference in a pair of bytes: A ⊕ B = ‘the bits where they differ’.</description></item><item><title>Linux确定监听某个端口的进程</title><link>https://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</link><pubDate>Thu, 22 Jan 2015 00:00:00 +0000</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</guid><description>比较常见的命令有:
-netstat
-lsof
-ps /proc/$pid
-netstat # netstat -tuapn 参数解释:
--t tcp协议 -u udp协议 -a 显示listening和non-listening端口 -p 显示process ID -n 显示数字IP，而不是字符形式的hostname 可以用grep命令对上条命令的输出进行过滤，显示某条端口的信息。
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Yuantops&#39; Blog</title>
+    <link>https://blog.yuantops.com/tags/linux/</link>
+    <description>Recent content in Linux on Yuantops&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
+    <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Thu, 25 Jul 2019 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.yuantops.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bash Guideline Notes</title>
+      <link>https://blog.yuantops.com/tech/bash-guideline-study-notes/</link>
+      <pubDate>Thu, 25 Jul 2019 00:00:00 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/bash-guideline-study-notes/</guid>
+      <description>关于重定向顺序  Note that the order of redirections is signi cant. For example, the command ls &amp;gt; dirlist 2&amp;gt;&amp;amp;1 directs both standard output ( file descriptor 1) and standard error ( le descriptor 2) to the file dirlist, while the command ls 2&amp;gt;&amp;amp;1 &amp;gt; dirlist directs only the standard output to file dirlist, because the standard error was made a copy of the standard output before the standard output was redirected to dirlist.</description>
+    </item>
+    
+    <item>
+      <title>Understanding XOR</title>
+      <link>https://blog.yuantops.com/tech/understanding-xor/</link>
+      <pubDate>Thu, 25 Jul 2019 00:00:00 +0800</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/understanding-xor/</guid>
+      <description>We can interpret the action of XOR in a number of different ways, and this helps to shed light on its properties. The most obvious way to interpret it is as its name suggests, ‘exclusive OR’: A ⊕ B is true if and only if precisely one of A and B is true. Another way to think of it is as identifying difference in a pair of bytes: A ⊕ B = ‘the bits where they differ’.</description>
+    </item>
+    
+    <item>
+      <title>Linux确定监听某个端口的进程</title>
+      <link>https://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</link>
+      <pubDate>Thu, 22 Jan 2015 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/find-out-process-listening-on-a-port/</guid>
+      <description>比较常见的命令有:
+ netstat
+ lsof
+ ps /proc/$pid
+  netstat # netstat -tuapn 参数解释:
+ -t tcp协议 -u udp协议 -a 显示listening和non-listening端口 -p 显示process ID -n 显示数字IP，而不是字符形式的hostname  可以用grep命令对上条命令的输出进行过滤，显示某条端口的信息。
 lsof # lsof -i :4000 lsof列出机器上打开的所有文件。这条命令输出端口4000被占用的情况。它的输出形如
 COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
 ruby-mri 10482 yyuan 11u IPv4 252906 0t0 TCP localhost:terabase (LISTEN)
@@ -12,4 +52,8 @@ ps # ps aux 参数解释: -a 显示所有用户的进程
 -u 显示进程的user/owner
 -x 也显示不与终端关联的进程
 同样地，也可以用grep命令对上条命令的输出进行过滤，显示某条端口的信息。
-/proc/$pid 下面是该目录下，各个文件的作用:</description></item></channel></rss>
+/proc/$pid 下面是该目录下，各个文件的作用:</description>
+    </item>
+    
+  </channel>
+</rss>

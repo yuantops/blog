@@ -1,4 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>树莓派 on Yuantops&#39; Blog</title><link>https://blog.yuantops.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</link><description>Recent content in 树莓派 on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Sun, 29 Jul 2018 17:48:19 +0000</lastBuildDate><atom:link href="https://blog.yuantops.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/index.xml" rel="self" type="application/rss+xml"/><item><title>[译文]让Siri变身完美家庭助手：兼容Apple Homekit不支持的设备</title><link>https://blog.yuantops.com/tech/homebridge-plugin-tutorial/</link><pubDate>Sun, 29 Jul 2018 17:48:19 +0000</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/homebridge-plugin-tutorial/</guid><description>译文一篇, 原文地址：http://blog.theodo.fr/2017/08/make-siri-perfect-home-companion-devices-not-supported-apple-homekit/ 。
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>树莓派 on Yuantops&#39; Blog</title>
+    <link>https://blog.yuantops.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
+    <description>Recent content in 树莓派 on Yuantops&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
+    <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Sun, 29 Jul 2018 17:48:19 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.yuantops.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[译文]让Siri变身完美家庭助手：兼容Apple Homekit不支持的设备</title>
+      <link>https://blog.yuantops.com/tech/homebridge-plugin-tutorial/</link>
+      <pubDate>Sun, 29 Jul 2018 17:48:19 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/homebridge-plugin-tutorial/</guid>
+      <description>译文一篇, 原文地址：http://blog.theodo.fr/2017/08/make-siri-perfect-home-companion-devices-not-supported-apple-homekit/ 。
 Apple推出Homekit已有一段时间，作为智能家具解决布局的重要一环，Homekit在中文互联网上的资料可算寥寥。这篇文章介绍了Homekit平台抽象的关键概念，以及Homebridge这一款破解了Homekit协议、并支持插件化开发扩展的优秀程序。
 文章还包含了一个详细教程，一步步教你写简单的Homebridge插件。
 即使不是开发者，读完这篇文章，最起码可以让你打开iOS “家庭”应用时不至于一头雾水。
@@ -6,29 +28,42 @@ Apple推出Homekit已有一段时间，作为智能家具解决布局的重要�
 为什么是Homekit? Homekit是Apple开发的家庭配件管理框架。有了Homekit，Apple设备用户可以使用同一套界面，管理不同厂商的接入设备。它使Siri变得更强，能听懂发给这些设备的指令。
 如果你有一部iPhone或者Apple TV，Homekit可以在Home Assistant等互联协议的基础上做更多好玩的事。iPhone原生支持Homekit，你可以通过&amp;rdquo;家庭&amp;rdquo;app 或者快速访问标签，方便地管理设备。Apple TV则可以作为设备中枢，让你设置自动化任务，并且让你在非家庭网络下也能掌控家中情况。
 工作原理 Homekit Accessory Protocol Homekit为家庭和各种连接设备定义了一组布局(layout)：
-家庭(Home)：家庭是一处住所，它有一个由各种配件组成的网络。 房间(Room)：每个家庭有一个或多个房间，每个房间有一个或多个配件。 平台(Platform)：平台指的是一组配件。 配件(Accessory)：配件指的是一台支持自动化的物理设备。 桥(Bridge)：桥是一种特殊配件，通过它可以和那些不能与Homekit直接通信的配件通信。举例来说，桥可能是一个灯光的中枢，灯光之间通信时并不使用Homekit Accessory Protocol协议。 服务(Service)：一个服务对应配件的一种功能。车库门除了提供开关门的服务，还可能额外提供开关车库灯的服务。 特征(Characteristic)：每个服务都有一些被称为特征的属性。对车库门而言，它有 Current Door State 和 Target Door State 两个boolean值。服务的所有特征共同定义了它的当前状态。特征有3种权限：读，写，通知。这里能找到各种服务列表，以及与之关联的特征。 为了确定要操作的设备以及要触发的动作，iOS的&amp;rdquo;家庭&amp;rdquo;应用和Siri发出的每一个请求，都会使用上面的布局。
+ 家庭(Home)：家庭是一处住所，它有一个由各种配件组成的网络。 房间(Room)：每个家庭有一个或多个房间，每个房间有一个或多个配件。 平台(Platform)：平台指的是一组配件。 配件(Accessory)：配件指的是一台支持自动化的物理设备。 桥(Bridge)：桥是一种特殊配件，通过它可以和那些不能与Homekit直接通信的配件通信。举例来说，桥可能是一个灯光的中枢，灯光之间通信时并不使用Homekit Accessory Protocol协议。 服务(Service)：一个服务对应配件的一种功能。车库门除了提供开关门的服务，还可能额外提供开关车库灯的服务。 特征(Characteristic)：每个服务都有一些被称为特征的属性。对车库门而言，它有 Current Door State 和 Target Door State 两个boolean值。服务的所有特征共同定义了它的当前状态。特征有3种权限：读，写，通知。这里能找到各种服务列表，以及与之关联的特征。  为了确定要操作的设备以及要触发的动作，iOS的&amp;rdquo;家庭&amp;rdquo;应用和Siri发出的每一个请求，都会使用上面的布局。
 然而，当前市面上只有少量设备支持Homekit。对其他设备来说，需要在Homekit和设备间设置一个代理(proxy)。大多数厂商会自己定义一套与设备交互的方式(API或者协议)。代理接收Homekit请求，然后将它们翻译成设备能听懂的语言。
 Homebridge 本文使用的代理是Homebridge，一款用HAP-node.js写的NodeJS服务器。Homebridge实例化出一个 桥 ，然后你用iOS的&amp;rdquo;家庭&amp;rdquo;应用把它添加到Homekit。Homebridge支持社区开发的插件，从而在Homekit和五花八门的&amp;rdquo;智能家居&amp;rdquo;设备间建立连接。
 社区开发者已经为很多家庭自动化设备开发了插件(例如Nest, Lifx, 甚至是所有兼容Home Assitant的设备)。如果你没找到要找的插件，这篇教程正是为你而写。
-自己开发插件 要求 你已经在LAN中一台设备上安装了Homebridge，而且处于运行状态。参考这些教程。 你已经在iOS的&amp;rdquo;家庭&amp;rdquo;应用中，添加了Homebridge配件。 教程 我们来动手写一个假的开关插件。
+自己开发插件 要求  你已经在LAN中一台设备上安装了Homebridge，而且处于运行状态。参考这些教程。 你已经在iOS的&amp;rdquo;家庭&amp;rdquo;应用中，添加了Homebridge配件。  教程 我们来动手写一个假的开关插件。
 新建一个目录，包含2个文件：管理依赖的 package.json 文件，以及放插件核心逻辑的 index.js 文件。
 我们对开关API的设定如下：
-在LAN里，能通过HTTP协议层的RESTful API控制它 在LAN里，开关的IP地址是192.168.0.10 对 /api/status 的GET请求返回一个boolean值，代表开关的当前状态。这个请求会读取开关的 On 特征 对 /api/order 的POST请求里携带一个代表开关目标的boolean值，将触发对应动作。这个请求会写入开关的 On 特征 这个Homebridge插件将提供一个新配件，包含两个服务：</description></item><item><title>树莓派连接DHT11温度湿度传感器</title><link>https://blog.yuantops.com/tech/rasp-pi-dht11/</link><pubDate>Sat, 28 Jul 2018 20:30:45 +0000</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/rasp-pi-dht11/</guid><description>记录一下给树莓派安装温度湿度传感器的过程。
+ 在LAN里，能通过HTTP协议层的RESTful API控制它 在LAN里，开关的IP地址是192.168.0.10 对 /api/status 的GET请求返回一个boolean值，代表开关的当前状态。这个请求会读取开关的 On 特征 对 /api/order 的POST请求里携带一个代表开关目标的boolean值，将触发对应动作。这个请求会写入开关的 On 特征  这个Homebridge插件将提供一个新配件，包含两个服务：</description>
+    </item>
+    
+    <item>
+      <title>树莓派连接DHT11温度湿度传感器</title>
+      <link>https://blog.yuantops.com/tech/rasp-pi-dht11/</link>
+      <pubDate>Sat, 28 Jul 2018 20:30:45 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/rasp-pi-dht11/</guid>
+      <description>记录一下给树莓派安装温度湿度传感器的过程。
 树莓派主板有一排GPIO扩展口，可以方便地驱动硬件。温度湿度传感器DHT11是一种常见传感器，很适合作为入门器件，探索树莓派的硬件能力。
 我上次接触硬件知识还是在大二的单片机小学期，几乎已经忘光，正好趁机抢救性回忆一下。
 目标 在树莓派上读到温度和湿度数据。
 元件清单 除了传感器DHT11，还需要连接线、面包板等元件，在淘宝上很好买到。
 我额外买了一块树莓派特制GPIO扩展板，用它把树莓派的40根针脚延长到面包板，类似USB延长线。很怀疑这是来自中国的&amp;rdquo;微创新&amp;rdquo;，值得赞美，因为确实解决了树莓派针脚空间狭小不便于插线的小痛点。
 下面是元件清单：
-树莓派Model 3 B
-DHT11传感器。我用的是三脚型号。
-面包板
-杜邦线/连接线
-插线 在实际插线之前，有必要先来认识树莓派针脚。树莓派3代一共40根针脚，这么辨认物理编号：横着放，让2排针脚在上面，上面那排是偶数，从左到右是2到40；下面那排是奇数，从左到右是1到39。
+ 树莓派Model 3 B
+ DHT11传感器。我用的是三脚型号。
+ 面包板
+ 杜邦线/连接线
+  插线 在实际插线之前，有必要先来认识树莓派针脚。树莓派3代一共40根针脚，这么辨认物理编号：横着放，让2排针脚在上面，上面那排是偶数，从左到右是2到40；下面那排是奇数，从左到右是1到39。
 40根针脚里，有28根GPIO针脚。这28根针脚，又有两种命名规则：BCM编号，WiringPi编号。还要注意，树莓派2代和3代的对应关系不一样，参考网上资料时要看清针脚图的型号。
-BCM编号，就是我们常看见的 GPIOxx 里面的 xx 。 WiringPi编号，是 WiringPi库 使用的编号。除非是用WiringPi库驱动针脚，否则不需关注。 对我这样的新手而言，最初物理编号和BCM编号两套规则切换起来有些烦人，需要一些细心。
+ BCM编号，就是我们常看见的 GPIOxx 里面的 xx 。 WiringPi编号，是 WiringPi库 使用的编号。除非是用WiringPi库驱动针脚，否则不需关注。  对我这样的新手而言，最初物理编号和BCM编号两套规则切换起来有些烦人，需要一些细心。
 下面的接线方案，用的是物理编号：
-左边 + 接3.3V电源，选择 1 口。 中间 DATA ，选择 7 口。 右边 - 接地，选择 14 口。 安装命令 DHT11是非常成熟通用的传感器，对它的驱动封装也特别多，不需再造轮子。货比三家，我发现Adafruit公司开源的代码质量最高，运行起来最稳定。
-安装Adadruit公司的开源库：Adafruit Python DHT
-在安装目录下, 进入example目录，运行 AdafruitDHT.py 文件:
-pi@raspberrypi:~/Adafruit_Python_DHT/examples $ python AdafruitDHT.py 0 30.</description></item></channel></rss>
+ 左边 + 接3.3V电源，选择 1 口。 中间 DATA ，选择 7 口。 右边 - 接地，选择 14 口。  安装命令 DHT11是非常成熟通用的传感器，对它的驱动封装也特别多，不需再造轮子。货比三家，我发现Adafruit公司开源的代码质量最高，运行起来最稳定。
+ 安装Adadruit公司的开源库：Adafruit Python DHT
+ 在安装目录下, 进入example目录，运行 AdafruitDHT.py 文件:
+pi@raspberrypi:~/Adafruit_Python_DHT/examples $ python AdafruitDHT.py 0 30.</description>
+    </item>
+    
+  </channel>
+</rss>

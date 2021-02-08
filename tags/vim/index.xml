@@ -1,4 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vim on Yuantops&#39; Blog</title><link>https://blog.yuantops.com/tags/vim/</link><description>Recent content in Vim on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Sun, 30 Nov 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.yuantops.com/tags/vim/index.xml" rel="self" type="application/rss+xml"/><item><title>vim增加markdown语法高亮支持</title><link>https://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</link><pubDate>Sun, 30 Nov 2014 00:00:00 +0000</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</guid><description>markdown是一种非常简洁美观的语法格式，非常适合用来撰写博客(简书 语法简介)。在linux下，我个人最习惯用vim做文本编辑器。那么，如何使vim支持markdown的语法高亮呢？
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vim on Yuantops&#39; Blog</title>
+    <link>https://blog.yuantops.com/tags/vim/</link>
+    <description>Recent content in Vim on Yuantops&#39; Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor>
+    <webMaster>yuan.tops@gmail.com (yuantops)</webMaster>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Sun, 30 Nov 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.yuantops.com/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>vim增加markdown语法高亮支持</title>
+      <link>https://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</link>
+      <pubDate>Sun, 30 Nov 2014 00:00:00 +0000</pubDate>
+      <author>yuan.tops@gmail.com (yuantops)</author>
+      <guid>https://blog.yuantops.com/tech/vim-add-markdown-syntax-support/</guid>
+      <description>markdown是一种非常简洁美观的语法格式，非常适合用来撰写博客(简书 语法简介)。在linux下，我个人最习惯用vim做文本编辑器。那么，如何使vim支持markdown的语法高亮呢？
 vim是支持自定义语法高亮插件的。于是，问题就变成了两部分：
 1. 找到markdown语法高亮显示的vim配置文件
 2. 在vim中导入这个配置文件
@@ -7,12 +29,16 @@ vim语法配置文件一般后缀为.vim。markdown的语法配置文件可以�
 vim官网链接, 或者这个项目的最新github项目
 配置文件导入
 vim自定义配置文件的导入和安装见链接。 在这里我将其转述如下：
-在.vimrc文件(.vimrc文件一般在$HOME目录下，若不存在则新建)中添加一条语句，定义一种语法格式，以及这种格式对应的配置文件。
+ 在.vimrc文件(.vimrc文件一般在$HOME目录下，若不存在则新建)中添加一条语句，定义一种语法格式，以及这种格式对应的配置文件。
 以本文为例，假设markdown.vim保存路径为$HOME/.vim/markdown.vim，则在.vimrc文件中添加
 &amp;gt; au! Syntax markdown source $HOME/.vim/markdown.vim
 注: 配置文件路径一定要正确配置
-再在.vimrc文件中添加一条语句，规定何种后缀名的文件适用这种语法格式。
+ 再在.vimrc文件中添加一条语句，规定何种后缀名的文件适用这种语法格式。
 以本文为例，我想后缀名为md与markdown的文件以markdown格式显示，那么在.vimrc中添加语句
 &amp;gt; au BufRead,BufNewFile *.md set filetype=markdown
 &amp;gt; au BufRead,BufNewFile *.markdown set filetype=markdown
-保存.vimrc文件并退出，整个配置过程结束。</description></item></channel></rss>
+  保存.vimrc文件并退出，整个配置过程结束。</description>
+    </item>
+    
+  </channel>
+</rss>
