@@ -1,138 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>使用OpenSSL工具制作证书的方法 // Yuantops&#39; Blog</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="使用OpenSSL工具制作证书的方法" />
-<meta property="og:description" content="本文将介绍如何在一台Linux服务器(Redhat Enterprise 6.6)上用OpenSSL工具制作CA(Certificate Authority) Root证书、用制作的Root证书签发SSL证书。 " />
-<meta property="og:type" content="website" />
-<meta property="og:locale" content="en_US" />
-<meta property="og:url" content="https://blog.yuantops.com/tech/ssl-creation-guide/" />
-
-
-    <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
-    <link rel="shortcut icon" href="/favicon.ico">
-
-    <link href="https://blog.yuantops.com/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
-    <link href="https://blog.yuantops.com/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="https://blog.yuantops.com/css/style.css">
-
-    <link href="http://gmpg.org/xfn/11" rel="profile">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
-    <meta name="description" content="本文将介绍如何在一台Linux服务器(Redhat Enterprise 6.6)上用OpenSSL工具制作CA(Certificate Authority) Root证书、用制作的Root证书签发SSL证书。 ">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
-
-    <meta name="generator" content="Hugo 0.50" />
-</head>
-
-
-<body>
-<div id="container">
-    <header id="header">
-    <div id="header-outer" class="outer">
-        <div id="header-inner" class="inner">
-            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
-            <a id="logo" class="logo-text" href="https://blog.yuantops.com/">Yuantops&#39; Blog</a>
-            <nav id="main-nav">
-                
-                <a class="main-nav-link" href="/archives/">Archives</a>
-                
-                <a class="main-nav-link" href="/about/">About</a>
-                
-                <a class="main-nav-link" href="/index.xml">RSS</a>
-                
-            </nav>
-            <nav id="sub-nav">
-                <div id="search-form-wrap">
-                </div>
-            </nav>
-        </div>
-    </div>
-</header>
-
-    <section id="main" class="outer">
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        <header class="article-header">
-            <h1 class="article-title" itemprop="name">使用OpenSSL工具制作证书的方法</h1>
-        </header>
-        
-        <div class="article-meta">
-            <a href="/tech/ssl-creation-guide/" class="article-date">
-                <time datetime='2014-12-24T00:00:00.000&#43;00:00' itemprop="datePublished">2014-12-24</time>
-            </a>
-            
-            
-            <div class="post-categories">
-                <div class="article-category">
-                    
-                    
-                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
-                    
-                </div>
-		
-		<div class="article-category">
-	      	  333字, 约2分钟读完
-		</div>
-	    
-
-            </div>
-            
-
-	    
-            
-        </div>
-        <div class="article-entry" itemprop="articleBody">
-            
-
-<div class="message">
-</div>
-
-<p>之前<a href="http://blog.yuantops.com/tech/SSL-certificate-details-and-creation-guide/">一篇文章</a>介绍了SSL证书的一些细节，这篇文章介绍OpenSSL工具的基本使用方法。老实说，OpenSSL工具实在是太难用了，我参考了<a href="http://pages.cs.wisc.edu/~zmiller/ca-howto/">How To Setup a CA</a>和<a href="http://rhythm-zju.blog.163.com/blog/static/310042008015115718637/">基于 OpenSSL 的 CA 建立及证书签发</a>这两篇文章，捣鼓了很久才理清流程。虽然原理很清楚，但是操作起来却不那么容易，这告诉我们要多实践才对，不然发现不了问题。</p>
-
-<h3 id="一些坑">一些坑</h3>
-
-<p>在使用openssl ca命令时，如果不手动指定-config参数，它会自动调用/etc/pki/tls/openssl.cnf作为-config配置文件，这个openssl.cnf文件里定义了要调用的CA证书、私钥路径。如果我们在创建CA时将它的证书和私钥等文件保存在了别处，或者/etc/pki/tls/openssl.cnf里的定义的那些文件不存在，那么在openssl ca找不到要使用的这些文件时，就会报错。其中典型的错误有：</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Using configuration from /etc/pki/tls/openssl.cnf
+<!doctype html><html><head><meta charset=utf-8><title>使用OpenSSL工具制作证书的方法 // Yuantops&#39; Blog</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property=og:title content=使用OpenSSL工具制作证书的方法><meta property=og:description content="本文将介绍如何在一台Linux服务器(Redhat Enterprise 6.6)上用OpenSSL工具制作CA(Certificate Authority) Root证书、用制作的Root证书签发SSL证书。"><meta property=og:type content=website><meta property=og:locale content=en_US><meta property=og:url content=https://blog.yuantops.com/tech/ssl-creation-guide/><link href rel=alternate type=application/rss+xml title="Yuantops' Blog"><link rel="shortcut icon" href=/favicon.ico><link href=https://blog.yuantops.com/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=https://blog.yuantops.com/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=https://blog.yuantops.com/css/style.css><link href=http://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta name=description content="本文将介绍如何在一台Linux服务器(Redhat Enterprise 6.6)上用OpenSSL工具制作CA(Certificate Authority) Root证书、用制作的Root证书签发SSL证书。"><meta name=keywords content><meta name=author content><meta name=generator content="Hugo 0.50"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a><a id=logo class=logo-text href=https://blog.yuantops.com/>Yuantops&#39; Blog</a><nav id=main-nav><a class=main-nav-link href=/archives/>Archives</a>
+<a class=main-nav-link href=/about/>About</a>
+<a class=main-nav-link href=/index.xml>RSS</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>使用OpenSSL工具制作证书的方法</h1></header><div class=article-meta><a href=/tech/ssl-creation-guide/ class=article-date><time datetime=2014-12-24T00:00:00.000&#43;00:00 itemprop=datePublished>2014-12-24</time></a><div class=post-categories><div class=article-category><a class=article-category-link href=https://blog.yuantops.com//categories/tech>Tech</a></div><div class=article-category>333字, 约2分钟读完</div></div></div><div class=article-entry itemprop=articleBody><div class=message></div><p>之前<a href=http://blog.yuantops.com/tech/SSL-certificate-details-and-creation-guide/>一篇文章</a>介绍了SSL证书的一些细节，这篇文章介绍OpenSSL工具的基本使用方法。老实说，OpenSSL工具实在是太难用了，我参考了<a href=http://pages.cs.wisc.edu/~zmiller/ca-howto/>How To Setup a CA</a>和<a href=http://rhythm-zju.blog.163.com/blog/static/310042008015115718637/>基于 OpenSSL 的 CA 建立及证书签发</a>这两篇文章，捣鼓了很久才理清流程。虽然原理很清楚，但是操作起来却不那么容易，这告诉我们要多实践才对，不然发现不了问题。</p><h3 id=一些坑>一些坑</h3><p>在使用openssl ca命令时，如果不手动指定-config参数，它会自动调用/etc/pki/tls/openssl.cnf作为-config配置文件，这个openssl.cnf文件里定义了要调用的CA证书、私钥路径。如果我们在创建CA时将它的证书和私钥等文件保存在了别处，或者/etc/pki/tls/openssl.cnf里的定义的那些文件不存在，那么在openssl ca找不到要使用的这些文件时，就会报错。其中典型的错误有：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>Using configuration from /etc/pki/tls/openssl.cnf
 unable to load CA private key
-<span style="color:#ae81ff">139911890630472</span>:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: ANY PRIVATE KEY  </code></pre></div>
-
-<p>所以，我们如果想自定义CA的目录位置，那么要事先1）按照OpenSSL的默认配置建立相应的目录结构，2）定制openssl.cnf文件，修改CA目录的路径定义。</p>
-
-<h3 id="建立ca-生成root证书">建立CA，生成Root证书</h3>
-
-<h4 id="生成ca目录结构">生成CA目录结构</h4>
-
-<p>假设我要将/root/newCA作为CA文件根目录，那么在Terminal中敲入命令：<br />
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@node ~<span style="color:#f92672">]</span><span style="color:#75715e"># pwd
-</span><span style="color:#75715e"></span>/root
-<span style="color:#f92672">[</span>root@node ~<span style="color:#f92672">]</span><span style="color:#75715e"># mkdir -p ./newCA/{private,newcerts}
-</span><span style="color:#75715e"></span><span style="color:#f92672">[</span>root@node ~<span style="color:#f92672">]</span><span style="color:#75715e"># touch ./newCA/index.txt
-</span><span style="color:#75715e"></span><span style="color:#f92672">[</span>root@node ~<span style="color:#f92672">]</span># echo <span style="color:#ae81ff">01</span> &gt; ./newCA/serial</code></pre></div></p>
-
-<h4 id="定制openssl-cnf文件">定制openssl.cnf文件</h4>
-
-<p>将/etc/pki/tls/openssl.cnf文件复制到newCA目录下，将CA_default下面的dir的值更新为自定义的openssl.cnf文件的路径(在本文中为/root/newCA)。</p>
-
-<p>除此之外，出于方便后续设置的目的，还可以修改openssl.cnf文件中[req_distinguished_name]区域内后缀为default的变量，将它们预设合适的值。下面是我修改后的样子：<br />
-&gt;       [ req_distinguished_name ]
-        countryName                     = Country Name (2 letter code)
-        countryName_default             = CN
-        countryName_min                 = 2
-        countryName_max                 = 2</p>
-
-<blockquote>
-<pre><code>  stateOrProvinceName             = State or Province Name (full name)
+<span style=color:#ae81ff>139911890630472</span>:error:0906D06C:PEM routines:PEM_read_bio:no start line:pem_lib.c:703:Expecting: ANY PRIVATE KEY  </code></pre></div><p>所以，我们如果想自定义CA的目录位置，那么要事先1）按照OpenSSL的默认配置建立相应的目录结构，2）定制openssl.cnf文件，修改CA目录的路径定义。</p><h3 id=建立ca-生成root证书>建立CA，生成Root证书</h3><h4 id=生成ca目录结构>生成CA目录结构</h4><p>假设我要将/root/newCA作为CA文件根目录，那么在Terminal中敲入命令：<br><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>root@node ~<span style=color:#f92672>]</span><span style=color:#75715e># pwd
+</span><span style=color:#75715e></span>/root
+<span style=color:#f92672>[</span>root@node ~<span style=color:#f92672>]</span><span style=color:#75715e># mkdir -p ./newCA/{private,newcerts}
+</span><span style=color:#75715e></span><span style=color:#f92672>[</span>root@node ~<span style=color:#f92672>]</span><span style=color:#75715e># touch ./newCA/index.txt
+</span><span style=color:#75715e></span><span style=color:#f92672>[</span>root@node ~<span style=color:#f92672>]</span># echo <span style=color:#ae81ff>01</span> &gt; ./newCA/serial</code></pre></div></p><h4 id=定制openssl-cnf文件>定制openssl.cnf文件</h4><p>将/etc/pki/tls/openssl.cnf文件复制到newCA目录下，将CA_default下面的dir的值更新为自定义的openssl.cnf文件的路径(在本文中为/root/newCA)。</p><p>除此之外，出于方便后续设置的目的，还可以修改openssl.cnf文件中[req_distinguished_name]区域内后缀为default的变量，将它们预设合适的值。下面是我修改后的样子：<br>&gt; [ req_distinguished_name ]
+countryName = Country Name (2 letter code)
+countryName_default = CN
+countryName_min = 2
+countryName_max = 2</p><blockquote><pre><code>  stateOrProvinceName             = State or Province Name (full name)
     stateOrProvinceName_default     = Beijing
 
   localityName                    = Locality Name (eg, city)
@@ -153,192 +31,20 @@ unable to load CA private key
 
   emailAddress                    = Email Address
     emailAddress_max                = 64   
-</code></pre>
-</blockquote>
-
-<h4 id="生成ca的root-key和self-signed的证书">生成CA的root key和self-signed的证书</h4>
-
-<ul>
-<li>生成密钥对<br />
- # openssl genrsa -out private/cakey.pem 2048<br /></li>
-<li>生成证书申请、用CA的密钥自签名，用一条语句完成<br /></li>
-</ul>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@node newCA<span style="color:#f92672">]</span><span style="color:#75715e"># openssl req -new -x509 -days 3650 -key private/cakey.pem -out cacert.pem -config openssl.cnf
-</span><span style="color:#75715e"></span>You are about to be asked to enter information that will be incorporated
+</code></pre></blockquote><h4 id=生成ca的root-key和self-signed的证书>生成CA的root key和self-signed的证书</h4><ul><li>生成密钥对<br># openssl genrsa -out private/cakey.pem 2048<br></li><li>生成证书申请、用CA的密钥自签名，用一条语句完成<br></li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>root@node newCA<span style=color:#f92672>]</span><span style=color:#75715e># openssl req -new -x509 -days 3650 -key private/cakey.pem -out cacert.pem -config openssl.cnf
+</span><span style=color:#75715e></span>You are about to be asked to enter information that will be incorporated
 into your certificate request.
 What you are about to enter is what is called a Distinguished Name or a DN.
 There are quite a few fields but you can leave some blank
 For some fields there will be a default value,
-	If you enter <span style="color:#e6db74">&#39;.&#39;</span>, the field will be left blank.
+	If you enter <span style=color:#e6db74>&#39;.&#39;</span>, the field will be left blank.
 	-----
-	Country Name <span style="color:#f92672">(</span><span style="color:#ae81ff">2</span> letter code<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>CN<span style="color:#f92672">]</span>:
-	State or Province Name <span style="color:#f92672">(</span>full name<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Beijing<span style="color:#f92672">]</span>:
-	Locality Name <span style="color:#f92672">(</span>eg, city<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>HaiDian<span style="color:#f92672">]</span>:
-	Organization Name <span style="color:#f92672">(</span>eg, company<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Yuantops Company Ltd<span style="color:#f92672">]</span>:
-	Organizational Unit Name <span style="color:#f92672">(</span>eg, section<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Head Office<span style="color:#f92672">]</span>:
-	Common Name <span style="color:#f92672">(</span>eg, your name or your server<span style="color:#960050;background-color:#1e0010">&#39;</span>s hostname<span style="color:#f92672">)</span> <span style="color:#f92672">[]</span>:test.yuantops.com
-	Email Address <span style="color:#f92672">[]</span>:</code></pre></div>
-
-<ul>
-<li>查看我们生成的root-ca.crt的内容<br />
- # openssl x509 -noout -text -in root-ca.crt</li>
-</ul>
-
-<h4 id="使用ca-root证书签署证书">使用CA Root证书签署证书</h4>
-
-<p>在上一步完成之后，就可以用CA的root 证书来签署证书了。</p>
-
-<p>可以使用一条OpenSSL命令完成生成密钥对，生成证书签名请求的操作：<br />
-     # openssl req -newkey rsa:1024 -keyout zmiller.key -config openssl.cnf -out zmiller.req</p>
-
-<p>然后用CA的Root证书签发证书<br />
-     # openssl ca -config openssl.cnf -out zmiller.crt -infiles zmiller.req</p>
-
-        </div>
-
-        
-        
-        <div class="article-toc" style="display:none;">
-            <h3>Contents</h3>
-            <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#一些坑">一些坑</a></li>
-<li><a href="#建立ca-生成root证书">建立CA，生成Root证书</a>
-<ul>
-<li><a href="#生成ca目录结构">生成CA目录结构</a></li>
-<li><a href="#定制openssl-cnf文件">定制openssl.cnf文件</a></li>
-<li><a href="#生成ca的root-key和self-signed的证书">生成CA的root key和self-signed的证书</a></li>
-<li><a href="#使用ca-root证书签署证书">使用CA Root证书签署证书</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-        </div>
-        
-        
-
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
-        <script>
-            (function() {
-                var $toc = $('#TableOfContents');
-                if ($toc.length > 0) {
-                    var $window = $(window);
-
-                    function onScroll(){
-                        var currentScroll = $window.scrollTop();
-                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
-                        var id = "";
-                        h.each(function (i, e) {
-                            e = $(e);
-                            if (e.offset().top - 10 <= currentScroll) {
-                                id = e.attr('id');
-                            }
-                        });
-                        var active = $toc.find('a.active');
-                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
-
-                        active.each(function (i, e) {
-                            $(e).removeClass('active').siblings('ul').hide();
-                        });
-                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
-                            $(e).children('a').addClass('active').siblings('ul').show();
-                        });
-                    }
-
-                    $window.on('scroll', onScroll);
-                    $(document).ready(function() {
-                        $toc.find('a').parent('li').find('ul').hide();
-                        onScroll();
-                        document.getElementsByClassName('article-toc')[0].style.display = '';
-                    });
-                }
-            })();
-        </script>
-        
-
-
-        
-	
-        <footer class="article-footer">
-            <ul class="article-tag-list">
-                
-                <li class="article-tag-list-item">
-                    <a class="article-tag-list-link" href="https://blog.yuantops.com//tags/ssl">SSL
-                    </a>
-                </li>
-                
-            </ul>
-        </footer>
-        
-	
-    </div>
-    <nav id="article-nav">
-    
-    <a href="/tech/osc-android-app-notes-3/" id="article-nav-newer" class="article-nav-link-wrap">
-        <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            开源中国安卓客户端源码学习笔记 三 自定义Exception类
-        </div>
-    </a>
-    
-    
-    <a href="/tech/bind-installation-guide/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">BIND安装笔记&nbsp;<span>&gt;</span></div>
-    </a>
-    
-</nav>
-</article>
-
-        
-    </section>
-    <footer id="footer">
-    <div class="outer">
-        <div id="footer-info" class="inner">
-            &copy; 2012-2021 @yuantops&nbsp; </br>
-            Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
-        </div>
-    </div>
-    
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-57420914-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-
-    
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
-        <script>renderMathInElement(document.body);</script>
-    
-    <script>
-        document.getElementById('main-nav-toggle').addEventListener('click', function () {
-            var header = document.getElementById('header');
-            if (header.classList.contains('mobile-on')) {
-                header.classList.remove('mobile-on');
-            } else {
-                header.classList.add('mobile-on');
-            }
-        });
-    </script>
-</footer>
-
-</div>
-</body>
-</html>
+	Country Name <span style=color:#f92672>(</span><span style=color:#ae81ff>2</span> letter code<span style=color:#f92672>)</span> <span style=color:#f92672>[</span>CN<span style=color:#f92672>]</span>:
+	State or Province Name <span style=color:#f92672>(</span>full name<span style=color:#f92672>)</span> <span style=color:#f92672>[</span>Beijing<span style=color:#f92672>]</span>:
+	Locality Name <span style=color:#f92672>(</span>eg, city<span style=color:#f92672>)</span> <span style=color:#f92672>[</span>HaiDian<span style=color:#f92672>]</span>:
+	Organization Name <span style=color:#f92672>(</span>eg, company<span style=color:#f92672>)</span> <span style=color:#f92672>[</span>Yuantops Company Ltd<span style=color:#f92672>]</span>:
+	Organizational Unit Name <span style=color:#f92672>(</span>eg, section<span style=color:#f92672>)</span> <span style=color:#f92672>[</span>Head Office<span style=color:#f92672>]</span>:
+	Common Name <span style=color:#f92672>(</span>eg, your name or your server<span style=color:#960050;background-color:#1e0010>&#39;</span>s hostname<span style=color:#f92672>)</span> <span style=color:#f92672>[]</span>:test.yuantops.com
+	Email Address <span style=color:#f92672>[]</span>:</code></pre></div><ul><li>查看我们生成的root-ca.crt的内容<br># openssl x509 -noout -text -in root-ca.crt</li></ul><h4 id=使用ca-root证书签署证书>使用CA Root证书签署证书</h4><p>在上一步完成之后，就可以用CA的root 证书来签署证书了。</p><p>可以使用一条OpenSSL命令完成生成密钥对，生成证书签名请求的操作：<br># openssl req -newkey rsa:1024 -keyout zmiller.key -config openssl.cnf -out zmiller.req</p><p>然后用CA的Root证书签发证书<br># openssl ca -config openssl.cnf -out zmiller.crt -infiles zmiller.req</p></div><div class=article-toc style=display:none><h3>Contents</h3><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#一些坑>一些坑</a></li><li><a href=#建立ca-生成root证书>建立CA，生成Root证书</a><ul><li><a href=#生成ca目录结构>生成CA目录结构</a></li><li><a href=#定制openssl-cnf文件>定制openssl.cnf文件</a></li><li><a href=#生成ca的root-key和self-signed的证书>生成CA的root key和self-signed的证书</a></li><li><a href=#使用ca-root证书签署证书>使用CA Root证书签署证书</a></li></ul></li></ul></li></ul></li></ul></nav></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin=anonymous></script><script>(function(){var $toc=$('#TableOfContents');if($toc.length>0){var $window=$(window);function onScroll(){var currentScroll=$window.scrollTop();var h=$('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');var id="";h.each(function(i,e){e=$(e);if(e.offset().top-10<=currentScroll){id=e.attr('id');}});var active=$toc.find('a.active');if(active.length==1&&active.eq(0).attr('href')=='#'+id)return true;active.each(function(i,e){$(e).removeClass('active').siblings('ul').hide();});$toc.find('a[href="#'+id+'"]').parentsUntil('#TableOfContents').each(function(i,e){$(e).children('a').addClass('active').siblings('ul').show();});}
+$window.on('scroll',onScroll);$(document).ready(function(){$toc.find('a').parent('li').find('ul').hide();onScroll();document.getElementsByClassName('article-toc')[0].style.display='';});}})();</script><footer class=article-footer><ul class=article-tag-list><li class=article-tag-list-item><a class=article-tag-list-link href=https://blog.yuantops.com//tags/ssl>SSL</a></li></ul></footer></div><nav id=article-nav><a href=/tech/osc-android-app-notes-3/ id=article-nav-newer class=article-nav-link-wrap><div class=article-nav-title><span>&lt;</span>&nbsp;
+开源中国安卓客户端源码学习笔记 三 自定义Exception类</div></a><a href=/tech/bind-installation-guide/ id=article-nav-older class=article-nav-link-wrap><div class=article-nav-title>BIND安装笔记&nbsp;<span>&gt;</span></div></a></nav></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2012-2021 @yuantops&nbsp;</br>Proudly powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos>Minos</a></div></div><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-57420914-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin=anonymous></script><script>hljs.initHighlightingOnLoad();</script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css integrity=sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0 crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js integrity=sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1 crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin=anonymous></script><script>renderMathInElement(document.body);</script><script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var header=document.getElementById('header');if(header.classList.contains('mobile-on')){header.classList.remove('mobile-on');}else{header.classList.add('mobile-on');}});</script></footer></div></body></html>

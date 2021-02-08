@@ -1,116 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>浏览器验证SSL数字证书的步骤 // Yuantops&#39; Blog</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:title" content="浏览器验证SSL数字证书的步骤" />
-<meta property="og:description" content="本文介绍通过https协议访问网站时，浏览器验证服务器SSL证书的原理，并以Chrome访问百度为例进行分析。" />
-<meta property="og:type" content="website" />
-<meta property="og:locale" content="en_US" />
-<meta property="og:url" content="https://blog.yuantops.com/tech/how_do_web_broswer_validate_ssl_certificates/" />
-
-
-    <link href="" rel="alternate" type="application/rss+xml" title="Yuantops&#39; Blog" />
-    <link rel="shortcut icon" href="/favicon.ico">
-
-    <link href="https://blog.yuantops.com/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
-    <link href="https://blog.yuantops.com/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="https://blog.yuantops.com/css/style.css">
-
-    <link href="http://gmpg.org/xfn/11" rel="profile">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
-    <meta name="description" content="本文介绍通过https协议访问网站时，浏览器验证服务器SSL证书的原理，并以Chrome访问百度为例进行分析。">
-    <meta name="keywords" content="ssl,">
-    <meta name="author" content="[yuan.tops@gmail.com]">
-
-    <meta name="generator" content="Hugo 0.50" />
-</head>
-
-
-<body>
-<div id="container">
-    <header id="header">
-    <div id="header-outer" class="outer">
-        <div id="header-inner" class="inner">
-            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
-            <a id="logo" class="logo-text" href="https://blog.yuantops.com/">Yuantops&#39; Blog</a>
-            <nav id="main-nav">
-                
-                <a class="main-nav-link" href="/archives/">Archives</a>
-                
-                <a class="main-nav-link" href="/about/">About</a>
-                
-                <a class="main-nav-link" href="/index.xml">RSS</a>
-                
-            </nav>
-            <nav id="sub-nav">
-                <div id="search-form-wrap">
-                </div>
-            </nav>
-        </div>
-    </div>
-</header>
-
-    <section id="main" class="outer">
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        <header class="article-header">
-            <h1 class="article-title" itemprop="name">浏览器验证SSL数字证书的步骤</h1>
-        </header>
-        
-        <div class="article-meta">
-            <a href="/tech/how_do_web_broswer_validate_ssl_certificates/" class="article-date">
-                <time datetime='2020-11-24T09:07:26.000&#43;08:00' itemprop="datePublished">2020-11-24</time>
-            </a>
-            
-            
-            <div class="post-categories">
-                <div class="article-category">
-                    
-                    
-                    <a class="article-category-link" href="https://blog.yuantops.com//categories/tech">Tech</a>
-                    
-                </div>
-		
-		<div class="article-category">
-	      	  257字, 约2分钟读完
-		</div>
-	    
-
-            </div>
-            
-
-	    
-            
-        </div>
-        <div class="article-entry" itemprop="articleBody">
-            
-
-<p>浏览器和服务器使用SSL/TLS通信时，双方首先要通过几次握手(Handshake)，建立加密信道。简单说来，分为下面３步:</p>
-
-<ol>
-<li>服务器发送自己的SSL证书；</li>
-<li>浏览器验证服务器SSL证书；</li>
-<li>证书验证成功，双方协商得到对称加密密钥，并交换。双方拿到对称加密密钥后，后续的通信都会用它做对称加密。</li>
-</ol>
-
-<p>本文介绍的重点，在前２步。首先，转载一篇国外博客，讲述浏览器检查证书的过程；其次，会引述两个RFC协议的相关内容；最后，wireshark抓包进行验证。</p>
-
-<h2 id="browsers-and-certificate-validation">Browsers and Certificate Validation</h2>
-
-<p>原文地址: <a href="https://www.ssl.com/article/browsers-and-certificate-validation/">https://www.ssl.com/article/browsers-and-certificate-validation/</a></p>
-
-<p>使用<a href="https://www.deepl.com/en/translator">DeepL</a> 翻译成中文，如下:</p>
-
-<pre><code class="language-nil">## 证书和X.509格式
+<!doctype html><html><head><meta charset=utf-8><title>浏览器验证SSL数字证书的步骤 // Yuantops&#39; Blog</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property=og:title content=浏览器验证SSL数字证书的步骤><meta property=og:description content=本文介绍通过https协议访问网站时，浏览器验证服务器SSL证书的原理，并以Chrome访问百度为例进行分析。><meta property=og:type content=website><meta property=og:locale content=en_US><meta property=og:url content=https://blog.yuantops.com/tech/how_do_web_broswer_validate_ssl_certificates/><link href rel=alternate type=application/rss+xml title="Yuantops' Blog"><link rel="shortcut icon" href=/favicon.ico><link href=https://blog.yuantops.com/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=https://blog.yuantops.com/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=https://blog.yuantops.com/css/style.css><link href=http://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta name=description content=本文介绍通过https协议访问网站时，浏览器验证服务器SSL证书的原理，并以Chrome访问百度为例进行分析。><meta name=keywords content=ssl,><meta name=author content=[yuan.tops@gmail.com]><meta name=generator content="Hugo 0.50"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a><a id=logo class=logo-text href=https://blog.yuantops.com/>Yuantops&#39; Blog</a><nav id=main-nav><a class=main-nav-link href=/archives/>Archives</a>
+<a class=main-nav-link href=/about/>About</a>
+<a class=main-nav-link href=/index.xml>RSS</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>浏览器验证SSL数字证书的步骤</h1></header><div class=article-meta><a href=/tech/how_do_web_broswer_validate_ssl_certificates/ class=article-date><time datetime=2020-11-24T09:07:26.000&#43;08:00 itemprop=datePublished>2020-11-24</time></a><div class=post-categories><div class=article-category><a class=article-category-link href=https://blog.yuantops.com//categories/tech>Tech</a></div><div class=article-category>257字, 约2分钟读完</div></div></div><div class=article-entry itemprop=articleBody><p>浏览器和服务器使用SSL/TLS通信时，双方首先要通过几次握手(Handshake)，建立加密信道。简单说来，分为下面３步:</p><ol><li>服务器发送自己的SSL证书；</li><li>浏览器验证服务器SSL证书；</li><li>证书验证成功，双方协商得到对称加密密钥，并交换。双方拿到对称加密密钥后，后续的通信都会用它做对称加密。</li></ol><p>本文介绍的重点，在前２步。首先，转载一篇国外博客，讲述浏览器检查证书的过程；其次，会引述两个RFC协议的相关内容；最后，wireshark抓包进行验证。</p><h2 id=browsers-and-certificate-validation>Browsers and Certificate Validation</h2><p>原文地址: <a href=https://www.ssl.com/article/browsers-and-certificate-validation/>https://www.ssl.com/article/browsers-and-certificate-validation/</a></p><p>使用<a href=https://www.deepl.com/en/translator>DeepL</a> 翻译成中文，如下:</p><pre><code class=language-nil>## 证书和X.509格式
 证书在各方面都是数字文件，这意味着它们需要遵循一种文件格式来存储信息（如签名、密钥、签发人等）。虽然私有的PKI配置可以为其证书实现任何格式，但公共信任的PKIs（即那些被浏览器信任的PKIs）必须符合RFC 5280，这就要求使用X.509 v3格式。
 
 X.509 v3允许证书包含额外的数据，如使用限制或策略信息，作为扩展，每个扩展都是关键或非关键的。浏览器可以忽略无效的或未被识别的非关键扩展，但它们必须处理和验证所有关键扩展。
@@ -194,19 +84,9 @@ X.509 v3格式允许签发人定义证书所能支持的最大路径长度。这
 浏览器在处理完上述扩展证书后，会继续验证当前证书指定为关键的所有剩余扩展证书，然后再进入下一个。如果浏览器到达一个路径的叶子证书时没有错误，那么该路径就会被接受为有效。如果产生任何错误，则路径被标记为无效，并且不能建立安全连接。
 
 通过www.DeepL.com/Translator（免费版）翻译
-</code></pre>
-
-<h2 id="两个重要rfc标准">两个重要RFC标准</h2>
-
-<h3 id="rfc-5280-pki-x-dot-509-v3规范">[RFC 5280] PKI X.509 v3规范　</h3>
-
-<p><a href="https://tools.ietf.org/html/rfc5280">https://tools.ietf.org/html/rfc5280</a></p>
-
-<p>其中，section-6 给出了证书validation算法。
+</code></pre><h2 id=两个重要rfc标准>两个重要RFC标准</h2><h3 id=rfc-5280-pki-x-dot-509-v3规范>[RFC 5280] PKI X.509 v3规范　</h3><p><a href=https://tools.ietf.org/html/rfc5280>https://tools.ietf.org/html/rfc5280</a></p><p>其中，section-6 给出了证书validation算法。
 第一部分的译文多次提到RFC 5820标准。这个标准定义了X.509格式，并给出了路径验证算法（section-6）。
-在此，摘录关键部分:</p>
-
-<pre><code class="language-text">(a)  for all x in {1, ..., n-1}, the subject of certificate x is
+在此，摘录关键部分:</p><pre><code class=language-text>(a)  for all x in {1, ..., n-1}, the subject of certificate x is
           the issuer of certificate x+1;
 
 (b)  certificate 1 is issued by the trust anchor;
@@ -216,17 +96,7 @@ X.509 v3格式允许签发人定义证书所能支持的最大路径长度。这
 
 (d)  for all x in {1, ..., n}, the certificate was valid at the
           time in question
-</code></pre>
-
-<p>根据算法，第一个证书由trust anchor签发，下一个证书由这个证书签发……直到最后的叶子节点证书。这样由信任锚长出一个链条，一环扣一环，链条上每个节点都是可信的。</p>
-
-<h3 id="rfc-5246-tls-1-dot-2规范">[RFC 5246] TLS 1.2规范</h3>
-
-<p><a href="https://tools.ietf.org/html/rfc5246">https://tools.ietf.org/html/rfc5246</a></p>
-
-<p>其中，section-7.4.2　规定，server要向client发送 <em>certificate_list</em> 。服务器不是返回单独的某个证书，而是一个证书列表; 因为单独一个证书，没法形成certifate chain，也就无法完成validation: 这和[RFC 5280] 所述流程吻合。</p>
-
-<pre><code class="language-text">certificate_list
+</code></pre><p>根据算法，第一个证书由trust anchor签发，下一个证书由这个证书签发……直到最后的叶子节点证书。这样由信任锚长出一个链条，一环扣一环，链条上每个节点都是可信的。</p><h3 id=rfc-5246-tls-1-dot-2规范>[RFC 5246] TLS 1.2规范</h3><p><a href=https://tools.ietf.org/html/rfc5246>https://tools.ietf.org/html/rfc5246</a></p><p>其中，section-7.4.2　规定，server要向client发送 <em>certificate_list</em> 。服务器不是返回单独的某个证书，而是一个证书列表; 因为单独一个证书，没法形成certifate chain，也就无法完成validation: 这和[RFC 5280] 所述流程吻合。</p><pre><code class=language-text>certificate_list
       This is a sequence (chain) of certificates.  The sender's
       certificate MUST come first in the list.  Each following
       certificate MUST directly certify the one preceding it.  Because
@@ -235,145 +105,6 @@ X.509 v3格式允许签发人定义证书所能支持的最大路径长度。这
       certificate authority MAY be omitted from the chain, under the
       assumption that the remote end must already possess it in order to
       validate it in any case.
-</code></pre>
-
-<p>这里指定了证书的顺序，第一个是叶子证书。很好理解，因为重要数据在报文中的位置往往靠前。</p>
-
-<h2 id="抓包看看">抓包看看　</h2>
-
-<p>借助wireshark，我们实际操作一番。</p>
-
-<p>打开wireshark, 开始抓包，再访问百度官网(<a href="https://www.baidu.com">https://www.baidu.com</a>)。抓包细节如下：　</p>
-
-<p><img src="/ox-hugo/ssl_certificate_wireshark.png" alt="" /></p>
-
-        </div>
-
-        
-        
-        <div class="article-toc" style="display:none;">
-            <h3>Contents</h3>
-            <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#browsers-and-certificate-validation">Browsers and Certificate Validation</a></li>
-<li><a href="#两个重要rfc标准">两个重要RFC标准</a>
-<ul>
-<li><a href="#rfc-5280-pki-x-dot-509-v3规范">[RFC 5280] PKI X.509 v3规范　</a></li>
-<li><a href="#rfc-5246-tls-1-dot-2规范">[RFC 5246] TLS 1.2规范</a></li>
-</ul></li>
-<li><a href="#抓包看看">抓包看看　</a></li>
-</ul></li>
-</ul>
-</nav>
-        </div>
-        
-        
-
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
-        <script>
-            (function() {
-                var $toc = $('#TableOfContents');
-                if ($toc.length > 0) {
-                    var $window = $(window);
-
-                    function onScroll(){
-                        var currentScroll = $window.scrollTop();
-                        var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
-                        var id = "";
-                        h.each(function (i, e) {
-                            e = $(e);
-                            if (e.offset().top - 10 <= currentScroll) {
-                                id = e.attr('id');
-                            }
-                        });
-                        var active = $toc.find('a.active');
-                        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
-
-                        active.each(function (i, e) {
-                            $(e).removeClass('active').siblings('ul').hide();
-                        });
-                        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
-                            $(e).children('a').addClass('active').siblings('ul').show();
-                        });
-                    }
-
-                    $window.on('scroll', onScroll);
-                    $(document).ready(function() {
-                        $toc.find('a').parent('li').find('ul').hide();
-                        onScroll();
-                        document.getElementsByClassName('article-toc')[0].style.display = '';
-                    });
-                }
-            })();
-        </script>
-        
-
-
-        
-    </div>
-    <nav id="article-nav">
-    
-    <a href="/tech/validate_a_digital_certificate_step_by_step/" id="article-nav-newer" class="article-nav-link-wrap">
-        <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            手工验证一张数字证书的有效性
-        </div>
-    </a>
-    
-    
-    <a href="/opinions/gone_are_the_days_of_blog/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">怀念信息自由流动的博客时代&nbsp;<span>&gt;</span></div>
-    </a>
-    
-</nav>
-</article>
-
-        
-    </section>
-    <footer id="footer">
-    <div class="outer">
-        <div id="footer-info" class="inner">
-            &copy; 2012-2021 @yuantops&nbsp; </br>
-            Proudly powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos">Minos</a>
-        </div>
-    </div>
-    
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-57420914-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-
-    
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script>
-        <script>renderMathInElement(document.body);</script>
-    
-    <script>
-        document.getElementById('main-nav-toggle').addEventListener('click', function () {
-            var header = document.getElementById('header');
-            if (header.classList.contains('mobile-on')) {
-                header.classList.remove('mobile-on');
-            } else {
-                header.classList.add('mobile-on');
-            }
-        });
-    </script>
-</footer>
-
-</div>
-</body>
-</html>
+</code></pre><p>这里指定了证书的顺序，第一个是叶子证书。很好理解，因为重要数据在报文中的位置往往靠前。</p><h2 id=抓包看看>抓包看看　</h2><p>借助wireshark，我们实际操作一番。</p><p>打开wireshark, 开始抓包，再访问百度官网(<a href=https://www.baidu.com>https://www.baidu.com</a>)。抓包细节如下：　</p><p><img src=/ox-hugo/ssl_certificate_wireshark.png alt></p></div><div class=article-toc style=display:none><h3>Contents</h3><nav id=TableOfContents><ul><li><ul><li><a href=#browsers-and-certificate-validation>Browsers and Certificate Validation</a></li><li><a href=#两个重要rfc标准>两个重要RFC标准</a><ul><li><a href=#rfc-5280-pki-x-dot-509-v3规范>[RFC 5280] PKI X.509 v3规范　</a></li><li><a href=#rfc-5246-tls-1-dot-2规范>[RFC 5246] TLS 1.2规范</a></li></ul></li><li><a href=#抓包看看>抓包看看　</a></li></ul></li></ul></nav></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin=anonymous></script><script>(function(){var $toc=$('#TableOfContents');if($toc.length>0){var $window=$(window);function onScroll(){var currentScroll=$window.scrollTop();var h=$('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');var id="";h.each(function(i,e){e=$(e);if(e.offset().top-10<=currentScroll){id=e.attr('id');}});var active=$toc.find('a.active');if(active.length==1&&active.eq(0).attr('href')=='#'+id)return true;active.each(function(i,e){$(e).removeClass('active').siblings('ul').hide();});$toc.find('a[href="#'+id+'"]').parentsUntil('#TableOfContents').each(function(i,e){$(e).children('a').addClass('active').siblings('ul').show();});}
+$window.on('scroll',onScroll);$(document).ready(function(){$toc.find('a').parent('li').find('ul').hide();onScroll();document.getElementsByClassName('article-toc')[0].style.display='';});}})();</script></div><nav id=article-nav><a href=/tech/validate_a_digital_certificate_step_by_step/ id=article-nav-newer class=article-nav-link-wrap><div class=article-nav-title><span>&lt;</span>&nbsp;
+手工验证一张数字证书的有效性</div></a><a href=/opinions/gone_are_the_days_of_blog/ id=article-nav-older class=article-nav-link-wrap><div class=article-nav-title>怀念信息自由流动的博客时代&nbsp;<span>&gt;</span></div></a></nav></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2012-2021 @yuantops&nbsp;</br>Proudly powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos>Minos</a></div></div><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-57420914-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin=anonymous></script><script>hljs.initHighlightingOnLoad();</script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css integrity=sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0 crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js integrity=sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1 crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin=anonymous></script><script>renderMathInElement(document.body);</script><script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var header=document.getElementById('header');if(header.classList.contains('mobile-on')){header.classList.remove('mobile-on');}else{header.classList.add('mobile-on');}});</script></footer></div></body></html>
