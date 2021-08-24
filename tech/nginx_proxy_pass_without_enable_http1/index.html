@@ -1,17 +1,26 @@
 <!doctype html><html><head><meta charset=utf-8><title>nginx 反向代理不开启http1.1时的行为探究 // Yuantops&#39; Blog</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property=og:title content="nginx 反向代理不开启http1.1时的行为探究"><meta property=og:description content="nginx 做反向代理服务器，与upstream之间默认使用http1.0协议。借助tcpdump和wireshark,来看看开启http1.1前后的区别。"><meta property=og:type content=website><meta property=og:locale content=en_US><meta property=og:url content=https://blog.yuantops.com/tech/nginx_proxy_pass_without_enable_http1/><link href rel=alternate type=application/rss+xml title="Yuantops' Blog"><link rel="shortcut icon" href=/favicon.ico><link href=https://blog.yuantops.com/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=https://blog.yuantops.com/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=https://blog.yuantops.com/css/style.css><link href=http://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta name=description content="nginx 做反向代理服务器，与upstream之间默认使用http1.0协议。借助tcpdump和wireshark,来看看开启http1.1前后的区别。"><meta name=keywords content=nginx,><meta name=author content=[yuan.tops@gmail.com]><meta name=generator content="Hugo 0.50"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a><a id=logo class=logo-text href=https://blog.yuantops.com/>Yuantops&#39; Blog</a><nav id=main-nav><a class=main-nav-link href=/archives/>Archives</a>
 <a class=main-nav-link href=/about/>About</a>
-<a class=main-nav-link href=/index.xml>RSS</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>nginx 反向代理不开启http1.1时的行为探究</h1></header><div class=article-meta><a href=/tech/nginx_proxy_pass_without_enable_http1/ class=article-date><time datetime=2021-08-24T00:00:00.000&#43;08:00 itemprop=datePublished>2021-08-24</time></a><div class=post-categories><div class=article-category><a class=article-category-link href=https://blog.yuantops.com//categories/tech>Tech</a></div><div class=article-category>266字, 约2分钟读完</div></div></div><div class=article-entry itemprop=articleBody><p>最近给一个tomcat服务加上nginx代理，陆续遇到一些问题（坑）。</p><p>第一个坑，一个接口直接访问正常，经nginx代理后报104错误(104: Connection reset by peer)。奇葩之处在于，只有特定的接口出现这种错。</p><h2 id=先说解决方案-配置反向代理长链接>先说解决方案：配置反向代理长链接</h2><p>很容易搜到104错误的解决方案.在nginx配置中，加上下面两句:</p><blockquote><p>proxy_http_version 1.1;
-proxy_set_header Connection &ldquo;&rdquo;;</p></blockquote><p>加上之后，执行命令 <strong>nginx -s reload</strong> 生效。</p><p>翻看nginx<a href=http://nginx.org/en/docs/http/ngx%5Fhttp%5Fproxy%5Fmodule.html#keepalive>官方文档</a>，这么说:</p><blockquote><p>For HTTP, the proxy_http_version directive should be set to “1.1” and the “Connection” header field should be cleared:
+<a class=main-nav-link href=/index.xml>RSS</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>nginx 反向代理不开启http1.1时的行为探究</h1></header><div class=article-meta><a href=/tech/nginx_proxy_pass_without_enable_http1/ class=article-date><time datetime=2021-08-24T00:00:00.000&#43;08:00 itemprop=datePublished>2021-08-24</time></a><div class=post-categories><div class=article-category><a class=article-category-link href=https://blog.yuantops.com//categories/tech>Tech</a></div><div class=article-category>266字, 约2分钟读完</div></div></div><div class=article-entry itemprop=articleBody><p>最近给一个tomcat服务加上nginx代理，陆续遇到一些问题（坑）。</p><p>第一个坑，一个接口直接访问正常，经nginx代理后报104错误(104: Connection reset by peer)。奇葩之处在于，只有特定的接口出现这种错。</p><h2 id=先说解决方案-配置反向代理长链接>先说解决方案：配置反向代理长链接</h2><p>很容易搜到104错误的解决方案.在nginx配置中，加上下面两句:</p><pre><code class=language-nil>proxy_http_version 1.1;
+proxy_set_header Connection &quot;&quot;;
+</code></pre><p>加上之后，执行命令 <strong>nginx -s reload</strong> 生效。</p><p>翻看nginx<a href=http://nginx.org/en/docs/http/ngx%5Fhttp%5Fproxy%5Fmodule.html#keepalive>官方文档</a>，这么说:</p><pre><code class=language-nil>
+For HTTP, the proxy_http_version directive should be set to “1.1” and the “Connection” header field should be cleared:
 upstream http_backend {
-server 127.0.0.1:8080;</p><pre><code>keepalive 16;
-</code></pre><p>}</p><p>server {
-&hellip;</p><pre><code>location _http_ {
-    proxy\_pass &lt;http://http%5Fbackend&gt;;
-    proxy\_http\_version 1.1;
-    proxy\_set\_header Connection &quot;&quot;;
-    ...
+    server 127.0.0.1:8080;
+
+    keepalive 16;
 }
-</code></pre><p>}</p></blockquote><p>到这里，问题已经解决。我们再进一步，看看配置前后的区别。</p><h2 id=tcpdump-抓包>tcpdump 抓包</h2><p>在修改前后，各自抓包。</p><blockquote><p>tcpdump -iensxxx -vvvs0 -l -A &lsquo;tcp port 80 or tcp port 8082&rsquo; -w tcpdump.cap</p></blockquote><h2 id=wireshark分析>wireshark分析</h2><p>将*.cap文件用wireshark 打开.</p><ol><li>在filter里输入 <strong>http.request &amp;&amp; http contains &ldquo;HTTP/1.0&rdquo;</strong> ，过滤出nginx到上游服务的请求.</li><li>随意选中一条记录。右键，&rdquo;追踪流&hellip;&rdquo; -&gt; &ldquo;TCP流&rdquo;。这样，筛选出了TCP会话的所有包记录。</li><li>右键, &ldquo;复制&rdquo; -&gt; &ldquo;摘要为文本&rdquo;，可以将报文导出为文本。</li></ol><p>下面的记录，第一条是异常响应报文，第二条是正常响应报文。</p><pre><code class=language-nil>--- not ok tcp.stream eq 75
+
+server {
+    ...
+
+    location /http/ {
+        proxy_pass http://http_backend;
+        proxy_http_version 1.1;
+        proxy_set_header Connection &quot;&quot;;
+        ...
+    }
+}
+</code></pre><p>到这里，问题已经解决。我们再进一步，看看配置前后的区别。</p><h2 id=tcpdump-抓包>tcpdump 抓包</h2><p>在修改前后，各自抓包。</p><blockquote><p>tcpdump -iensxxx -vvvs0 -l -A &lsquo;tcp port 80 or tcp port 8082&rsquo; -w tcpdump.cap</p></blockquote><h2 id=wireshark分析>wireshark分析</h2><p>将*.cap文件用wireshark 打开.</p><ol><li>在filter里输入 <strong>http.request &amp;&amp; http contains &ldquo;HTTP/1.0&rdquo;</strong> ，过滤出nginx到上游服务的请求.</li><li>随意选中一条记录。右键，&rdquo;追踪流&hellip;&rdquo; -&gt; &ldquo;TCP流&rdquo;。这样，筛选出了TCP会话的所有包记录。</li><li>右键, &ldquo;复制&rdquo; -&gt; &ldquo;摘要为文本&rdquo;，可以将报文导出为文本。</li></ol><p>下面的记录，第一条是异常响应报文，第二条是正常响应报文。</p><pre><code class=language-nil>--- not ok tcp.stream eq 75
 HTTP/1.1 200 OK
 Server: Apache-Coyote/1.1
 Content-Type: application/json;charset=UTF-8

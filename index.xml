@@ -31,30 +31,27 @@ net.ipv4.tcp_fin_timeout = 30&lt;/p&gt;
 &lt;p&gt;第一个坑，一个接口直接访问正常，经nginx代理后报104错误(104: Connection reset by peer)。奇葩之处在于，只有特定的接口出现这种错。&lt;/p&gt;
 &lt;h2 id=&#34;先说解决方案-配置反向代理长链接&#34;&gt;先说解决方案：配置反向代理长链接&lt;/h2&gt;
 &lt;p&gt;很容易搜到104错误的解决方案.在nginx配置中，加上下面两句:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;proxy_http_version 1.1;
-proxy_set_header Connection &amp;ldquo;&amp;rdquo;;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-nil&#34;&gt;proxy_http_version 1.1;
+proxy_set_header Connection &amp;quot;&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;加上之后，执行命令 &lt;strong&gt;nginx -s reload&lt;/strong&gt; 生效。&lt;/p&gt;
 &lt;p&gt;翻看nginx&lt;a href=&#34;http://nginx.org/en/docs/http/ngx%5Fhttp%5Fproxy%5Fmodule.html#keepalive&#34;&gt;官方文档&lt;/a&gt;，这么说:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;For HTTP, the proxy_http_version directive should be set to “1.1” and the “Connection” header field should be cleared:
+&lt;pre&gt;&lt;code class=&#34;language-nil&#34;&gt;
+For HTTP, the proxy_http_version directive should be set to “1.1” and the “Connection” header field should be cleared:
 upstream http_backend {
-server 127.0.0.1:8080;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;keepalive 16;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;}&lt;/p&gt;
-&lt;p&gt;server {
-&amp;hellip;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;location _http_ {
-proxy\_pass &amp;lt;http://http%5Fbackend&amp;gt;;
-proxy\_http\_version 1.1;
-proxy\_set\_header Connection &amp;quot;&amp;quot;;
+server 127.0.0.1:8080;
+keepalive 16;
+}
+server {
+...
+location /http/ {
+proxy_pass http://http_backend;
+proxy_http_version 1.1;
+proxy_set_header Connection &amp;quot;&amp;quot;;
 ...
 }
+}
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;}&lt;/p&gt;
-&lt;/blockquote&gt;
 &lt;p&gt;到这里，问题已经解决。我们再进一步，看看配置前后的区别。&lt;/p&gt;
 &lt;h2 id=&#34;tcpdump-抓包&#34;&gt;tcpdump 抓包&lt;/h2&gt;
 &lt;p&gt;在修改前后，各自抓包。&lt;/p&gt;

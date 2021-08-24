@@ -9,15 +9,11 @@ Your link is urban myth. The actual function of net.ipv4.tcp_fin_timeout is as f
 This specifies how many seconds to wait for a final FIN packet before the socket is forcibly closed.</description></item><item><title>nginx 反向代理不开启http1.1时的行为探究</title><link>https://blog.yuantops.com/tech/nginx_proxy_pass_without_enable_http1/</link><pubDate>Tue, 24 Aug 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/nginx_proxy_pass_without_enable_http1/</guid><description>最近给一个tomcat服务加上nginx代理，陆续遇到一些问题（坑）。
 第一个坑，一个接口直接访问正常，经nginx代理后报104错误(104: Connection reset by peer)。奇葩之处在于，只有特定的接口出现这种错。
 先说解决方案：配置反向代理长链接 很容易搜到104错误的解决方案.在nginx配置中，加上下面两句:
-proxy_http_version 1.1; proxy_set_header Connection &amp;ldquo;&amp;rdquo;;
-加上之后，执行命令 nginx -s reload 生效。
+proxy_http_version 1.1; proxy_set_header Connection &amp;quot;&amp;quot;; 加上之后，执行命令 nginx -s reload 生效。
 翻看nginx官方文档，这么说:
-For HTTP, the proxy_http_version directive should be set to “1.1” and the “Connection” header field should be cleared: upstream http_backend { server 127.0.0.1:8080;
-keepalive 16; }
-server { &amp;hellip;
-location _http_ { proxy\_pass &amp;lt;http://http%5Fbackend&amp;gt;; proxy\_http\_version 1.1; proxy\_set\_header Connection &amp;quot;&amp;quot;; ... } }
-到这里，问题已经解决。我们再进一步，看看配置前后的区别。
-tcpdump 抓包 在修改前后，各自抓包。</description></item><item><title>分布式追踪系统之我见</title><link>https://blog.yuantops.com/tech/thoughts_on_distributed_tracing_system/</link><pubDate>Wed, 31 Mar 2021 10:47:57 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/thoughts_on_distributed_tracing_system/</guid><description> 一切的开始 古早的时候，没人需要分布式追踪系统。大家系统架构简单，功能直来直去，有问题就看日志、查问题。
+For HTTP, the proxy_http_version directive should be set to “1.1” and the “Connection” header field should be cleared: upstream http_backend { server 127.0.0.1:8080; keepalive 16; } server { ... location /http/ { proxy_pass http://http_backend; proxy_http_version 1.1; proxy_set_header Connection &amp;quot;&amp;quot;; ... } } 到这里，问题已经解决。我们再进一步，看看配置前后的区别。
+tcpdump 抓包 在修改前后，各自抓包。
+tcpdump -iensxxx -vvvs0 -l -A &amp;lsquo;tcp port 80 or tcp port 8082&amp;rsquo; -w tcpdump.</description></item><item><title>分布式追踪系统之我见</title><link>https://blog.yuantops.com/tech/thoughts_on_distributed_tracing_system/</link><pubDate>Wed, 31 Mar 2021 10:47:57 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/thoughts_on_distributed_tracing_system/</guid><description> 一切的开始 古早的时候，没人需要分布式追踪系统。大家系统架构简单，功能直来直去，有问题就看日志、查问题。
 后来，微服务流行起来。之前的模式，被称作“单体架构”。微服务粒度更小了，以前一个接口做的事，现在要拆散成很多部分，再通过相互调用组合到一起。系统更瘦了，但是管理起来更难了。
 当我有 10 个微服务时，出了故障还可以排查。如果有成千上万个微服务呢？随着时间发展，微服务之间的依赖会越来越复杂，一个接口背后可能是几十上百个微服务调用，没人能搞懂了。
 大家意识到，需要一个能展示整条调用链路情况的辅助系统。
