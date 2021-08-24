@@ -269,15 +269,15 @@ This doesn't have anything to do with TIME_WAIT. It establishes a timeout for a 
 
 很容易搜到104错误的解决方案.在nginx配置中，加上下面两句:
 
-#+BEGIN_QUOTE text
+#+BEGIN_SRC
         proxy_http_version 1.1;    
         proxy_set_header Connection "";
-#+END_QUOTE
+#+END_SRC
 
 加上之后，执行命令 *nginx -s reload* 生效。
 
 翻看nginx[[http://nginx.org/en/docs/http/ngx_http_proxy_module.html#keepalive][官方文档]]，这么说: 
-#+BEGIN_QUOTE text
+#+BEGIN_SRC
 
 For HTTP, the proxy_http_version directive should be set to “1.1” and the “Connection” header field should be cleared:
 upstream http_backend {
@@ -296,7 +296,7 @@ server {
         ...
     }
 }
-#+END_QUOTE
+#+END_SRC
 
 到这里，问题已经解决。我们再进一步，看看配置前后的区别。
 

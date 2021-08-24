@@ -4,7 +4,7 @@ author = ["yuan.tops@gmail.com"]
 description = "nginx 做反向代理服务器，与upstream之间默认使用http1.0协议。借助tcpdump和wireshark,来看看开启http1.1前后的区别。"
 date = 2021-08-24T00:00:00+08:00
 publishDate = 2021-08-24T00:00:00+08:00
-lastmod = 2021-08-24T16:55:02+08:00
+lastmod = 2021-08-24T16:56:12+08:00
 tags = ["Linux"]
 categories = ["Tech"]
 draft = false
@@ -20,32 +20,35 @@ keywords = ["nginx"]
 
 很容易搜到104错误的解决方案.在nginx配置中，加上下面两句:
 
-> proxy\_http\_version 1.1;
-> proxy\_set\_header Connection "";
+```nil
+proxy_http_version 1.1;
+proxy_set_header Connection "";
+```
 
 加上之后，执行命令 **nginx -s reload** 生效。
 
 翻看nginx[官方文档](http://nginx.org/en/docs/http/ngx%5Fhttp%5Fproxy%5Fmodule.html#keepalive)，这么说:
 
->
->
-> For HTTP, the proxy\_http\_version directive should be set to “1.1” and the “Connection” header field should be cleared:
-> upstream http\_backend {
->     server 127.0.0.1:8080;
->
->     keepalive 16;
-> }
->
-> server {
->     ...
->
->     location _http_ {
->         proxy\_pass <http://http%5Fbackend>;
->         proxy\_http\_version 1.1;
->         proxy\_set\_header Connection "";
->         ...
->     }
-> }
+```nil
+
+For HTTP, the proxy_http_version directive should be set to “1.1” and the “Connection” header field should be cleared:
+upstream http_backend {
+    server 127.0.0.1:8080;
+
+    keepalive 16;
+}
+
+server {
+    ...
+
+    location /http/ {
+        proxy_pass http://http_backend;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        ...
+    }
+}
+```
 
 到这里，问题已经解决。我们再进一步，看看配置前后的区别。
 
