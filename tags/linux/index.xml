@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on Yuantops&#39; Blog</title><link>https://blog.yuantops.com/tags/linux/</link><description>Recent content in Linux on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Tue, 24 Aug 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yuantops.com/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>TCP TIME_WAIT 连接太多</title><link>https://blog.yuantops.com/tech/linux_tcp_time_wait_tuning/</link><pubDate>Tue, 24 Aug 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/linux_tcp_time_wait_tuning/</guid><description>压测一个服务，性能卡住了上不去。错误信息提示是没有可分配端口。搜索发现别人也遇到过类似问题(linux 大量的TIME_WAIT解决办法)。
 把解决配置摘录如下：
 配置 tcp 连接参数 vim /etc/sysctl.conf 编辑文件，加入以下内容：
-net.ipv4.tcp_syncookies = 1 net.ipv4.tcp_tw_reuse = 1 net.ipv4.tcp_tw_recycle = 1 net.ipv4.tcp_fin_timeout = 30
-另外，也要关注系统本身对资源限制:
-配置 /etc/security/limits.conf，把值加大:
-soft nofile 65535 hard nofile 65535 soft nproc 65535 hard nproc 65535 net.ipv4.tcp_fin_timeout 做了啥? Stackoverflow 网友如是说:
-Your link is urban myth. The actual function of net.ipv4.tcp_fin_timeout is as follows:
-This specifies how many seconds to wait for a final FIN packet before the socket is forcibly closed.</description></item><item><title>nginx 反向代理不开启http1.1时的行为探究</title><link>https://blog.yuantops.com/tech/nginx_proxy_pass_without_enable_http1/</link><pubDate>Tue, 24 Aug 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/nginx_proxy_pass_without_enable_http1/</guid><description>最近给一个tomcat服务加上nginx代理，陆续遇到一些问题（坑）。
+net.ipv4.tcp_syncookies = 1 net.ipv4.tcp_tw_reuse = 1 net.ipv4.tcp_tw_recycle = 1 net.ipv4.tcp_fin_timeout = 30 另外，也要关注系统本身对资源限制: 配置 /etc/security/limits.conf，把值加大:
+* soft nofile 65535 * hard nofile 65535 * soft nproc 65535 * hard nproc 65535 net.ipv4.tcp_fin_timeout 做了啥? Stackoverflow 网友如是说:
+Your link is urban myth. The actual function of net.ipv4.tcp_fin_timeout is as follows: This specifies how many seconds to wait for a final FIN packet before the socket is forcibly closed.</description></item><item><title>nginx 反向代理不开启http1.1时的行为探究</title><link>https://blog.yuantops.com/tech/nginx_proxy_pass_without_enable_http1/</link><pubDate>Tue, 24 Aug 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/nginx_proxy_pass_without_enable_http1/</guid><description>最近给一个tomcat服务加上nginx代理，陆续遇到一些问题（坑）。
 第一个坑，一个接口直接访问正常，经nginx代理后报104错误(104: Connection reset by peer)。奇葩之处在于，只有特定的接口出现这种错。
 先说解决方案：配置反向代理长链接 很容易搜到104错误的解决方案.在nginx配置中，加上下面两句:
 proxy_http_version 1.1; proxy_set_header Connection &amp;quot;&amp;quot;; 加上之后，执行命令 nginx -s reload 生效。
