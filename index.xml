@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yuantops&#39; Blog</title><link>https://blog.yuantops.com/</link><description>Recent content on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Tue, 24 Aug 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml"/><item><title>TCP TIME_WAIT 连接太多</title><link>https://blog.yuantops.com/tech/linux_tcp_time_wait_tuning/</link><pubDate>Tue, 24 Aug 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/linux_tcp_time_wait_tuning/</guid><description>
 &lt;p&gt;压测一个服务，性能卡住了上不去。错误信息提示是没有可分配端口。搜索发现别人也遇到过类似问题(&lt;a href=&#34;https://www.cnblogs.com/softidea/p/6062147.html&#34;&gt;linux 大量的TIME_WAIT解决办法&lt;/a&gt;)。&lt;/p&gt;
 &lt;p&gt;把解决配置摘录如下：&lt;/p&gt;
-&lt;blockquote&gt;
 &lt;p&gt;配置 tcp 连接参数 vim /etc/sysctl.conf
-编辑文件，加入以下内容：
-net.ipv4.tcp_syncookies = 1
+编辑文件，加入以下内容：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;net.ipv4.tcp_syncookies = 1
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_tw_recycle = 1
 net.ipv4.tcp_fin_timeout = 30&lt;/p&gt;
@@ -26,7 +26,7 @@ net.ipv4.tcp_fin_timeout = 30&lt;/p&gt;
 &lt;p&gt;This specifies how many seconds to wait for a final FIN packet before the socket is forcibly closed. This is strictly a violation of the TCP specification, but required to prevent denial-of-service attacks. In Linux 2.2, the default value was 180.&lt;/p&gt;
 &lt;p&gt;This doesn&amp;rsquo;t have anything to do with TIME_WAIT. It establishes a timeout for a socket in FIN_WAIT_1, after which the connection is reset (which bypasses TIME_WAIT altogether). This is a DOS measure, as stated, and should never arise in a correctly written client-server application. You don&amp;rsquo;t want to set it so low that ordinary connections are reset: you will lose data. You don&amp;rsquo;t want to fiddle with it at all, actually.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;是时候破除迷思了！这个参数和 `TIME_WAIT` 没有直接关系。根据TCP/IP状态机，主动发起关闭的一方，将进入`FIN_WAIT_1`状态，等待接收`FIN`报文。`net.ipv4.tcp_fin_timeout` 规定在`FIN_WAIT_1`状态的停留时间。时间一到，跳过 `TIME_WAIT` 状态，连接被强行关闭。&lt;/p&gt;</description></item><item><title>分布式追踪系统之我见</title><link>https://blog.yuantops.com/tech/thoughts_on_distributed_tracing_system/</link><pubDate>Wed, 31 Mar 2021 10:47:57 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/thoughts_on_distributed_tracing_system/</guid><description>
+&lt;p&gt;是时候破除迷思了！这个参数和 &lt;strong&gt;TIME_WAIT&lt;/strong&gt; 没有直接关系。根据TCP/IP状态机，主动发起关闭的一方，将进入 &lt;strong&gt;FIN_WAIT_1&lt;/strong&gt; 状态，等待接收 &lt;strong&gt;FIN&lt;/strong&gt; 报文。 &lt;strong&gt;net.ipv4.tcp_fin_timeout&lt;/strong&gt; 规定在 &lt;strong&gt;FIN_WAIT_1&lt;/strong&gt; 状态的停留时间。时间一到，跳过 &lt;strong&gt;TIME_WAIT&lt;/strong&gt; 状态，连接被强行关闭。&lt;/p&gt;</description></item><item><title>分布式追踪系统之我见</title><link>https://blog.yuantops.com/tech/thoughts_on_distributed_tracing_system/</link><pubDate>Wed, 31 Mar 2021 10:47:57 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/thoughts_on_distributed_tracing_system/</guid><description>
 &lt;h2 id=&#34;一切的开始&#34;&gt;一切的开始&lt;/h2&gt;
 &lt;p&gt;古早的时候，没人需要分布式追踪系统。大家系统架构简单，功能直来直去，有问题就看日志、查问题。&lt;/p&gt;
 &lt;p&gt;后来，微服务流行起来。之前的模式，被称作“单体架构”。微服务粒度更小了，以前一个接口做的事，现在要拆散成很多部分，再通过相互调用组合到一起。系统更瘦了，但是管理起来更难了。&lt;/p&gt;
