@@ -223,31 +223,31 @@ The last, and most powerful, interpretation of XOR is in terms of parity, i.e. w
 
 配置 tcp 连接参数 vim /etc/sysctl.conf 
 编辑文件，加入以下内容：
-#+BEGIN_QUOTE text
+#+BEGIN_SRC
 net.ipv4.tcp_syncookies = 1
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_tw_recycle = 1
 net.ipv4.tcp_fin_timeout = 30
-#+END_QUOTE
+#+END_SRC
 
 另外，也要关注系统本身对资源限制: 
-#+BEGIN_QUOTE text
+#+BEGIN_SRC 
 配置 /etc/security/limits.conf，把值加大:
         *       soft    nofile  65535
         *       hard    nofile  65535
         *       soft    nproc  65535
         *       hard    nproc  65535
-#+END_QUOTE
+#+END_SRC
 
 ***  net.ipv4.tcp_fin_timeout 做了啥?
 Stackoverflow 网友[[https://stackoverflow.com/questions/46066046/unable-to-reduce-time-wait][如是说]]:
-#+BEGIN_QUOTE
+#+BEGIN_SRC
 Your link is urban myth. The actual function of net.ipv4.tcp_fin_timeout is as follows:
 
 This specifies how many seconds to wait for a final FIN packet before the socket is forcibly closed. This is strictly a violation of the TCP specification, but required to prevent denial-of-service attacks. In Linux 2.2, the default value was 180.
 
 This doesn't have anything to do with TIME_WAIT. It establishes a timeout for a socket in FIN_WAIT_1, after which the connection is reset (which bypasses TIME_WAIT altogether). This is a DOS measure, as stated, and should never arise in a correctly written client-server application. You don't want to set it so low that ordinary connections are reset: you will lose data. You don't want to fiddle with it at all, actually.
-#+END_QUOTE
+#+END_SRC
 
 是时候破除迷思了！这个参数和 *TIME_WAIT* 没有直接关系。根据TCP/IP状态机，主动发起关闭的一方，将进入 *FIN_WAIT_1* 状态，等待接收 *FIN* 报文。 *net.ipv4.tcp_fin_timeout* 规定在 *FIN_WAIT_1* 状态的停留时间。时间一到，跳过 *TIME_WAIT* 状态，连接被强行关闭。
 
@@ -314,7 +314,7 @@ tcpdump -iensxxx -vvvs0 -l -A 'tcp port 80 or tcp port 8082' -w tcpdump.cap
 3. 右键, "复制" -> "摘要为文本"，可以将报文导出为文本。
 
 下面的记录，第一条是异常响应报文，第二条是正常响应报文。
-#+BEGIN_QUOTE 
+#+BEGIN_SRC
 --- not ok tcp.stream eq 75
 HTTP/1.1 200 OK
 Server: Apache-Coyote/1.1
@@ -334,7 +334,7 @@ Date: Mon, 23 Aug 2021 09:45:33 GMT
 
 4d
 [{"xxxxxx":"xxxxxxxxxxxxxxx","xxxx":"xxx","xxxxxx":"xxxxxxxxxxxxx","xxx":xx}] 
-#+END_QUOTE
+#+END_SRC
 
 
 可以观察到:
@@ -345,12 +345,25 @@ Date: Mon, 23 Aug 2021 09:45:33 GMT
    - 正常报文在body之前，声明了数据块的大小。
 3. 我们使用HTTP1.0发起请求，但返回报文头部居然写着 HTTP/1.1。这是怎么回事??
    参考 https://stackoverflow.com/questions/19461312/why-tomcat-reply-http-1-1-respose-with-an-http-1-0-request, 返回头的HTTP版本号只是一个声明，告知调用方服务端所支持的最高HTTP版本。
-#+BEGIN_QUOTE sh
+#+BEGIN_SRC
 
 This Connector supports all of the required features of the HTTP/1.1 protocol, as described in RFC 2616, including persistent connections, pipelining, expectations and chunked encoding. If the client (typically a browser) supports only HTTP/1.0, the Connector will gracefully fall back to supporting this protocol as well. No special configuration is required to enable this support. The Connector also supports HTTP/1.0 keep-alive.
 
 RFC 2616 requires that HTTP servers always begin their responses with the highest HTTP version that they claim to support. Therefore, this Connector will always return HTTP/1.1 at the beginning of its responses.
-#+END_QUOTE
+#+END_SRC
+
+*** 为什么有的接口不报错?
+在此之前，先思考一个问题：http协议是基于tcp的，tcp本身不处理数据包的边界，那客户端怎么做到恰到好处地读取数据？
+
+无外乎两种方案：1. 在报文中，先声明数据大小，客户端读满为止；2.约定一个边界，客户端看到这个记号再停。
+
+HTTP/1.0中，采用第一种方案，在HTTP头部利用 “Content-Length”声明http body的长度; 
+
+HTTP/1.1协议引入 "Transfer-Encoding: chunked"头。浏览器不需要等到内容字节全部下载完成,只要接收到一个chunked块就可解析页面。这种情况下，每个chunk块之前会声明chunk大小，之后有分隔符。
+
+有了这些思考，再用wireshark来分析HTTP/1.0请求的返回报文。正常接口返回的TCP报文，虽然HTTP头部没有声明Content-Length，但因为数据量大，被拆分为若干个Frame。报错接口返回的报文，数据量很小。
+
+我的推测是：虽然它们都没有显式声明大小或者边界，但是当数据量大到被拆分为多个Frame时，客户端能基于Frame解析出来。
 
 * Golang is great                                                               :Golang:
 * Cryptography
