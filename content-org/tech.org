@@ -231,8 +231,8 @@ net.ipv4.tcp_fin_timeout = 30
 #+END_SRC
 
 另外，也要关注系统本身对资源限制: 
-#+BEGIN_SRC 
 配置 /etc/security/limits.conf，把值加大:
+#+BEGIN_SRC 
         *       soft    nofile  65535
         *       hard    nofile  65535
         *       soft    nproc  65535
