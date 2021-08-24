@@ -221,9 +221,9 @@ The last, and most powerful, interpretation of XOR is in terms of parity, i.e. w
 
 把解决配置摘录如下：
 
-#+BEGIN_QUOTE
 配置 tcp 连接参数 vim /etc/sysctl.conf 
 编辑文件，加入以下内容：
+#+BEGIN_QUOTE text
 net.ipv4.tcp_syncookies = 1
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_tw_recycle = 1
@@ -231,12 +231,12 @@ net.ipv4.tcp_fin_timeout = 30
 #+END_QUOTE
 
 另外，也要关注系统本身对资源限制: 
-#+BEGIN_QUOTE
+#+BEGIN_QUOTE text
 配置 /etc/security/limits.conf，把值加大:
-    *       soft    nofile  65535
-    *       hard    nofile  65535
-    *       soft    nproc  65535
-    *       hard    nproc  65535
+        *       soft    nofile  65535
+        *       hard    nofile  65535
+        *       soft    nproc  65535
+        *       hard    nproc  65535
 #+END_QUOTE
 
 ***  net.ipv4.tcp_fin_timeout 做了啥?
@@ -249,7 +249,7 @@ This specifies how many seconds to wait for a final FIN packet before the socket
 This doesn't have anything to do with TIME_WAIT. It establishes a timeout for a socket in FIN_WAIT_1, after which the connection is reset (which bypasses TIME_WAIT altogether). This is a DOS measure, as stated, and should never arise in a correctly written client-server application. You don't want to set it so low that ordinary connections are reset: you will lose data. You don't want to fiddle with it at all, actually.
 #+END_QUOTE
 
-是时候破除迷思了！这个参数和 `TIME_WAIT` 没有直接关系。根据TCP/IP状态机，主动发起关闭的一方，将进入`FIN_WAIT_1`状态，等待接收`FIN`报文。`net.ipv4.tcp_fin_timeout` 规定在`FIN_WAIT_1`状态的停留时间。时间一到，跳过 `TIME_WAIT` 状态，连接被强行关闭。
+是时候破除迷思了！这个参数和 *TIME_WAIT* 没有直接关系。根据TCP/IP状态机，主动发起关闭的一方，将进入 *FIN_WAIT_1* 状态，等待接收 *FIN* 报文。 *net.ipv4.tcp_fin_timeout* 规定在 *FIN_WAIT_1* 状态的停留时间。时间一到，跳过 *TIME_WAIT* 状态，连接被强行关闭。
 
 * Golang is great                                                               :Golang:
 * Cryptography
