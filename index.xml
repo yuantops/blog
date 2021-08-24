@@ -1,4 +1,58 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yuantops&#39; Blog</title><link>https://blog.yuantops.com/</link><description>Recent content on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Sat, 06 Feb 2021 12:00:00 +0000</lastBuildDate><atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml"/><item><title>《宝刀》读后</title><link>https://blog.yuantops.com/opinions/2021-baodao-reading/</link><pubDate>Sat, 06 Feb 2021 12:00:00 +0000</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/opinions/2021-baodao-reading/</guid><description>&lt;ul&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yuantops&#39; Blog</title><link>https://blog.yuantops.com/</link><description>Recent content on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Tue, 24 Aug 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml"/><item><title>TCP TIME_WAIT 连接太多</title><link>https://blog.yuantops.com/tech/linux_tcp_time_wait_tuning/</link><pubDate>Tue, 24 Aug 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/linux_tcp_time_wait_tuning/</guid><description>
+&lt;p&gt;压测一个服务，性能卡住了上不去。错误信息提示是没有可分配端口。搜索发现别人也遇到过类似问题(&lt;a href=&#34;https://www.cnblogs.com/softidea/p/6062147.html&#34;&gt;linux 大量的TIME_WAIT解决办法&lt;/a&gt;)。&lt;/p&gt;
+&lt;p&gt;把解决配置摘录如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;配置 tcp 连接参数 vim /etc/sysctl.conf
+编辑文件，加入以下内容：
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_tw_recycle = 1
+net.ipv4.tcp_fin_timeout = 30&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;另外，也要关注系统本身对资源限制:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;配置 /etc/security/limits.conf，把值加大:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;soft nofile 65535&lt;/li&gt;
+&lt;li&gt;hard nofile 65535&lt;/li&gt;
+&lt;li&gt;soft nproc 65535&lt;/li&gt;
+&lt;li&gt;hard nproc 65535&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;net-dot-ipv4-dot-tcp-fin-timeout-做了啥&#34;&gt;net.ipv4.tcp_fin_timeout 做了啥?&lt;/h2&gt;
+&lt;p&gt;Stackoverflow 网友&lt;a href=&#34;https://stackoverflow.com/questions/46066046/unable-to-reduce-time-wait&#34;&gt;如是说&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Your link is urban myth. The actual function of net.ipv4.tcp_fin_timeout is as follows:&lt;/p&gt;
+&lt;p&gt;This specifies how many seconds to wait for a final FIN packet before the socket is forcibly closed. This is strictly a violation of the TCP specification, but required to prevent denial-of-service attacks. In Linux 2.2, the default value was 180.&lt;/p&gt;
+&lt;p&gt;This doesn&amp;rsquo;t have anything to do with TIME_WAIT. It establishes a timeout for a socket in FIN_WAIT_1, after which the connection is reset (which bypasses TIME_WAIT altogether). This is a DOS measure, as stated, and should never arise in a correctly written client-server application. You don&amp;rsquo;t want to set it so low that ordinary connections are reset: you will lose data. You don&amp;rsquo;t want to fiddle with it at all, actually.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;是时候破除迷思了！这个参数和 `TIME_WAIT` 没有直接关系。根据TCP/IP状态机，主动发起关闭的一方，将进入`FIN_WAIT_1`状态，等待接收`FIN`报文。`net.ipv4.tcp_fin_timeout` 规定在`FIN_WAIT_1`状态的停留时间。时间一到，跳过 `TIME_WAIT` 状态，连接被强行关闭。&lt;/p&gt;</description></item><item><title>分布式追踪系统之我见</title><link>https://blog.yuantops.com/tech/thoughts_on_distributed_tracing_system/</link><pubDate>Wed, 31 Mar 2021 10:47:57 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/thoughts_on_distributed_tracing_system/</guid><description>
+&lt;h2 id=&#34;一切的开始&#34;&gt;一切的开始&lt;/h2&gt;
+&lt;p&gt;古早的时候，没人需要分布式追踪系统。大家系统架构简单，功能直来直去，有问题就看日志、查问题。&lt;/p&gt;
+&lt;p&gt;后来，微服务流行起来。之前的模式，被称作“单体架构”。微服务粒度更小了，以前一个接口做的事，现在要拆散成很多部分，再通过相互调用组合到一起。系统更瘦了，但是管理起来更难了。&lt;/p&gt;
+&lt;p&gt;当我有 10 个微服务时，出了故障还可以排查。如果有成千上万个微服务呢？随着时间发展，微服务之间的依赖会越来越复杂，一个接口背后可能是几十上百个微服务调用，没人能搞懂了。&lt;/p&gt;
+&lt;p&gt;大家意识到，需要一个能展示整条调用链路情况的辅助系统。&lt;/p&gt;
+&lt;h2 id=&#34;google-dapper&#34;&gt;Google Dapper&lt;/h2&gt;
+&lt;p&gt;这时候，Google 公开了一篇论文 &lt;a href=&#34;https://research.google.com/archive/papers/dapper-2010-1.pdf&#34;&gt;Dapper - a Large-Scale Distributed Systems Tracing Infrastructure&lt;/a&gt;，介绍他们的分布式追踪技术。这篇文章提出了科学的分布式追踪模型，仿佛一盏指路明灯，此后几乎所有实现，都遵循这个模型。&lt;/p&gt;
+&lt;p&gt;基于这篇论文，有了 Zipkin(Twitter 开源), 有了 OpenTracing。国内阿里鹰眼，也在概念上有借鉴。&lt;/p&gt;
+&lt;h2 id=&#34;分布式追踪系统&#34;&gt;分布式追踪系统&lt;/h2&gt;
+&lt;p&gt;一般而言，分布式追踪系统分为三部分，采集、上报、落盘与分析。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;采集: 对于已经存在大量系统，在代码中进行改造，工作量将相当可观，不现实。明智做法，是从中间件着手，力求侵入更小、开发者无感知。如果是 dubbo 调用，最合适是统一升级 dubbo jar 包。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;上报：先把日志打印到本地，然后公共 agent 采集上报。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;落盘与存储：数据采集上来后，可以做很多事情。最简单的，放到 HBase + ElasticSearch，支持按 traceId 搜索。复杂点，接入流计算引擎，实时计算相关指标。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;我真的需要它吗&#34;&gt;我真的需要它吗&lt;/h2&gt;
+&lt;p&gt;直说我的看法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;如果你的系统调用链深度顶多三层，依赖外部系统才一两个，常规日志监控手段足矣，分布式追踪系统并不是必须品。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;如果当前你的系统已经按微服务组织起来，但没有使用统一维护的中间件，那应该先改造现有系统，把中间件收敛起来，再统一升级。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;不错的参考资料&#34;&gt;不错的参考资料&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;阿里巴巴鹰眼技术解密 &lt;a href=&#34;https://www.cnblogs.com/gzxbkk/p/9600263.html&#34;&gt;https://www.cnblogs.com/gzxbkk/p/9600263.html&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;分布式跟踪系统（一）：Zipkin的背景和设计 &lt;a href=&#34;https://blog.csdn.net/manzhizhen/article/details/52811600&#34;&gt;https://blog.csdn.net/manzhizhen/article/details/52811600&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;</description></item><item><title>《宝刀》读后</title><link>https://blog.yuantops.com/opinions/2021-baodao-reading/</link><pubDate>Sat, 06 Feb 2021 12:00:00 +0000</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/opinions/2021-baodao-reading/</guid><description>&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://book.douban.com/subject/27039352/&#34;&gt;豆瓣链接&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;个人评分: 四星☆☆☆☆&lt;/li&gt;
 &lt;li&gt;时间: &lt;span class=&#34;timestamp-wrapper&#34;&gt;&lt;span class=&#34;timestamp&#34;&gt;&amp;lt;2021-02-06 Sat&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
