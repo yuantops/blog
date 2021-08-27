@@ -1,0 +1,138 @@
+<!doctype html><html><head><meta charset=utf-8><title>H2 Database hack —— 批量插入的猥琐实现 // Yuantops&#39; Blog</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property=og:title content="H2 Database hack —— 批量插入的猥琐实现"><meta property=og:description content=通过SQL实现的批量插入都不够快！本文分享一种猥琐实现：把数据直接灌到h2底层数据表。><meta property=og:type content=website><meta property=og:locale content=en_US><meta property=og:url content=https://blog.yuantops.com/tech/h2_database_hack_batch_insert/><link href rel=alternate type=application/rss+xml title="Yuantops' Blog"><link rel="shortcut icon" href=/favicon.ico><link href=https://blog.yuantops.com/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=https://blog.yuantops.com/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=https://blog.yuantops.com/css/style.css><link href=http://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta name=description content=通过SQL实现的批量插入都不够快！本文分享一种猥琐实现：把数据直接灌到h2底层数据表。><meta name=keywords content=H2,batch,><meta name=author content=[yuan.tops@gmail.com]><meta name=generator content="Hugo 0.50"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a><a id=logo class=logo-text href=https://blog.yuantops.com/>Yuantops&#39; Blog</a><nav id=main-nav><a class=main-nav-link href=/archives/>Archives</a>
+<a class=main-nav-link href=/about/>About</a>
+<a class=main-nav-link href=/index.xml>RSS</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>H2 Database hack —— 批量插入的猥琐实现</h1></header><div class=article-meta><a href=/tech/h2_database_hack_batch_insert/ class=article-date><time datetime=2021-08-24T00:00:00.000&#43;08:00 itemprop=datePublished>2021-08-24</time></a><div class=post-categories><div class=article-category><a class=article-category-link href=https://blog.yuantops.com//categories/tech>Tech</a></div><div class=article-category>473字, 约3分钟读完</div></div></div><div class=article-entry itemprop=articleBody><p>H2 数据库是一款优秀的内存数据库，它具备几个特点：体积小，文档全，功能完善，而且是Java写的。</p><p>最近用到它这些优良特性，做内存计算。以内存模式启动了一个H2实例。接下来，要把外部数据导入H2数据库。这就面临一个问题：数据量大（几万+）的情况下，如何保证插入速度？</p><h2 id=常规方案>常规方案</h2><p>随便一种JDBC 持久层工具, 例如 <strong>JdbcTemplate</strong>, <strong>MyBatis</strong>,都封装了批量接口。怀着封装越少、效率越高的朴素信念，用H2原生JDBC Connection.insert() 方法，循环插入。2.7 万条数据，耗时约 3s。</p><p>另外，h2 database 官方有一种做法：把数据先导到 csv 文件，然后加载csv。虽没有实际验证这种方案，但纸上谈兵分析，即使数据加载变快，但增加了两次I/O。效果估计不会特别优秀。</p><h2 id=快速方案>快速方案</h2><p>同事脑洞大开：内存数据库插入语句，先是SQL解析，再把Java对象写进内存。既然都是Java 对象，能不能跳过SQL这一遭，直接写内存?</p><p>不经过JDBC，不经过SQL，这种思路也是不按常规出牌了。但原理非常说得通，而且肯定更快。</p><p>经过一步步断点调试，找到了关键类: <strong>org.h2.table.Table</strong> 。insert() 语句走到最后，是往table 里添加行(<strong>org.h2.result.Row</strong>)。换言之，只要拿到 table，又按格式构造行，就可以了。</p><ul><li><p>获取Table
+按作者原意，应该是不希望使用者直接操作 Table 对象的。但是架不住我们猥琐啊，借助反射机制，什么都拿得到。
+下面，是一步步抠出 Table 对象的实现。</p><pre><code class=language-nil> String sql = &quot;select * from &quot; + tableName;
+try (JdbcPreparedStatement ps = (JdbcPreparedStatement) connection.prepareStatement(sql)) {
+    CommandContainer commandContainer = (CommandContainer) getFieldByForce(ps, JdbcPreparedStatement.class,
+            &quot;command&quot;);
+    Session session = (Session) getFieldByForce(ps, JdbcPreparedStatement.class, &quot;session&quot;);
+    Select command = (Select) getFieldByForce(commandContainer, CommandContainer.class, &quot;prepared&quot;);
+    Table table = new ArrayList&lt;&gt;(command.getTables()).get(0);
+</code></pre></li><li><p>构造行
+待插入的数据格式是Map, key是列名，value是值。对应到 <strong>org.h2.result.Row</strong> 的话 ，map每个entry对应一列。当然，涉及一些列名提取与转化，数据类型处理的工作。
+下面是构造行的实现。</p><pre><code class=language-nil>Row newRow = table.getTemplateRow();
+Column[] columns = table.getColumns();
+for (Column c : columns) {
+    int index = c.getColumnId();
+    String columnName = c.getName();
+    if (!map.containsKey(columnName)) {
+        newRow.setValue(c.getColumnId(), ValueNull.INSTANCE);
+    } else {
+        Object value = map.get(columnName);
+        if (value instanceof String) {
+            newRow.setValue(index, ValueString.get(value.toString()));
+        } else if (value instanceof Integer) {
+            newRow.setValue(index, ValueInt.get((Integer) value));
+        } else if (value instanceof Timestamp) {
+            newRow.setValue(index, ValueTimestamp.get(TimeZone.getDefault(), (Timestamp) value));
+        } else if (value instanceof BigDecimal) {
+            newRow.setValue(index, ValueDecimal.get((BigDecimal) value));
+        } else {
+            // todo 类型还需充分枚举
+            newRow.setValue(index, ValueString.get(value.toString()));
+        }
+    }
+</code></pre></li><li><p>提交插入
+因为从 <strong>org.h2.engine.Session</strong> 剥离出了Table对象，而h2是支持事务的数据库，所以在插入结束后，还需要执行commit，让改变生效。</p><pre><code class=language-nil>session.commit(false);
+</code></pre></li></ul><h2 id=最终效果>最终效果</h2><p>2.7w 条数据，耗时 700ms。相比传统方案(2.7w条数据，3000ms)，耗时减少了将近八成，颇为可观了。</p><h2 id=源码>源码</h2><pre><code class=language-nil>
+import lombok.extern.slf4j.Slf4j;
+import org.h2.command.CommandContainer;
+import org.h2.command.dml.Select;
+import org.h2.engine.Session;
+import org.h2.jdbc.JdbcConnection;
+import org.h2.jdbc.JdbcPreparedStatement;
+import org.h2.result.Row;
+import org.h2.table.Column;
+import org.h2.table.Table;
+import org.h2.value.*;
+import org.springframework.util.ReflectionUtils;
+
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
+
+@Slf4j
+public class H2InsertUtil {
+
+    public static void batchInsert(Connection toSqlSession, String tableName, List&lt;Map&lt;String, Object&gt;&gt; data) {
+        assert isH2Dialect(toSqlSession);
+
+        try {
+            JdbcConnection connection = toSqlSession.unwrap(JdbcConnection.class);
+            doBatchInsert(connection, tableName, data);
+        } catch (SQLException e) {
+            throw new RuntimeException(&quot;使用H2批量插入出错.&quot;, e);
+        }
+    }
+
+    private static boolean isH2Dialect(Connection sqlSession) {
+        try {
+            return sqlSession.isWrapperFor(JdbcConnection.class);
+        } catch (SQLException e) {
+            log.warn(&quot;判断connection类型时出错&quot;, e);
+            return false;
+        }
+    }
+
+    private static void doBatchInsert(JdbcConnection connection, String tableName, List&lt;Map&lt;String, Object&gt;&gt; batchData) throws SQLException {
+        String sql = &quot;select * from &quot; + tableName;
+        try (JdbcPreparedStatement ps = (JdbcPreparedStatement) connection.prepareStatement(sql)) {
+            CommandContainer commandContainer = (CommandContainer) getFieldByForce(ps, JdbcPreparedStatement.class,
+                    &quot;command&quot;);
+            Session session = (Session) getFieldByForce(ps, JdbcPreparedStatement.class, &quot;session&quot;);
+            Select command = (Select) getFieldByForce(commandContainer, CommandContainer.class, &quot;prepared&quot;);
+            Table table = new ArrayList&lt;&gt;(command.getTables()).get(0);
+
+            for (Map&lt;String, Object&gt; data : batchData) {
+                Row newRow = createRow(table, data);
+                table.addRow(session, newRow);
+            }
+            session.commit(false);
+        } catch (Exception e) {
+            log.error(&quot;&quot;, e);
+            throw e;
+        }
+    }
+
+    private static Object getFieldByForce(Object obj, Class&lt;?&gt; clazz, String fieldName) {
+        Field field = ReflectionUtils.findField(clazz, fieldName);
+        ReflectionUtils.makeAccessible(field);
+        return ReflectionUtils.getField(field, obj);
+    }
+
+    private static Row createRow(Table table, Map&lt;String, Object&gt; map) {
+        Row newRow = table.getTemplateRow();
+        Column[] columns = table.getColumns();
+        for (Column c : columns) {
+            int index = c.getColumnId();
+            String columnName = c.getName();
+            if (!map.containsKey(columnName)) {
+                newRow.setValue(c.getColumnId(), ValueNull.INSTANCE);
+            } else {
+                Object value = map.get(columnName);
+                if (value instanceof String) {
+                    newRow.setValue(index, ValueString.get(value.toString()));
+                } else if (value instanceof Integer) {
+                    newRow.setValue(index, ValueInt.get((Integer) value));
+                } else if (value instanceof Timestamp) {
+                    newRow.setValue(index, ValueTimestamp.get(TimeZone.getDefault(), (Timestamp) value));
+                } else if (value instanceof BigDecimal) {
+                    newRow.setValue(index, ValueDecimal.get((BigDecimal) value));
+                } else {
+                    // todo 类型还需充分枚举
+                    newRow.setValue(index, ValueString.get(value.toString()));
+                }
+            }
+        }
+        return newRow;
+    }
+}
+</code></pre></div><div class=article-toc style=display:none><h3>Contents</h3><nav id=TableOfContents><ul><li><ul><li><a href=#常规方案>常规方案</a></li><li><a href=#快速方案>快速方案</a></li><li><a href=#最终效果>最终效果</a></li><li><a href=#源码>源码</a></li></ul></li></ul></nav></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin=anonymous></script><script>(function(){var $toc=$('#TableOfContents');if($toc.length>0){var $window=$(window);function onScroll(){var currentScroll=$window.scrollTop();var h=$('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');var id="";h.each(function(i,e){e=$(e);if(e.offset().top-10<=currentScroll){id=e.attr('id');}});var active=$toc.find('a.active');if(active.length==1&&active.eq(0).attr('href')=='#'+id)return true;active.each(function(i,e){$(e).removeClass('active').siblings('ul').hide();});$toc.find('a[href="#'+id+'"]').parentsUntil('#TableOfContents').each(function(i,e){$(e).children('a').addClass('active').siblings('ul').show();});}
+$window.on('scroll',onScroll);$(document).ready(function(){$toc.find('a').parent('li').find('ul').hide();onScroll();document.getElementsByClassName('article-toc')[0].style.display='';});}})();</script><footer class=article-footer><ul class=article-tag-list><li class=article-tag-list-item><a class=article-tag-list-link href=https://blog.yuantops.com//tags/linux>Linux</a></li></ul></footer></div><nav id=article-nav><a href=/tech/linux_tcp_time_wait_tuning/ id=article-nav-older class=article-nav-link-wrap><div class=article-nav-title>TCP TIME_WAIT 连接太多&nbsp;<span>&gt;</span></div></a></nav></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2012-2021 @yuantops&nbsp;</br>Proudly powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos>Minos</a></div></div><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-57420914-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin=anonymous></script><script>hljs.initHighlightingOnLoad();</script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css integrity=sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0 crossorigin=anonymous><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js integrity=sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1 crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin=anonymous></script><script>renderMathInElement(document.body);</script><script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var header=document.getElementById('header');if(header.classList.contains('mobile-on')){header.classList.remove('mobile-on');}else{header.classList.add('mobile-on');}});</script></footer></div></body></html>
