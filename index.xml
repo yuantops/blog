@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yuantops&#39; Blog</title><link>https://blog.yuantops.com/</link><description>Recent content on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Tue, 24 Aug 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml"/><item><title>H2 Database hack —— 批量插入的猥琐实现</title><link>https://blog.yuantops.com/tech/h2_database_hack_batch_insert/</link><pubDate>Tue, 24 Aug 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/h2_database_hack_batch_insert/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yuantops&#39; Blog</title><link>https://blog.yuantops.com/</link><description>Recent content on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Fri, 27 Aug 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml"/><item><title>H2 Database hack —— 批量插入的猥琐实现</title><link>https://blog.yuantops.com/tech/h2_database_hack_batch_insert/</link><pubDate>Fri, 27 Aug 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/h2_database_hack_batch_insert/</guid><description>
 &lt;p&gt;H2 数据库是一款优秀的内存数据库，它具备几个特点：体积小，文档全，功能完善，而且是Java写的。&lt;/p&gt;
 &lt;p&gt;最近用到它这些优良特性，做内存计算。以内存模式启动了一个H2实例。接下来，要把外部数据导入H2数据库。这就面临一个问题：数据量大（几万+）的情况下，如何保证插入速度？&lt;/p&gt;
 &lt;h2 id=&#34;常规方案&#34;&gt;常规方案&lt;/h2&gt;
@@ -12,7 +12,7 @@
 &lt;li&gt;&lt;p&gt;获取Table
 按作者原意，应该是不希望使用者直接操作 Table 对象的。但是架不住我们猥琐啊，借助反射机制，什么都拿得到。
 下面，是一步步抠出 Table 对象的实现。&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-nil&#34;&gt; String sql = &amp;quot;select * from &amp;quot; + tableName;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt; String sql = &amp;quot;select * from &amp;quot; + tableName;
 try (JdbcPreparedStatement ps = (JdbcPreparedStatement) connection.prepareStatement(sql)) {
 CommandContainer commandContainer = (CommandContainer) getFieldByForce(ps, JdbcPreparedStatement.class,
 &amp;quot;command&amp;quot;);
@@ -23,7 +23,7 @@ Table table = new ArrayList&amp;lt;&amp;gt;(command.getTables()).get(0);
 &lt;li&gt;&lt;p&gt;构造行
 待插入的数据格式是Map, key是列名，value是值。对应到 &lt;strong&gt;org.h2.result.Row&lt;/strong&gt; 的话 ，map每个entry对应一列。当然，涉及一些列名提取与转化，数据类型处理的工作。
 下面是构造行的实现。&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-nil&#34;&gt;Row newRow = table.getTemplateRow();
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Row newRow = table.getTemplateRow();
 Column[] columns = table.getColumns();
 for (Column c : columns) {
 int index = c.getColumnId();
@@ -48,7 +48,7 @@ newRow.setValue(index, ValueString.get(value.toString()));
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;提交插入
 因为从 &lt;strong&gt;org.h2.engine.Session&lt;/strong&gt; 剥离出了Table对象，而h2是支持事务的数据库，所以在插入结束后，还需要执行commit，让改变生效。&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-nil&#34;&gt;session.commit(false);
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;session.commit(false);
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;最终效果&#34;&gt;最终效果&lt;/h2&gt;
