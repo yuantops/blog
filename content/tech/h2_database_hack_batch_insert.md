@@ -2,9 +2,9 @@
 title = "H2 Database hack —— 批量插入的猥琐实现"
 author = ["yuan.tops@gmail.com"]
 description = "通过SQL实现的批量插入都不够快！本文分享一种猥琐实现：把数据直接灌到h2底层数据表。"
-date = 2021-08-24T00:00:00+08:00
+date = 2021-08-27T00:00:00+08:00
 publishDate = 2021-08-27T00:00:00+08:00
-lastmod = 2021-08-27T17:23:46+08:00
+lastmod = 2021-08-30T18:30:10+08:00
 tags = ["Linux"]
 categories = ["Tech"]
 draft = false
@@ -35,7 +35,7 @@ H2 数据库是一款优秀的内存数据库，它具备几个特点：体积�
     按作者原意，应该是不希望使用者直接操作 Table 对象的。但是架不住我们猥琐啊，借助反射机制，什么都拿得到。
     下面，是一步步抠出 Table 对象的实现。
 
-    ```nil
+    ```java
      String sql = "select * from " + tableName;
     try (JdbcPreparedStatement ps = (JdbcPreparedStatement) connection.prepareStatement(sql)) {
         CommandContainer commandContainer = (CommandContainer) getFieldByForce(ps, JdbcPreparedStatement.class,
@@ -49,7 +49,7 @@ H2 数据库是一款优秀的内存数据库，它具备几个特点：体积�
     待插入的数据格式是Map, key是列名，value是值。对应到 **org.h2.result.Row** 的话 ，map每个entry对应一列。当然，涉及一些列名提取与转化，数据类型处理的工作。
     下面是构造行的实现。
 
-    ```nil
+    ```java
     Row newRow = table.getTemplateRow();
     Column[] columns = table.getColumns();
     for (Column c : columns) {
@@ -77,7 +77,7 @@ H2 数据库是一款优秀的内存数据库，它具备几个特点：体积�
 -   提交插入
     因为从 **org.h2.engine.Session** 剥离出了Table对象，而h2是支持事务的数据库，所以在插入结束后，还需要执行commit，让改变生效。
 
-    ```nil
+    ```java
     session.commit(false);
     ```
 

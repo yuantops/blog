@@ -99,6 +99,26 @@ Org-mode支持为headline设置 tags。 ~ox-hugo~ 沿用这点，org-mode的tag�
 Emacs学习曲线盘旋上升, Org-mode也是如此。不断折腾，乐在其中！
 
 
+** 无题Emacs                                                         :Emacs:
+:PROPERTIES:
+:EXPORT_HUGO_CATEGORIES: Tech
+:EXPORT_DATE: "2019-07-24T22:29:52+08:00"
+:EXPORT_HUGO_PUBLISHDATE: "2019-07-24T22:29:52Z"
+:EXPORT_FILE_NAME: blogging-with-ox-hugo
+:EXPORT_DESCRIPTION: 发现一个用Emacs写blog的新工具: ox-hugo。它与org-mode融合得非常自然，更好用。本文记录如何在Emacs中配置与使用ox-hugo。
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :keywords '( "ox-hugo" )
+:END:
+
+最近用 ~Emacs~ ~ox-hugo~ 写了几篇文章，体验比较糟，表现为总是无理由卡顿，特别是在 org 页面按下 `Ctrl-C, Ctrl-E`导出markdown时直接卡死，好几次只能强行杀掉Emacs 进程。让人无法忍受。
+
+总所周知，Emacs 是神的编辑器，肯定不会出问题；我不爽，必定是我不会用了。于是，我鼓足勇气，想看看是哪里出了问题。
+
+经过辛勤搜索，各种修改配置，没有一丝进步。我心中无名火腾腾，受到极大打击，陷入灰暗心境。
+
+无奈气馁之余，开始思考自己与 ~Emacs~ 的情感纠葛，心中冒出一个终极疑问： *为什么我要用它？？* 毕竟钻研 ~Emacs~ 配置那么久，从purcell 到spacemacs，脑子里想起Emacs，潜意识里还是充满畏难情绪，还打击了自信心。
+
+然后我想到了答案: 对我而言， ~Emacs~ 不可取代之处在于它的 `org-mode` 模式，它写博客、记笔记非常优秀，无可替代。意识到这一点，我整个人顿悟了。
+
 ** DONE 浏览器会处理URL里的相对路径
    CLOSED: [2019-11-21 Thu 15:53]
 :PROPERTIES:
@@ -131,6 +151,7 @@ Burp Suite是一款攻击web服务的集成工具，一般黑客用它来渗透�
 
 *** 修复漏洞
 略。
+
 
 * Raspeberry Tutorials                                                          :树莓派:
 ** TODO 用树莓派和Calibre搭建电子书服务器
@@ -387,6 +408,20 @@ H2 数据库是一款优秀的内存数据库，它具备几个特点：体积�
 同事脑洞大开：内存数据库插入语句，先是SQL解析，再把Java对象写进内存。既然都是Java 对象，能不能跳过SQL这一遭，直接写内存?
 
 不经过JDBC，不经过SQL，这种思路也是不按常规出牌了。但原理非常说得通，而且肯定更快。
+ 驱动器 E 中的卷没有标签。
+ 卷的序列号是 DEC2-AD02
+
+ e:\blog\content-org 的目录
+
+2021/08/30  18:31    <DIR>          .
+2021/08/30  18:31    <DIR>          ..
+2019/07/25  09:12               376 life.org
+2021/02/08  09:58            33,210 opinions.org
+2019/07/25  14:42            50,696 screenshot-org-subtree.png
+2019/07/25  14:45            17,974 tech.html
+2021/08/30  18:28            68,217 tech.org
+               5 个文件        170,473 字节
+               2 个目录 333,343,010,816 可用字节
 
 经过一步步断点调试，找到了关键类: *org.h2.table.Table* 。insert() 语句走到最后，是往table 里添加行(*org.h2.result.Row*)。换言之，只要拿到 table，又按格式构造行，就可以了。
 
@@ -394,7 +429,7 @@ H2 数据库是一款优秀的内存数据库，它具备几个特点：体积�
     按作者原意，应该是不希望使用者直接操作 Table 对象的。但是架不住我们猥琐啊，借助反射机制，什么都拿得到。    
     下面，是一步步抠出 Table 对象的实现。
   
-        #+BEGIN_SRC 
+        #+BEGIN_SRC java
          String sql = "select * from " + tableName;
         try (JdbcPreparedStatement ps = (JdbcPreparedStatement) connection.prepareStatement(sql)) {
             CommandContainer commandContainer = (CommandContainer) getFieldByForce(ps, JdbcPreparedStatement.class,
@@ -409,7 +444,7 @@ H2 数据库是一款优秀的内存数据库，它具备几个特点：体积�
     待插入的数据格式是Map, key是列名，value是值。对应到 *org.h2.result.Row* 的话 ，map每个entry对应一列。当然，涉及一些列名提取与转化，数据类型处理的工作。
     下面是构造行的实现。
 
-        #+BEGIN_SRC 
+        #+BEGIN_SRC java
         Row newRow = table.getTemplateRow();
         Column[] columns = table.getColumns();
         for (Column c : columns) {
@@ -437,7 +472,7 @@ H2 数据库是一款优秀的内存数据库，它具备几个特点：体积�
 - 提交插入
     因为从 *org.h2.engine.Session* 剥离出了Table对象，而h2是支持事务的数据库，所以在插入结束后，还需要执行commit，让改变生效。
 
-        #+BEGIN_SRC 
+        #+BEGIN_SRC java
             session.commit(false);
         #+END_SRC
 
