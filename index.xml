@@ -1,4 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yuantops&#39; Blog</title><link>https://blog.yuantops.com/</link><description>Recent content on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Fri, 27 Aug 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml"/><item><title>H2 Database hack —— 批量插入的猥琐实现</title><link>https://blog.yuantops.com/tech/h2_database_hack_batch_insert/</link><pubDate>Fri, 27 Aug 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/h2_database_hack_batch_insert/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yuantops&#39; Blog</title><link>https://blog.yuantops.com/</link><description>Recent content on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Wed, 01 Sep 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml"/><item><title>一次顿悟</title><link>https://blog.yuantops.com/tech/some_eureka_moment/</link><pubDate>Wed, 01 Sep 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/some_eureka_moment/</guid><description>&lt;p&gt;最近用 &lt;code&gt;Emacs&lt;/code&gt; &lt;code&gt;ox-hugo&lt;/code&gt; 写了几篇文章，体验比较糟，表现为总是无理由卡顿，特别是在 org 页面按下 `Ctrl-C, Ctrl-E`导出markdown时直接卡死，好几次只能强行杀掉Emacs 进程。&lt;/p&gt;
+&lt;p&gt;总所周知，Emacs 是神的编辑器，肯定不会出问题；我不爽，必定是我不会用了。于是，我鼓足勇气，想看看是哪里出了问题。&lt;/p&gt;
+&lt;p&gt;经过辛勤搜索，各种修改配置，纹丝不动。焦躁之余，不禁回忆起往事……&lt;/p&gt;
+&lt;p&gt;原本我是坚定vim党，自得其乐。&lt;/p&gt;
+&lt;p&gt;后来，受网络meme影响，终于买了一本讲Emacs的电子书，开始像八爪章鱼一样学按键，键位那么多，组合那么多。。。草草翻完一遍，只剩下 &amp;ldquo;这也行！&amp;rdquo; 的感叹号。试了 &lt;code&gt;Dired&lt;/code&gt;, &lt;code&gt;Magit&lt;/code&gt;, 自觉太复杂，难以记忆。放弃之。&lt;/p&gt;
+&lt;p&gt;又过了一段时间，心又痒痒了……这次吃了 &lt;code&gt;org&lt;/code&gt; 的安利，GTD 好厉害！！大概实践了两个星期，只记得按 &lt;code&gt;Tab&lt;/code&gt; 键可以切换标题等级。&lt;/p&gt;
+&lt;p&gt;下一次入坑，是受到 &lt;code&gt;ox-hugo&lt;/code&gt; 的蛊惑: 确实如行云流水，非常满意。&lt;/p&gt;
+&lt;p&gt;想到这里，我顿悟了，我只是为了 &lt;strong&gt;org-mode 和 ox-hugo 啊&lt;/strong&gt; ！ Emacs 再怎么厉害，别人用得再怎么出神入化，用它写代码(特别写Java!!)、看小说、玩游戏、看视频…… 和我有什么关系呢? 弱水三千，只需取一瓢。&lt;/p&gt;
+&lt;p&gt;于是，爽爽快快删掉攒了多年的配置:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;rm -fr .emacs.d
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;热情投向 &lt;code&gt;spacemacs&lt;/code&gt; 怀抱:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;git clone -b develop https://github.com/syl20bnr/spacemacs .emacs.d
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;启动emacs。因为是spacemacs第一次加载配置文件，会有一些询问交互。一路选择最小化配置。&lt;/p&gt;
+&lt;p&gt;最后修改 &lt;code&gt;.spacemacs&lt;/code&gt;, 加上 &lt;code&gt;ox-hugo&lt;/code&gt; 支持:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-emacs-lisp&#34; data-lang=&#34;emacs-lisp&#34;&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;1
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;2
+&lt;/span&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-emacs-lisp&#34; data-lang=&#34;emacs-lisp&#34;&gt;(setq-default dotspacemacs-configuration-layers
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;((org :variables
+org-enable-hugo-support &lt;span style=&#34;color:#66d9ef&#34;&gt;t&lt;/span&gt;)))&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;重新加载配置，完完全全就好了！&lt;/p&gt;
+&lt;p&gt;恭喜我自己 :)&lt;/p&gt;</description></item><item><title>H2 Database hack —— 批量插入的猥琐实现</title><link>https://blog.yuantops.com/tech/h2_database_hack_batch_insert/</link><pubDate>Fri, 27 Aug 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/h2_database_hack_batch_insert/</guid><description>
 &lt;p&gt;H2 数据库是一款优秀的内存数据库，它具备几个特点：体积小，文档全，功能完善，而且是Java写的。&lt;/p&gt;
 &lt;p&gt;最近用到它这些优良特性，做内存计算。以内存模式启动了一个H2实例。接下来，要把外部数据导入H2数据库。这就面临一个问题：数据量大（几万+）的情况下，如何保证插入速度？&lt;/p&gt;
 &lt;h2 id=&#34;常规方案&#34;&gt;常规方案&lt;/h2&gt;
