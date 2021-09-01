@@ -102,10 +102,10 @@ Emacs学习曲线盘旋上升, Org-mode也是如此。不断折腾，乐在其�
 ** 一次顿悟                                                     :Emacs:
 :PROPERTIES:
 :EXPORT_HUGO_CATEGORIES: Tech
-:EXPORT_DATE: "2019-07-24T22:29:52+08:00"
-:EXPORT_HUGO_PUBLISHDATE: "2019-07-24T22:29:52Z"
-:EXPORT_FILE_NAME: blogging-with-ox-hugo
-:EXPORT_DESCRIPTION: 发现一个用Emacs写blog的新工具: ox-hugo。它与org-mode融合得非常自然，更好用。本文记录如何在Emacs中配置与使用ox-hugo。
+:EXPORT_DATE: "2021-09-01T17:33:52+08:00"
+:EXPORT_HUGO_PUBLISHDATE: "2021-09-01T17:33:52+08:00"
+:EXPORT_FILE_NAME: some_eureka_moment
+:EXPORT_DESCRIPTION: 对于Emacs的一次思考，以及收获……
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :keywords '( "ox-hugo" )
 :END:
 
@@ -117,19 +117,38 @@ Emacs学习曲线盘旋上升, Org-mode也是如此。不断折腾，乐在其�
 
 原本我是坚定vim党，自得其乐。
 
-后来，受网络meme影响，终于买了一本讲Emacs的电子书，开始像八爪章鱼一样按键，键位那么多，组合那么多。。。草草翻完一遍，只剩下 "这也行！" 的感叹号。试了 ~Dired~, ~Magit~, 自觉太复杂，难以记忆。放弃之。
+后来，受网络meme影响，终于买了一本讲Emacs的电子书，开始像八爪章鱼一样学按键，键位那么多，组合那么多。。。草草翻完一遍，只剩下 "这也行！" 的感叹号。试了 ~Dired~, ~Magit~, 自觉太复杂，难以记忆。放弃之。
 
 又过了一段时间，心又痒痒了……这次吃了 ~org~ 的安利，GTD 好厉害！！大概实践了两个星期，只记得按 ~Tab~ 键可以切换标题等级。
 
-下一次入坑，是受到 ~ox-hugo~ 的蛊惑。确实如行云流水，我非常满意。
+下一次入坑，是受到 ~ox-hugo~ 的蛊惑: 确实如行云流水，非常满意。
 
-想到这里，我终于可以回答这个终极问题了： 为什么我要用它？？ 
+想到这里，我顿悟了，我只是为了 *org-mode 和 ox-hugo 啊* ！ Emacs 再怎么厉害，别人用得再怎么出神入化，用它写代码(特别写Java!!)、看小说、玩游戏、看视频…… 和我有什么关系呢? 弱水三千，只需取一瓢。
 
-*是为了 org-mode 和 ox-hugo 啊！！！！*
+于是，爽爽快快删掉攒了多年的配置: 
 
-意识到这一点，我整个人顿悟了。
+     #+BEGIN_SRC shell
+       rm -fr .emacs.d
+     #+END_SRC
 
+热情投向 ~spacemacs~ 怀抱:
+     #+BEGIN_SRC shell
+       git clone -b develop https://github.com/syl20bnr/spacemacs .emacs.d
+     #+END_SRC
 
+启动emacs。因为是spacemacs第一次加载配置文件，会有一些询问交互。一路选择最小化配置。
+
+最后修改 ~.spacemacs~, 加上 ~ox-hugo~ 支持: 
+
+     #+BEGIN_SRC emacs-lisp -n
+       (setq-default dotspacemacs-configuration-layers
+                     '((org :variables
+                         org-enable-hugo-support t)))
+     #+END_SRC
+
+重新加载配置，完完全全就好了！
+
+恭喜我自己 :)
 
 ** DONE 浏览器会处理URL里的相对路径
    CLOSED: [2019-11-21 Thu 15:53]
