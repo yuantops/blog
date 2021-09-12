@@ -1,4 +1,34 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yuantops&#39; Blog</title><link>https://blog.yuantops.com/</link><description>Recent content on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Wed, 01 Sep 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml"/><item><title>一次顿悟</title><link>https://blog.yuantops.com/tech/some_eureka_moment/</link><pubDate>Wed, 01 Sep 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/some_eureka_moment/</guid><description>&lt;p&gt;最近用 &lt;code&gt;Emacs&lt;/code&gt; &lt;code&gt;ox-hugo&lt;/code&gt; 写了几篇文章，体验比较糟，表现为总是无理由卡顿，特别是在 org 页面按下 `Ctrl-C, Ctrl-E`导出markdown时直接卡死，好几次只能强行杀掉Emacs 进程。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yuantops&#39; Blog</title><link>https://blog.yuantops.com/</link><description>Recent content on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Sun, 12 Sep 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml"/><item><title>最近一次重装系统</title><link>https://blog.yuantops.com/tech/reinstall-windows-10-for-dual-boot-system/</link><pubDate>Sun, 12 Sep 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/reinstall-windows-10-for-dual-boot-system/</guid><description>
+&lt;p&gt;上次重装系统是什么时候？很久很久之前了吧。&lt;/p&gt;
+&lt;p&gt;手上这台二手Thinkpad T450s，装着 &lt;code&gt;Ubuntu&lt;/code&gt; 和 &lt;code&gt;Windows 10&lt;/code&gt; ，其中 &lt;code&gt;Ubuntu&lt;/code&gt; 是我装的; &lt;code&gt;Windows 10&lt;/code&gt; 继承自上任主人，我接手后几乎没有&amp;rdquo;装修&amp;rdquo;，一直凑合用着。最近，它越来越不趁手，终于我下定决心——重装Windows。&lt;/p&gt;
+&lt;h2 id=&#34;镜像与烧录工具&#34;&gt;镜像与烧录工具&lt;/h2&gt;
+&lt;p&gt;根据之前捣腾 &lt;code&gt;Ubuntu&lt;/code&gt; 的经验，需要准备三件东西:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;系统镜像&lt;/li&gt;
+&lt;li&gt;将镜像烧录 U 盘的工具软件&lt;/li&gt;
+&lt;li&gt;U盘，用作启动盘&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;哪个 &lt;code&gt;Windows&lt;/code&gt; 版本最好？在知乎网搜索一番，很多网友推荐 &lt;code&gt;Windows Enterprise LTSC 2019&lt;/code&gt; ，而且推荐一个神奇的下载网站 &lt;a href=&#34;https://msdn.itellyou.cn/&#34;&gt;I Tell You&lt;/a&gt;, 上面有各种各样镜像资源。LTSC 镜像下载链接是 `ed2k` 格式，依稀记得是一种BT下载协议（？），现在比较少见。我不得不先安装迅雷，再用迅雷处理这个小众的 `ed2k` 链接。说句题外话，迅雷居然还活着，实在令人震惊，但接着发现它趁我不备偷偷装上了一个奇怪软件，又有些唏嘘了:国产软件活着不容易啊，就连迅雷也堕落成流氓软件了！&lt;/p&gt;
+&lt;p&gt;镜像烧录工具，知乎网友推荐用 &lt;a href=&#34;https://rufus.ie/zh/&#34;&gt;https://rufus.ie/zh/&lt;/a&gt; 。&lt;/p&gt;
+&lt;p&gt;U盘，我随手找到一个8G盘。&lt;/p&gt;
+&lt;p&gt;这时候，准备工作完毕。&lt;/p&gt;
+&lt;h2 id=&#34;重启电脑-开始重装&#34;&gt;重启电脑，开始重装&lt;/h2&gt;
+&lt;p&gt;说下前情提要。这台 T450s 装过双系统，启动方案已经是 &lt;code&gt;UEFI&lt;/code&gt; ，上电后默认进入 Ubuntu Grub 引导，可以选择进入 Ubuntu 还是 Windows。(还记得昔日主流启动引导方案 &lt;code&gt;MBR&lt;/code&gt; 吗？现在已经称作 &lt;code&gt;Legacy/MBR&lt;/code&gt; 。真是历史的眼泪啊。)&lt;/p&gt;
+&lt;p&gt;这里不详述 &lt;code&gt;UEFI/GPT&lt;/code&gt; 的先进性。在支持双系统启动这一点上， &lt;code&gt;UEFI/GPT&lt;/code&gt; 比起 &lt;code&gt;UEFI/GPT&lt;/code&gt; 要复杂一些: 需要修改 &lt;code&gt;BIOS&lt;/code&gt; 菜单，将 &lt;code&gt;Secure Boot&lt;/code&gt; 置为 &lt;code&gt;false&lt;/code&gt; 。具体可以参考&lt;a href=&#34;https://support.lenovo.com/hk/en/solutions/ht509044-how-to-enable-secure-boot-on-think-branded-systems-thinkpad-thinkstation-thinkcentre&#34;&gt;官方文档&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;我的T450s已经配置过 &lt;code&gt;BIOS&lt;/code&gt; ，所以跳过上面这步。&lt;/p&gt;
+&lt;p&gt;进入开机启动，眼疾手快，迅速按 &lt;code&gt;F12&lt;/code&gt; 进入启动菜单。选择从U盘启动，进入安装界面。&lt;/p&gt;
+&lt;h2 id=&#34;新系统升级驱动&#34;&gt;新系统升级驱动&lt;/h2&gt;
+&lt;p&gt;系统装好后，总感觉清晰度不够。我猜想，是驱动不适配。搜索 &lt;code&gt;驱动人生&lt;/code&gt; 关键字，这是类似驱动精灵的一款软件。为什么不直接安装驱动精灵？因为驱动精灵也长成流氓软件的模样了。。 &lt;code&gt;驱动人生&lt;/code&gt; 实际体验还可以，有点古典互联网软件那意思。&lt;/p&gt;
+&lt;p&gt;驱动人生识别出系统显卡驱动需要升级。选自动升级，然后屏幕恢复正常。&lt;/p&gt;
+&lt;h2 id=&#34;调整-bios-引导顺序&#34;&gt;调整 BIOS 引导顺序&lt;/h2&gt;
+&lt;p&gt;重启电脑，如果什么都不做，将默认进入 Windows10。原因是，Windows10 装好后自动生成一条 Windows 引导记录，而且优先级最高。之前 &lt;code&gt;Ubuntu&lt;/code&gt; 的引导项仍然在那儿，只是往后挪了一位。电脑启动时，总是尝试按优先级加载，自然进入 Windows 。&lt;/p&gt;
+&lt;p&gt;要找回 Linux GRUB 引导界面，只需进入 &lt;code&gt;BIOS&lt;/code&gt; 菜单，找到设置引导顺序的界面，把 Linux 引导条目挪到第一位。&lt;/p&gt;
+&lt;h2 id=&#34;小问题-双系统-windows-时间对不上&#34;&gt;小问题：双系统，Windows 时间对不上？&lt;/h2&gt;
+&lt;p&gt;原因是 Windows 和 Linux 处理硬件时间的方式不一样。参考网友的&lt;a href=&#34;https://blog.csdn.net/zhouchen1998/article/details/108893660&#34;&gt;解决方案&lt;/a&gt;, 用三行命令解决问题:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt install ntpdate;
+sudo ntpdate time.windows.com;
+sudo hwclock --localtime --systohc
+&lt;/code&gt;&lt;/pre&gt;</description></item><item><title>一次顿悟</title><link>https://blog.yuantops.com/tech/some_eureka_moment/</link><pubDate>Wed, 01 Sep 2021 00:00:00 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/some_eureka_moment/</guid><description>&lt;p&gt;最近用 &lt;code&gt;Emacs&lt;/code&gt; &lt;code&gt;ox-hugo&lt;/code&gt; 写了几篇文章，体验比较糟，表现为总是无理由卡顿，特别是在 org 页面按下 `Ctrl-C, Ctrl-E`导出markdown时直接卡死，好几次只能强行杀掉Emacs 进程。&lt;/p&gt;
 &lt;p&gt;总所周知，Emacs 是神的编辑器，肯定不会出问题；我不爽，必定是我不会用了。于是，我鼓足勇气，想看看是哪里出了问题。&lt;/p&gt;
 &lt;p&gt;经过辛勤搜索，各种修改配置，纹丝不动。焦躁之余，不禁回忆起往事……&lt;/p&gt;
 &lt;p&gt;原本我是坚定vim党，自得其乐。&lt;/p&gt;
