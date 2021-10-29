@@ -2,7 +2,7 @@
 title = "偶遇 static 初始化死锁"
 author = ["yuan.tops@gmail.com"]
 description = "死锁有很多，在类初始化流程遭遇死锁比较少见。这里提供一份示例代码，恰好复现这种死锁。"
-lastmod = 2021-10-29T17:57:06+08:00
+lastmod = 2021-10-29T18:01:44+08:00
 categories = ["Tech"]
 draft = false
 keywords = ["java", "deadlock"]
@@ -80,7 +80,12 @@ public class Main {
 ## 自问自答: 初始化存在锁?? {#自问自答-初始化存在锁}
 
 参考回答: <https://stackoverflow.com/questions/878577/are-java-static-initializers-thread-safe>
-静态代码块 static {} 是线程安全的，同时只能在一个线程中运行。把它理解成锁，没有问题。
+
+静态代码块 static {} 是线程安全的，同时只能在一个线程中运行。
+
+以及回答：<https://stackoverflow.com/questions/55204559/what-happens-when-multiple-threads-ask-for-the-same-class-to-be-loaded-at-same-t>
+
+类的初始化，确实存在锁。
 
 
 ## 自问自答: 为什么 `Thread.sleep(500)` 有用? {#自问自答-为什么-thread-dot-sleep--500--有用}

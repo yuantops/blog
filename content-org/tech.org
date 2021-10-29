@@ -1377,8 +1377,13 @@ public class Main {
       
 *** 自问自答: 初始化存在锁??
     参考回答: https://stackoverflow.com/questions/878577/are-java-static-initializers-thread-safe
-    静态代码块 static {} 是线程安全的，同时只能在一个线程中运行。把它理解成锁，没有问题。
     
+    静态代码块 static {} 是线程安全的，同时只能在一个线程中运行。
+    
+    以及回答：https://stackoverflow.com/questions/55204559/what-happens-when-multiple-threads-ask-for-the-same-class-to-be-loaded-at-same-t
+    
+    类的初始化，确实存在锁。
+
 *** 自问自答: 为什么 ~Thread.sleep(500)~ 有用?
     死锁的本质在资源争抢。加上 Java 类加载存在缓存机制，只要让一个线程先执行完，就破解了锁。
 
