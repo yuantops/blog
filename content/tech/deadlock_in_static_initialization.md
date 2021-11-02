@@ -2,13 +2,13 @@
 title = "偶遇 static 初始化死锁"
 author = ["yuan.tops@gmail.com"]
 description = "死锁有很多，在类初始化流程遭遇死锁比较少见。这里提供一份示例代码，恰好复现这种死锁。"
-lastmod = 2021-10-29T18:01:44+08:00
+lastmod = 2021-11-02T09:31:32+08:00
 categories = ["Tech"]
 draft = false
 keywords = ["java", "deadlock"]
 +++
 
-最近开发新系统，用到了内存数据库 H2 web 服务. 上线时，遇到问题：服务卡住，不报错，也起不来。
+最近开发新系统，用到了内存数据库 H2 web . 上线时，遇到问题：服务启动流程卡住，不报错，也起不来。
 
 用 \`jstack\` 查看栈信息，main thread 状态为 RUNNABLE，另外一个线程 \`H2 Console Server\` 状态也为 RUNNABLE。仔细观察， `main` 栈包含一段可疑信息: `-locked <xxxx> (a java.lang.Class for org.h2.Driver)` ，疑似线程被锁。
 
@@ -91,3 +91,8 @@ public class Main {
 ## 自问自答: 为什么 `Thread.sleep(500)` 有用? {#自问自答-为什么-thread-dot-sleep--500--有用}
 
 死锁的本质在资源争抢。加上 Java 类加载存在缓存机制，只要让一个线程先执行完，就破解了锁。
+
+
+## 他山之玉 {#他山之玉}
+
+另外，搜到一篇类似博文，都是由 `DriverManager` 在多个线程被初始化形成锁: [Avoiding deadlock when using Multiple JDBC Drivers in an Application](https://medium.com/@priyaaggarwal24/avoiding-deadlock-when-using-multiple-jdbc-drivers-in-an-application-ce0b9464ecdf)。

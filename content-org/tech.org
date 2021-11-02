@@ -1312,7 +1312,7 @@ find ~/.m2/repository -name _maven.repositories -exec rm -v {} \;
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :keywords '( "java" "deadlock")
 :END:
 
-最近开发新系统，用到了内存数据库 H2 web 服务. 上线时，遇到问题：服务卡住，不报错，也起不来。
+最近开发新系统，用到了内存数据库 H2 web . 上线时，遇到问题：服务启动流程卡住，不报错，也起不来。
 
 用 `jstack` 查看栈信息，main thread 状态为 RUNNABLE，另外一个线程 `H2 Console Server` 状态也为 RUNNABLE。仔细观察， ~main~ 栈包含一段可疑信息: ~-locked <xxxx> (a java.lang.Class for org.h2.Driver)~ ，疑似线程被锁。 
 
@@ -1386,7 +1386,9 @@ public class Main {
 
 *** 自问自答: 为什么 ~Thread.sleep(500)~ 有用?
     死锁的本质在资源争抢。加上 Java 类加载存在缓存机制，只要让一个线程先执行完，就破解了锁。
-
+    
+*** 他山之玉
+另外，搜到一篇类似博文，都是由 ~DriverManager~ 在多个线程被初始化形成锁: [[https://medium.com/@priyaaggarwal24/avoiding-deadlock-when-using-multiple-jdbc-drivers-in-an-application-ce0b9464ecdf][Avoiding deadlock when using Multiple JDBC Drivers in an Application]]。
 * Miscellaneous
 ** 关于连接池大小
 :PROPERTIES:
