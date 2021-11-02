@@ -1157,6 +1157,17 @@ https://security.stackexchange.com/questions/161982/asn-1-encapsulated-bitstring
 #+END_QUOTE
 
 看来，似乎确实不能根据公钥对签名进行 *解密*?
+* Financial Technology :FinTech:
+** 理论扫盲-清算 
+:PROPERTIES:
+:EXPORT_HUGO_CATEGORIES: tech
+:EXPORT_FILE_NAME: financial_fundamentals_clearing
+:EXPORT_DESCRIPTION: 关于"清算"的学习笔记，主要摘抄总结自《支付清算理论与实务》
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :keywords '( "金融术语" )
+:END:
+
+先放豆瓣链接: [[https://book.douban.com/subject/27088012/][支付清算理论与实务]] 。 最近接触到交易领域一些术语，尤其对“清算”比较模糊，有一些似是而非的理解。这是读这本书的缘起。
+
 * Java Guru
 ** artifact存在, 但maven报错: Could not resolve artifact
 :PROPERTIES:
