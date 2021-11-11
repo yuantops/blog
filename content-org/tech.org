@@ -1168,7 +1168,7 @@ https://security.stackexchange.com/questions/161982/asn-1-encapsulated-bitstring
 
 先放豆瓣链接: [[https://book.douban.com/subject/27088012/][支付清算理论与实务]] 。 起因是最近接触到交易领域一些术语，尤其对“清算”有一些似是而非的理解。把一些有助自己理解的部分摘录在此。
 
-***  支付过程 P8
+*** 支付过程 P8
 #+BEGIN_SRC txt
 目前，支付过程的划分主要遵循国际清算银行支付结算委员会的划分方法，将支付处理过程划分为三个标准化过程，即交易过程（transaction），清算过程（clearing）和结算过程（settlement）。
 
@@ -1197,6 +1197,20 @@ https://security.stackexchange.com/questions/161982/asn-1-encapsulated-bitstring
 
 #+BEGIN_SRC txt
 产生这些“模糊”认识的原因，可能与如下的事实有关：按照我国金融界传统习惯上的认识，一般将中央银行为其他商业银行提供的支付相关的结算服务成为“清算”，而将商业银行为企事业单位和个人客户提供的支付服务成为“银行结算”，或者简称“结算”。
+#+END_SRC
+*** 清算模式 P41
+#+BEGIN_SRC txt
+在现代支付系统中，轧差的方式是区分不同系统的主要依据，理论上，我们将轧差的方式分为实时全额、双边净额和多边净额方式等，实时清算模式下的结算没有时延，因此其最终的结算方式称为实时结算，而由于双边净额和多边净额不可避免的产生时延，因此其最终的结算方式称为延时结算。
+#+END_SRC   
+
+**** 实时全额
+#+BEGIN_SRC txt
+     实时全额清算模式是一种没有延时的清算模式，其特点是实时发送、逐笔处理、全额清算资金，建立在实时全额清算模式上的资金结算系统成为 RTGS 系统（Real Time Gross Settlement system）。由于 RTGS 要求支付方拥有足够的头寸，并且具有实时到账的特性，因此，RTGS 系统减少了清算资金的信用风险敞口，广泛为各国中央银行采用，例如美国的 Fedwire, 加拿大的 LVPS，英国的 CHAPS，欧盟的 TARGETS，中国的大额支付 HVPS 等系统都采取了 RTGS 模式。
+     但是，由于实时全额清算模式意味着每一支付都需要足额的资金保证，因此，RTGS 系统需要参与者具有充足的支付头寸，对参与银行的流动性管理提出了较高的要求，因此，实时全额模式也被称为“资金饥渴”型模式。……
+#+END_SRC   
+
+#+BEGIN_SRC txt
+
 #+END_SRC
 * Java Guru
 ** artifact存在, 但maven报错: Could not resolve artifact
