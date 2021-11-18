@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yuantops&#39; Blog</title><link>https://blog.yuantops.com/</link><description>Recent content on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Thu, 18 Nov 2021 10:10:22 +0800</lastBuildDate><atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml"/><item><title>国内私募基金业绩报酬计提方式</title><link>https://blog.yuantops.com/tech/methods_of_performance_fee_calculation/</link><pubDate>Thu, 18 Nov 2021 10:10:22 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/methods_of_performance_fee_calculation/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yuantops&#39; Blog</title><link>https://blog.yuantops.com/</link><description>Recent content on Yuantops&#39; Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>yuan.tops@gmail.com (yuantops)</managingEditor><webMaster>yuan.tops@gmail.com (yuantops)</webMaster><copyright>All rights reserved.</copyright><lastBuildDate>Thu, 18 Nov 2021 10:13:12 +0800</lastBuildDate><atom:link href="https://blog.yuantops.com/" rel="self" type="application/rss+xml"/><item><title>国内私募基金业绩报酬计提方式</title><link>https://blog.yuantops.com/tech/methods_of_performance_fee_calculation/</link><pubDate>Thu, 18 Nov 2021 10:13:12 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/methods_of_performance_fee_calculation/</guid><description>
 &lt;p&gt;私募基金行业的基础费用是 &lt;code&gt;1-2-20%&lt;/code&gt; (1% 认申购费，2% 管理费，20% 业绩报酬)，其中业绩报酬的计提方式相对比较多元。国内私募基金行业业绩报酬计提一般采用高水位法，国外一般采用序列会计法(series accounting)。&lt;/p&gt;
 &lt;p&gt;关于业绩报酬计提方式，我找到一份最为权威、详细的介绍：&lt;a href=&#34;https://www.amac.org.cn/aboutassociation/gyxh%5Fxhdt/xhdt%5Fxhtz/202006/P020200605633963473153.pdf&#34;&gt;私募证券投资基金业绩报酬指引&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;以下内容，摘录自这份文档的附录。&lt;/p&gt;
@@ -101,15 +101,15 @@
 &lt;p&gt;①基金的开放频率不受计提方法的限制；&lt;/p&gt;
 &lt;p&gt;②适用于存在份额锁定期的基金。&lt;/p&gt;
 &lt;h4 id=&#34;六-均衡调整法&#34;&gt;（六）均衡调整法&lt;/h4&gt;
-&lt;p&gt;1、计提方法概述
-均衡调整法可与高水位法、业绩比较基准法和门槛收 益率法配合使用，其中较为常见的是配合高水位法使用。 以配合高水位法使用的均衡调整法为例，基金层面的业绩 报酬计提与“整体高水位配合单人单笔赎回补提法”基本 一致。在投资者层面，均衡调整法使用份额均衡调整技 术，达到类似“单人单笔赎回补提”的效果。份额均衡调 整的处理方式如下：
-（1）或有赎回调整（Contingent Redemption）：适用 于以历史高水位以下的基金份额净值申购的基金份额，在 业绩报酬计算日，由于基金层面仅计提历史高水位至新高 水位区间对应的业绩报酬，对于应当计提的该部分份额从 申购时基金份额净值至历史高水位之间的业绩报酬，会以 或有赎回调整的形式呈现。在业绩报酬提取日，或有赎回 调整会被折算成基金份额并进行赎回，然后该笔赎回金额 会被支付给基金管理人作为业绩报酬。
-（2）均衡贷记调整（Equalisation Credit）：适用于 以历史高水位以上的基金份额净值申购的基金份额，业绩 报酬计算日，由于基金层面计提了历史高水位至新高水位 之间的业绩报酬，而基金管理人对于该部分份额从历史高 18 水位至申购时基金份额净值的区间不应计提业绩报酬，该 部分金额会以均衡贷记调整的形式呈现。在业绩报酬提取 日，均衡贷记调整会被折算成额外的基金份额并进行赎 回，然后该笔赎回金额会被支付给投资者以抵消投资者在 基金层面多付的业绩报酬。
-2、适用的计提时点
-该方法适用的计提时点包括固定时点、分红时、赎回 时和清算时，申购开放日不必然为所有份额的计提时点。
-3、优点与缺点
-该方法同时具备整体高水位法和扣减份额的单人单笔 法的特点，是欧洲较为主流的计提方法。
-（1）在该方法下，基金的开放频率、计提频率与计提 方法相互之间不存在必然影响。
+&lt;p&gt;1、计提方法概述&lt;/p&gt;
+&lt;p&gt;均衡调整法可与高水位法、业绩比较基准法和门槛收 益率法配合使用，其中较为常见的是配合高水位法使用。 以配合高水位法使用的均衡调整法为例，基金层面的业绩 报酬计提与“整体高水位配合单人单笔赎回补提法”基本 一致。在投资者层面，均衡调整法使用份额均衡调整技 术，达到类似“单人单笔赎回补提”的效果。份额均衡调 整的处理方式如下：&lt;/p&gt;
+&lt;p&gt;（1）或有赎回调整（Contingent Redemption）：适用 于以历史高水位以下的基金份额净值申购的基金份额，在 业绩报酬计算日，由于基金层面仅计提历史高水位至新高 水位区间对应的业绩报酬，对于应当计提的该部分份额从 申购时基金份额净值至历史高水位之间的业绩报酬，会以 或有赎回调整的形式呈现。在业绩报酬提取日，或有赎回 调整会被折算成基金份额并进行赎回，然后该笔赎回金额 会被支付给基金管理人作为业绩报酬。&lt;/p&gt;
+&lt;p&gt;（2）均衡贷记调整（Equalisation Credit）：适用于 以历史高水位以上的基金份额净值申购的基金份额，业绩 报酬计算日，由于基金层面计提了历史高水位至新高水位 之间的业绩报酬，而基金管理人对于该部分份额从历史高 18 水位至申购时基金份额净值的区间不应计提业绩报酬，该 部分金额会以均衡贷记调整的形式呈现。在业绩报酬提取 日，均衡贷记调整会被折算成额外的基金份额并进行赎 回，然后该笔赎回金额会被支付给投资者以抵消投资者在 基金层面多付的业绩报酬。&lt;/p&gt;
+&lt;p&gt;2、适用的计提时点&lt;/p&gt;
+&lt;p&gt;该方法适用的计提时点包括固定时点、分红时、赎回 时和清算时，申购开放日不必然为所有份额的计提时点。&lt;/p&gt;
+&lt;p&gt;3、优点与缺点&lt;/p&gt;
+&lt;p&gt;该方法同时具备整体高水位法和扣减份额的单人单笔 法的特点，是欧洲较为主流的计提方法。&lt;/p&gt;
+&lt;p&gt;（1）在该方法下，基金的开放频率、计提频率与计提 方法相互之间不存在必然影响。
 （2）份额均衡调整的处理方式容易造成投资者的误 解，该方法要求基金管理人提供投资者服务系统对份额均 衡调整进行持续披露。
 （3）可能会存在类似扣减份额法对投资者的误导情 况，但影响较小。
 （4）在均衡调整法下，基金份额净值反映基金整体表 现，但不反映单个投资者账户的实际资产价值。因此于信 息披露方面，在基金层面较为容易，而在投资者层面不易 理解。
@@ -117,10 +117,10 @@
 &lt;p&gt;4、运营难度与适用场景
 19
 （1）运营难度
-均衡调整法在业绩报酬的核算端较为简单，但在份额 登记端需进行份额层面的业绩报酬计算、份额折算、划 转，增加了份额登记的复杂度和运营成本。由于业绩报酬 的调整需要深入每位投资者，无法进行批量处理，整体而 言，该方法的运营难度较高，运营成本也较高。
-（2）适用场景
-①基金的开放频率不受计提方法的限制；
-②适用于存在份额锁定期的基金。&lt;/p&gt;</description></item><item><title>理论扫盲-清算</title><link>https://blog.yuantops.com/tech/financial_fundamentals_clearing/</link><pubDate>Thu, 11 Nov 2021 17:53:32 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/financial_fundamentals_clearing/</guid><description>
+均衡调整法在业绩报酬的核算端较为简单，但在份额 登记端需进行份额层面的业绩报酬计算、份额折算、划 转，增加了份额登记的复杂度和运营成本。由于业绩报酬 的调整需要深入每位投资者，无法进行批量处理，整体而 言，该方法的运营难度较高，运营成本也较高。&lt;/p&gt;
+&lt;p&gt;（2）适用场景&lt;/p&gt;
+&lt;p&gt;①基金的开放频率不受计提方法的限制；&lt;/p&gt;
+&lt;p&gt;②适用于存在份额锁定期的基金。&lt;/p&gt;</description></item><item><title>理论扫盲-清算</title><link>https://blog.yuantops.com/tech/financial_fundamentals_clearing/</link><pubDate>Thu, 11 Nov 2021 17:53:32 +0800</pubDate><author>yuan.tops@gmail.com (yuantops)</author><guid>https://blog.yuantops.com/tech/financial_fundamentals_clearing/</guid><description>
 &lt;p&gt;先放豆瓣链接: &lt;a href=&#34;https://book.douban.com/subject/27088012/&#34;&gt;支付清算理论与实务&lt;/a&gt; 。&lt;/p&gt;
 &lt;p&gt;起因是最近接触到交易领域一些术语，尤其对“清算”有一些似是而非的理解。把一些有助自己理解的部分摘录在此。&lt;/p&gt;
 &lt;h2 id=&#34;支付过程-p8&#34;&gt;支付过程 P8&lt;/h2&gt;
