@@ -1441,6 +1441,20 @@ PVP(Payment Versus Payment)结算，是指外汇交易达成后，在双方指�
 
 ②适用于存在份额锁定期的基金。
 
+** 分级基金，ETF， LOF
+:PROPERTIES:
+:EXPORT_HUGO_CATEGORIES: tech
+:EXPORT_FILE_NAME: structured_fund_ETF_and_LOF
+:EXPORT_DESCRIPTION: 摘抄三个金融概念
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :keywords '( "金融术语" )
+:END:
+
+上网搜了一圈，对这三个概念解释得最好的文章，居然来自证监会官网。
+
+- *分级基金基础知识* : http://www.csrc.gov.cn/pub/guangdong/xxfw/gdgzjx/201903/t20190320_353027.htm
+ 
+- *ETF vs. LOF：有何异同？如何选择？* http://www.csrc.gov.cn/pub/shenzhen/xxfw/tzzsyd/jjtz/200802/t20080220_88984.htm
+
 * Java Guru
 ** artifact存在, 但maven报错: Could not resolve artifact
 :PROPERTIES:
